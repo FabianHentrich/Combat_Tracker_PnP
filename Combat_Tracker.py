@@ -18,12 +18,12 @@ def roll_with_aces(rang):
 
 # Charakter-Klasse für SC und Gegner
 class Character:
-    def __init__(self, name, lp, rp, sp, initiative):
+    def __init__(self, name, lp, rp, sp, init):
         self.name = name
         self.lp = lp
         self.rp = rp
         self.sp = sp
-        self.initiative = initiative  # INIT wird jetzt manuell gesetzt
+        self.init = init  # INIT wird jetzt manuell gesetzt
         self.status = []
         self.skip_turns = 0
 
@@ -57,7 +57,7 @@ class Character:
             if s["rounds"] > 0:
                 new_status.append(s)
         self.status = new_status
-        self.skip_turns = sum(1 for s in self.status if s["effect"] == "stunned")
+        self.skip_turns = sum(1 for s in self.status if s["effect"] == "gelähmt")
 
     def heal(self, healing_points):
         """Heilt den Charakter um eine bestimmte Anzahl an Lebenspunkten."""
@@ -95,22 +95,36 @@ class CombatTracker:
         self.frame_controls.pack()
 
         # links
-        tk.Button(self.frame_controls, text="Name ändern", command=self.edit_name).grid(row=0, column=0, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="LP ändern", command=self.edit_lp).grid(row=1, column=0, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="RP ändern", command=self.edit_rp).grid(row=2, column=0, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="SP ändern", command=self.edit_sp).grid(row=3, column=0, padx=10, pady=5)
+        tk.Button(self.frame_controls, text="Name ändern", command=self.edit_name).grid(row=3, column=0, padx=10,
+                                                                                        pady=5)
 
-        # mitte
-        tk.Button(self.frame_controls, text="Schaden zufügen", command=self.deal_damage).grid(row=0, column=1, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Heilung anwenden", command=self.apply_healing).grid(row=1, column=1, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Schild anwenden", command=self.apply_shield).grid(row=2, column=1, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Rüstung anwenden", command=self.apply_armor).grid(row=3, column=1, padx=10, pady=5)
+        # mitte links
+        tk.Button(self.frame_controls, text="LP ändern", command=self.edit_lp).grid(row=0, column=1, padx=10, pady=5)
+        tk.Button(self.frame_controls, text="RP ändern", command=self.edit_rp).grid(row=1, column=1, padx=10, pady=5)
+        tk.Button(self.frame_controls, text="SP ändern", command=self.edit_sp).grid(row=2, column=1, padx=10, pady=5)
+        tk.Button(self.frame_controls, text="INIT ändern", command=self.edit_init).grid(row=3, column=1, padx=10,
+                                                                                        pady=5)
+        # mitte rechts
+        tk.Button(self.frame_controls, text="Schaden zufügen", command=self.deal_damage).grid(row=0, column=2, padx=10,
+                                                                                              pady=5)
+        tk.Button(self.frame_controls, text="Heilung anwenden", command=self.apply_healing).grid(row=1, column=2,
+                                                                                                 padx=10, pady=5)
+        tk.Button(self.frame_controls, text="Schild anwenden", command=self.apply_shield).grid(row=2, column=2, padx=10,
+                                                                                               pady=5)
+        tk.Button(self.frame_controls, text="Rüstung anwenden", command=self.apply_armor).grid(row=3, column=2, padx=10,
+                                                                                               pady=5)
 
         # rechts
-        tk.Button(self.frame_controls, text="Status hinzufügen", command=self.add_status_to_character).grid(row=0, column=2, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Gegnergruppe laden", command=self.load_enemy_group).grid(row=1, column=2, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Initiative ordnen", command=self.roll_initiative_all).grid(row=2, column=2, padx=10, pady=5)
-        tk.Button(self.frame_controls, text="Nächster Zug", command=self.next_turn).grid(row=3, column=2, padx=10, pady=5)
+        tk.Button(self.frame_controls, text="Status hinzufügen", command=self.add_status_to_character).grid(row=0,
+                                                                                                            column=3,
+                                                                                                            padx=10,
+                                                                                                            pady=5)
+        tk.Button(self.frame_controls, text="Gegnergruppe laden", command=self.load_enemy_group).grid(row=1, column=3,
+                                                                                                      padx=10, pady=5)
+        tk.Button(self.frame_controls, text="Initiative ordnen", command=self.roll_initiative_all).grid(row=2, column=3,
+                                                                                                        padx=10, pady=5)
+        tk.Button(self.frame_controls, text="Nächster Zug", command=self.next_turn).grid(row=3, column=3, padx=10,
+                                                                                         pady=5)
 
         # Log-Anzeige mit Scrollbar
         log_frame = tk.Frame(self.root)
@@ -128,44 +142,95 @@ class CombatTracker:
         """Sorts characters based on their initiative."""
         for char in self.characters:
             char.update_status()
-        self.characters.sort(key=lambda c: c.initiative, reverse=True)
+        self.characters.sort(key=lambda c: c.init, reverse=True)
         self.turn_index = 0
         self.update_listbox()
         self.log.insert(tk.END, "Initiative-Reihenfolge erstellt!\n")
+        self.log.see(tk.END)
 
     def next_turn(self):
         """Moves to the next turn, considering status and conditions."""
         if not self.characters:
             return
+
+        # Hole aktuellen Charakter
         char = self.characters[self.turn_index % len(self.characters)]
+
+        # Update Status (z. B. Runden reduzieren, Stun prüfen, etc.)
         char.update_status()
-        if char.lp <= 0:
-            self.log.insert(tk.END, f"{char.name} ist kampfunfähig.\n")
-        elif char.skip_turns > 0:
-            self.log.insert(tk.END, f"{char.name} setzt diese Runde aus!\n")
+
+        # Erzeuge Log für den aktuellen Status
+        status_info = ""
+        if char.status:
+            status_list = [f"{s['effect']} ({s['rounds']} Runden)" for s in char.status]
+            status_info = " | Status: " + ", ".join(status_list)
         else:
-            self.log.insert(tk.END, f"{char.name} ist am Zug!\n")
+            status_info = " | Kein aktiver Status."
+
+        # Prüfe Zustand des Charakters
+        if char.lp <= 0:
+            self.log.insert(tk.END, f"{char.name} ist kampfunfähig.{status_info}\n")
+        elif char.skip_turns > 0:
+            self.log.insert(tk.END, f"{char.name} setzt diese Runde aus!{status_info}\n")
+        else:
+            self.log.insert(tk.END, f"{char.name} ist am Zug!{status_info}\n")
+
+        self.log.see(tk.END)
+
+        # Nächster Charakter in der Reihenfolge
         self.turn_index += 1
         self.update_listbox()
 
     def deal_damage(self):
-        """Allows dealing damage to the selected character."""
+        """Allows dealing damage to the selected character with optional armor or shield penetration."""
         selection = self.listbox.curselection()
         if not selection:
             messagebox.showerror("Fehler", "Wähle zuerst einen Charakter aus.")
             return
+
         index = selection[0]
         char = self.characters[index]
-        dmg = simple_input_dialog(self.root, "Schaden eingeben", "Schaden:")
-        if dmg is None:
+
+        # Benutze das neue Dialogfenster
+        dmg, ignore_shield, ignore_armor = damage_input_dialog(self.root, "Schaden eingeben", "Schaden eingeben:")
+
+        if dmg is None or dmg == "":
             return
         try:
             dmg = int(dmg)
         except ValueError:
             messagebox.showerror("Fehler", "Ungültiger Schaden.")
             return
-        log_text = char.apply_damage(dmg)
-        self.log.insert(tk.END, log_text + "\n")
+
+        # Anwenden des Schadens
+        log = f"{char.name} erleidet {dmg} Schaden!\n"
+
+        if not ignore_shield and char.sp > 0:
+            absorb = min(char.sp, dmg)
+            char.sp -= absorb
+            dmg -= absorb
+            log += f"→ {absorb} Schaden vom Schild absorbiert.\n"
+        elif ignore_shield:
+            log += "→ Schild wird ignoriert!\n"
+
+        if not ignore_armor and dmg > 0 and char.rp > 0:
+            absorb = min(char.rp * 2, dmg)
+            rp_loss = (absorb + 1) // 2
+            char.rp -= rp_loss
+            dmg -= absorb
+            log += f"→ {absorb} Schaden durch Rüstung abgefangen.\n"
+        elif ignore_armor:
+            log += "→ Rüstung wird ignoriert!\n"
+
+        if dmg > 0:
+            char.lp -= dmg
+            log += f"→ {dmg} Schaden auf Lebenspunkte!\n"
+
+        if char.lp <= 0:
+            log += f"⚔️ {char.name} ist kampfunfähig!\n"
+
+        self.log.insert(tk.END, log + "\n")
+        self.log.see(tk.END)
         self.update_listbox()
 
     def add_status_to_character(self):
@@ -187,6 +252,7 @@ class CombatTracker:
             return
         char.add_status(status, duration)
         self.log.insert(tk.END, f"{char.name} erhält Status '{status}' für {duration} Runden.\n")
+        self.log.see(tk.END)
         self.update_listbox()
 
     def load_enemy_group(self):
@@ -207,6 +273,7 @@ class CombatTracker:
                     self.characters.append(char)
                 self.update_listbox()
                 self.log.insert(tk.END, f"Gegnergruppe aus '{file_path}' geladen!\n")
+                self.log.see(tk.END)
         except Exception as e:
             messagebox.showerror("Fehler", f"Fehler beim Laden der Gegnergruppe:\n{e}")
 
@@ -232,6 +299,7 @@ class CombatTracker:
                 self.characters.append(enemy)
                 self.update_listbox()
                 self.log.insert(tk.END, f"{name} wurde als Einzelgegner hinzugefügt!\n")
+                self.log.see(tk.END)
             except (ValueError, IndexError):
                 messagebox.showerror("Fehler",
                                      "Ungültige Eingabe. Stelle sicher, dass du alle Werte im richtigen Format eingibst.")
@@ -266,6 +334,7 @@ class CombatTracker:
         # This function will activate the loaded enemy data
         # For now, we'll just display it in the log
         self.log.insert(tk.END, f"Gegnerdaten aktiviert:\n{data}\n")
+        self.log.see(tk.END)
 
     def add_character(self):
         name = self.entry_name.get()
@@ -293,6 +362,7 @@ class CombatTracker:
         char.name = name or char.name
         self.update_listbox()
         self.log.insert(tk.END, f"Name von {char.name} geändert.\n")
+        self.log.see(tk.END)
 
     def edit_lp(self):
         selection = self.listbox.curselection()
@@ -313,6 +383,7 @@ class CombatTracker:
             messagebox.showerror("Fehler", "Bitte gültige Werte eingeben.")
         self.update_listbox()
         self.log.insert(tk.END, f"LP von {char.name} auf {char.lp} geändert.\n")
+        self.log.see(tk.END)
 
     def edit_rp(self):
         selection = self.listbox.curselection()
@@ -333,6 +404,7 @@ class CombatTracker:
             messagebox.showerror("Fehler", "Bitte gültige Werte eingeben.")
         self.update_listbox()
         self.log.insert(tk.END, f"RP von {char.name} auf {char.rp} geändert.\n")
+        self.log.see(tk.END)
 
     def edit_sp(self):
         selection = self.listbox.curselection()
@@ -353,6 +425,28 @@ class CombatTracker:
             messagebox.showerror("Fehler", "Bitte gültige Werte eingeben.")
         self.update_listbox()
         self.log.insert(tk.END, f"SP von {char.name} auf {char.sp} geändert.\n")
+        self.log.see(tk.END)
+
+    def edit_init(self):
+        selection = self.listbox.curselection()
+        if not selection:
+            messagebox.showerror("Fehler", "Wähle zuerst einen Charakter aus.")
+            return
+
+        index = selection[0]
+        char = self.characters[index]
+
+        init = simple_input_dialog(self.root, "INIT bearbeiten", "Neue INIT Eingabe:", str(char.init))
+
+        try:
+            char.init = int(init) if init else char.init
+            messagebox.showinfo("Erfolg", "INIT erfolgreich geändert!")
+
+        except ValueError:
+            messagebox.showerror("Fehler", "Bitte gültige Werte eingeben.")
+        self.update_listbox()
+        self.log.insert(tk.END, f"INIT von {char.name} auf {char.init} geändert.\n")
+        self.log.see(tk.END)
 
     def delete_character(self):
         selection = self.listbox.curselection()
@@ -364,6 +458,7 @@ class CombatTracker:
         del self.characters[index]
         self.update_listbox()
         self.log.insert(tk.END, "Charakter gelöscht.\n")
+        self.log.see(tk.END)
 
     def apply_healing(self):
         selected_indices = self.listbox.curselection()
@@ -383,6 +478,7 @@ class CombatTracker:
                 char = self.characters[idx]
                 heal_log = char.heal(healing_value)
                 self.log.insert(tk.END, heal_log + "\n")
+                self.log.see(tk.END)
             self.update_listbox()
 
     def apply_shield(self):
@@ -403,7 +499,7 @@ class CombatTracker:
                 char = self.characters[idx]
                 char.sp += shield_value
                 self.log.insert(tk.END, f"{char.name} erhält {shield_value} zusätzliche SP! Aktuelle SP: {char.sp}\n")
-
+                self.log.see(tk.END)
             self.update_listbox()
 
     def apply_armor(self):
@@ -424,7 +520,7 @@ class CombatTracker:
                 char = self.characters[idx]
                 char.rp += armor_value
                 self.log.insert(tk.END, f"{char.name} erhält {armor_value} zusätzliche RP! Aktuelle RP: {char.rp}\n")
-
+                self.log.see(tk.END)
             self.update_listbox()
 
     def update_listbox(self):
@@ -432,7 +528,8 @@ class CombatTracker:
         for char in self.characters:
             status_list = ", ".join(f"{s['effect']} ({s['rounds']})" for s in char.status)
             self.listbox.insert(tk.END,
-                                f"{char.name} | INIT: {char.initiative} | LP: {char.lp} | RP: {char.rp} | SP: {char.sp} | Status: {status_list}")
+                                f"{char.name} | LP: {char.lp} | RP: {char.rp} | SP: {char.sp} | INIT: {char.init} | Status: {status_list}")
+            self.log.see(tk.END)
 
 
 # Helper function for input dialogs
@@ -457,6 +554,45 @@ def simple_input_dialog(root, title, prompt, default_value=""):
     root.wait_window(dialog)
 
     return value
+
+
+def damage_input_dialog(root, title, prompt, default_value="0"):
+    def on_ok():
+        nonlocal damage_value, ignore_shield, ignore_armor
+        damage_value = entry.get()
+        ignore_shield = var_shield.get()
+        ignore_armor = var_armor.get()
+        dialog.destroy()
+
+    damage_value = default_value
+    ignore_shield = False
+    ignore_armor = False
+
+    dialog = tk.Toplevel(root)
+    dialog.title(title)
+
+    tk.Label(dialog, text=prompt).pack()
+
+    entry = tk.Entry(dialog)
+    entry.insert(0, default_value)
+    entry.pack(pady=5)
+
+    var_shield = tk.BooleanVar()
+    chk_shield = tk.Checkbutton(dialog, text="Schild ignorieren (Durchdringung)", variable=var_shield)
+    chk_shield.pack()
+
+    var_armor = tk.BooleanVar()
+    chk_armor = tk.Checkbutton(dialog, text="Rüstung ignorieren (Durchdringung)", variable=var_armor)
+    chk_armor.pack()
+
+    tk.Button(dialog, text="OK", command=on_ok).pack(pady=10)
+
+    dialog.transient(root)
+    dialog.grab_set()
+    root.wait_window(dialog)
+
+    # Rückgabe als Tuple
+    return damage_value, ignore_shield, ignore_armor
 
 
 if __name__ == "__main__":
