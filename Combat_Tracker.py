@@ -1,20 +1,26 @@
 import tkinter as tk
-from tkinter import messagebox, filedialog
+from tkinter import messagebox
+import pandas as pd
+from tkinter import filedialog
 import random
-import json
 
+def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
+    mapping = {
+        1: 4,
+        2: 6,
+        3: 8,
+        4: 10,
+        5: 12,
+        6: 20
+    }
+    if gewandtheit not in mapping:
+        raise ValueError("Gewandtheit muss zwischen 1 und 6 liegen.")
+    return mapping[gewandtheit]
 
-# Hilfsfunktionen für Würfelmechanik
-def roll_with_aces(rang):
-    dice_size = {1: 4, 2: 6, 3: 8, 4: 10, 5: 12, 6: 20}.get(rang, 4)
-    total = 0
-    roll = random.randint(1, dice_size)
-    total += roll
-    while roll == dice_size:
-        roll = random.randint(1, dice_size)
-        total += roll
-    return total
-
+def wuerfle_initiative(gewandtheit: int) -> int:
+    """Würfelt Initiative basierend auf Gewandtheit. Rückgabe des Wurfwerts."""
+    wuerfel = get_wuerfel_from_gewandtheit(gewandtheit)
+    return random.randint(1, wuerfel)
 
 # Charakter-Klasse für SC und Gegner
 class Character:
@@ -74,7 +80,7 @@ class CombatTracker:
         self.turn_index = 0
         self.enemy_data = {}
         self.setup_ui()
-        self.load_enemy_data()
+        self.load_enemies()
 
     def setup_ui(self):
         # Charakter-Eingabe oben
@@ -119,7 +125,7 @@ class CombatTracker:
                                                                                                             column=3,
                                                                                                             padx=10,
                                                                                                             pady=5)
-        tk.Button(self.frame_controls, text="Gegnergruppe laden", command=self.load_enemy_group).grid(row=1, column=3,
+        tk.Button(self.frame_controls, text="Gegnergruppe laden", command=self.load_enemies).grid(row=1, column=3,
                                                                                                       padx=10, pady=5)
         tk.Button(self.frame_controls, text="Initiative ordnen", command=self.roll_initiative_all).grid(row=2, column=3,
                                                                                                         padx=10, pady=5)
@@ -255,27 +261,47 @@ class CombatTracker:
         self.log.see(tk.END)
         self.update_listbox()
 
-    def load_enemy_group(self):
-        """Loads a group of enemies from a file."""
-        file_path = filedialog.askopenfilename(title="Gegnergruppe laden", filetypes=[("JSON Dateien", "*.json")])
-        if not file_path:
-            return
+    def load_enemies(self, pfad: str = None):
+        """
+        Loads enemy data from an Excel file and adds it to the character list.
+
+        :param pfad: Optional file path to the Excel file. If not provided, a file dialog will open.
+        """
+        if not pfad:
+            # Open file dialog to load only .xlsx files
+            file_path = filedialog.askopenfilename(title="Gegnerdaten laden", filetypes=[("Excel Dateien", "*.xlsx")])
+            if not file_path:
+                return  # Exit if no file is selected
+        else:
+            file_path = pfad
+
         try:
-            with open(file_path, "r", encoding="utf-8") as file:
-                enemy_group = json.load(file)
-                for enemy in enemy_group:
-                    name = enemy.get("name", "Unbenannter Gegner")
-                    lp = enemy.get("lp", 10)
-                    rp = enemy.get("rp", 5)
-                    sp = enemy.get("sp", 5)
-                    init = enemy.get("init", 10)
-                    char = Character(name, lp, rp, sp, init)
-                    self.characters.append(char)
-                self.update_listbox()
-                self.log.insert(tk.END, f"Gegnergruppe aus '{file_path}' geladen!\n")
-                self.log.see(tk.END)
+            # Load the Excel file into a DataFrame
+            df = pd.read_excel(file_path)
+
+            # Check for required columns
+            required_columns = {"Name", "Ruestung", "Schild", "HP", "Gewandtheit"}
+            if not required_columns.issubset(df.columns):
+                missing = required_columns - set(df.columns)
+                raise ValueError(f"Excel file is missing columns: {missing}")
+
+            # Create a list of Character objects
+            for _, row in df.iterrows():
+                enemy = Character(
+                    name=row["Name"],
+                    lp=int(row["HP"]),
+                    rp=int(row["Ruestung"]),
+                    sp=int(row["Schild"]),
+                    init=int(wuerfle_initiative(row["Gewandtheit"])),
+                )
+                self.characters.append(enemy)
+
+            self.update_listbox()
+            self.log.insert(tk.END, f"Gegnerdaten aus '{file_path}' erfolgreich geladen.\n")
+            self.log.see(tk.END)
+
         except Exception as e:
-            messagebox.showerror("Fehler", f"Fehler beim Laden der Gegnergruppe:\n{e}")
+            raise RuntimeError(f"Fehler beim Laden der Excel-Datei: {e}")
 
     def add_single_enemy(self):
         """Adds a single enemy to the list with all attributes in one dialog."""
@@ -304,37 +330,6 @@ class CombatTracker:
                 messagebox.showerror("Fehler",
                                      "Ungültige Eingabe. Stelle sicher, dass du alle Werte im richtigen Format eingibst.")
 
-    def load_enemy_data(self):
-        # Open file dialog to load only .txt files
-        file_path = filedialog.askopenfilename(title="Gegnerdaten laden", filetypes=[("Text Dateien", "*.txt")])
-        if not file_path:
-            return
-
-        try:
-            # Open the file and read its contents
-            with open(file_path, "r", encoding="utf-8") as file:
-                file_content = file.read()  # Read the content of the file
-
-                # Here, you can either store the data to use it later or process it
-                # For now, we just store it in a dictionary or class for later use.
-                self.enemy_data = file_content  # Store file content
-
-                # Create a button dynamically to activate this content
-                tk.Button(self.frame_controls, text=f"Aktiviere {file_path.split('/')[-1]}",
-                          command=lambda: self.activate_enemy_data(file_content)).pack(side=tk.LEFT)
-
-                # Inform the user
-                messagebox.showinfo("Erfolg",
-                                    f"Gegnerdaten aus '{file_path}' geladen und Button zum Aktivieren erstellt!")
-
-        except Exception as e:
-            messagebox.showerror("Fehler", f"Fehler beim Laden der Datei:\n{e}")
-
-    def activate_enemy_data(self, data):
-        # This function will activate the loaded enemy data
-        # For now, we'll just display it in the log
-        self.log.insert(tk.END, f"Gegnerdaten aktiviert:\n{data}\n")
-        self.log.see(tk.END)
 
     def add_character(self):
         name = self.entry_name.get()
