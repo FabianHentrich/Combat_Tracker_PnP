@@ -1,7 +1,7 @@
 import logging
 import os
 
-def setup_logging(log_file="combat_tracker.log"):
+def setup_logging(log_file: str = "combat_tracker.log") -> logging.Logger:
     # Logger konfigurieren
     logger = logging.getLogger("CombatTracker")
     logger.setLevel(logging.DEBUG)

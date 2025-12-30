@@ -1,8 +1,11 @@
 import random
-from typing import Tuple, List, Dict, Any
+from typing import Tuple, List, Dict, Any, TYPE_CHECKING
 from .config import RULES
 
-def calculate_damage(character, dmg: int, damage_type: str = "Normal", rank: int = 1) -> str:
+if TYPE_CHECKING:
+    from .character import Character
+
+def calculate_damage(character: 'Character', dmg: int, damage_type: str = "Normal", rank: int = 1) -> str:
     log = f"{character.name} erleidet {dmg} ({damage_type}) Schaden!\n"
 
     # Logik basierend auf Schadenstyp aus Regeln laden
@@ -70,7 +73,7 @@ def calculate_damage(character, dmg: int, damage_type: str = "Normal", rank: int
 
     return log
 
-def process_status_effects(character) -> str:
+def process_status_effects(character: 'Character') -> str:
     log = ""
     new_status = []
     character.skip_turns = 0
@@ -119,4 +122,3 @@ def process_status_effects(character) -> str:
 
     character.status = new_status
     return log
-

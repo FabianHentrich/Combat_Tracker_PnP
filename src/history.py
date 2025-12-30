@@ -1,16 +1,20 @@
 import copy
+from typing import List, Dict, Any, TYPE_CHECKING
 from .logger import setup_logging
+
+if TYPE_CHECKING:
+    from .engine import CombatEngine
 
 logger = setup_logging()
 
 class HistoryManager:
-    def __init__(self, engine):
+    def __init__(self, engine: 'CombatEngine'):
         self.engine = engine
-        self.undo_stack = []
-        self.redo_stack = []
-        self.max_history = 20
+        self.undo_stack: List[Dict[str, Any]] = []
+        self.redo_stack: List[Dict[str, Any]] = []
+        self.max_history: int = 20
 
-    def save_snapshot(self):
+    def save_snapshot(self) -> None:
         """Wird vor jeder Aktion aufgerufen (Schaden, Next Turn, etc.)"""
         state = self.engine.get_state()
         # Deep copy is usually safer for state snapshots if get_state returns references
@@ -27,7 +31,7 @@ class HistoryManager:
 
         logger.debug("Snapshot gespeichert. Undo Stack Größe: %d", len(self.undo_stack))
 
-    def undo(self):
+    def undo(self) -> bool:
         if not self.undo_stack:
             logger.info("Undo nicht möglich: Stack leer.")
             return False
@@ -40,7 +44,7 @@ class HistoryManager:
         logger.info("Undo ausgeführt.")
         return True
 
-    def redo(self):
+    def redo(self) -> bool:
         if not self.redo_stack:
             logger.info("Redo nicht möglich: Stack leer.")
             return False
@@ -52,4 +56,3 @@ class HistoryManager:
         self.engine.load_state(next_state)
         logger.info("Redo ausgeführt.")
         return True
-

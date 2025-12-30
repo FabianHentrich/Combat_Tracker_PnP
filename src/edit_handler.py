@@ -1,21 +1,29 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from typing import Dict, Any, TYPE_CHECKING
 from .utils import simple_input_dialog
+from .logger import setup_logging
+
+if TYPE_CHECKING:
+    from .main_window import CombatTracker
+    from .character import Character
+
+logger = setup_logging()
 
 class EditHandler:
-    def __init__(self, tracker, root, colors):
+    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
         self.colors = colors
 
-    def edit_selected_char(self):
+    def edit_selected_char(self) -> None:
         """Bearbeitet alle Werte des ausgewählten Charakters."""
         char = self.tracker.get_selected_char()
         if not char: return
 
         self.open_edit_character_window(char)
 
-    def open_edit_character_window(self, char):
+    def open_edit_character_window(self, char: 'Character') -> None:
         """Öffnet ein Fenster zum Bearbeiten eines Charakters."""
         edit_window = tk.Toplevel(self.root)
         edit_window.title(f"Bearbeiten: {char.name}")

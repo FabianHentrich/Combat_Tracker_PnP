@@ -1,16 +1,23 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from typing import Dict, Any, List, TYPE_CHECKING
 from .character import Character
 from .utils import wuerfle_initiative
+from .logger import setup_logging
+
+if TYPE_CHECKING:
+    from .main_window import CombatTracker
+
+logger = setup_logging()
 
 class LibraryHandler:
-    def __init__(self, tracker, root, colors):
+    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
         self.colors = colors
-        self.staging_entries = []
+        self.staging_entries: List[Dict[str, Any]] = []
 
-    def open_library_window(self):
+    def open_library_window(self) -> None:
         """Öffnet das Bibliotheks-Fenster."""
         lib_window = tk.Toplevel(self.root)
         lib_window.title("Gegner-Bibliothek")
@@ -43,8 +50,13 @@ class LibraryHandler:
 
         if not self.tracker.enemy_presets_structure:
             self.tree.insert("", "end", text="Keine Gegner gefunden (enemies.json prüfen)", tags=("error",))
+            logger.warning("Keine Gegner-Presets gefunden.")
         else:
-            self.populate_tree(self.tracker.enemy_presets_structure)
+            try:
+                self.populate_tree(self.tracker.enemy_presets_structure)
+            except Exception as e:
+                logger.error(f"Fehler beim Befüllen des Baums: {e}")
+                self.tree.insert("", "end", text="Fehler beim Laden", tags=("error",))
 
         # Doppelklick fügt zur Liste hinzu
         self.tree.bind("<Double-1>", self.on_tree_double_click)
@@ -87,7 +99,7 @@ class LibraryHandler:
         ttk.Button(btn_frame, text="Alle zum Kampf hinzufügen", command=lambda: self.finalize_import(lib_window)).pack(side="right")
         ttk.Button(btn_frame, text="Abbrechen", command=lib_window.destroy).pack(side="right", padx=10)
 
-    def populate_tree(self, data, parent=""):
+    def populate_tree(self, data: Dict[str, Any], parent: str = "") -> None:
         """Füllt den Treeview rekursiv mit Kategorien und Gegnern."""
         for key, value in data.items():
             if "lp" in value: # Es ist ein Gegner (Blatt)
@@ -231,4 +243,3 @@ class LibraryHandler:
 
         except ValueError:
             messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
-

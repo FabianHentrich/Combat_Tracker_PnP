@@ -1,39 +1,50 @@
 import pytest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 import sys
 import os
+import importlib
 
 # Füge das src Verzeichnis zum Pfad hinzu
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Mocke tkinter Module BEVOR src.gui importiert wird
-sys.modules['tkinter'] = MagicMock()
-sys.modules['tkinter.ttk'] = MagicMock()
-sys.modules['tkinter.filedialog'] = MagicMock()
-sys.modules['tkinter.messagebox'] = MagicMock()
-
-# Jetzt können wir gui importieren, ohne dass ein Fenster geöffnet wird
-from src.gui import CombatTracker
 from src.character import Character
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def app():
     """Fixture für die CombatTracker App mit gemockter UI."""
-    root = MagicMock()
-    tracker = CombatTracker(root)
+    with patch.dict(sys.modules, {
+        'tkinter': MagicMock(),
+        'tkinter.ttk': MagicMock(),
+        'tkinter.filedialog': MagicMock(),
+        'tkinter.messagebox': MagicMock()
+    }):
+        # Import or reload src.main_window to use the mocked tkinter
+        if 'src.dice_roller' in sys.modules:
+            importlib.reload(sys.modules['src.dice_roller'])
+        if 'src.ui_layout' in sys.modules:
+            importlib.reload(sys.modules['src.ui_layout'])
+        if 'src.main_window' in sys.modules:
+            importlib.reload(sys.modules['src.main_window'])
+        else:
+            import src.main_window
 
-    # Mocke interne UI-Komponenten, auf die zugegriffen wird
-    tracker.tree = MagicMock()
-    tracker.log = MagicMock()
-    tracker.round_label = MagicMock()
+        CombatTracker = sys.modules['src.main_window'].CombatTracker
 
-    # Leere die Charakterliste für jeden Test
-    tracker.engine.characters = []
-    tracker.engine.turn_index = -1
-    tracker.engine.round_number = 1
-    tracker.initiative_rolled = False
+        root = MagicMock()
+        tracker = CombatTracker(root)
 
-    return tracker
+        # Mocke interne UI-Komponenten, auf die zugegriffen wird
+        tracker.tree = MagicMock()
+        tracker.log = MagicMock()
+        tracker.round_label = MagicMock()
+
+        # Leere die Charakterliste für jeden Test
+        tracker.engine.characters = []
+        tracker.engine.turn_index = -1
+        tracker.engine.round_number = 1
+        tracker.initiative_rolled = False
+
+        yield tracker
 
 def test_add_character(app):
     """Test: Charakter wird korrekt zur Liste hinzugefügt."""

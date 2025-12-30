@@ -1,8 +1,12 @@
 import json
 import os
+from typing import Dict, Tuple, Any
+from .logger import setup_logging
+
+logger = setup_logging()
 
 # Farben für das Dark Theme
-COLORS = {
+COLORS: Dict[str, str] = {
     "bg": "#1a1b26",       # Tiefes Nachtblau
     "fg": "#a9b1d6",       # Weiches Grau-Blau
     "accent": "#656bb6",   # Helles Blau
@@ -13,7 +17,7 @@ COLORS = {
     "warning": "#e0af68"   # Orange/Gelb
 }
 
-def load_rules(filepath="rules.json"):
+def load_rules(filepath: str = "rules.json") -> Tuple[Dict[str, Any], Dict[str, str], Dict[str, str]]:
     # Default Full Rules Structure
     default_rules = {
       "damage_types": {
@@ -108,7 +112,7 @@ def load_rules(filepath="rules.json"):
     }
 
     # Helper to extract descriptions
-    def extract_descriptions(rules_data):
+    def extract_descriptions(rules_data: Dict[str, Any]) -> Tuple[Dict[str, str], Dict[str, str]]:
         dmg_desc = {k: v.get("description", "") for k, v in rules_data.get("damage_types", {}).items()}
         status_desc = {k: v.get("description", "") for k, v in rules_data.get("status_effects", {}).items()}
         return dmg_desc, status_desc
@@ -131,10 +135,10 @@ def load_rules(filepath="rules.json"):
                 return default_rules, data.get("damage_descriptions", default_damage_desc), data.get("status_descriptions", default_status_desc)
 
     except Exception as e:
-        print(f"Fehler beim Laden der Regeln: {e}")
+        logger.error(f"Fehler beim Laden der Regeln: {e}")
         return default_rules, default_damage_desc, default_status_desc
 
-def load_hotkeys(filepath="hotkeys.json"):
+def load_hotkeys(filepath: str = "hotkeys.json") -> Dict[str, str]:
     default_hotkeys = {
         "next_turn": "<space>",
         "undo": "<Control-z>",
@@ -150,7 +154,7 @@ def load_hotkeys(filepath="hotkeys.json"):
         with open(filepath, 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        print(f"Fehler beim Laden der Hotkeys: {e}")
+        logger.error(f"Fehler beim Laden der Hotkeys: {e}")
         return default_hotkeys
 
 RULES, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS = load_rules()

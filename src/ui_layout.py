@@ -1,15 +1,20 @@
 import tkinter as tk
 from tkinter import ttk
+from typing import TYPE_CHECKING, Callable
 from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, HOTKEYS
 from .utils import ToolTip
+from .dice_roller import DiceRoller
+
+if TYPE_CHECKING:
+    from .main_window import CombatTracker
 
 class UILayout:
-    def __init__(self, tracker, root):
+    def __init__(self, tracker: 'CombatTracker', root: tk.Tk):
         self.tracker = tracker
         self.root = root
         self.colors = COLORS
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
         # Menübar erstellen
         self.create_menu()
 
@@ -33,7 +38,7 @@ class UILayout:
         # --- UNTERER BEREICH: Kampfsteuerung & Log ---
         self.create_bottom_area(main_frame)
 
-    def create_menu(self):
+    def create_menu(self) -> None:
         menubar = tk.Menu(self.root)
         self.root.config(menu=menubar)
 
@@ -51,7 +56,7 @@ class UILayout:
         file_menu.add_command(label="Beenden", command=self.root.quit)
 
 
-    def create_input_frame(self, parent):
+    def create_input_frame(self, parent: tk.Widget) -> None:
         input_frame = ttk.LabelFrame(parent, text="Neuen Charakter hinzufügen", padding="15", style="Card.TLabelframe")
         input_frame.pack(fill=tk.X, pady=(0, 15))
 
@@ -95,7 +100,7 @@ class UILayout:
 
         ttk.Button(input_frame, text="Hinzufügen", command=self.tracker.add_character_quick).grid(row=1, column=15, padx=10)
 
-    def create_treeview(self, parent):
+    def create_treeview(self, parent: tk.Widget) -> None:
         tree_frame = ttk.Frame(parent)
         tree_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
@@ -132,7 +137,7 @@ class UILayout:
         self.tracker.context_menu.add_command(label="Löschen", command=self.tracker.delete_character)
         self.tracker.tree.bind("<Button-3>", self.tracker.show_context_menu)
 
-    def create_action_panel(self, parent):
+    def create_action_panel(self, parent: tk.Widget) -> None:
         action_frame = ttk.LabelFrame(parent, text="Interaktion", padding="15", style="Card.TLabelframe")
         action_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(15, 0), ipadx=10)
 
@@ -228,7 +233,7 @@ class UILayout:
 
         target_cb.bind("<<ComboboxSelected>>", update_edit_state)
 
-    def create_bottom_area(self, parent):
+    def create_bottom_area(self, parent: tk.Widget) -> None:
         bottom_frame = ttk.Frame(parent)
         bottom_frame.pack(fill=tk.BOTH, expand=True, pady=5)
 
@@ -256,9 +261,13 @@ class UILayout:
         self.tracker.round_label = ttk.Label(control_frame, text=f"Runde: {self.tracker.engine.round_number}", font=('Segoe UI', 12, 'bold'), background=self.colors["bg"])
         self.tracker.round_label.pack(side=tk.RIGHT, padx=20)
 
+        # Split Bottom Area: Log (Left) | Dice Roller (Right)
+        bottom_content = ttk.Frame(bottom_frame)
+        bottom_content.pack(fill=tk.BOTH, expand=True)
+
         # Log
-        log_frame = ttk.LabelFrame(bottom_frame, text="Kampfprotokoll", style="Card.TLabelframe")
-        log_frame.pack(fill=tk.BOTH, expand=True)
+        log_frame = ttk.LabelFrame(bottom_content, text="Kampfprotokoll", style="Card.TLabelframe")
+        log_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
 
         self.tracker.log = tk.Text(log_frame, height=8, width=80, state='normal', font=("Consolas", 9),
                            bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], relief="flat")
@@ -268,7 +277,11 @@ class UILayout:
         log_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.tracker.log.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-    def create_tooltip(self, widget, text_func):
+        # Dice Roller
+        dice_roller = DiceRoller(bottom_content, self.colors)
+        dice_roller.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 0))
+
+    def create_tooltip(self, widget: tk.Widget, text_func: Callable[[], str]) -> None:
         tt = ToolTip(widget, text_func)
         widget.bind('<Enter>', tt.showtip)
         widget.bind('<Leave>', tt.hidetip)

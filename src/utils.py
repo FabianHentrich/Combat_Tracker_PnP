@@ -1,6 +1,24 @@
 import tkinter as tk
 from tkinter import ttk
 import random
+from typing import Tuple, List, Callable, Optional, Any
+
+def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
+    """
+    Simuliert einen explodierenden Würfelwurf.
+    Wenn die höchste Augenzahl gewürfelt wird, darf erneut gewürfelt werden.
+    Gibt die Summe und die Liste der Einzelwürfe zurück.
+    """
+    rolls = []
+    while True:
+        roll = random.randint(1, sides)
+        rolls.append(roll)
+        if roll != sides:
+            break
+        # Safety break to prevent infinite loops
+        if len(rolls) > 20:
+            break
+    return sum(rolls), rolls
 
 def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
     mapping = {
@@ -17,18 +35,19 @@ def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
     return mapping.get(gewandtheit, 20)
 
 def wuerfle_initiative(gewandtheit: int) -> int:
-    """Würfelt Initiative basierend auf Gewandtheit. Rückgabe des Wurfwerts."""
+    """Würfelt Initiative basierend auf Gewandtheit (mit explodierenden Würfeln). Rückgabe des Wurfwerts."""
     wuerfel = get_wuerfel_from_gewandtheit(gewandtheit)
-    return random.randint(1, wuerfel)
+    total, _ = roll_exploding_dice(wuerfel)
+    return total
 
 class ToolTip:
     """Klasse für Tooltips beim Hovern über Widgets."""
-    def __init__(self, widget, text_func):
+    def __init__(self, widget: tk.Widget, text_func: Callable[[], str]):
         self.widget = widget
         self.text_func = text_func
-        self.tipwindow = None
+        self.tipwindow: Optional[tk.Toplevel] = None
 
-    def showtip(self, event=None):
+    def showtip(self, event: Optional[tk.Event] = None) -> None:
         text = self.text_func()
         if self.tipwindow or not text:
             return
@@ -44,16 +63,16 @@ class ToolTip:
                        font=("Segoe UI", 9))
         label.pack(ipadx=5, ipady=2)
 
-    def hidetip(self, event=None):
+    def hidetip(self, event: Optional[tk.Event] = None) -> None:
         if self.tipwindow:
             self.tipwindow.destroy()
             self.tipwindow = None
 
-def simple_input_dialog(root, title, prompt, default_value=""):
+def simple_input_dialog(root: tk.Tk, title: str, prompt: str, default_value: str = "") -> Optional[str]:
     """Helper function for input dialogs"""
     value = None
 
-    def on_ok():
+    def on_ok() -> None:
         nonlocal value
         value = entry.get()
         dialog.destroy()
@@ -75,7 +94,7 @@ def simple_input_dialog(root, title, prompt, default_value=""):
     root.wait_window(dialog)
     return value
 
-def generate_health_bar(current, maximum, length=10):
+def generate_health_bar(current: int, maximum: int, length: int = 10) -> str:
     """Erstellt einen Text-Fortschrittsbalken mit Werten."""
     if maximum <= 0:
         return f"💀 {current}/{maximum}"

@@ -1,18 +1,25 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import pandas as pd
+from typing import List, Dict, Any, Optional, TYPE_CHECKING
 from .character import Character
 from .utils import wuerfle_initiative
+from .logger import setup_logging
+
+if TYPE_CHECKING:
+    from .main_window import CombatTracker
+
+logger = setup_logging()
 
 class ImportHandler:
-    def __init__(self, tracker, root, colors):
+    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
         self.colors = colors
-        self.import_entries = []
-        self.detail_entries = []
+        self.import_entries: List[Dict[str, Any]] = []
+        self.detail_entries: List[Dict[str, Any]] = []
 
-    def load_from_excel(self, file_path=None):
+    def load_from_excel(self, file_path: Optional[str] = None) -> None:
         """Lädt Gegnerdaten aus einer Excel-Datei."""
         if not file_path:
             file_path = filedialog.askopenfilename(title="Gegnerdaten laden", filetypes=[("Excel Dateien", "*.xlsx")])
@@ -34,9 +41,10 @@ class ImportHandler:
             self.show_import_preview(df)
 
         except Exception as e:
+            logger.error(f"Fehler beim Laden der Excel-Datei: {e}")
             messagebox.showerror("Fehler", f"Fehler beim Laden: {e}")
 
-    def show_import_preview(self, df):
+    def show_import_preview(self, df: pd.DataFrame) -> None:
         """Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge)."""
         preview_window = tk.Toplevel(self.root)
         preview_window.title("Import Vorschau & Auswahl")

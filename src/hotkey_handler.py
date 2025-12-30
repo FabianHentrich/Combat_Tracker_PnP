@@ -1,16 +1,23 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
+from typing import Dict, Any, Callable, TYPE_CHECKING
 from .config import HOTKEYS
+from .logger import setup_logging
+
+if TYPE_CHECKING:
+    from .main_window import CombatTracker
+
+logger = setup_logging()
 
 class HotkeyHandler:
-    def __init__(self, tracker, root, colors):
+    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
         self.colors = colors
-        self.hotkey_buttons = {}
+        self.hotkey_buttons: Dict[str, ttk.Button] = {}
 
-    def setup_hotkeys(self):
+    def setup_hotkeys(self) -> None:
         """Bindet Tastaturkürzel an das Hauptfenster."""
         try:
             self.root.bind(HOTKEYS["next_turn"], lambda e: self.safe_execute(e, self.tracker.next_turn))
@@ -19,9 +26,9 @@ class HotkeyHandler:
             self.root.bind(HOTKEYS["delete_char"], lambda e: self.safe_execute(e, self.tracker.delete_character))
             self.root.bind(HOTKEYS["focus_damage"], lambda e: self.safe_execute(e, self.tracker.action_value.focus_set))
         except Exception as e:
-            print(f"Fehler beim Binden der Hotkeys: {e}")
+            logger.error(f"Fehler beim Binden der Hotkeys: {e}")
 
-    def safe_execute(self, event, callback):
+    def safe_execute(self, event: tk.Event, callback: Callable[[], None]) -> None:
         """Führt den Callback nur aus, wenn kein Eingabefeld Fokus hat (für Einzeltasten-Hotkeys)."""
         focused = self.root.focus_get()
 
@@ -37,7 +44,7 @@ class HotkeyHandler:
 
         callback()
 
-    def open_hotkey_settings(self):
+    def open_hotkey_settings(self) -> None:
         """Öffnet ein Fenster zum Bearbeiten der Hotkeys."""
         window = tk.Toplevel(self.root)
         window.title("Tastaturkürzel Einstellungen")
@@ -74,11 +81,11 @@ class HotkeyHandler:
 
         ttk.Button(window, text="Speichern & Schließen", command=lambda: self.save_hotkeys(window)).pack(pady=10)
 
-    def change_hotkey(self, key_name, button):
+    def change_hotkey(self, key_name: str, button: ttk.Button) -> None:
         """Wartet auf Tastendruck für neuen Hotkey."""
         button.configure(text="Drücke Taste...")
 
-        def on_key(event):
+        def on_key(event: tk.Event) -> None:
             # Tastenkombination ermitteln
             keysym = event.keysym
             state = event.state
@@ -120,4 +127,3 @@ class HotkeyHandler:
             messagebox.showinfo("Info", "Hotkeys gespeichert.")
         except Exception as e:
             messagebox.showerror("Fehler", f"Fehler beim Speichern: {e}")
-

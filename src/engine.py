@@ -15,16 +15,16 @@ class CombatEngine:
         self.on_turn_change: Optional[Callable[[Optional[Character]], None]] = None
         logger.info("CombatEngine initialisiert.")
 
-    def log(self, message: str):
+    def log(self, message: str) -> None:
         logger.info(f"Game Log: {message}")
         if self.on_log:
             self.on_log(message)
 
-    def add_character(self, character: Character):
+    def add_character(self, character: Character) -> None:
         self.characters.append(character)
         self.log(f"{character.name} wurde dem Kampf hinzugefügt.")
 
-    def remove_character(self, index: int):
+    def remove_character(self, index: int) -> None:
         if 0 <= index < len(self.characters):
             char = self.characters.pop(index)
             self.log(f"{char.name} wurde entfernt.")
@@ -45,12 +45,12 @@ class CombatEngine:
     def get_all_characters(self) -> List[Character]:
         return self.characters
 
-    def sort_initiative(self):
+    def sort_initiative(self) -> None:
         # Sort descending by initiative
         self.characters.sort(key=lambda c: c.init, reverse=True)
         self.log("Initiative sortiert.")
 
-    def roll_all_initiatives(self):
+    def roll_all_initiatives(self) -> None:
         for char in self.characters:
             char.init = wuerfle_initiative(char.gew)
         self.sort_initiative()
@@ -87,12 +87,12 @@ class CombatEngine:
 
         return current_char
 
-    def reset_combat(self):
+    def reset_combat(self) -> None:
         self.turn_index = -1
         self.round_number = 1
         self.log("Kampf zurückgesetzt.")
 
-    def insert_character(self, char: Character, surprise: bool = False):
+    def insert_character(self, char: Character, surprise: bool = False) -> None:
         if self.turn_index == -1: # Initiative not started/rolled
             self.characters.append(char)
             self.log(f"{char.name} wurde hinzugefügt.")
@@ -116,7 +116,7 @@ class CombatEngine:
                     self.characters.append(char)
                 self.log(f"{char.name} wurde einsortiert.")
 
-    def roll_initiatives(self, reroll_all: bool = False):
+    def roll_initiatives(self, reroll_all: bool = False) -> None:
         for char in self.characters:
             if reroll_all or char.init == 0:
                 char.init = wuerfle_initiative(char.gew)
@@ -134,9 +134,8 @@ class CombatEngine:
             "round_number": self.round_number
         }
 
-    def load_state(self, state: dict):
+    def load_state(self, state: dict) -> None:
         self.characters = [Character.from_dict(c_data) for c_data in state["characters"]]
         self.turn_index = state["turn_index"]
         self.round_number = state["round_number"]
         self.log("Kampfstatus geladen.")
-

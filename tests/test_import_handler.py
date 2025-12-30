@@ -53,8 +53,8 @@ def test_finalize_import(import_handler):
     assert isinstance(char, Character)
     assert char.name == "ImportedChar"
     assert char.gew == 3
-    # Init should be rolled based on gew=3 (which is d8 -> 1-8)
-    assert 1 <= char.init <= 8
+    # Init should be rolled based on gew=3 (which is d8 -> 1-8, but can explode)
+    assert char.init >= 1
 
     window.destroy.assert_called_once()
 

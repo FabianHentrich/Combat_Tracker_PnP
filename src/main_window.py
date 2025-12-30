@@ -3,6 +3,7 @@ from tkinter import messagebox, ttk, filedialog
 import pandas as pd
 import json
 import os
+from typing import Dict, Any, Optional, List
 from .character import Character
 from .utils import ToolTip, generate_health_bar
 from .import_handler import ImportHandler
@@ -14,15 +15,18 @@ from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, HOTKEYS
 from .engine import CombatEngine
 from .persistence import PersistenceHandler
 from .history import HistoryManager
+from .logger import setup_logging
+
+logger = setup_logging()
 
 class CombatTracker:
-    def __init__(self, root):
+    def __init__(self, root: tk.Tk):
         self.root = root
         self.root.title("PnP Combat Tracker v2.1 - Dark Mode")
         self.root.geometry("1900x1200")
 
         # --- Modern Dark Theme Configuration ---
-        self.colors = COLORS
+        self.colors: Dict[str, str] = COLORS
 
         self.engine = CombatEngine()
         self.engine.on_log = self.log_message
@@ -68,72 +72,76 @@ class CombatTracker:
         style.configure("Card.TLabelframe", background=self.colors["panel"], foreground=self.colors["fg"], relief="flat")
         style.configure("Card.TLabelframe.Label", background=self.colors["panel"], foreground=self.colors["accent"], font=('Segoe UI', 11, 'bold'))
 
-        self.initiative_rolled = False
+        self.initiative_rolled: bool = False
 
         # UI Widgets placeholders
-        self.tree = None
-        self.context_menu = None
-        self.entry_name = None
-        self.entry_lp = None
-        self.entry_rp = None
-        self.entry_sp = None
-        self.entry_init = None
-        self.entry_type = None
-        self.var_surprise = None
-        self.action_value = None
-        self.action_type = None
-        self.status_rank = None
-        self.status_combobox = None
-        self.status_duration = None
-        self.round_label = None
-        self.log = None
+        self.tree: Optional[ttk.Treeview] = None
+        self.context_menu: Optional[tk.Menu] = None
+        self.entry_name: Optional[ttk.Entry] = None
+        self.entry_lp: Optional[ttk.Entry] = None
+        self.entry_rp: Optional[ttk.Entry] = None
+        self.entry_sp: Optional[ttk.Entry] = None
+        self.entry_init: Optional[ttk.Entry] = None
+        self.entry_gew: Optional[ttk.Entry] = None
+        self.entry_type: Optional[ttk.Combobox] = None
+        self.var_surprise: Optional[tk.BooleanVar] = None
+        self.action_value: Optional[ttk.Entry] = None
+        self.action_type: Optional[ttk.Combobox] = None
+        self.status_rank: Optional[ttk.Entry] = None
+        self.status_combobox: Optional[ttk.Combobox] = None
+        self.status_duration: Optional[ttk.Entry] = None
+        self.round_label: Optional[ttk.Label] = None
+        self.log: Optional[tk.Text] = None
+        self.management_target_var: Optional[tk.StringVar] = None
+        self.btn_edit: Optional[ttk.Button] = None
 
         # Info-Texte für Tooltips
-        self.damage_descriptions = DAMAGE_DESCRIPTIONS
-        self.status_descriptions = STATUS_DESCRIPTIONS
+        self.damage_descriptions: Dict[str, str] = DAMAGE_DESCRIPTIONS
+        self.status_descriptions: Dict[str, str] = STATUS_DESCRIPTIONS
 
-        self.enemy_presets = {}
-        self.enemy_presets_structure = {}
+        self.enemy_presets: Dict[str, Any] = {}
+        self.enemy_presets_structure: Dict[str, Any] = {}
         self.load_presets()
 
         self.setup_ui()
         self.hotkey_handler.setup_hotkeys()
         # self.load_enemies()
 
-    def open_hotkey_settings(self):
+    def open_hotkey_settings(self) -> None:
         self.hotkey_handler.open_hotkey_settings()
 
-    def load_presets(self, filename="enemies.json"):
+    def load_presets(self, filename: str = "enemies.json") -> None:
         """Lädt Gegner-Presets aus einer JSON-Datei."""
         # Bestimme den absoluten Pfad basierend auf dem Speicherort von gui.py
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filepath = os.path.join(base_dir, filename)
 
         if not os.path.exists(filepath):
-            print(f"Warnung: {filepath} nicht gefunden.")
+            logger.warning(f"Preset-Datei nicht gefunden: {filepath}")
             return
 
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
                 self.enemy_presets_structure = json.load(f)
 
-            # Flatten for easy lookup
-            self.enemy_presets = {}
+                # Flatten structure for easy access if needed, or just use structure
+                # For now, let's keep a flat version for backward compatibility if needed
+                # But mainly we will use the structure in the library
+                self.enemy_presets = {}
 
-            def flatten_presets(data):
-                for key, value in data.items():
-                    if isinstance(value, dict) and "lp" in value: # It's a character entry
-                        self.enemy_presets[key] = value
-                    elif isinstance(value, dict): # It's a category
-                        flatten_presets(value)
+                def flatten(data: Dict[str, Any]) -> None:
+                    for key, value in data.items():
+                        if "lp" in value: # It's a leaf (enemy)
+                            self.enemy_presets[key] = value
+                        else: # It's a group
+                            flatten(value)
 
-            flatten_presets(self.enemy_presets_structure)
+                flatten(self.enemy_presets_structure)
 
         except Exception as e:
-            print(f"Fehler beim Laden der Presets: {e}")
-            messagebox.showerror("Fehler", f"Fehler beim Laden der Bibliothek: {e}")
+            logger.error(f"Fehler beim Laden der Presets: {e}")
 
-    def apply_preset(self, name):
+    def apply_preset(self, name: str) -> None:
         """Füllt die Eingabefelder basierend auf der Auswahl."""
         if name in self.enemy_presets:
             data = self.enemy_presets[name]
@@ -158,21 +166,21 @@ class CombatTracker:
 
             self.entry_type.set(data.get("type", "Gegner"))
 
-    def create_tooltip(self, widget, text_func):
+    def create_tooltip(self, widget: tk.Widget, text_func: Any) -> None:
         tt = ToolTip(widget, text_func)
         widget.bind('<Enter>', tt.showtip)
         widget.bind('<Leave>', tt.hidetip)
 
-    def setup_ui(self):
+    def setup_ui(self) -> None:
         self.ui_layout.setup_ui()
 
-    def show_context_menu(self, event):
+    def show_context_menu(self, event: tk.Event) -> None:
         item = self.tree.identify_row(event.y)
         if item:
             self.tree.selection_set(item)
             self.context_menu.post(event.x_root, event.y_root)
 
-    def add_character_quick(self):
+    def add_character_quick(self) -> None:
         """Fügt einen Charakter aus den Eingabefeldern hinzu."""
         self.history_manager.save_snapshot()
         name = self.entry_name.get()
@@ -207,11 +215,11 @@ class CombatTracker:
         # Checkbox zurücksetzen
         self.var_surprise.set(False)
 
-    def insert_character(self, char, surprise=False):
+    def insert_character(self, char: Character, surprise: bool = False) -> None:
         """Fügt einen Charakter in die Liste ein. Delegiert an Engine."""
         self.engine.insert_character(char, surprise)
 
-    def roll_initiative_all(self):
+    def roll_initiative_all(self) -> None:
         """Sorts characters based on their initiative. Rolls for those with 0 init."""
         self.history_manager.save_snapshot()
         self.engine.roll_initiatives()
@@ -223,7 +231,7 @@ class CombatTracker:
             char = self.engine.characters[0]
             self.log_message(f"▶ {char.name} ist am Zug!")
 
-    def reset_initiative(self, target_type="All"):
+    def reset_initiative(self, target_type: str = "All") -> None:
         """Setzt die Initiative zurück."""
         self.history_manager.save_snapshot()
         count = 0
@@ -240,7 +248,7 @@ class CombatTracker:
         type_text = "aller Charaktere" if target_type == "All" else f"aller {target_type}s"
         self.log_message(f"Initiative {type_text} wurde zurückgesetzt ({count} betroffen).")
 
-    def next_turn(self):
+    def next_turn(self) -> None:
         """Moves to the next turn, considering status and conditions."""
         self.history_manager.save_snapshot()
         char = self.engine.next_turn()
@@ -261,7 +269,7 @@ class CombatTracker:
 
         self.update_listbox()
 
-    def highlight_current_char(self, char):
+    def highlight_current_char(self, char: Character) -> None:
         # Einfache visuelle Markierung (Auswahl)
         for item in self.tree.get_children():
             if self.tree.item(item, "values")[0] == char.name:
@@ -269,7 +277,7 @@ class CombatTracker:
                 self.tree.focus(item)
                 break
 
-    def get_action_value(self):
+    def get_action_value(self) -> int:
         """Hilfsfunktion: Liest den Wert aus dem Interaktions-Feld."""
         try:
             val = self.action_value.get()
@@ -277,7 +285,7 @@ class CombatTracker:
         except ValueError:
             return 0
 
-    def deal_damage(self):
+    def deal_damage(self) -> None:
         """Liest Schaden direkt aus dem UI-Feld."""
         char = self.get_selected_char()
         if not char: return
@@ -301,7 +309,7 @@ class CombatTracker:
         self.log_message(log)
         self.update_listbox()
 
-    def add_status_to_character(self):
+    def add_status_to_character(self) -> None:
         char = self.get_selected_char()
         if not char: return
 
@@ -329,22 +337,22 @@ class CombatTracker:
         self.log_message(f"{char.name} erhält Status '{status}' (Rang {rank}) für {duration} Runden.")
         self.update_listbox()
 
-    def load_enemies(self, pfad: str = None):
+    def load_enemies(self, pfad: Optional[str] = None) -> None:
         """
         Loads enemy data from an Excel file and opens a preview window for selection and editing.
         """
         self.history_manager.save_snapshot()
         self.import_handler.load_from_excel(pfad)
 
-    def add_single_enemy(self):
+    def add_single_enemy(self) -> None:
         # Veraltet durch Quick-Add, aber kann als Fallback bleiben oder entfernt werden
         pass
 
-    def edit_selected_char(self):
+    def edit_selected_char(self) -> None:
         """Bearbeitet alle Werte des ausgewählten Charakters."""
         self.edit_handler.edit_selected_char()
 
-    def delete_character(self):
+    def delete_character(self) -> None:
         selection = self.tree.selection()
         if not selection:
             messagebox.showerror("Fehler", "Wähle zuerst einen Charakter aus.")
@@ -388,7 +396,7 @@ class CombatTracker:
         self.update_listbox()
         self.log_message(f"❌ Charakter '{deleted_char.name}' wurde gelöscht.")
 
-    def delete_group(self, char_type):
+    def delete_group(self, char_type: str) -> None:
         if messagebox.askyesno("Bestätigung", f"Alle {char_type} wirklich löschen?"):
             self.history_manager.save_snapshot()
             # Create a new list excluding the type
@@ -399,7 +407,7 @@ class CombatTracker:
             self.update_listbox()
             self.log_message(f"Alle {char_type} wurden gelöscht.")
 
-    def manage_edit(self):
+    def manage_edit(self) -> None:
         """Handhabt das Bearbeiten basierend auf der Auswahl im Verwaltungs-Panel."""
         target = self.management_target_var.get()
         if target == "Ausgewählter Charakter":
@@ -407,7 +415,7 @@ class CombatTracker:
         else:
             messagebox.showinfo("Info", "Massenbearbeitung ist derzeit nicht verfügbar.")
 
-    def manage_delete(self):
+    def manage_delete(self) -> None:
         """Handhabt das Löschen basierend auf der Auswahl im Verwaltungs-Panel."""
         target = self.management_target_var.get()
         if target == "Ausgewählter Charakter":
@@ -426,7 +434,7 @@ class CombatTracker:
                 self.update_listbox()
                 self.log_message("Alle Charaktere wurden gelöscht.")
 
-    def apply_healing(self):
+    def apply_healing(self) -> None:
         char = self.get_selected_char()
         if not char: return
 
@@ -440,7 +448,7 @@ class CombatTracker:
         self.log_message(heal_log)
         self.update_listbox()
 
-    def apply_shield(self):
+    def apply_shield(self) -> None:
         char = self.get_selected_char()
         if not char: return
         val = self.get_action_value()
@@ -450,7 +458,7 @@ class CombatTracker:
             self.log_message(f"{char.name} erhält {val} Schild.")
             self.update_listbox()
 
-    def apply_armor(self):
+    def apply_armor(self) -> None:
         char = self.get_selected_char()
         if not char: return
         val = self.get_action_value()
@@ -460,7 +468,7 @@ class CombatTracker:
             self.log_message(f"{char.name} erhält {val} Rüstung.")
             self.update_listbox()
 
-    def update_listbox(self):
+    def update_listbox(self) -> None:
         # Treeview leeren
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -517,7 +525,7 @@ class CombatTracker:
         # Autosave trigger
         self.persistence_handler.autosave()
 
-    def get_selected_char(self):
+    def get_selected_char(self) -> Optional[Character]:
         selection = self.tree.selection()
         if not selection:
             messagebox.showerror("Fehler", "Kein Charakter ausgewählt.")
@@ -536,16 +544,16 @@ class CombatTracker:
 
         return self.engine.characters[actual_index]
 
-    def log_message(self, msg):
+    def log_message(self, msg: str) -> None:
         self.log.insert(tk.END, str(msg).strip() + "\n")
         self.log.see(tk.END)
 
-    def undo_action(self):
+    def undo_action(self) -> None:
         if self.history_manager.undo():
             self.update_listbox()
             self.log_message("↩ Undo ausgeführt.")
 
-    def redo_action(self):
+    def redo_action(self) -> None:
         if self.history_manager.redo():
             self.update_listbox()
             self.log_message("↪ Redo ausgeführt.")
