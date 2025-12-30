@@ -1,0 +1,8 @@
+{
+    "next_turn": "<space>",
+    "undo": "<Control-z>",
+    "redo": "<Control-y>",
+    "delete_char": "<Delete>",
+    "focus_damage": "<Control-d>"
+}
+

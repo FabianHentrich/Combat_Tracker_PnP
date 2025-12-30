@@ -1,0 +1,243 @@
+{
+  "Boss-Gegner": {
+    "Ardomis – Der Erleuchtete (Boss)": {
+      "lp": 35,
+      "rp": 10,
+      "sp": 0,
+      "gew": 2,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Rhadomir Theskor (Boss)": {
+      "lp": 36,
+      "rp": 5,
+      "sp": 0,
+      "gew": 5,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Kastellan Morcant Riegelhand, der Torhalter (Boss)": {
+      "lp": 42,
+      "rp": 5,
+      "sp": 0,
+      "gew": 2,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Rosenwitwe Serapha (Boss)": {
+      "lp": 40,
+      "rp": 2,
+      "sp": 6,
+      "gew": 4,
+      "init": 0,
+      "type": "Gegner"
+    }
+  },
+
+
+  "Miniboss-Gegner": {
+    "Chaosbestie (Mini-Boss)": {
+      "lp": 40,
+      "rp": 3,
+      "sp": 0,
+      "gew": 2,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Schattenritter (Mini-Boss)": {
+      "lp": 25,
+      "rp": 5,
+      "sp": 5,
+      "gew": 3,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Königin Maela, die Klagende (Mini-Boss)": {
+      "lp": 34,
+      "rp": 0,
+      "sp": 8,
+      "gew": 5,
+      "init": 0,
+      "type": "Gegner"
+    },
+    "Sir Varik Kettentreu, der Rückholer (Mini-Boss)": {
+      "lp": 32,
+      "rp": 4,
+      "sp": 0,
+      "gew": 3,
+      "init": 0,
+      "type": "Gegner"
+    }
+  },
+
+
+  "Normale Gegner": {
+    "Chaoswesen": {
+      "Chaoskreatur": {
+        "lp": 15,
+        "rp": 0,
+        "sp": 0,
+        "gew": 4,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Chaoskrieger": {
+        "lp": 30,
+        "rp": 2,
+        "sp": 0,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      }
+    },
+
+    "Kreaturen der Dunkelheit": {
+      "Seuchenmönch": {
+        "lp": 24,
+        "rp": 1,
+        "sp": 0,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Grabeswolf": {
+        "lp": 22,
+        "rp": 0,
+        "sp": 4,
+        "gew": 5,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Nebelerscheinung": {
+        "lp": 15,
+        "rp": 0,
+        "sp": 0,
+        "gew": 4,
+        "init": 0,
+        "type": "Gegner"
+      }
+    },
+
+    "Menschen": {
+      "Bandit (Nahkampf)": {
+        "lp": 24,
+        "rp": 2,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Bandit (Fernkampf)": {
+        "lp": 22,
+        "rp": 0,
+        "sp": 0,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Bandit (Gruppen-Boss)": {
+        "lp": 26,
+        "rp": 2,
+        "sp": 3,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Kultpriester": {
+        "lp": 20,
+        "rp": 4,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Fanatischer Kultist": {
+        "lp": 12,
+        "rp": 2,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Fanatischer Wächter": {
+        "lp": 18,
+        "rp": 4,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Entweihter Priester": {
+        "lp": 22,
+        "rp": 2,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Sektenanhänger": {
+        "lp": 12,
+        "rp": 0,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      }
+    },
+
+    "Naturwesen": {
+      "Verfallener Golem": {
+        "lp": 30,
+        "rp": 8,
+        "sp": 0,
+        "gew": 1,
+        "init": 0,
+        "type": "Gegner"
+      }
+    },
+
+    "Tiere": {
+      "Bärenmutter": {
+        "lp": 30,
+        "rp": 2,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Bärenvater": {
+        "lp": 35,
+        "rp": 3,
+        "sp": 0,
+        "gew": 2,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Bärenjunges": {
+        "lp": 12,
+        "rp": 1,
+        "sp": 0,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Wilder Wolf": {
+        "lp": 14,
+        "rp": 1,
+        "sp": 0,
+        "gew": 4,
+        "init": 0,
+        "type": "Gegner"
+      },
+      "Weißer Wolf (Gruppen-Boss)": {
+        "lp": 22,
+        "rp": 2,
+        "sp": 0,
+        "gew": 3,
+        "init": 0,
+        "type": "Gegner"
+      }
+    }
+  },
+  "NPCs": {}
+}

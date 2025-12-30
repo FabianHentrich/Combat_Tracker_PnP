@@ -75,3 +75,14 @@ def simple_input_dialog(root, title, prompt, default_value=""):
     root.wait_window(dialog)
     return value
 
+def generate_health_bar(current, maximum, length=10):
+    """Erstellt einen Text-Fortschrittsbalken mit Werten."""
+    if maximum <= 0:
+        return f"💀 {current}/{maximum}"
+
+    ratio = max(0, min(1, current / maximum))
+    filled_len = int(round(length * ratio))
+
+    # Balken bauen
+    bar = "█" * filled_len + "░" * (length - filled_len)
+    return f"{bar} {current}/{maximum}"

@@ -1,0 +1,76 @@
+{
+    "characters": [
+        {
+            "name": "Königin Maela, die Klagende (Mini-Boss)",
+            "char_type": "Gegner",
+            "max_lp": 34,
+            "lp": 34,
+            "max_rp": 0,
+            "rp": 0,
+            "max_sp": 8,
+            "sp": 8,
+            "gew": 5,
+            "init": 9,
+            "status": [],
+            "skip_turns": 0
+        },
+        {
+            "name": "Chaosbestie (Mini-Boss)",
+            "char_type": "Gegner",
+            "max_lp": 40,
+            "lp": 40,
+            "max_rp": 3,
+            "rp": 3,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 2,
+            "init": 4,
+            "status": [],
+            "skip_turns": 0
+        },
+        {
+            "name": "Chaosbestie (Mini-Boss)",
+            "char_type": "Gegner",
+            "max_lp": 0,
+            "lp": -2,
+            "max_rp": 3,
+            "rp": 3,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 2,
+            "init": 3,
+            "status": [],
+            "skip_turns": 0
+        },
+        {
+            "name": "Ardomis – Der Erleuchtete (Boss)",
+            "char_type": "NPC",
+            "max_lp": 35,
+            "lp": 5,
+            "max_rp": 10,
+            "rp": 0,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 2,
+            "init": 1,
+            "status": [],
+            "skip_turns": 0
+        },
+        {
+            "name": "Sir Varik Kettentreu, der Rückholer (Mini-Boss)",
+            "char_type": "Gegner",
+            "max_lp": 32,
+            "lp": 32,
+            "max_rp": 4,
+            "rp": 4,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 3,
+            "init": 1,
+            "status": [],
+            "skip_turns": 0
+        }
+    ],
+    "turn_index": 0,
+    "round_number": 5
+}

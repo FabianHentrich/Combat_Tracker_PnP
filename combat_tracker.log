@@ -1,0 +1,429 @@
+2025-12-30 15:37:09,850 - INFO - logger - Logging initialisiert.
+2025-12-30 15:37:09,925 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 15:37:15,914 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 15:37:20,505 - INFO - engine - Game Log: Ork wurde hinzugefügt.
+2025-12-30 15:37:26,952 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 15:37:29,329 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:29,329 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:33,105 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:33,114 - INFO - history - Redo ausgeführt.
+2025-12-30 15:37:36,361 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:36,362 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:37,326 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:37,327 - INFO - history - Redo ausgeführt.
+2025-12-30 15:37:37,857 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:37,858 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:38,395 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:38,396 - INFO - history - Redo ausgeführt.
+2025-12-30 15:37:38,830 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:38,831 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:47,063 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:47,064 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:47,795 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:47,795 - INFO - history - Redo ausgeführt.
+2025-12-30 15:37:48,217 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:48,218 - INFO - history - Redo ausgeführt.
+2025-12-30 15:37:48,379 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:48,546 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:48,709 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:48,860 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:49,575 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:50,563 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:54,872 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:55,565 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:55,728 - INFO - history - Redo nicht möglich: Stack leer.
+2025-12-30 15:37:58,032 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:58,033 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:58,537 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 15:37:58,538 - INFO - history - Undo ausgeführt.
+2025-12-30 15:37:59,283 - INFO - history - Undo nicht möglich: Stack leer.
+2025-12-30 15:37:59,882 - INFO - history - Undo nicht möglich: Stack leer.
+2025-12-30 15:38:00,070 - INFO - history - Undo nicht möglich: Stack leer.
+2025-12-30 15:46:39,917 - INFO - logger - Logging initialisiert.
+2025-12-30 15:46:39,986 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 15:52:28,441 - INFO - logger - Logging initialisiert.
+2025-12-30 15:52:28,512 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 15:52:53,247 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 15:52:53,247 - INFO - engine - Game Log: Ork Krieger wurde hinzugefügt.
+2025-12-30 15:53:06,984 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 15:53:08,520 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 15:53:08,520 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 15:53:19,205 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 15:53:19,205 - INFO - engine - Game Log: Ork Krieger wurde entfernt.
+2025-12-30 15:53:26,236 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 15:53:26,236 - INFO - engine - Game Log: Drache (Jung) wurde einsortiert.
+2025-12-30 15:54:02,506 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 15:54:05,152 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 15:54:05,152 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 15:54:05,152 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 15:54:05,153 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 15:54:19,496 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 15:54:19,496 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 15:54:19,992 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 15:54:19,992 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 15:54:21,372 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2025-12-30 15:54:21,372 - INFO - engine - Game Log: --- Runde 4 beginnt ---
+2025-12-30 15:54:24,193 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2025-12-30 15:54:24,193 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 15:54:24,193 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 15:54:24,193 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 15:54:25,179 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2025-12-30 15:54:25,180 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 15:54:27,903 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2025-12-30 15:54:27,903 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 15:58:15,862 - INFO - logger - Logging initialisiert.
+2025-12-30 15:58:16,238 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 15:58:21,934 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 15:58:21,934 - INFO - engine - Game Log: Ork Krieger wurde hinzugefügt.
+2025-12-30 15:59:06,467 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 15:59:06,467 - INFO - engine - Game Log: Skelett wurde hinzugefügt.
+2025-12-30 15:59:40,859 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 15:59:46,126 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 16:01:40,172 - INFO - logger - Logging initialisiert.
+2025-12-30 16:01:40,244 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:01:44,279 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 16:01:44,280 - INFO - engine - Game Log: Skelett wurde hinzugefügt.
+2025-12-30 16:01:51,257 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 16:01:51,257 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 16:01:51,258 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 16:01:51,258 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 16:03:47,164 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 16:03:47,164 - INFO - engine - Game Log: Bandit wurde einsortiert.
+2025-12-30 16:03:58,073 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 16:03:58,073 - INFO - engine - Game Log: nost wurde einsortiert.
+2025-12-30 16:04:47,076 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 16:04:54,652 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 16:04:59,868 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 16:05:00,615 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 16:05:00,616 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 16:05:02,096 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 16:05:02,895 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2025-12-30 16:05:03,904 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2025-12-30 16:05:03,904 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 16:05:08,489 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2025-12-30 16:05:08,889 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2025-12-30 16:05:09,947 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 14
+2025-12-30 16:05:09,948 - INFO - engine - Game Log: --- Runde 4 beginnt ---
+2025-12-30 16:05:10,440 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 15
+2025-12-30 16:05:10,828 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 16
+2025-12-30 16:05:11,129 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 17
+2025-12-30 16:05:11,129 - INFO - engine - Game Log: --- Runde 5 beginnt ---
+2025-12-30 16:05:11,313 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 18
+2025-12-30 16:05:11,472 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 19
+2025-12-30 16:05:11,645 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:11,645 - INFO - engine - Game Log: --- Runde 6 beginnt ---
+2025-12-30 16:05:11,785 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:11,954 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,107 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,107 - INFO - engine - Game Log: --- Runde 7 beginnt ---
+2025-12-30 16:05:12,245 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,425 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,597 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,597 - INFO - engine - Game Log: --- Runde 8 beginnt ---
+2025-12-30 16:05:12,767 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:12,919 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:13,092 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:13,092 - INFO - engine - Game Log: --- Runde 9 beginnt ---
+2025-12-30 16:05:13,295 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:13,512 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:13,771 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:13,772 - INFO - engine - Game Log: --- Runde 10 beginnt ---
+2025-12-30 16:05:14,479 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 16:05:55,530 - INFO - logger - Logging initialisiert.
+2025-12-30 16:05:55,600 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:19:43,894 - INFO - logger - Logging initialisiert.
+2025-12-30 16:19:43,988 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:46:43,773 - INFO - logger - Logging initialisiert.
+2025-12-30 16:46:43,841 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:47:34,363 - INFO - logger - Logging initialisiert.
+2025-12-30 16:47:34,431 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:53:18,522 - INFO - logger - Logging initialisiert.
+2025-12-30 16:53:18,591 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:53:27,735 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 16:56:56,861 - INFO - logger - Logging initialisiert.
+2025-12-30 16:56:56,931 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:58:32,487 - INFO - logger - Logging initialisiert.
+2025-12-30 16:58:32,560 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 16:59:22,175 - INFO - logger - Logging initialisiert.
+2025-12-30 16:59:22,241 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:00:04,740 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:00:04,740 - INFO - engine - Game Log: Rhadomir Theskor (Boss) wurde hinzugefügt.
+2025-12-30 17:00:04,741 - INFO - engine - Game Log: Rosenwitwe Serapha (Boss) wurde hinzugefügt.
+2025-12-30 17:00:04,741 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) wurde hinzugefügt.
+2025-12-30 17:00:04,742 - INFO - engine - Game Log: Rhadomir Theskor (Boss) wurde hinzugefügt.
+2025-12-30 17:00:04,742 - INFO - engine - Game Log: Rhadomir Theskor (Boss) wurde hinzugefügt.
+2025-12-30 17:00:14,004 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:00:14,004 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 17:00:14,004 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 17:00:14,004 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 17:02:27,708 - INFO - logger - Logging initialisiert.
+2025-12-30 17:02:27,782 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:04:18,318 - INFO - logger - Logging initialisiert.
+2025-12-30 17:04:18,388 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:05:33,587 - INFO - logger - Logging initialisiert.
+2025-12-30 17:05:33,657 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:06:39,931 - INFO - logger - Logging initialisiert.
+2025-12-30 17:06:40,004 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:08:10,786 - INFO - logger - Logging initialisiert.
+2025-12-30 17:08:10,862 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:08:18,095 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:11:48,193 - INFO - logger - Logging initialisiert.
+2025-12-30 17:11:48,282 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:12:29,070 - INFO - logger - Logging initialisiert.
+2025-12-30 17:12:29,140 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:12:31,831 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:12:58,225 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:12:58,226 - INFO - engine - Game Log: Chaoskreatur wurde hinzugefügt.
+2025-12-30 17:15:34,517 - INFO - logger - Logging initialisiert.
+2025-12-30 17:15:34,584 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:16:06,563 - INFO - logger - Logging initialisiert.
+2025-12-30 17:16:06,645 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:16:12,373 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:16:20,981 - INFO - engine - Game Log: Ork wurde hinzugefügt.
+2025-12-30 17:16:29,495 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:16:29,496 - INFO - engine - Game Log: Rhadomir Theskor (Boss) wurde hinzugefügt.
+2025-12-30 17:16:42,583 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 17:16:45,254 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 17:16:45,254 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 17:16:45,255 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 17:16:45,255 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 17:16:46,102 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 17:16:46,687 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 17:16:46,688 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 17:16:46,688 - INFO - engine - Game Log: ℹ️ Rhadomir Theskor (Boss) verliert Bonusaktion (Unterkühlung Rang 1).
+
+2025-12-30 17:16:58,012 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 17:16:59,241 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 17:16:59,241 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 17:16:59,242 - INFO - engine - Game Log: ℹ️ Rhadomir Theskor (Boss) verliert Bonusaktion (Unterkühlung Rang 1).
+
+2025-12-30 17:17:02,182 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 17:17:02,583 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2025-12-30 17:17:02,583 - INFO - engine - Game Log: --- Runde 4 beginnt ---
+2025-12-30 17:17:02,584 - INFO - engine - Game Log: ℹ️ Rhadomir Theskor (Boss) verliert Bonusaktion (Unterkühlung Rang 1).
+
+2025-12-30 17:17:15,421 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2025-12-30 17:17:16,231 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2025-12-30 17:17:16,232 - INFO - engine - Game Log: --- Runde 5 beginnt ---
+2025-12-30 17:17:16,694 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2025-12-30 17:17:16,867 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 14
+2025-12-30 17:17:16,867 - INFO - engine - Game Log: --- Runde 6 beginnt ---
+2025-12-30 17:17:17,026 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 15
+2025-12-30 17:17:17,169 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 16
+2025-12-30 17:17:17,169 - INFO - engine - Game Log: --- Runde 7 beginnt ---
+2025-12-30 17:17:17,279 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 17
+2025-12-30 17:17:43,541 - INFO - logger - Logging initialisiert.
+2025-12-30 17:17:43,610 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:18:26,159 - INFO - logger - Logging initialisiert.
+2025-12-30 17:18:26,232 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:19:09,760 - INFO - logger - Logging initialisiert.
+2025-12-30 17:19:09,838 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:19:43,645 - INFO - logger - Logging initialisiert.
+2025-12-30 17:19:43,731 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:20:28,108 - INFO - logger - Logging initialisiert.
+2025-12-30 17:20:28,182 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:21:14,541 - INFO - logger - Logging initialisiert.
+2025-12-30 17:21:14,634 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:21:42,571 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:23:11,626 - INFO - logger - Logging initialisiert.
+2025-12-30 17:23:11,699 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:23:41,272 - INFO - logger - Logging initialisiert.
+2025-12-30 17:23:41,369 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:25:39,133 - INFO - logger - Logging initialisiert.
+2025-12-30 17:25:39,250 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:26:25,365 - INFO - logger - Logging initialisiert.
+2025-12-30 17:26:25,452 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:27:03,271 - INFO - logger - Logging initialisiert.
+2025-12-30 17:27:03,353 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:27:56,845 - INFO - logger - Logging initialisiert.
+2025-12-30 17:27:56,941 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:29:17,796 - INFO - logger - Logging initialisiert.
+2025-12-30 17:29:17,869 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:29:36,265 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:29:36,265 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2025-12-30 17:29:36,266 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) wurde hinzugefügt.
+2025-12-30 17:29:42,391 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:31:11,048 - INFO - logger - Logging initialisiert.
+2025-12-30 17:31:11,122 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:32:54,798 - INFO - logger - Logging initialisiert.
+2025-12-30 17:32:54,868 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:33:01,697 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:33:01,697 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2025-12-30 17:33:04,057 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:33:05,358 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 17:33:05,358 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 17:33:05,933 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 17:33:05,934 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 17:33:06,368 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 17:33:06,368 - INFO - engine - Game Log: --- Runde 4 beginnt ---
+2025-12-30 17:33:06,724 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 17:33:06,725 - INFO - engine - Game Log: --- Runde 5 beginnt ---
+2025-12-30 17:33:07,050 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 17:33:07,050 - INFO - engine - Game Log: --- Runde 6 beginnt ---
+2025-12-30 17:33:07,375 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 17:33:07,375 - INFO - engine - Game Log: --- Runde 7 beginnt ---
+2025-12-30 17:33:07,733 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 17:33:07,733 - INFO - engine - Game Log: --- Runde 8 beginnt ---
+2025-12-30 17:37:28,493 - INFO - logger - Logging initialisiert.
+2025-12-30 17:37:28,569 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:37:51,591 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 17:37:51,592 - INFO - engine - Game Log: Wilder Wolf wurde hinzugefügt.
+2025-12-30 17:38:02,688 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 17:38:02,688 - INFO - engine - Game Log: Verfallener Golem 1 wurde hinzugefügt.
+2025-12-30 17:38:02,688 - INFO - engine - Game Log: Verfallener Golem 2 wurde hinzugefügt.
+2025-12-30 17:38:02,689 - INFO - engine - Game Log: Verfallener Golem 3 wurde hinzugefügt.
+2025-12-30 17:38:02,689 - INFO - engine - Game Log: Verfallener Golem 4 wurde hinzugefügt.
+2025-12-30 17:38:02,689 - INFO - engine - Game Log: Verfallener Golem 5 wurde hinzugefügt.
+2025-12-30 17:38:14,806 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 17:38:50,985 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 17:38:54,783 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 17:38:54,784 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 17:38:54,784 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 17:38:54,784 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 17:38:59,020 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 17:39:00,181 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 17:39:01,080 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 17:39:03,370 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 17:39:03,370 - INFO - engine - Game Log: Verfallener Golem 1 erleidet 3 (Normal) Schaden!
+→ 3 Schaden auf Lebenspunkte!
+ (Blutung Rang 6, Runde 1)
+
+2025-12-30 17:39:18,397 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2025-12-30 17:39:49,485 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2025-12-30 17:39:55,322 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2025-12-30 17:39:55,322 - INFO - engine - Game Log: Verfallener Golem 1 wurde entfernt.
+2025-12-30 17:40:08,015 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2025-12-30 17:40:15,155 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 14
+2025-12-30 17:40:15,155 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde einsortiert.
+2025-12-30 17:43:04,105 - INFO - logger - Logging initialisiert.
+2025-12-30 17:43:04,175 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:43:36,663 - INFO - logger - Logging initialisiert.
+2025-12-30 17:43:36,745 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:44:15,589 - INFO - logger - Logging initialisiert.
+2025-12-30 17:44:15,679 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:44:47,113 - INFO - logger - Logging initialisiert.
+2025-12-30 17:44:47,185 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:45:06,040 - INFO - logger - Logging initialisiert.
+2025-12-30 17:45:06,112 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:46:06,787 - INFO - logger - Logging initialisiert.
+2025-12-30 17:46:06,875 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:48:11,022 - INFO - logger - Logging initialisiert.
+2025-12-30 17:48:11,114 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:57:19,537 - INFO - logger - Logging initialisiert.
+2025-12-30 17:57:19,611 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:58:11,754 - INFO - logger - Logging initialisiert.
+2025-12-30 17:58:11,827 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:58:39,033 - INFO - logger - Logging initialisiert.
+2025-12-30 17:58:39,102 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 17:59:31,704 - INFO - logger - Logging initialisiert.
+2025-12-30 17:59:31,774 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:00:23,029 - INFO - logger - Logging initialisiert.
+2025-12-30 18:00:23,113 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:00:46,986 - INFO - logger - Logging initialisiert.
+2025-12-30 18:00:47,059 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:01:04,998 - INFO - logger - Logging initialisiert.
+2025-12-30 18:01:05,074 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:01:29,186 - INFO - logger - Logging initialisiert.
+2025-12-30 18:01:29,260 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:01:58,917 - INFO - logger - Logging initialisiert.
+2025-12-30 18:01:58,988 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:02:19,881 - INFO - logger - Logging initialisiert.
+2025-12-30 18:02:19,954 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:02:34,015 - INFO - logger - Logging initialisiert.
+2025-12-30 18:02:34,090 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:03:03,047 - INFO - logger - Logging initialisiert.
+2025-12-30 18:03:03,144 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:03:30,755 - INFO - logger - Logging initialisiert.
+2025-12-30 18:03:30,833 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:04:02,720 - INFO - logger - Logging initialisiert.
+2025-12-30 18:04:02,797 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:04:39,101 - INFO - logger - Logging initialisiert.
+2025-12-30 18:04:39,176 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:04:57,828 - INFO - logger - Logging initialisiert.
+2025-12-30 18:04:57,899 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:05:14,982 - INFO - logger - Logging initialisiert.
+2025-12-30 18:05:15,051 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:05:17,389 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:06:22,876 - INFO - logger - Logging initialisiert.
+2025-12-30 18:06:22,948 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:06:24,387 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:07:02,243 - INFO - logger - Logging initialisiert.
+2025-12-30 18:07:02,316 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:07:04,611 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:08:12,506 - INFO - logger - Logging initialisiert.
+2025-12-30 18:08:12,588 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:08:27,484 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:08:27,485 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2025-12-30 18:08:49,440 - INFO - logger - Logging initialisiert.
+2025-12-30 18:08:49,525 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:09:05,012 - INFO - logger - Logging initialisiert.
+2025-12-30 18:09:05,087 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:09:22,342 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:09:22,343 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2025-12-30 18:12:01,128 - INFO - logger - Logging initialisiert.
+2025-12-30 18:12:01,224 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:13:35,966 - INFO - logger - Logging initialisiert.
+2025-12-30 18:13:36,041 - INFO - engine - CombatEngine initialisiert.
+2025-12-30 18:13:48,140 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2025-12-30 18:13:48,141 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2025-12-30 18:13:53,429 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2025-12-30 18:14:37,772 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2025-12-30 18:14:37,772 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde entfernt.
+2025-12-30 18:14:42,276 - INFO - engine - Game Log: Kampfstatus geladen.
+2025-12-30 18:14:52,717 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2025-12-30 18:14:52,717 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 18:14:52,717 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 18:14:52,718 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 18:15:00,223 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2025-12-30 18:15:00,223 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) wurde einsortiert.
+2025-12-30 18:15:00,223 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) wurde einsortiert.
+2025-12-30 18:15:00,224 - INFO - engine - Game Log: Sir Varik Kettentreu, der Rückholer (Mini-Boss) wurde einsortiert.
+2025-12-30 18:15:00,224 - INFO - engine - Game Log: Königin Maela, die Klagende (Mini-Boss) wurde einsortiert.
+2025-12-30 18:15:01,849 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2025-12-30 18:15:01,849 - INFO - engine - Game Log: Initiative sortiert.
+2025-12-30 18:15:01,850 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2025-12-30 18:15:01,851 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2025-12-30 18:15:02,875 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2025-12-30 18:15:03,621 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2025-12-30 18:15:03,923 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2025-12-30 18:15:04,110 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2025-12-30 18:15:51,957 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2025-12-30 18:15:55,361 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2025-12-30 18:15:55,361 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2025-12-30 18:15:55,709 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2025-12-30 18:15:56,509 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 14
+2025-12-30 18:15:56,509 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 12 (Direkt) Schaden!
+→ Direkt ignoriert Rüstung.
+→ Direkt ignoriert Schild.
+→ 12 Schaden auf Lebenspunkte!
+ (Erosion Rang 6 - 12 Max LP dauerhaft verloren)
+
+2025-12-30 18:15:56,511 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 15
+2025-12-30 18:15:56,803 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 16
+2025-12-30 18:15:56,805 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 17
+2025-12-30 18:15:56,806 - INFO - engine - Game Log: --- Runde 3 beginnt ---
+2025-12-30 18:15:57,254 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 18
+2025-12-30 18:15:57,256 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 19
+2025-12-30 18:15:57,257 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 6 (Direkt) Schaden!
+→ Direkt ignoriert Rüstung.
+→ Direkt ignoriert Schild.
+→ 6 Schaden auf Lebenspunkte!
+ (Erosion Rang 6 - 6 Max LP dauerhaft verloren)
+
+2025-12-30 18:15:57,472 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:57,474 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:57,690 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:57,690 - INFO - engine - Game Log: --- Runde 4 beginnt ---
+2025-12-30 18:15:57,692 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:57,907 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:57,907 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 24 (Direkt) Schaden!
+→ Direkt ignoriert Rüstung.
+→ Direkt ignoriert Schild.
+→ 24 Schaden auf Lebenspunkte!
+⚔️ Chaosbestie (Mini-Boss) ist kampfunfähig!
+ (Erosion Rang 6 - 24 Max LP dauerhaft verloren)
+
+2025-12-30 18:15:57,932 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:58,172 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:58,175 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
+2025-12-30 18:15:58,175 - INFO - engine - Game Log: --- Runde 5 beginnt ---

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS
+from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, HOTKEYS
 from .utils import ToolTip
 
 class UILayout:
@@ -10,6 +10,9 @@ class UILayout:
         self.colors = COLORS
 
     def setup_ui(self):
+        # Menübar erstellen
+        self.create_menu()
+
         # Hauptcontainer
         main_frame = ttk.Frame(self.root, padding="15")
         main_frame.pack(fill=tk.BOTH, expand=True)
@@ -30,48 +33,73 @@ class UILayout:
         # --- UNTERER BEREICH: Kampfsteuerung & Log ---
         self.create_bottom_area(main_frame)
 
+    def create_menu(self):
+        menubar = tk.Menu(self.root)
+        self.root.config(menu=menubar)
+
+        file_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Datei", menu=file_menu)
+
+        file_menu.add_command(label="Kampf speichern...", command=self.tracker.persistence_handler.save_session)
+        file_menu.add_command(label="Kampf laden...", command=self.tracker.persistence_handler.load_session)
+        file_menu.add_separator()
+        file_menu.add_command(label="Bibliothek öffnen", command=self.tracker.library_handler.open_library_window)
+        file_menu.add_command(label="Gegner importieren (Excel)...", command=self.tracker.load_enemies)
+        file_menu.add_separator()
+        file_menu.add_command(label="Einstellungen...", command=self.tracker.open_hotkey_settings)
+        file_menu.add_separator()
+        file_menu.add_command(label="Beenden", command=self.root.quit)
+
+
     def create_input_frame(self, parent):
         input_frame = ttk.LabelFrame(parent, text="Neuen Charakter hinzufügen", padding="15", style="Card.TLabelframe")
         input_frame.pack(fill=tk.X, pady=(0, 15))
 
-        # Grid Layout für Eingabe
-        ttk.Label(input_frame, text="Name:", background=self.colors["panel"]).grid(row=0, column=0, padx=5, sticky="w")
+        # Zeile 0: Bibliothek (Button) und Excel Import
+        ttk.Button(input_frame, text="📚 Bibliothek öffnen...", command=self.tracker.library_handler.open_library_window).grid(row=0, column=0, columnspan=2, padx=5, sticky="ew")
+        ttk.Button(input_frame, text="Excel Import", command=lambda: self.tracker.load_enemies(None)).grid(row=0, column=2, columnspan=2, padx=5, sticky="ew")
+
+        # Zeile 1: Eingabefelder (Row Index um 1 erhöht)
+        ttk.Label(input_frame, text="Name:", background=self.colors["panel"]).grid(row=1, column=0, padx=5, sticky="w")
         self.tracker.entry_name = ttk.Entry(input_frame, width=20)
-        self.tracker.entry_name.grid(row=0, column=1, padx=5)
+        self.tracker.entry_name.grid(row=1, column=1, padx=5)
 
-        ttk.Label(input_frame, text="LP:", background=self.colors["panel"]).grid(row=0, column=2, padx=5, sticky="w")
+        ttk.Label(input_frame, text="LP:", background=self.colors["panel"]).grid(row=1, column=2, padx=5, sticky="w")
         self.tracker.entry_lp = ttk.Entry(input_frame, width=8)
-        self.tracker.entry_lp.grid(row=0, column=3, padx=5)
+        self.tracker.entry_lp.grid(row=1, column=3, padx=5)
 
-        ttk.Label(input_frame, text="RP:", background=self.colors["panel"]).grid(row=0, column=4, padx=5, sticky="w")
+        ttk.Label(input_frame, text="RP:", background=self.colors["panel"]).grid(row=1, column=4, padx=5, sticky="w")
         self.tracker.entry_rp = ttk.Entry(input_frame, width=8)
-        self.tracker.entry_rp.grid(row=0, column=5, padx=5)
+        self.tracker.entry_rp.grid(row=1, column=5, padx=5)
 
-        ttk.Label(input_frame, text="SP:", background=self.colors["panel"]).grid(row=0, column=6, padx=5, sticky="w")
+        ttk.Label(input_frame, text="SP:", background=self.colors["panel"]).grid(row=1, column=6, padx=5, sticky="w")
         self.tracker.entry_sp = ttk.Entry(input_frame, width=8)
-        self.tracker.entry_sp.grid(row=0, column=7, padx=5)
+        self.tracker.entry_sp.grid(row=1, column=7, padx=5)
 
-        ttk.Label(input_frame, text="INIT:", background=self.colors["panel"]).grid(row=0, column=8, padx=5, sticky="w")
+        ttk.Label(input_frame, text="GEW:", background=self.colors["panel"]).grid(row=1, column=10, padx=5, sticky="w")
+        self.tracker.entry_gew = ttk.Entry(input_frame, width=8)
+        self.tracker.entry_gew.grid(row=1, column=11, padx=5)
+
+        ttk.Label(input_frame, text="INIT:", background=self.colors["panel"]).grid(row=1, column=8, padx=5, sticky="w")
         self.tracker.entry_init = ttk.Entry(input_frame, width=8)
-        self.tracker.entry_init.grid(row=0, column=9, padx=5)
+        self.tracker.entry_init.grid(row=1, column=9, padx=5)
 
-        ttk.Label(input_frame, text="Typ:", background=self.colors["panel"]).grid(row=0, column=10, padx=5, sticky="w")
+        ttk.Label(input_frame, text="Typ:", background=self.colors["panel"]).grid(row=1, column=12, padx=5, sticky="w")
         self.tracker.entry_type = ttk.Combobox(input_frame, values=["Spieler", "Gegner", "NPC"], width=10, state="readonly")
         self.tracker.entry_type.set("Gegner")
-        self.tracker.entry_type.grid(row=0, column=11, padx=5)
+        self.tracker.entry_type.grid(row=1, column=13, padx=5)
 
         # Checkbox für "Sofort agieren"
         self.tracker.var_surprise = tk.BooleanVar()
-        ttk.Checkbutton(input_frame, text="Sofort dran", variable=self.tracker.var_surprise).grid(row=0, column=12, padx=5)
+        ttk.Checkbutton(input_frame, text="Sofort dran", variable=self.tracker.var_surprise).grid(row=1, column=14, padx=5)
 
-        ttk.Button(input_frame, text="Hinzufügen", command=self.tracker.add_character_quick).grid(row=0, column=13, padx=10)
-        ttk.Button(input_frame, text="Excel Import", command=lambda: self.tracker.load_enemies(None)).grid(row=0, column=14, padx=10)
+        ttk.Button(input_frame, text="Hinzufügen", command=self.tracker.add_character_quick).grid(row=1, column=15, padx=10)
 
     def create_treeview(self, parent):
         tree_frame = ttk.Frame(parent)
         tree_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        columns = ("Order", "Name", "Typ", "LP", "RP", "SP", "INIT", "Status")
+        columns = ("Order", "Name", "Typ", "LP", "RP", "SP", "GEW", "INIT", "Status")
         self.tracker.tree = ttk.Treeview(tree_frame, columns=columns, show="headings", selectmode="browse")
 
         # Spalten konfigurieren
@@ -81,12 +109,14 @@ class UILayout:
         self.tracker.tree.column("Name", width=150)
         self.tracker.tree.heading("Typ", text="Typ")
         self.tracker.tree.column("Typ", width=80, anchor="center")
-        self.tracker.tree.heading("LP", text="LP")
-        self.tracker.tree.column("LP", width=60, anchor="center")
+        self.tracker.tree.heading("LP", text="LP (Balken)")
+        self.tracker.tree.column("LP", width=200, anchor="w")
         self.tracker.tree.heading("RP", text="RP")
         self.tracker.tree.column("RP", width=60, anchor="center")
         self.tracker.tree.heading("SP", text="SP")
         self.tracker.tree.column("SP", width=60, anchor="center")
+        self.tracker.tree.heading("GEW", text="GEW")
+        self.tracker.tree.column("GEW", width=60, anchor="center")
         self.tracker.tree.heading("INIT", text="INIT")
         self.tracker.tree.column("INIT", width=60, anchor="center")
         self.tracker.tree.heading("Status", text="Status")
@@ -172,16 +202,31 @@ class UILayout:
 
         ttk.Separator(action_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
-        # Management Buttons
-        ttk.Button(action_frame, text="Bearbeiten", command=self.tracker.edit_selected_char).pack(fill=tk.X, pady=2)
-        ttk.Button(action_frame, text="❌ Löschen", command=self.tracker.delete_character).pack(fill=tk.X, pady=2)
+        # Management Section
+        ttk.Label(action_frame, text="Verwaltung:", background=self.colors["panel"]).pack(anchor="w")
 
-        ttk.Separator(action_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
+        self.tracker.management_target_var = tk.StringVar(value="Ausgewählter Charakter")
+        target_cb = ttk.Combobox(action_frame, textvariable=self.tracker.management_target_var,
+                                 values=["Ausgewählter Charakter", "Alle Gegner", "Alle Spieler", "Alle NPCs", "Alle Charaktere"],
+                                 state="readonly")
+        target_cb.pack(fill=tk.X, pady=(0, 5))
 
-        ttk.Label(action_frame, text="Gruppen löschen:", background=self.colors["panel"]).pack(anchor="w")
-        ttk.Button(action_frame, text="Alle Gegner", command=lambda: self.tracker.delete_group("Gegner")).pack(fill=tk.X, pady=2)
-        ttk.Button(action_frame, text="Alle NPCs", command=lambda: self.tracker.delete_group("NPC")).pack(fill=tk.X, pady=2)
-        ttk.Button(action_frame, text="Alle Spieler", command=lambda: self.tracker.delete_group("Spieler")).pack(fill=tk.X, pady=2)
+        btn_frame = ttk.Frame(action_frame, style="Card.TFrame")
+        btn_frame.pack(fill=tk.X)
+
+        self.tracker.btn_edit = ttk.Button(btn_frame, text="Bearbeiten", command=self.tracker.manage_edit)
+        self.tracker.btn_edit.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 2))
+
+        ttk.Button(btn_frame, text="Löschen", command=self.tracker.manage_delete).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(2, 0))
+
+        # Event binding to enable/disable edit button
+        def update_edit_state(event):
+            if self.tracker.management_target_var.get() == "Ausgewählter Charakter":
+                self.tracker.btn_edit.state(["!disabled"])
+            else:
+                self.tracker.btn_edit.state(["disabled"])
+
+        target_cb.bind("<<ComboboxSelected>>", update_edit_state)
 
     def create_bottom_area(self, parent):
         bottom_frame = ttk.Frame(parent)
@@ -191,7 +236,7 @@ class UILayout:
         control_frame.pack(side=tk.TOP, fill=tk.X, pady=5)
 
         ttk.Button(control_frame, text="🎲 Initiative würfeln & sortieren", command=self.tracker.roll_initiative_all).pack(side=tk.LEFT, padx=5)
-        ttk.Button(control_frame, text="⏭ Nächster Zug", command=self.tracker.next_turn).pack(side=tk.LEFT, padx=5)
+        ttk.Button(control_frame, text=f"⏭ Nächster Zug ({HOTKEYS.get('next_turn', '')})", command=self.tracker.next_turn).pack(side=tk.LEFT, padx=5)
 
         # Reset Initiative Menu
         reset_btn = ttk.Menubutton(control_frame, text="🔄 Init Reset")
@@ -203,8 +248,12 @@ class UILayout:
         reset_btn.config(menu=reset_menu)
         reset_btn.pack(side=tk.LEFT, padx=5)
 
+        # Undo / Redo Buttons
+        ttk.Button(control_frame, text=f"↩ Undo ({HOTKEYS.get('undo', '')})", command=self.tracker.undo_action).pack(side=tk.LEFT, padx=5)
+        ttk.Button(control_frame, text=f"↪ Redo ({HOTKEYS.get('redo', '')})", command=self.tracker.redo_action).pack(side=tk.LEFT, padx=5)
+
         # Rundenzähler
-        self.tracker.round_label = ttk.Label(control_frame, text=f"Runde: {self.tracker.round_number}", font=('Segoe UI', 12, 'bold'), background=self.colors["bg"])
+        self.tracker.round_label = ttk.Label(control_frame, text=f"Runde: {self.tracker.engine.round_number}", font=('Segoe UI', 12, 'bold'), background=self.colors["bg"])
         self.tracker.round_label.pack(side=tk.RIGHT, padx=20)
 
         # Log

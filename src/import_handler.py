@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
+import pandas as pd
 from .character import Character
 from .utils import wuerfle_initiative
 
@@ -11,11 +12,35 @@ class ImportHandler:
         self.import_entries = []
         self.detail_entries = []
 
+    def load_from_excel(self, file_path=None):
+        """Lädt Gegnerdaten aus einer Excel-Datei."""
+        if not file_path:
+            file_path = filedialog.askopenfilename(title="Gegnerdaten laden", filetypes=[("Excel Dateien", "*.xlsx")])
+            if not file_path: return
+
+        try:
+            df = pd.read_excel(file_path)
+
+            # Check for required columns
+            required_columns = {"Name", "Ruestung", "Schild", "HP"}
+            if not required_columns.issubset(df.columns):
+                missing = required_columns - set(df.columns)
+                raise ValueError(f"Excel file is missing columns: {missing}")
+
+            # Add Gewandtheit if missing
+            if "Gewandtheit" not in df.columns:
+                df["Gewandtheit"] = 1
+
+            self.show_import_preview(df)
+
+        except Exception as e:
+            messagebox.showerror("Fehler", f"Fehler beim Laden: {e}")
+
     def show_import_preview(self, df):
         """Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge)."""
         preview_window = tk.Toplevel(self.root)
         preview_window.title("Import Vorschau & Auswahl")
-        preview_window.geometry("900x600")
+        preview_window.geometry("1200x900")
         preview_window.configure(bg=self.colors["bg"])
 
         # Header
@@ -38,11 +63,11 @@ class ImportHandler:
         scrollbar.pack(side="right", fill="y", pady=10)
 
         # Spaltenüberschriften
-        headers = ["Name", "Typ", "LP", "RP", "SP", "Gewandtheit", "Anzahl"]
+        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Anzahl"]
         header_frame = ttk.Frame(scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
-        widths = [20, 10, 8, 8, 8, 12, 8]
+        widths = [15, 8, 5, 5, 5, 5, 10]
         for i, col in enumerate(headers):
             ttk.Label(header_frame, text=col, font=('Segoe UI', 10, 'bold'), width=widths[i], anchor="w", background=self.colors["panel"]).pack(side="left", padx=5)
 
@@ -56,37 +81,37 @@ class ImportHandler:
             row_frame.pack(fill="x", pady=2)
 
             # Name
-            e_name = ttk.Entry(row_frame, width=20)
+            e_name = ttk.Entry(row_frame, width=widths[0])
             e_name.insert(0, str(row["Name"]))
             e_name.pack(side="left", padx=5)
 
             # Typ
-            e_type = ttk.Combobox(row_frame, values=["Spieler", "Gegner", "NPC"], width=10, state="readonly")
+            e_type = ttk.Combobox(row_frame, values=["Spieler", "Gegner", "NPC"], width=widths[1], state="readonly")
             e_type.set("Gegner")
             e_type.pack(side="left", padx=5)
 
             # LP
-            e_lp = ttk.Entry(row_frame, width=8)
+            e_lp = ttk.Entry(row_frame, width=widths[2])
             e_lp.insert(0, str(row["HP"]))
             e_lp.pack(side="left", padx=5)
 
             # RP
-            e_rp = ttk.Entry(row_frame, width=8)
+            e_rp = ttk.Entry(row_frame, width=widths[3])
             e_rp.insert(0, str(row["Ruestung"]))
             e_rp.pack(side="left", padx=5)
 
             # SP
-            e_sp = ttk.Entry(row_frame, width=8)
+            e_sp = ttk.Entry(row_frame, width=widths[4])
             e_sp.insert(0, str(row["Schild"]))
             e_sp.pack(side="left", padx=5)
 
             # Gewandtheit (Init Basis)
-            e_gew = ttk.Entry(row_frame, width=12)
+            e_gew = ttk.Entry(row_frame, width=widths[5])
             e_gew.insert(0, str(row["Gewandtheit"]))
             e_gew.pack(side="left", padx=5)
 
             # Anzahl (Spinbox)
-            e_count = ttk.Entry(row_frame, width=8)
+            e_count = ttk.Entry(row_frame, width=widths[6])
             e_count.insert(0, "1") # Standardmäßig 1
             e_count.pack(side="left", padx=5)
 
@@ -178,7 +203,7 @@ class ImportHandler:
         scrollbar.pack(side="right", fill="y", pady=10)
 
         # Header Zeile
-        headers = ["Name", "Typ", "LP", "RP", "SP", "Gewandtheit"]
+        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW"]
         header_frame = ttk.Frame(scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
@@ -272,7 +297,7 @@ class ImportHandler:
                 # Init würfeln
                 init = wuerfle_initiative(gew)
 
-                new_char = Character(name, lp, rp, sp, init, char_type)
+                new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type)
                 self.tracker.insert_character(new_char)
                 count_imported += 1
 
@@ -282,4 +307,3 @@ class ImportHandler:
 
         except ValueError:
             messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte in den Feldern verwenden.")
-

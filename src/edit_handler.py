@@ -19,7 +19,7 @@ class EditHandler:
         """Öffnet ein Fenster zum Bearbeiten eines Charakters."""
         edit_window = tk.Toplevel(self.root)
         edit_window.title(f"Bearbeiten: {char.name}")
-        edit_window.geometry("400x350")
+        edit_window.geometry("450x600") # Fenster vergrößert für Status-Liste
         edit_window.configure(bg=self.colors["bg"])
 
         # Container
@@ -91,12 +91,71 @@ class EditHandler:
         e_max_sp.pack(side=tk.LEFT, padx=(5, 0))
         row += 1
 
+        # Gewandtheit
+        ttk.Label(frame, text="Gewandtheit:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        e_gew = ttk.Entry(frame, width=10)
+        e_gew.insert(0, str(char.gew))
+        e_gew.grid(row=row, column=1, sticky="w", pady=5)
+        row += 1
+
         # Initiative
         ttk.Label(frame, text="Initiative:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
         e_init = ttk.Entry(frame, width=10)
         e_init.insert(0, str(char.init))
         e_init.grid(row=row, column=1, sticky="w", pady=5)
         row += 1
+
+        # --- Status Section ---
+        ttk.Separator(frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew", pady=10)
+        row += 1
+
+        ttk.Label(frame, text="Status (Effekt | Dauer | Rang):", background=self.colors["panel"]).grid(row=row, column=0, columnspan=2, sticky="w", pady=5)
+        row += 1
+
+        status_container = ttk.Frame(frame, style="Card.TFrame")
+        status_container.grid(row=row, column=0, columnspan=2, sticky="ew")
+        row += 1
+
+        # Liste für die Status-Einträge (Widgets)
+        status_ui_entries = []
+
+        def add_status_row(st_data):
+            row_frame = ttk.Frame(status_container, style="Card.TFrame")
+            row_frame.pack(fill=tk.X, pady=2)
+
+            # Effekt Name
+            e_effect = ttk.Label(row_frame, text=st_data["effect"], width=18, anchor="w", background=self.colors["panel"])
+            e_effect.pack(side=tk.LEFT, padx=(0, 5))
+
+            # Dauer
+            e_rounds = ttk.Entry(row_frame, width=5)
+            e_rounds.insert(0, str(st_data["rounds"]))
+            e_rounds.pack(side=tk.LEFT, padx=(0, 5))
+
+            # Rang
+            e_rank = ttk.Entry(row_frame, width=5)
+            e_rank.insert(0, str(st_data["rank"]))
+            e_rank.pack(side=tk.LEFT, padx=(0, 5))
+
+            # Löschen Button
+            def delete_row():
+                row_frame.destroy()
+                if entry_dict in status_ui_entries:
+                    status_ui_entries.remove(entry_dict)
+
+            btn_del = ttk.Button(row_frame, text="X", width=3, command=delete_row)
+            btn_del.pack(side=tk.LEFT)
+
+            entry_dict = {
+                "effect": e_effect,
+                "rounds": e_rounds,
+                "rank": e_rank
+            }
+            status_ui_entries.append(entry_dict)
+
+        # Bestehende Statusse laden
+        for st in char.status:
+            add_status_row(st)
 
         # Buttons
         btn_frame = ttk.Frame(edit_window, style="Card.TFrame")
@@ -107,15 +166,21 @@ class EditHandler:
             "lp": e_lp, "max_lp": e_max_lp,
             "rp": e_rp, "max_rp": e_max_rp,
             "sp": e_sp, "max_sp": e_max_sp,
-            "init": e_init
+            "init": e_init,
+            "gew": e_gew
         }
 
-        ttk.Button(btn_frame, text="Speichern", command=lambda: self.save_character_edits(edit_window, char, entries)).pack(side=tk.RIGHT)
+        ttk.Button(btn_frame, text="Speichern", command=lambda: self.save_character_edits(edit_window, char, entries, status_ui_entries)).pack(side=tk.RIGHT)
         ttk.Button(btn_frame, text="Abbrechen", command=edit_window.destroy).pack(side=tk.RIGHT, padx=10)
 
-    def save_character_edits(self, window, char, entries):
+
+    def save_character_edits(self, window, char, entries, status_ui_entries):
         """Speichert die Änderungen aus dem Bearbeiten-Fenster."""
         try:
+            # Snapshot vor Änderungen
+            if hasattr(self.tracker, 'history_manager'):
+                self.tracker.history_manager.save_snapshot()
+
             new_name = entries["name"].get()
             if not new_name:
                 raise ValueError("Name darf nicht leer sein.")
@@ -133,6 +198,23 @@ class EditHandler:
             char.max_sp = int(entries["max_sp"].get())
 
             char.init = int(entries["init"].get())
+            char.gew = int(entries["gew"].get())
+
+            # Status speichern
+            new_status_list = []
+            for item in status_ui_entries:
+                effect = item["effect"].cget("text")
+                rounds = int(item["rounds"].get())
+                rank = int(item["rank"].get())
+
+                if effect: # Nur speichern wenn Name existiert
+                    new_status_list.append({
+                        "effect": effect,
+                        "rounds": rounds,
+                        "rank": rank
+                    })
+
+            char.status = new_status_list
 
             self.tracker.update_listbox()
             self.tracker.log_message(f"✏ Charakter '{char.name}' wurde bearbeitet.")
