@@ -1,8 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from typing import Dict, Any, TYPE_CHECKING
-from .utils import simple_input_dialog
+from typing import Dict, TYPE_CHECKING
 from .logger import setup_logging
+from .enums import CharacterType
+from .status_effects import EFFECT_CLASSES, GenericStatusEffect
+from .config import WINDOW_SIZE
 
 if TYPE_CHECKING:
     from .main_window import CombatTracker
@@ -11,6 +13,10 @@ if TYPE_CHECKING:
 logger = setup_logging()
 
 class EditHandler:
+    """
+    Verwaltet das Bearbeiten von Charakteren.
+    Öffnet ein Fenster mit Eingabefeldern für alle Attribute und Status-Effekte.
+    """
     def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
@@ -27,7 +33,7 @@ class EditHandler:
         """Öffnet ein Fenster zum Bearbeiten eines Charakters."""
         edit_window = tk.Toplevel(self.root)
         edit_window.title(f"Bearbeiten: {char.name}")
-        edit_window.geometry("450x600") # Fenster vergrößert für Status-Liste
+        edit_window.geometry(WINDOW_SIZE["edit"]) # Fenster vergrößert für Status-Liste
         edit_window.configure(bg=self.colors["bg"])
 
         # Container
@@ -38,21 +44,21 @@ class EditHandler:
         row = 0
 
         # Name
-        ttk.Label(frame, text="Name:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="Name:").grid(row=row, column=0, sticky="w", pady=5)
         e_name = ttk.Entry(frame, width=25)
         e_name.insert(0, char.name)
         e_name.grid(row=row, column=1, sticky="ew", pady=5)
         row += 1
 
         # Typ
-        ttk.Label(frame, text="Typ:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
-        e_type = ttk.Combobox(frame, values=["Spieler", "Gegner", "NPC"], state="readonly", width=23)
+        ttk.Label(frame, text="Typ:").grid(row=row, column=0, sticky="w", pady=5)
+        e_type = ttk.Combobox(frame, values=[t.value for t in CharacterType], state="readonly", width=23)
         e_type.set(char.char_type)
         e_type.grid(row=row, column=1, sticky="ew", pady=5)
         row += 1
 
         # LP (Aktuell / Max)
-        ttk.Label(frame, text="LP (Aktuell / Max):", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="LP (Aktuell / Max):").grid(row=row, column=0, sticky="w", pady=5)
         lp_frame = ttk.Frame(frame, style="Card.TFrame")
         lp_frame.grid(row=row, column=1, sticky="ew", pady=5)
 
@@ -60,7 +66,7 @@ class EditHandler:
         e_lp.insert(0, str(char.lp))
         e_lp.pack(side=tk.LEFT, padx=(0, 5))
 
-        ttk.Label(lp_frame, text="/", background=self.colors["panel"]).pack(side=tk.LEFT)
+        ttk.Label(lp_frame, text="/").pack(side=tk.LEFT)
 
         e_max_lp = ttk.Entry(lp_frame, width=8)
         e_max_lp.insert(0, str(char.max_lp))
@@ -68,7 +74,7 @@ class EditHandler:
         row += 1
 
         # RP (Aktuell / Max)
-        ttk.Label(frame, text="RP (Aktuell / Max):", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="RP (Aktuell / Max):").grid(row=row, column=0, sticky="w", pady=5)
         rp_frame = ttk.Frame(frame, style="Card.TFrame")
         rp_frame.grid(row=row, column=1, sticky="ew", pady=5)
 
@@ -76,7 +82,7 @@ class EditHandler:
         e_rp.insert(0, str(char.rp))
         e_rp.pack(side=tk.LEFT, padx=(0, 5))
 
-        ttk.Label(rp_frame, text="/", background=self.colors["panel"]).pack(side=tk.LEFT)
+        ttk.Label(rp_frame, text="/").pack(side=tk.LEFT)
 
         e_max_rp = ttk.Entry(rp_frame, width=8)
         e_max_rp.insert(0, str(char.max_rp))
@@ -84,7 +90,7 @@ class EditHandler:
         row += 1
 
         # SP (Aktuell / Max)
-        ttk.Label(frame, text="SP (Aktuell / Max):", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="SP (Aktuell / Max):").grid(row=row, column=0, sticky="w", pady=5)
         sp_frame = ttk.Frame(frame, style="Card.TFrame")
         sp_frame.grid(row=row, column=1, sticky="ew", pady=5)
 
@@ -92,7 +98,7 @@ class EditHandler:
         e_sp.insert(0, str(char.sp))
         e_sp.pack(side=tk.LEFT, padx=(0, 5))
 
-        ttk.Label(sp_frame, text="/", background=self.colors["panel"]).pack(side=tk.LEFT)
+        ttk.Label(sp_frame, text="/").pack(side=tk.LEFT)
 
         e_max_sp = ttk.Entry(sp_frame, width=8)
         e_max_sp.insert(0, str(char.max_sp))
@@ -100,14 +106,14 @@ class EditHandler:
         row += 1
 
         # Gewandtheit
-        ttk.Label(frame, text="Gewandtheit:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="Gewandtheit:").grid(row=row, column=0, sticky="w", pady=5)
         e_gew = ttk.Entry(frame, width=10)
         e_gew.insert(0, str(char.gew))
         e_gew.grid(row=row, column=1, sticky="w", pady=5)
         row += 1
 
         # Initiative
-        ttk.Label(frame, text="Initiative:", background=self.colors["panel"]).grid(row=row, column=0, sticky="w", pady=5)
+        ttk.Label(frame, text="Initiative:").grid(row=row, column=0, sticky="w", pady=5)
         e_init = ttk.Entry(frame, width=10)
         e_init.insert(0, str(char.init))
         e_init.grid(row=row, column=1, sticky="w", pady=5)
@@ -117,7 +123,7 @@ class EditHandler:
         ttk.Separator(frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew", pady=10)
         row += 1
 
-        ttk.Label(frame, text="Status (Effekt | Dauer | Rang):", background=self.colors["panel"]).grid(row=row, column=0, columnspan=2, sticky="w", pady=5)
+        ttk.Label(frame, text="Status (Effekt | Rang | Dauer):").grid(row=row, column=0, columnspan=2, sticky="w", pady=5)
         row += 1
 
         status_container = ttk.Frame(frame, style="Card.TFrame")
@@ -132,18 +138,24 @@ class EditHandler:
             row_frame.pack(fill=tk.X, pady=2)
 
             # Effekt Name
-            e_effect = ttk.Label(row_frame, text=st_data["effect"], width=18, anchor="w", background=self.colors["panel"])
-            e_effect.pack(side=tk.LEFT, padx=(0, 5))
+            # st_data ist jetzt ein StatusEffect Objekt
+            effect_name = st_data.name
+            # Falls es ein Enum ist, den Wert holen
+            if hasattr(effect_name, 'value'):
+                effect_name = effect_name.value
 
-            # Dauer
-            e_rounds = ttk.Entry(row_frame, width=5)
-            e_rounds.insert(0, str(st_data["rounds"]))
-            e_rounds.pack(side=tk.LEFT, padx=(0, 5))
+            e_effect = ttk.Label(row_frame, text=str(effect_name), width=18, anchor="w")
+            e_effect.pack(side=tk.LEFT, padx=(0, 5))
 
             # Rang
             e_rank = ttk.Entry(row_frame, width=5)
-            e_rank.insert(0, str(st_data["rank"]))
+            e_rank.insert(0, str(st_data.rank))
             e_rank.pack(side=tk.LEFT, padx=(0, 5))
+
+            # Dauer
+            e_rounds = ttk.Entry(row_frame, width=5)
+            e_rounds.insert(0, str(st_data.duration))
+            e_rounds.pack(side=tk.LEFT, padx=(0, 5))
 
             # Löschen Button
             def delete_row():
@@ -183,7 +195,10 @@ class EditHandler:
 
 
     def save_character_edits(self, window, char, entries, status_ui_entries):
-        """Speichert die Änderungen aus dem Bearbeiten-Fenster."""
+        """
+        Speichert die Änderungen aus dem Bearbeiten-Fenster.
+        Validiert die Eingaben und aktualisiert das Character-Objekt.
+        """
         try:
             # Snapshot vor Änderungen
             if hasattr(self.tracker, 'history_manager'):
@@ -211,16 +226,17 @@ class EditHandler:
             # Status speichern
             new_status_list = []
             for item in status_ui_entries:
-                effect = item["effect"].cget("text")
+                effect_name = item["effect"].cget("text")
                 rounds = int(item["rounds"].get())
                 rank = int(item["rank"].get())
 
-                if effect: # Nur speichern wenn Name existiert
-                    new_status_list.append({
-                        "effect": effect,
-                        "rounds": rounds,
-                        "rank": rank
-                    })
+                if effect_name: # Nur speichern wenn Name existiert
+                    effect_class = EFFECT_CLASSES.get(effect_name)
+                    if effect_class:
+                        effect = effect_class(rounds, rank)
+                    else:
+                        effect = GenericStatusEffect(effect_name, rounds, rank)
+                    new_status_list.append(effect)
 
             char.status = new_status_list
 

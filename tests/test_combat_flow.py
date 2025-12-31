@@ -8,6 +8,7 @@ import importlib
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.character import Character
+from src.enums import EventType
 
 @pytest.fixture(scope="function")
 def app():
@@ -47,14 +48,20 @@ def app():
         yield tracker
 
 def test_add_character(app):
-    """Test: Charakter wird korrekt zur Liste hinzugefügt."""
+    """
+    Testet das Hinzufügen eines Charakters zur Engine über die App-Methode.
+    Überprüft, ob der Charakter in der Liste erscheint.
+    """
     c = Character("Hero", 10, 10, 10, 10, char_type="Spieler")
     app.insert_character(c)
     assert c in app.engine.characters
     assert len(app.engine.characters) == 1
 
 def test_initiative_sorting(app):
-    """Test: Initiative wird korrekt sortiert und der erste Charakter ist aktiv."""
+    """
+    Testet die Sortierung der Initiative.
+    Charaktere mit höherer Initiative sollten zuerst kommen.
+    """
     c1 = Character("Slow", 10, 10, 10, 5, char_type="Gegner")
     c2 = Character("Fast", 10, 10, 10, 20, char_type="Spieler")
     app.engine.characters = [c1, c2]
@@ -70,7 +77,10 @@ def test_initiative_sorting(app):
     assert app.engine.turn_index == 0
 
 def test_next_turn_cycle(app):
-    """Test: Nächster Zug schaltet korrekt weiter und erhöht Rundenzähler."""
+    """
+    Testet den Rundenwechsel und Zugwechsel.
+    Überprüft, ob der Turn-Index und die Rundennummer korrekt aktualisiert werden.
+    """
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
@@ -89,7 +99,10 @@ def test_next_turn_cycle(app):
     assert app.engine.round_number == 2
 
 def test_surprise_character_insertion(app):
-    """Test: Ein Charakter springt überraschend in den Kampf (Vordrängeln)."""
+    """
+    Testet das Einfügen eines Charakters mit 'surprise=True'.
+    Der neue Charakter sollte sofort an der Reihe sein (aktiver Index).
+    """
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
@@ -115,7 +128,10 @@ def test_surprise_character_insertion(app):
     assert app.engine.turn_index == 0 # C ist aktiv
 
 def test_delete_active_character(app):
-    """Test: Löschen des aktiven Charakters verschiebt den Index korrekt."""
+    """
+    Testet das Löschen des aktuell aktiven Charakters.
+    Der Turn-Index sollte so angepasst werden, dass der nächste Charakter dran ist.
+    """
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     c3 = Character("C", 10, 10, 10, 5)
@@ -153,7 +169,10 @@ def test_delete_active_character(app):
     assert app.engine.turn_index == 1
 
 def test_delete_previous_character(app):
-    """Test: Löschen eines Charakters VOR dem aktiven Spieler."""
+    """
+    Testet das Löschen eines Charakters, der in der Liste VOR dem aktiven Charakter steht.
+    Der Turn-Index muss verringert werden, damit der aktive Charakter aktiv bleibt.
+    """
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
@@ -181,7 +200,10 @@ def test_delete_previous_character(app):
     assert app.engine.turn_index == 0
 
 def test_reset_initiative(app):
-    """Test: Initiative zurücksetzen."""
+    """
+    Testet das Zurücksetzen der Initiative.
+    Überprüft, ob Init-Werte auf 0 gesetzt werden und der Kampfstatus zurückgesetzt wird.
+    """
     c1 = Character("A", 10, 10, 10, 20, char_type="Spieler")
     c2 = Character("B", 10, 10, 10, 15, char_type="Gegner")
     app.engine.characters = [c1, c2]
@@ -200,3 +222,55 @@ def test_reset_initiative(app):
     app.reset_initiative("All")
     assert c1.init == 0
     assert c2.init == 0
+
+def test_event_subscription_and_notification(app):
+    """
+    Testet das Event-System der Engine.
+    Überprüft, ob Subscriber benachrichtigt werden, wenn ein Event gefeuert wird.
+    """
+    # Mock Subscriber
+    subscriber_mock = MagicMock()
+
+    # Subscribe
+    app.engine.subscribe(EventType.UPDATE, subscriber_mock)
+
+    # Notify
+    app.engine.notify(EventType.UPDATE)
+
+    # Check if called
+    subscriber_mock.assert_called_once()
+
+    # Notify with data
+    app.engine.notify(EventType.LOG, "Test Message")
+    # Note: The mock was subscribed to UPDATE, not LOG.
+    subscriber_mock.assert_called_once() # Should not increase
+
+    # Subscribe to LOG
+    app.engine.subscribe(EventType.LOG, subscriber_mock)
+    app.engine.notify(EventType.LOG, "Test Message")
+
+    assert subscriber_mock.call_count == 2
+
+def test_next_turn_empty_list(app):
+    """
+    Testet next_turn bei leerer Charakterliste.
+    Sollte keinen Fehler werfen und None zurückgeben.
+    """
+    app.engine.characters = []
+    char = app.engine.next_turn()
+    assert char is None
+
+def test_remove_invalid_index(app):
+    """
+    Testet das Entfernen eines Charakters mit ungültigem Index.
+    Sollte abgefangen werden (kein Crash).
+    """
+    c1 = Character("A", 10, 10, 10, 10)
+    app.engine.characters = [c1]
+
+    # Index 1 existiert nicht (nur 0)
+    app.engine.remove_character(1)
+
+    # Liste sollte unverändert sein
+    assert len(app.engine.characters) == 1
+    assert app.engine.characters[0] == c1

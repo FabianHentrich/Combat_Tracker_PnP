@@ -22,6 +22,10 @@ def engine():
     return CombatEngine()
 
 def test_character_serialization():
+    """
+    Testet die Serialisierung und Deserialisierung eines Charakters.
+    Überprüft, ob alle Attribute (inkl. Status) korrekt gespeichert und geladen werden.
+    """
     c = Character("Hero", 100, 10, 5, 20, gew=3, char_type="Spieler")
     c.add_status("Vergiftung", 3, 2)
 
@@ -34,10 +38,14 @@ def test_character_serialization():
     c2 = Character.from_dict(data)
     assert c2.name == c.name
     assert c2.lp == c.lp
-    assert c2.status[0]["effect"] == "Vergiftung"
-    assert c2.status[0]["rounds"] == 3
+    assert c2.status[0].name == "Vergiftung"
+    assert c2.status[0].duration == 3
 
 def test_engine_state_serialization(engine):
+    """
+    Testet die Serialisierung des gesamten Engine-Zustands.
+    Überprüft, ob Charakterliste, Turn-Index und Rundennummer korrekt gespeichert werden.
+    """
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     engine.characters = [c1, c2]
@@ -60,6 +68,10 @@ def test_engine_state_serialization(engine):
     assert engine2.round_number == 5
 
 def test_persistence_handler_save():
+    """
+    Testet das Speichern der Session über den PersistenceHandler.
+    Überprüft, ob der Dateidialog aufgerufen und in die Datei geschrieben wird.
+    """
     tracker = MagicMock()
     tracker.engine = CombatEngine()
     tracker.engine.add_character(Character("Test", 10, 10, 10, 10))
@@ -77,6 +89,10 @@ def test_persistence_handler_save():
             assert handle.write.called
 
 def test_persistence_handler_load():
+    """
+    Testet das Laden der Session über den PersistenceHandler.
+    Überprüft, ob der Dateidialog aufgerufen und die Daten in die Engine geladen werden.
+    """
     tracker = MagicMock()
     tracker.engine = CombatEngine()
 
@@ -100,4 +116,3 @@ def test_persistence_handler_load():
             assert tracker.engine.characters[0].name == "Loaded"
             assert tracker.engine.round_number == 2
             assert tracker.update_listbox.called
-

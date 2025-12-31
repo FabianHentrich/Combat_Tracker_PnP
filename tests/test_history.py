@@ -25,6 +25,10 @@ def history(engine):
     return HistoryManager(engine)
 
 def test_history_snapshot_and_undo(engine, history):
+    """
+    Testet das Erstellen eines Snapshots und das Rückgängigmachen (Undo).
+    Überprüft, ob der Zustand vor der Änderung wiederhergestellt wird.
+    """
     c = Character("Hero", 100, 10, 5, 20)
     engine.add_character(c)
 
@@ -44,6 +48,10 @@ def test_history_snapshot_and_undo(engine, history):
     assert engine.characters[0].lp == 100
 
 def test_history_redo(engine, history):
+    """
+    Testet das Wiederherstellen einer rückgängig gemachten Aktion (Redo).
+    Überprüft, ob der Zustand nach der Änderung wiederhergestellt wird.
+    """
     c = Character("Hero", 100, 10, 5, 20)
     engine.add_character(c)
 
@@ -59,6 +67,10 @@ def test_history_redo(engine, history):
     assert engine.characters[0].lp == 50
 
 def test_history_stack_limit(engine, history):
+    """
+    Testet das Limit des Undo-Stacks.
+    Überprüft, ob ältere Snapshots entfernt werden, wenn das Limit erreicht ist.
+    """
     history.max_history = 2
 
     c = Character("Hero", 100, 10, 5, 20)
@@ -92,6 +104,9 @@ def test_history_stack_limit(engine, history):
     assert engine.characters[0].lp == 90
 
 def test_redo_cleared_on_new_action(engine, history):
+    """
+    Testet, ob der Redo-Stack geleert wird, wenn eine neue Aktion ausgeführt wird.
+    """
     c = Character("Hero", 100, 10, 5, 20)
     engine.add_character(c)
 

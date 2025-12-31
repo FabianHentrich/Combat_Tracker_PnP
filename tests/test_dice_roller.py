@@ -27,6 +27,10 @@ def clean_imports():
     yield
 
 def test_dice_roller_integration(mock_root):
+    """
+    Testet die Integration des DiceRollers.
+    Überprüft, ob ein Würfelwurf korrekt verarbeitet und das Ergebnis in der UI angezeigt wird.
+    """
     import src.dice_roller
     print(f"DEBUG: tkinter in sys.modules: {'tkinter' in sys.modules}")
     if 'tkinter' in sys.modules:
@@ -55,6 +59,9 @@ def test_dice_roller_integration(mock_root):
         assert "W6: 6 + 4 = 10 (Explodiert!)" in args[0]
 
 def test_dice_roller_no_explosion(mock_root):
+     """
+     Testet einen Würfelwurf ohne Explosion.
+     """
      with patch('src.dice_roller.DiceRoller._create_ui'), \
          patch('tkinter.ttk.LabelFrame'), \
          patch('tkinter.StringVar'), \

@@ -1,11 +1,20 @@
 import random
 from typing import Tuple, List, Dict, Any, TYPE_CHECKING
 from .config import RULES
+from .enums import DamageType, StatusEffectType
 
 if TYPE_CHECKING:
     from .character import Character
 
-def calculate_damage(character: 'Character', dmg: int, damage_type: str = "Normal", rank: int = 1) -> str:
+def calculate_damage(character: 'Character', dmg: int, damage_type: str = DamageType.NORMAL, rank: int = 1) -> str:
+    """
+    Berechnet den Schaden für einen Charakter unter Berücksichtigung von Rüstung, Schild und Schadenstyp.
+    Gibt einen formatierten Log-String zurück.
+    """
+    # Ensure damage_type is a string (value of Enum)
+    if hasattr(damage_type, 'value'):
+        damage_type = damage_type.value
+
     log = f"{character.name} erleidet {dmg} ({damage_type}) Schaden!\n"
 
     # Logik basierend auf Schadenstyp aus Regeln laden
@@ -19,9 +28,9 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = "Norma
         ignore_armor = rule.get("ignores_armor", False)
 
         if ignore_armor:
-            log += f"→ {damage_type} ignoriert Rüstung.\n"
+            log += f"→ {damage_type} Schaden ignoriert Rüstung.\n"
         if ignore_shield:
-            log += f"→ {damage_type} ignoriert Schild.\n"
+            log += f"→ {damage_type} Schaden ignoriert Schild.\n"
 
         # Sekundäreffekte (Chance auf Status)
         sec_effect = rule.get("secondary_effect")
@@ -29,18 +38,21 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = "Norma
             log += f"❓ Chance auf {sec_effect} (Rang {rank})!\n"
     else:
         # Fallback für unbekannte Typen (oder alte Logik falls RULES leer)
-        if damage_type == "Durchschlagend":
+        if damage_type == DamageType.PIERCING:
             ignore_armor = True
-            log += "→ Durchschlagender Schaden ignoriert Rüstung.\n"
-        elif damage_type == "Direkt":
+            log += f"→ {damage_type} Schaden ignoriert Rüstung.\n"
+        elif damage_type == DamageType.DIRECT:
             ignore_shield = True
             ignore_armor = True
-            log += "→ Direktschaden ignoriert Schild und Rüstung.\n"
-        elif damage_type in ["Verwesung", "Gift", "Feuer", "Blitz", "Kälte"]:
+            log += f"→ {damage_type} Schaden ignoriert Schild und Rüstung.\n"
+        elif damage_type in [DamageType.DECAY, DamageType.POISON, DamageType.FIRE, DamageType.LIGHTNING, DamageType.COLD]:
              # Mapping für alte Logik falls nicht in JSON
              mapping = {
-                 "Verwesung": "Erosion", "Gift": "Vergiftung", "Feuer": "Verbrennung",
-                 "Blitz": "Betäubung", "Kälte": "Unterkühlung"
+                 DamageType.DECAY: StatusEffectType.EROSION,
+                 DamageType.POISON: StatusEffectType.POISON,
+                 DamageType.FIRE: StatusEffectType.BURN,
+                 DamageType.LIGHTNING: StatusEffectType.STUN,
+                 DamageType.COLD: StatusEffectType.FREEZE
              }
              effect = mapping.get(damage_type)
              if effect:
@@ -71,54 +83,4 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = "Norma
     if character.lp <= 0 or character.max_lp <= 0:
         log += f"⚔️ {character.name} ist kampfunfähig!\n"
 
-    return log
-
-def process_status_effects(character: 'Character') -> str:
-    log = ""
-    new_status = []
-    character.skip_turns = 0
-
-    for s in character.status:
-        effect = s["effect"]
-        rank = s["rank"]
-        s["active_rounds"] += 1
-
-        # Effekte anwenden
-        if effect == "Vergiftung":
-            dmg = rank
-            log += calculate_damage(character, dmg, "Direkt")
-            log += f" (Vergiftung Rang {rank}, Runde {s['active_rounds']})\n"
-        elif effect == "Verbrennung":
-            dmg = rank
-            log += calculate_damage(character, dmg, "Normal")
-            log += f" (Verbrennung Rang {rank}, Runde {s['active_rounds']})\n"
-        elif effect == "Blutung":
-            # Schaden = Rang/2 + (Runde - 1)
-            dmg = int((rank / 2) + (s["active_rounds"] - 1))
-            if dmg < 1: dmg = 1
-            log += calculate_damage(character, dmg, "Normal")
-            log += f" (Blutung Rang {rank}, Runde {s['active_rounds']})\n"
-        elif effect == "Erosion":
-            dmg = rank * random.randint(1, 4)
-            character.max_lp -= dmg
-            if character.max_lp < 0: character.max_lp = 0
-            log += calculate_damage(character, dmg, "Direkt") # Erosion ist "Dauerhafter Verlust", also Direkt auf LP
-            log += f" (Erosion Rang {rank} - {dmg} Max LP dauerhaft verloren)\n"
-
-        # Info Effekte & Status Flags
-        if effect == "Unterkühlung":
-            log += f"ℹ️ {character.name} verliert Bonusaktion (Unterkühlung Rang {rank}).\n"
-        elif effect == "Betäubung":
-                log += f"🛑 {character.name} ist betäubt und verliert alle Aktionen!\n"
-                character.skip_turns = 1
-        elif effect == "Erschöpfung":
-                log += f"ℹ️ {character.name} hat -2 Malus auf GEWANDTHEIT (Erschöpfung).\n"
-        elif effect == "Verwirrung":
-                log += f"ℹ️ {character.name} hat -1 Malus auf KAMPF-Probe (Verwirrung).\n"
-
-        s["rounds"] -= 1
-        if s["rounds"] > 0:
-            new_status.append(s)
-
-    character.status = new_status
     return log

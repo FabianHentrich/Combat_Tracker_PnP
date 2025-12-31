@@ -49,22 +49,22 @@
   "status_effects": {
     "Vergiftung": {
       "description": "Direktschaden (Rang) pro Runde.",
-      "max_rank": 6,
+      "max_rank": 5,
       "stackable": true
     },
     "Verbrennung": {
       "description": "Schaden (Rang) pro Runde.",
-      "max_rank": 6,
+      "max_rank": 5,
       "stackable": true
     },
     "Blutung": {
       "description": "Schaden (Rang/2) pro Runde. Schaden steigt jede Runde um +1.",
-      "max_rank": 6,
+      "max_rank": 5,
       "stackable": true
     },
     "Unterkühlung": {
       "description": "Verlust der Bonusaktion für (Rang) Runden.",
-      "max_rank": 6,
+      "max_rank": 5,
       "stackable": false
     },
     "Erschöpfung": {
@@ -79,12 +79,17 @@
     },
     "Erosion": {
       "description": "Dauerhafter Verlust von RANG * 1W4 Lebenspunkten (LP).",
-      "max_rank": 6,
+      "max_rank": 5,
       "stackable": true
     },
     "Verwirrung": {
       "description": "-1 Malus auf KAMPF-Probe.",
       "max_rank": 1,
+      "stackable": false
+    },
+    "Blendung": {
+      "description": "Malus auf Aktionen/Angriffe je nach Rang (1-5).",
+      "max_rank": 5,
       "stackable": false
     }
   }

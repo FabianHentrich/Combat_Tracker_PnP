@@ -4,6 +4,8 @@ from typing import Dict, Any, List, TYPE_CHECKING
 from .character import Character
 from .utils import wuerfle_initiative
 from .logger import setup_logging
+from .enums import CharacterType
+from .config import FONTS, WINDOW_SIZE, FILES
 
 if TYPE_CHECKING:
     from .main_window import CombatTracker
@@ -11,6 +13,10 @@ if TYPE_CHECKING:
 logger = setup_logging()
 
 class LibraryHandler:
+    """
+    Verwaltet die Gegner-Bibliothek (Presets).
+    Erlaubt das Durchsuchen, Auswählen und Hinzufügen von vordefinierten Gegnern.
+    """
     def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
@@ -21,7 +27,7 @@ class LibraryHandler:
         """Öffnet das Bibliotheks-Fenster."""
         lib_window = tk.Toplevel(self.root)
         lib_window.title("Gegner-Bibliothek")
-        lib_window.geometry("1200x900")
+        lib_window.geometry(WINDOW_SIZE["library"])
         lib_window.configure(bg=self.colors["bg"])
 
         # Layout: Links Baumstruktur (Auswahl), Rechts Liste (Bearbeitung/Anzahl)
@@ -32,7 +38,18 @@ class LibraryHandler:
         left_frame = ttk.Frame(paned, style="Card.TFrame")
         paned.add(left_frame, weight=1)
 
-        ttk.Label(left_frame, text="Verfügbare Gegner", font=('Segoe UI', 12, 'bold'), background=self.colors["panel"]).pack(pady=5)
+        ttk.Label(left_frame, text="Verfügbare Gegner", font=FONTS["large"]).pack(pady=5)
+
+        # --- Suchfeld ---
+        search_frame = ttk.Frame(left_frame, style="Card.TFrame")
+        search_frame.pack(fill=tk.X, padx=5, pady=(0, 5))
+
+        ttk.Label(search_frame, text="🔍").pack(side=tk.LEFT, padx=(5, 2))
+        self.search_var = tk.StringVar()
+        self.search_var.trace("w", self.on_search_change)
+        search_entry = ttk.Entry(search_frame, textvariable=self.search_var)
+        search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 5))
+        # ----------------
 
         # Treeview für Kategorien
         self.tree = ttk.Treeview(left_frame, selectmode="browse", show="tree headings")
@@ -49,7 +66,7 @@ class LibraryHandler:
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         if not self.tracker.enemy_presets_structure:
-            self.tree.insert("", "end", text="Keine Gegner gefunden (enemies.json prüfen)", tags=("error",))
+            self.tree.insert("", "end", text=f"Keine Gegner gefunden ({FILES['enemies']} prüfen)", tags=("error",))
             logger.warning("Keine Gegner-Presets gefunden.")
         else:
             try:
@@ -69,7 +86,7 @@ class LibraryHandler:
         right_frame = ttk.Frame(paned, style="Card.TFrame")
         paned.add(right_frame, weight=2)
 
-        ttk.Label(right_frame, text="Ausgewählte Gegner (Anzahl & Werte anpassen)", font=('Segoe UI', 12, 'bold'), background=self.colors["panel"]).pack(pady=5)
+        ttk.Label(right_frame, text="Ausgewählte Gegner (Anzahl & Werte anpassen)", font=FONTS["large"]).pack(pady=5)
 
         # Canvas für scrollbare Liste
         canvas = tk.Canvas(right_frame, bg=self.colors["panel"], highlightthickness=0)
@@ -101,7 +118,7 @@ class LibraryHandler:
 
     def populate_tree(self, data: Dict[str, Any], parent: str = "") -> None:
         """Füllt den Treeview rekursiv mit Kategorien und Gegnern."""
-        for key, value in data.items():
+        for key, value in sorted(data.items()):
             if "lp" in value: # Es ist ein Gegner (Blatt)
                 # Wir speichern die Stats direkt im Item als Values oder Tags, oder holen sie später aus self.tracker.enemy_presets
                 self.tree.insert(parent, "end", text=key, values=("enemy",), tags=("enemy",))
@@ -109,10 +126,56 @@ class LibraryHandler:
                 node = self.tree.insert(parent, "end", text=key, open=False, tags=("category",))
                 self.populate_tree(value, node)
 
+    def on_search_change(self, *args):
+        """Filtert den Baum basierend auf der Sucheingabe."""
+        query = self.search_var.get().lower()
+
+        # Baum leeren
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+
+        if not query:
+            self.populate_tree(self.tracker.enemy_presets_structure)
+            return
+
+        # Gefilterte Daten erstellen
+        filtered_data = self._filter_data_recursive(self.tracker.enemy_presets_structure, query)
+        self.populate_tree(filtered_data)
+
+        # Alle Knoten öffnen, um Ergebnisse zu zeigen
+        self._expand_all_nodes()
+
+    def _filter_data_recursive(self, data: Dict[str, Any], query: str) -> Dict[str, Any]:
+        """
+        Erstellt rekursiv ein Subset der Daten, das nur Einträge enthält,
+        die auf die Suchanfrage passen (oder deren Kinder passen).
+        """
+        result = {}
+        for key, value in data.items():
+            if "lp" in value: # Blatt (Gegner)
+                if query in key.lower():
+                    result[key] = value
+            else: # Kategorie
+                # Rekursiv in die Kategorie absteigen
+                filtered_children = self._filter_data_recursive(value, query)
+                if filtered_children:
+                    result[key] = filtered_children
+                # Optional: Wenn der Kategoriename selbst matcht, alles darunter anzeigen?
+                # Hier entscheiden wir uns dagegen, um die Suche präzise auf Gegnernamen zu halten.
+        return result
+
+    def _expand_all_nodes(self, parent=""):
+        """Öffnet alle Knoten im Treeview."""
+        for item in self.tree.get_children(parent):
+            self.tree.item(item, open=True)
+            self._expand_all_nodes(item)
+
     def on_tree_double_click(self, event):
+        """Handler für Doppelklick auf einen Eintrag im Baum."""
         self.add_selected_to_staging()
 
     def add_selected_to_staging(self):
+        """Fügt den ausgewählten Gegner zur Staging-Area (rechte Seite) hinzu."""
         selected_item = self.tree.selection()
         if not selected_item: return
 
@@ -126,16 +189,17 @@ class LibraryHandler:
                 self.add_staging_row(item_text, data)
 
     def create_staging_headers(self):
+        """Erstellt die Überschriften für die Staging-Area."""
         header_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
         headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Anzahl", "Sofort", ""]
-        widths = [30, 10, 5, 5, 5, 5, 5.5, 5, 10]
-
+        widths = [30, 10, 5, 5, 5, 5, 5, 5, 5]
         for i, col in enumerate(headers):
-            ttk.Label(header_frame, text=col, font=('Segoe UI', 9, 'bold'), width=widths[i], anchor="w", background=self.colors["panel"]).pack(side="left", padx=2)
+            ttk.Label(header_frame, text=col, font=FONTS["small"], width=widths[i], anchor="w").pack(side="left", padx=2)
 
     def add_staging_row(self, name, data):
+        """Fügt eine Zeile für einen Gegner in der Staging-Area hinzu."""
         row_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
         row_frame.pack(fill="x", pady=5)
 
@@ -145,8 +209,8 @@ class LibraryHandler:
         e_name.pack(side="left", padx=5)
 
         # Typ
-        e_type = ttk.Combobox(row_frame, values=["Spieler", "Gegner", "NPC"], width=10, state="readonly")
-        e_type.set(data.get("type", "Gegner"))
+        e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
+        e_type.set(data.get("type", CharacterType.ENEMY.value))
         e_type.pack(side="left", padx=5)
 
         # LP
@@ -199,6 +263,7 @@ class LibraryHandler:
         self.staging_entries.append(entry_obj)
 
     def remove_staging_row(self, frame, entry_obj):
+        """Entfernt eine Zeile aus der Staging-Area."""
         frame.destroy()
         if entry_obj in self.staging_entries:
             self.staging_entries.remove(entry_obj)

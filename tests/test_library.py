@@ -10,6 +10,10 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.library_handler import LibraryHandler
 
 def test_library_window_creation():
+    """
+    Testet das Öffnen des Bibliotheks-Fensters.
+    Überprüft, ob das Fenster erstellt und der Treeview mit Daten gefüllt wird.
+    """
     tracker = MagicMock()
     tracker.enemy_presets_structure = {
         "Bosses": {
@@ -49,6 +53,10 @@ def test_library_window_creation():
         assert len(calls) >= 2
 
 def test_add_to_staging():
+    """
+    Testet das Hinzufügen eines Gegners zur Staging-Area (Vorbereitung).
+    Überprüft, ob der Eintrag in der Staging-Liste erscheint und UI-Elemente erstellt werden.
+    """
     tracker = MagicMock()
     tracker.enemy_presets = {"Goblin": {"lp": 7, "type": "Gegner"}}
 
@@ -74,3 +82,38 @@ def test_add_to_staging():
         # Check if Entry was created (mock_ttk.Entry called)
         assert mock_ttk.Entry.called
 
+def test_library_search():
+    """
+    Testet die Suchfunktion der Bibliothek.
+    Überprüft, ob die Daten korrekt gefiltert werden.
+    """
+    tracker = MagicMock()
+    # Struktur: Kategorie -> Unterkategorie -> Gegner
+    tracker.enemy_presets_structure = {
+        "Gruppe A": {
+            "Gegner 1": {"lp": 10},
+            "Gegner 2": {"lp": 20}
+        },
+        "Gruppe B": {
+            "Boss": {"lp": 100}
+        }
+    }
+
+    handler = LibraryHandler(tracker, MagicMock(), {})
+
+    # Test 1: Suche nach "Boss"
+    filtered = handler._filter_data_recursive(tracker.enemy_presets_structure, "boss")
+    assert "Gruppe B" in filtered
+    assert "Boss" in filtered["Gruppe B"]
+    assert "Gruppe A" not in filtered
+
+    # Test 2: Suche nach "Gegner"
+    filtered = handler._filter_data_recursive(tracker.enemy_presets_structure, "gegner")
+    assert "Gruppe A" in filtered
+    assert "Gegner 1" in filtered["Gruppe A"]
+    assert "Gegner 2" in filtered["Gruppe A"]
+    assert "Gruppe B" not in filtered
+
+    # Test 3: Suche ohne Treffer
+    filtered = handler._filter_data_recursive(tracker.enemy_presets_structure, "xyz")
+    assert len(filtered) == 0

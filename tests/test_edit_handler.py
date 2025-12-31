@@ -22,10 +22,12 @@ def edit_handler(mock_tracker):
     return EditHandler(mock_tracker, root, colors)
 
 def test_status_effect_is_label(edit_handler):
-    """Test that the status effect name is displayed as a Label (not editable)."""
+    """
+    Testet, ob der Name eines Status-Effekts im Bearbeiten-Fenster als Label (nicht editierbar) angezeigt wird.
+    """
 
     char = Character("TestChar", lp=10, rp=5, sp=5, init=10)
-    char.status.append({"effect": "Vergiftung", "rounds": 3, "rank": 1})
+    char.add_status("Vergiftung", 3, 1)
 
     with patch('src.edit_handler.tk.Toplevel') as MockToplevel, \
          patch('src.edit_handler.ttk.Frame') as MockFrame, \
@@ -50,7 +52,10 @@ def test_status_effect_is_label(edit_handler):
         assert found, "Could not find a Label with text='Vergiftung'"
 
 def test_save_character_edits(edit_handler):
-    """Test saving character edits including the new 'gew' field."""
+    """
+    Testet das Speichern von Änderungen an einem Charakter, einschließlich neuer Felder wie 'gew'.
+    Überprüft, ob die Werte im Charakter-Objekt aktualisiert werden.
+    """
     char = Character("OldName", lp=10, rp=5, sp=5, init=10, gew=1)
     window = MagicMock()
 

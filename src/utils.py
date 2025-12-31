@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 import random
-from typing import Tuple, List, Callable, Optional, Any
+from typing import Tuple, List, Callable, Optional
+from .config import FONTS, WINDOW_SIZE, GEW_TO_DICE
 
 def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
     """
@@ -21,18 +22,10 @@ def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
     return sum(rolls), rolls
 
 def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
-    mapping = {
-        1: 4,
-        2: 6,
-        3: 8,
-        4: 10,
-        5: 12,
-        6: 20
-    }
     # Einfache Validierung, um Abstürze zu vermeiden
     if gewandtheit < 1: return 4
     if gewandtheit > 6: return 20
-    return mapping.get(gewandtheit, 20)
+    return GEW_TO_DICE.get(gewandtheit, 20)
 
 def wuerfle_initiative(gewandtheit: int) -> int:
     """Würfelt Initiative basierend auf Gewandtheit (mit explodierenden Würfeln). Rückgabe des Wurfwerts."""
@@ -42,15 +35,22 @@ def wuerfle_initiative(gewandtheit: int) -> int:
 
 class ToolTip:
     """Klasse für Tooltips beim Hovern über Widgets."""
-    def __init__(self, widget: tk.Widget, text_func: Callable[[], str]):
+    def __init__(self, widget: tk.Widget, text_func: Callable[[], str], color_provider: Optional[Callable[[], Tuple[str, str]]] = None):
         self.widget = widget
         self.text_func = text_func
+        self.color_provider = color_provider
         self.tipwindow: Optional[tk.Toplevel] = None
 
     def showtip(self, event: Optional[tk.Event] = None) -> None:
         text = self.text_func()
         if self.tipwindow or not text:
             return
+
+        bg = "#ffffe0"
+        fg = "#000000"
+        if self.color_provider:
+            bg, fg = self.color_provider()
+
         x = self.widget.winfo_rootx() + 20
         y = self.widget.winfo_rooty() + self.widget.winfo_height() + 1
         self.tipwindow = tw = tk.Toplevel(self.widget)
@@ -58,9 +58,9 @@ class ToolTip:
         tw.wm_overrideredirect(True)
         tw.wm_geometry(f"+{x}+{y}")
         label = tk.Label(tw, text=text, justify=tk.LEFT,
-                       background="#ffffe0", foreground="#000000",
+                       background=bg, foreground=fg,
                        relief=tk.SOLID, borderwidth=1,
-                       font=("Segoe UI", 9))
+                       font=FONTS["small"])
         label.pack(ipadx=5, ipady=2)
 
     def hidetip(self, event: Optional[tk.Event] = None) -> None:
@@ -79,7 +79,7 @@ def simple_input_dialog(root: tk.Tk, title: str, prompt: str, default_value: str
 
     dialog = tk.Toplevel(root)
     dialog.title(title)
-    dialog.geometry("300x120")
+    dialog.geometry(WINDOW_SIZE["small_dialog"])
 
     ttk.Label(dialog, text=prompt).pack(pady=10)
     entry = ttk.Entry(dialog)

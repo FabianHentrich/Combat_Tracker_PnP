@@ -1,92 +1,180 @@
-# Combat Tracker PnP
+# ⚔️ PnP Combat Tracker
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![Status](https://img.shields.io/badge/Status-Active-green)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-Beta-orange)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-Ein leistungsstarkes und benutzerfreundliches Tool zur Verwaltung von Kämpfen in Pen & Paper Rollenspielen. Entwickelt in Python mit Tkinter, bietet dieser Tracker eine moderne Dark-Mode-Oberfläche und umfassende Funktionen, um Spielleiter (GMs) bei der Kampfführung zu unterstützen.
+Ein professioneller, feature-reicher Combat Tracker für Pen & Paper Rollenspiele.
 
-## 🌟 Features
+> ℹ️ **Hinweis:** Dieses Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt. Es ist jedoch flexibel genug, um auch für andere Systeme angepasst zu werden.
+>
+> **Interesse am Regelwerk?** Wenn du das zugrundeliegende Regelwerk kennenlernen möchtest, schreib mir gerne eine E-Mail!
 
-*   **Charakter-Management**: Einfaches Hinzufügen, Bearbeiten und Entfernen von Spielern und Gegnern.
-*   **Initiative-System**: Automatisches Würfeln und Sortieren der Initiative basierend auf Charakterwerten (GEW).
-*   **Kampfablauf-Steuerung**: Runden- und Zugverwaltung, "Nächster Zug"-Logik, Überspringen von Zügen.
-*   **Status-Effekte**: Detailliertes System für Statuseffekte mit Dauer (Runden) und Rängen. Automatische Aktualisierung zu Beginn des Zuges.
-*   **Schadensberechnung**: Integrierter Schadensrechner mit verschiedenen Schadenstypen und Rängen. Berücksichtigt LP (Lebenspunkte), RP (Rüstungspunkte) und SP (Schildpunkte).
-*   **Bibliothek & Import**:
-    *   Import von Gegnern aus Excel-Listen (`.xlsx`).
-    *   Speichern und Laden von Kampf-Szenarien (JSON).
-    *   Integrierte Gegner/ NPC-Bibliothek.
-*   **Benutzeroberfläche**:
-    *   Modernes Dark Theme.
-    *   Visuelle Lebensbalken.
-    *   Combat Log für detaillierte Ereignisverfolgung.
-    *   Tooltips für schnelle Infos.
-*   **Hotkeys**: Anpassbare Tastenkürzel für effiziente Bedienung.
-*   **History**: Undo/Redo Funktionalität für Aktionen.
-*   **Persistenz**: Autosave und manuelles Speichern des aktuellen Kampfstatus.
+Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu verwalten, Initiative zu tracken, Schaden zu berechnen und Status-Effekte im Blick zu behalten.
 
-## 🛠 Installation
+---
 
-1.  **Repository klonen**:
+## 📋 Inhaltsverzeichnis
+
+- [Features](#-features)
+- [Installation & Start](#-installation--start)
+- [Benutzung](#-benutzung)
+- [Programmlogik & Mechaniken](#-programmlogik--mechaniken)
+  - [Attribute](#attribute)
+  - [Schadensberechnung](#schadensberechnung)
+  - [Status-Effekte](#status-effekte)
+- [Konfiguration & Anpassung](#-konfiguration--anpassung)
+- [Hotkeys](#-hotkeys)
+- [Lizenz](#-lizenz)
+
+---
+
+## ✨ Features
+
+*   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
+*   **Erweitertes Schadenssystem:** Unterscheidung zwischen Lebenspunkten (LP), Rüstungspunkten (RP) und Schildpunkten (SP).
+*   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
+*   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
+*   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
+*   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
+*   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.), um die UI deinen Vorlieben anzupassen.
+*   **Persistenz:** Automatisches Speichern des aktuellen Kampfzustands (Autosave) sowie Export/Import von Regeln und Gegnern.
+*   **Undo/Redo:** Fehler können einfach rückgängig gemacht werden.
+
+---
+
+## 🚀 Installation & Start
+
+### Voraussetzungen
+*   Python 3.8 oder höher
+*   Standard-Bibliotheken (keine externen `pip install` Abhängigkeiten notwendig).
+    *   **Windows/macOS:** `tkinter` ist meist im Python-Installer enthalten.
+    *   **Linux:** Muss oft separat installiert werden: `sudo apt-get install python3-tk`
+
+### Starten
+1.  Klone das Repository:
     ```bash
-    git clone https://github.com/yourusername/Combat_Tracker_PnP.git
+    git clone https://github.com/DeinUsername/Combat_Tracker_PnP.git
+    ```
+2.  Navigiere in das Verzeichnis:
+    ```bash
     cd Combat_Tracker_PnP
     ```
-
-2.  **Abhängigkeiten installieren**:
-    Stellen Sie sicher, dass Python installiert ist. Installieren Sie die benötigten Pakete:
-    ```bash
-    pip install pandas openpyxl
-    # Tkinter ist normalerweise in der Standard-Python-Installation enthalten.
-    ```
-
-3.  **Starten**:
-    Führen Sie das Hauptskript aus:
+3.  Starte das Programm:
     ```bash
     python Combat_Tracker.py
     ```
 
-## 🎮 Bedienung & Logik
+---
 
-### Kampfablauf
-Der `CombatEngine` Kern verwaltet den Zustand des Kampfes.
-1.  **Vorbereitung**: Charaktere hinzufügen oder aus der Bibliothek importieren.
-2.  **Initiative**: Klick auf "Initiative würfeln". Das System berechnet die Initiative basierend auf dem GEW-Wert (Geschicklichkeit/Gewandtheit) und sortiert die Liste.
-3.  **Kampf**: Mit "Nächster Zug" wird durch die Liste iteriert. Der aktive Charakter wird hervorgehoben.
-4.  **Runden**: Wenn alle Charaktere an der Reihe waren, wird der Runden-Zähler erhöht.
+## 🎮 Benutzung
 
-### Schadensmodell
-Das System unterscheidet zwischen verschiedenen Trefferpunkten:
-*   **LP (Lebenspunkte)**: Die eigentliche Gesundheit.
-*   **RP (Rüstungspunkte)**: Reduzieren physischen Schaden (je nach Implementierung).
-*   **SP (Schildpunkte)**: Absorbieren Schaden vor LP/RP.
+Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
+1.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
+2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
+3.  **Schadens-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet. Man wählt Schadenshöhe, Typ und ggf. Status-Effekte.
+4.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
 
-Schaden kann Typen und Ränge haben, die die Berechnung beeinflussen (z.B. Durchdringung).
+---
+
+## 🧠 Programmlogik & Mechaniken
+
+Das Herzstück des Trackers ist die automatische Berechnung von Kampfereignissen. Hier wird detailliert erklärt, wie das Programm "denkt" und welche Regeln angewendet werden.
+
+### Attribute & Initiative
+Jeder Charakter verfügt über folgende Kern-Werte:
+*   **LP (Lebenspunkte):** Die Gesundheit des Charakters. Sinkt diese auf 0, gilt der Charakter als kampfunfähig.
+*   **RP (Rüstungspunkte):** Physische Rüstung. Kann Schaden absorbieren, nutzt sich dabei aber ab.
+*   **SP (Schildpunkte):** Ein energetischer oder magischer Schild. Regeneriert sich in der Regel nicht automatisch, absorbiert aber Schaden vor der Rüstung.
+*   **GEW (Gewandtheit):** Bestimmt den Würfel für die Initiative.
+
+**Initiative-Berechnung:**
+Die Initiative wird basierend auf dem GEW-Wert gewürfelt. Dabei kommt ein **"Exploding Dice"** (explodierender Würfel) System zum Einsatz: Würfelt man die höchstmögliche Augenzahl, darf man erneut würfeln und das Ergebnis addieren.
+
+| GEW Wert | Würfel |
+| :--- | :--- |
+| 1 | W4 |
+| 2 | W6 |
+| 3 | W8 |
+| 4 | W10 |
+| 5 | W12 |
+| 6+ | W20 |
+
+### Schadensberechnung
+Wenn ein Charakter Schaden erleidet, prüft das System den **Schadenstyp** und wendet folgende Prioritätenkette an:
+
+1.  **Normaler Schaden (Normal, Feuer, Kälte, Blitz, Verwesung):**
+    *   **Phase 1 - Schild:** Der Schaden trifft zuerst den Schild (SP). Solange SP > 0 sind, wird Schaden 1:1 absorbiert.
+    *   **Phase 2 - Rüstung:** Verbleibender Schaden trifft die Rüstung (RP).
+        *   Die Rüstung absorbiert Schaden bis zur Höhe von `RP * 2`.
+        *   **Abnutzung:** Die Rüstung verliert dabei an Haltbarkeit.
+            *   Die Rüstung verliert RP in Höhe der **Hälfte des absorbierten Schadens** (aufgerundet).
+            *   *Formel:* `Verlorene RP = (Absorbierter Schaden + 1) / 2` (Ganzzahl-Division)
+    *   **Phase 3 - Leben:** Alles, was Schild und Rüstung nicht abfangen konnten, wird von den Lebenspunkten (LP) abgezogen.
+
+2.  **Durchdringend:**
+    *   Ignoriert die **Rüstung (RP)** komplett.
+    *   Wird aber noch vom **Schild (SP)** reduziert.
+    *   Ideal gegen schwer gepanzerte Ziele ohne Energieschild.
+
+3.  **Direkt (Direkt, Gift, Erosion):**
+    *   Ignoriert **Schild (SP)** UND **Rüstung (RP)**.
+    *   Geht direkt auf die Lebenspunkte (LP).
+    *   Sehr gefährlich, da keine passive Verteidigung hilft.
 
 ### Status-Effekte
-Effekte können Charakteren zugewiesen werden (z.B. "Brennend", "Betäubt").
-*   Jeder Effekt hat eine **Dauer** (in Runden) und einen **Rang**.
-*   Zu Beginn des Zuges eines Charakters werden dessen Effekte verarbeitet (z.B. Schaden durch "Brennen") und die Dauer verringert.
-*   Läuft die Dauer ab, wird der Effekt automatisch entfernt.
+Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines Charakters aus. Jeder Effekt hat eine **Dauer** (in Runden) und einen **Rang** (Stärke 1-6).
 
-## 📂 Projektstruktur
+*   **☠️ Vergiftung (Poison):** Verursacht pro Runde `Rang` Punkte **Direktschaden** (ignoriert Rüstung/Schild).
+*   **🔥 Verbrennung (Burn):** Verursacht pro Runde `Rang` Punkte **Normalen Schaden** (wird von Rüstung/Schild reduziert).
+*   **🩸 Blutung (Bleed):** Verursacht **Normalen Schaden**, der mit der Zeit schlimmer wird.
+    *   Formel: `Schaden = (Rang / 2) + (Runden aktiv - 1)`.
+*   **🧪 Erosion:** Zersetzt den Körper dauerhaft.
+    *   Verursacht `Rang * W4` Schaden an den **Maximalen LP**. Dieser Schaden ist im Kampf nicht rückgängig zu machen.
+    *   Verursacht zusätzlich den gleichen Betrag als **Direktschaden**.
+*   **❄️ Unterkühlung (Freeze):** Der Charakter verliert seine Bonusaktion (wird im Log angezeigt).
+*   **⚡ Betäubung (Stun):** Der Charakter verliert seine Aktion.
 
-```
-Combat_Tracker_PnP/
-├── Combat_Tracker.py       # Einstiegspunkt der Anwendung
-├── src/                    # Quellcode
-│   ├── engine.py           # Kernlogik des Kampfes
-│   ├── character.py        # Charakter-Klasse und Attribute
-│   ├── gui.py              # Haupt-GUI (Tkinter)
-│   ├── mechanics.py        # Spielmechaniken (Schaden, Status)
-│   ├── library_handler.py  # Verwaltung der Gegner-Bibliothek
-│   ├── import_handler.py   # Import von Excel/JSON
-│   ├── persistence.py      # Speichern/Laden
-│   └── ...                 # Weitere Hilfsmodule (History, Hotkeys, etc.)
-├── enemies.json            # Gespeicherte Gegnerdaten
-├── gegnerliste.xlsx        # Excel-Importvorlage
-└── ...
-```
+*Hinweis: Wenn ein Charakter bereits einen Effekt hat und denselben Effekt erneut erhält, wird oft die Dauer verlängert oder der Rang erhöht (je nach Konfiguration).*
+
 ---
-*Erstellt mit ❤️ für PnP-Enthusiasten.*
+
+## ⚙️ Konfiguration & Anpassung
+
+Das Programm ist hochgradig anpassbar über JSON-Dateien im Hauptverzeichnis:
+
+*   **`rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden. Du kannst eigene Schadensarten erfinden!
+*   **`enemies.json`**: Eine Bibliothek deiner häufigsten Gegner.
+*   **`config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
+
+### Themes
+Über das Menü oder die Config können verschiedene Themes gewählt werden, z.B.:
+*   `Nord Dark` (Standard)
+*   `Gruvbox`
+*   `Monokai`
+*   `Solarized Light`
+
+---
+
+## ⌨️ Hotkeys
+
+Für einen schnellen Workflow während des Spiels:
+
+| Aktion | Hotkey (Default) |
+| :--- | :--- |
+| **Nächster Zug** | `<Leertaste>` |
+| **Rückgängig (Undo)** | `Strg + Z` |
+| **Wiederholen (Redo)** | `Strg + Y` |
+| **Charakter löschen** | `Entf` |
+| **Fokus auf Schaden** | `Strg + D` |
+
+*(Hotkeys können in `hotkeys.json` angepasst werden)*
+
+---
+
+## ⚖️ Lizenz
+
+Dieses Projekt steht unter der **MIT Lizenz**.
+Das bedeutet, du darfst den Code frei verwenden, verändern und verbreiten, solange der ursprüngliche Urheberrechtsvermerk erhalten bleibt.
 

@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from typing import TYPE_CHECKING, Callable
-from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, HOTKEYS
+from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS
 from .utils import ToolTip
 from .dice_roller import DiceRoller
+from .enums import DamageType, StatusEffectType, CharacterType
 
 if TYPE_CHECKING:
     from .main_window import CombatTracker
@@ -55,6 +56,13 @@ class UILayout:
         file_menu.add_separator()
         file_menu.add_command(label="Beenden", command=self.root.quit)
 
+        # Theme Menu
+        theme_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="Theme", menu=theme_menu)
+
+        from .config import THEMES
+        for theme_name in THEMES.keys():
+            theme_menu.add_command(label=theme_name, command=lambda t=theme_name: self.tracker.change_theme(t))
 
     def create_input_frame(self, parent: tk.Widget) -> None:
         input_frame = ttk.LabelFrame(parent, text="Neuen Charakter hinzufügen", padding="15", style="Card.TLabelframe")
@@ -65,33 +73,33 @@ class UILayout:
         ttk.Button(input_frame, text="Excel Import", command=lambda: self.tracker.load_enemies(None)).grid(row=0, column=2, columnspan=2, padx=5, sticky="ew")
 
         # Zeile 1: Eingabefelder (Row Index um 1 erhöht)
-        ttk.Label(input_frame, text="Name:", background=self.colors["panel"]).grid(row=1, column=0, padx=5, sticky="w")
+        ttk.Label(input_frame, text="Name:").grid(row=1, column=0, padx=5, sticky="w")
         self.tracker.entry_name = ttk.Entry(input_frame, width=20)
         self.tracker.entry_name.grid(row=1, column=1, padx=5)
 
-        ttk.Label(input_frame, text="LP:", background=self.colors["panel"]).grid(row=1, column=2, padx=5, sticky="w")
+        ttk.Label(input_frame, text="LP:").grid(row=1, column=2, padx=5, sticky="w")
         self.tracker.entry_lp = ttk.Entry(input_frame, width=8)
         self.tracker.entry_lp.grid(row=1, column=3, padx=5)
 
-        ttk.Label(input_frame, text="RP:", background=self.colors["panel"]).grid(row=1, column=4, padx=5, sticky="w")
+        ttk.Label(input_frame, text="RP:").grid(row=1, column=4, padx=5, sticky="w")
         self.tracker.entry_rp = ttk.Entry(input_frame, width=8)
         self.tracker.entry_rp.grid(row=1, column=5, padx=5)
 
-        ttk.Label(input_frame, text="SP:", background=self.colors["panel"]).grid(row=1, column=6, padx=5, sticky="w")
+        ttk.Label(input_frame, text="SP:").grid(row=1, column=6, padx=5, sticky="w")
         self.tracker.entry_sp = ttk.Entry(input_frame, width=8)
         self.tracker.entry_sp.grid(row=1, column=7, padx=5)
 
-        ttk.Label(input_frame, text="GEW:", background=self.colors["panel"]).grid(row=1, column=10, padx=5, sticky="w")
+        ttk.Label(input_frame, text="GEW:").grid(row=1, column=10, padx=5, sticky="w")
         self.tracker.entry_gew = ttk.Entry(input_frame, width=8)
         self.tracker.entry_gew.grid(row=1, column=11, padx=5)
 
-        ttk.Label(input_frame, text="INIT:", background=self.colors["panel"]).grid(row=1, column=8, padx=5, sticky="w")
+        ttk.Label(input_frame, text="INIT:").grid(row=1, column=8, padx=5, sticky="w")
         self.tracker.entry_init = ttk.Entry(input_frame, width=8)
         self.tracker.entry_init.grid(row=1, column=9, padx=5)
 
-        ttk.Label(input_frame, text="Typ:", background=self.colors["panel"]).grid(row=1, column=12, padx=5, sticky="w")
-        self.tracker.entry_type = ttk.Combobox(input_frame, values=["Spieler", "Gegner", "NPC"], width=10, state="readonly")
-        self.tracker.entry_type.set("Gegner")
+        ttk.Label(input_frame, text="Typ:").grid(row=1, column=12, padx=5, sticky="w")
+        self.tracker.entry_type = ttk.Combobox(input_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
+        self.tracker.entry_type.set(CharacterType.ENEMY.value)
         self.tracker.entry_type.grid(row=1, column=13, padx=5)
 
         # Checkbox für "Sofort agieren"
@@ -109,23 +117,24 @@ class UILayout:
 
         # Spalten konfigurieren
         self.tracker.tree.heading("Order", text="#")
-        self.tracker.tree.column("Order", width=30, anchor="center")
+        self.tracker.tree.column("Order", width=30, anchor="center", stretch=False)
         self.tracker.tree.heading("Name", text="Name")
-        self.tracker.tree.column("Name", width=150)
+        self.tracker.tree.column("Name", width=200, minwidth=100)
         self.tracker.tree.heading("Typ", text="Typ")
-        self.tracker.tree.column("Typ", width=80, anchor="center")
+        self.tracker.tree.column("Typ", width=80, anchor="center", stretch=False)
         self.tracker.tree.heading("LP", text="LP (Balken)")
-        self.tracker.tree.column("LP", width=200, anchor="w")
+        self.tracker.tree.column("LP", width=200, anchor="center", stretch=False)
         self.tracker.tree.heading("RP", text="RP")
-        self.tracker.tree.column("RP", width=60, anchor="center")
+        self.tracker.tree.column("RP", width=60, anchor="center", stretch=False)
         self.tracker.tree.heading("SP", text="SP")
-        self.tracker.tree.column("SP", width=60, anchor="center")
+        self.tracker.tree.column("SP", width=60, anchor="center", stretch=False)
         self.tracker.tree.heading("GEW", text="GEW")
-        self.tracker.tree.column("GEW", width=60, anchor="center")
+        self.tracker.tree.column("GEW", width=60, anchor="center", stretch=False)
         self.tracker.tree.heading("INIT", text="INIT")
-        self.tracker.tree.column("INIT", width=60, anchor="center")
+        self.tracker.tree.column("INIT", width=60, anchor="center", stretch=False)
         self.tracker.tree.heading("Status", text="Status")
-        self.tracker.tree.column("Status", width=250)
+        # Status-Spalte breiter machen und stretch=False setzen, damit Scrollen erzwungen wird, wenn nötig
+        self.tracker.tree.column("Status", width=700, minwidth=200, stretch=False)
 
         scrollbar = ttk.Scrollbar(tree_frame, orient=tk.VERTICAL, command=self.tracker.tree.yview)
         self.tracker.tree.configure(yscroll=scrollbar.set)
@@ -142,15 +151,15 @@ class UILayout:
         action_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(15, 0), ipadx=10)
 
         # Wert Eingabe (Groß)
-        ttk.Label(action_frame, text="Wert:", background=self.colors["panel"]).pack(anchor="w")
-        self.tracker.action_value = ttk.Entry(action_frame, font=('Segoe UI', 14), justify="center")
+        ttk.Label(action_frame, text="Wert:").pack(anchor="w")
+        self.tracker.action_value = ttk.Entry(action_frame, font=FONTS["xl"], justify="center")
         self.tracker.action_value.pack(fill=tk.X, pady=(0, 10))
         self.tracker.action_value.insert(0, "0")
 
         # Typ Auswahl
-        ttk.Label(action_frame, text="Typ:", background=self.colors["panel"]).pack(anchor="w")
-        self.tracker.action_type = ttk.Combobox(action_frame, values=["Normal", "Durchschlagend", "Direkt", "Verwesung", "Gift", "Feuer", "Blitz", "Kälte"], state="readonly")
-        self.tracker.action_type.set("Normal")
+        ttk.Label(action_frame, text="Typ:").pack(anchor="w")
+        self.tracker.action_type = ttk.Combobox(action_frame, values=[t.value for t in DamageType], state="readonly")
+        self.tracker.action_type.set(DamageType.NORMAL.value)
         self.tracker.action_type.pack(fill=tk.X, pady=(0, 15))
 
         # Tooltip für Schadenstyp
@@ -174,17 +183,14 @@ class UILayout:
         ttk.Separator(action_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
         # --- Status Sektion (Inline) ---
-        ttk.Label(action_frame, text="Status Effekt:", background=self.colors["panel"]).pack(anchor="w")
+        ttk.Label(action_frame, text="Status Effekt:").pack(anchor="w")
 
         status_frame = ttk.Frame(action_frame, style="Card.TFrame")
         status_frame.pack(fill=tk.X, pady=(0, 5))
 
-        self.tracker.status_combobox = ttk.Combobox(status_frame, values=[
-            "Vergiftung", "Verbrennung", "Blutung", "Unterkühlung",
-            "Betäubung", "Erosion", "Erschöpfung", "Verwirrung"
-        ], state="normal")
+        self.tracker.status_combobox = ttk.Combobox(status_frame, values=[t.value for t in StatusEffectType], state="readonly")
         self.tracker.status_combobox.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 5))
-        self.tracker.status_combobox.set("Vergiftung")
+        self.tracker.status_combobox.set(StatusEffectType.POISON.value)
 
         # Tooltip für Status
         self.create_tooltip(self.tracker.status_combobox, lambda: f"{self.tracker.status_combobox.get()}:\n{STATUS_DESCRIPTIONS.get(self.tracker.status_combobox.get(), 'Keine Info')}")
@@ -193,12 +199,12 @@ class UILayout:
         rank_duration_frame = ttk.Frame(action_frame, style="Card.TFrame")
         rank_duration_frame.pack(fill=tk.X, pady=(0, 10))
 
-        ttk.Label(rank_duration_frame, text="Rang:", background=self.colors["panel"]).pack(side=tk.LEFT)
+        ttk.Label(rank_duration_frame, text="Rang:").pack(side=tk.LEFT)
         self.tracker.status_rank = ttk.Entry(rank_duration_frame, width=5)
         self.tracker.status_rank.pack(side=tk.LEFT, padx=(5, 15))
         self.tracker.status_rank.insert(0, "1")
 
-        ttk.Label(rank_duration_frame, text="Dauer:", background=self.colors["panel"]).pack(side=tk.LEFT)
+        ttk.Label(rank_duration_frame, text="Dauer:").pack(side=tk.LEFT)
         self.tracker.status_duration = ttk.Entry(rank_duration_frame, width=5)
         self.tracker.status_duration.pack(side=tk.LEFT, padx=(5, 0))
         self.tracker.status_duration.insert(0, "3")
@@ -208,7 +214,7 @@ class UILayout:
         ttk.Separator(action_frame, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
         # Management Section
-        ttk.Label(action_frame, text="Verwaltung:", background=self.colors["panel"]).pack(anchor="w")
+        ttk.Label(action_frame, text="Verwaltung:").pack(anchor="w")
 
         self.tracker.management_target_var = tk.StringVar(value="Ausgewählter Charakter")
         target_cb = ttk.Combobox(action_frame, textvariable=self.tracker.management_target_var,
@@ -241,7 +247,7 @@ class UILayout:
         control_frame.pack(side=tk.TOP, fill=tk.X, pady=5)
 
         ttk.Button(control_frame, text="🎲 Initiative würfeln & sortieren", command=self.tracker.roll_initiative_all).pack(side=tk.LEFT, padx=5)
-        ttk.Button(control_frame, text=f"⏭ Nächster Zug ({HOTKEYS.get('next_turn', '')})", command=self.tracker.next_turn).pack(side=tk.LEFT, padx=5)
+        ttk.Button(control_frame, text="⏭ Nächster Zug", command=self.tracker.next_turn).pack(side=tk.LEFT, padx=5)
 
         # Reset Initiative Menu
         reset_btn = ttk.Menubutton(control_frame, text="🔄 Init Reset")
@@ -254,11 +260,11 @@ class UILayout:
         reset_btn.pack(side=tk.LEFT, padx=5)
 
         # Undo / Redo Buttons
-        ttk.Button(control_frame, text=f"↩ Undo ({HOTKEYS.get('undo', '')})", command=self.tracker.undo_action).pack(side=tk.LEFT, padx=5)
-        ttk.Button(control_frame, text=f"↪ Redo ({HOTKEYS.get('redo', '')})", command=self.tracker.redo_action).pack(side=tk.LEFT, padx=5)
+        ttk.Button(control_frame, text="↩ Undo", command=self.tracker.undo_action).pack(side=tk.LEFT, padx=5)
+        ttk.Button(control_frame, text="↪ Redo", command=self.tracker.redo_action).pack(side=tk.LEFT, padx=5)
 
         # Rundenzähler
-        self.tracker.round_label = ttk.Label(control_frame, text=f"Runde: {self.tracker.engine.round_number}", font=('Segoe UI', 12, 'bold'), background=self.colors["bg"])
+        self.tracker.round_label = ttk.Label(control_frame, text=f"Runde: {self.tracker.engine.round_number}", font=FONTS["large"], background=self.colors["bg"])
         self.tracker.round_label.pack(side=tk.RIGHT, padx=20)
 
         # Split Bottom Area: Log (Left) | Dice Roller (Right)
@@ -269,7 +275,7 @@ class UILayout:
         log_frame = ttk.LabelFrame(bottom_content, text="Kampfprotokoll", style="Card.TLabelframe")
         log_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
 
-        self.tracker.log = tk.Text(log_frame, height=8, width=80, state='normal', font=("Consolas", 9),
+        self.tracker.log = tk.Text(log_frame, height=8, width=80, state='normal', font=FONTS["mono"],
                            bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], relief="flat")
         log_scroll = ttk.Scrollbar(log_frame, command=self.tracker.log.yview)
         self.tracker.log.config(yscrollcommand=log_scroll.set)
@@ -278,10 +284,10 @@ class UILayout:
         self.tracker.log.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         # Dice Roller
-        dice_roller = DiceRoller(bottom_content, self.colors)
-        dice_roller.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 0))
+        self.tracker.dice_roller = DiceRoller(bottom_content, self.colors)
+        self.tracker.dice_roller.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 0))
 
     def create_tooltip(self, widget: tk.Widget, text_func: Callable[[], str]) -> None:
-        tt = ToolTip(widget, text_func)
+        tt = ToolTip(widget, text_func, color_provider=lambda: (self.colors["tooltip_bg"], self.colors["tooltip_fg"]))
         widget.bind('<Enter>', tt.showtip)
         widget.bind('<Leave>', tt.hidetip)

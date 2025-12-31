@@ -5,6 +5,8 @@ from typing import List, Dict, Any, Optional, TYPE_CHECKING
 from .character import Character
 from .utils import wuerfle_initiative
 from .logger import setup_logging
+from .enums import CharacterType
+from .config import FONTS, WINDOW_SIZE
 
 if TYPE_CHECKING:
     from .main_window import CombatTracker
@@ -12,6 +14,10 @@ if TYPE_CHECKING:
 logger = setup_logging()
 
 class ImportHandler:
+    """
+    Verwaltet den Import von Charakterdaten aus externen Quellen (z.B. Excel).
+    Bietet eine Vorschau- und Bearbeitungs-UI vor dem endgültigen Import.
+    """
     def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
         self.tracker = tracker
         self.root = root
@@ -20,7 +26,11 @@ class ImportHandler:
         self.detail_entries: List[Dict[str, Any]] = []
 
     def load_from_excel(self, file_path: Optional[str] = None) -> None:
-        """Lädt Gegnerdaten aus einer Excel-Datei."""
+        """
+        Lädt Gegnerdaten aus einer Excel-Datei.
+        Öffnet einen Dateidialog, falls kein Pfad angegeben ist.
+        Validiert die Spalten und öffnet das Vorschaufenster.
+        """
         if not file_path:
             file_path = filedialog.askopenfilename(title="Gegnerdaten laden", filetypes=[("Excel Dateien", "*.xlsx")])
             if not file_path: return
@@ -45,14 +55,17 @@ class ImportHandler:
             messagebox.showerror("Fehler", f"Fehler beim Laden: {e}")
 
     def show_import_preview(self, df: pd.DataFrame) -> None:
-        """Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge)."""
+        """
+        Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge).
+        Erstellt eine Liste basierend auf den geladenen Daten.
+        """
         preview_window = tk.Toplevel(self.root)
         preview_window.title("Import Vorschau & Auswahl")
-        preview_window.geometry("1200x900")
+        preview_window.geometry(WINDOW_SIZE["import"])
         preview_window.configure(bg=self.colors["bg"])
 
         # Header
-        ttk.Label(preview_window, text="Gegner auswählen und anpassen", font=('Segoe UI', 14, 'bold'), background=self.colors["bg"]).pack(pady=10)
+        ttk.Label(preview_window, text="Auswählen und anpassen", font=FONTS["xl"]).pack(pady=10)
 
         # Scrollable Frame für die Liste
         canvas = tk.Canvas(preview_window, bg=self.colors["panel"], highlightthickness=0)
@@ -77,7 +90,7 @@ class ImportHandler:
 
         widths = [15, 8, 5, 5, 5, 5, 10]
         for i, col in enumerate(headers):
-            ttk.Label(header_frame, text=col, font=('Segoe UI', 10, 'bold'), width=widths[i], anchor="w", background=self.colors["panel"]).pack(side="left", padx=5)
+            ttk.Label(header_frame, text=col, font=FONTS["bold"], width=widths[i], anchor="w").pack(side="left", padx=5)
 
         ttk.Separator(scrollable_frame, orient="horizontal").pack(fill="x", pady=5)
 
@@ -94,8 +107,8 @@ class ImportHandler:
             e_name.pack(side="left", padx=5)
 
             # Typ
-            e_type = ttk.Combobox(row_frame, values=["Spieler", "Gegner", "NPC"], width=widths[1], state="readonly")
-            e_type.set("Gegner")
+            e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=widths[1], state="readonly")
+            e_type.set(CharacterType.ENEMY.value)
             e_type.pack(side="left", padx=5)
 
             # LP
@@ -142,7 +155,10 @@ class ImportHandler:
         ttk.Button(btn_frame, text="Abbrechen", command=preview_window.destroy).pack(side="right", padx=10)
 
     def prepare_detail_view(self, window):
-        """Nimmt die Auswahl aus Schritt 1 und bereitet die Detail-Ansicht vor."""
+        """
+        Nimmt die Auswahl aus Schritt 1 und bereitet die Detail-Ansicht vor.
+        Expandiert die Auswahl basierend auf der "Anzahl"-Spalte in individuelle Einträge.
+        """
         expanded_data = []
         try:
             for entry in self.import_entries:
@@ -187,12 +203,15 @@ class ImportHandler:
             messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
 
     def show_detail_preview(self, window, data):
-        """Schritt 2: Zeigt jeden einzelnen Charakter zur Bearbeitung an."""
+        """
+        Schritt 2: Zeigt jeden einzelnen Charakter zur Bearbeitung an.
+        Erlaubt das finale Anpassen von Werten vor dem Import.
+        """
         window.title("Import - Detail Anpassung")
 
         # Header
-        ttk.Label(window, text="Details anpassen", font=('Segoe UI', 14, 'bold'), background=self.colors["bg"]).pack(pady=10)
-        ttk.Label(window, text="Hier können einzelne Charaktere final bearbeitet werden.", font=('Segoe UI', 10), background=self.colors["bg"]).pack(pady=(0, 10))
+        ttk.Label(window, text="Details anpassen", font=FONTS["xl"], background=self.colors["bg"]).pack(pady=10)
+        ttk.Label(window, text="Hier können einzelne Charaktere final bearbeitet werden.", font=FONTS["main"], background=self.colors["bg"]).pack(pady=(0, 10))
 
         # Canvas Setup
         canvas = tk.Canvas(window, bg=self.colors["panel"], highlightthickness=0)
@@ -215,9 +234,9 @@ class ImportHandler:
         header_frame = ttk.Frame(scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
-        widths = [20, 10, 8, 8, 8, 12]
+        widths = [20, 10, 5, 5, 5, 5, 5]
         for i, col in enumerate(headers):
-            ttk.Label(header_frame, text=col, font=('Segoe UI', 10, 'bold'), width=widths[i], anchor="w", background=self.colors["panel"]).pack(side="left", padx=5)
+            ttk.Label(header_frame, text=col, font=FONTS["bold"], width=widths[i], anchor="w", background=self.colors["panel"]).pack(side="left", padx=5)
 
         ttk.Separator(scrollable_frame, orient="horizontal").pack(fill="x", pady=5)
 
@@ -233,7 +252,7 @@ class ImportHandler:
             e_name.pack(side="left", padx=5)
 
             # Typ
-            e_type = ttk.Combobox(row_frame, values=["Spieler", "Gegner", "NPC"], width=10, state="readonly")
+            e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
             e_type.set(row["Typ"])
             e_type.pack(side="left", padx=5)
 
@@ -291,7 +310,10 @@ class ImportHandler:
             self.detail_entries.remove(entry_obj)
 
     def finalize_import(self, window):
-        """Führt den endgültigen Import durch."""
+        """
+        Führt den endgültigen Import durch.
+        Erstellt Character-Objekte und fügt sie der Engine hinzu.
+        """
         count_imported = 0
         try:
             for entry in self.detail_entries:

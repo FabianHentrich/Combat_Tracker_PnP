@@ -3,15 +3,15 @@ from tkinter import ttk
 import random
 import logging
 from typing import Dict, Any
-from .config import COLORS
+from .config import COLORS, FONTS, DICE_TYPES
 from .utils import roll_exploding_dice
 
 logger = logging.getLogger("CombatTracker")
 
 class DiceRoller(ttk.LabelFrame):
-    def __init__(self, parent: tk.Widget, colors: Dict[str, str] = COLORS, **kwargs: Any):
+    def __init__(self, parent: tk.Widget, colors: Dict[str, str] = None, **kwargs: Any):
         super().__init__(parent, text="Würfel-Simulator", style="Card.TLabelframe", padding="10", **kwargs)
-        self.colors: Dict[str, str] = colors
+        self.colors: Dict[str, str] = colors if colors else COLORS
 
         self.result_var: tk.StringVar = tk.StringVar(value="Ready")
         self.history_var: tk.StringVar = tk.StringVar(value="")
@@ -25,12 +25,12 @@ class DiceRoller(ttk.LabelFrame):
         display_frame.pack(fill=tk.X, pady=(0, 10))
 
         self.result_label = ttk.Label(display_frame, textvariable=self.result_var,
-                                      font=('Segoe UI', 24, 'bold'), anchor="center",
+                                      font=FONTS["huge"], anchor="center",
                                       foreground=self.colors["accent"])
         self.result_label.pack(fill=tk.X)
 
         self.history_label = ttk.Label(display_frame, textvariable=self.history_var,
-                                       font=('Segoe UI', 9), anchor="center",
+                                       font=FONTS["small"], anchor="center",
                                        foreground=self.colors["fg"])
         self.history_label.pack(fill=tk.X)
 
@@ -38,7 +38,7 @@ class DiceRoller(ttk.LabelFrame):
         btn_frame = ttk.Frame(self)
         btn_frame.pack(fill=tk.BOTH, expand=True)
 
-        dice_types = [4, 6, 8, 10, 12, 20, 100]
+        dice_types = DICE_TYPES
 
         # Grid layout for buttons (2 rows)
         for i, sides in enumerate(dice_types):
@@ -90,3 +90,8 @@ class DiceRoller(ttk.LabelFrame):
 
         self.is_rolling = False
 
+    def update_colors(self, new_colors: Dict[str, str]) -> None:
+        """Aktualisiert die Farben der UI-Elemente."""
+        self.colors = new_colors
+        self.result_label.configure(foreground=self.colors["accent"])
+        self.history_label.configure(foreground=self.colors["fg"])

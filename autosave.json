@@ -1,34 +1,34 @@
 {
     "characters": [
         {
-            "name": "A",
-            "char_type": "Spieler",
-            "max_lp": 10,
-            "lp": 10,
+            "name": "Ardomis \u2013 Der Erleuchtete (Boss)",
+            "char_type": "Gegner",
+            "max_lp": 15,
+            "lp": 5,
             "max_rp": 10,
             "rp": 10,
-            "max_sp": 10,
-            "sp": 10,
-            "gew": 1,
-            "init": 0,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 2,
+            "init": 4,
             "status": [],
             "skip_turns": 0
         },
         {
-            "name": "B",
+            "name": "Ardomis \u2013 Der Erleuchtete (Boss)",
             "char_type": "Gegner",
-            "max_lp": 10,
-            "lp": 10,
+            "max_lp": 0,
+            "lp": -5,
             "max_rp": 10,
             "rp": 10,
-            "max_sp": 10,
-            "sp": 10,
-            "gew": 1,
-            "init": 0,
+            "max_sp": 0,
+            "sp": 0,
+            "gew": 2,
+            "init": 1,
             "status": [],
             "skip_turns": 0
         }
     ],
-    "turn_index": -1,
-    "round_number": 1
+    "turn_index": 1,
+    "round_number": 8
 }

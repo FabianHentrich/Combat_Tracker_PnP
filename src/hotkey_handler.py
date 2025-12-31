@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
-from typing import Dict, Any, Callable, TYPE_CHECKING
-from .config import HOTKEYS
+from typing import Dict, Callable, TYPE_CHECKING
+from .config import HOTKEYS, FONTS, WINDOW_SIZE, FILES
 from .logger import setup_logging
 
 if TYPE_CHECKING:
@@ -48,10 +48,10 @@ class HotkeyHandler:
         """Öffnet ein Fenster zum Bearbeiten der Hotkeys."""
         window = tk.Toplevel(self.root)
         window.title("Tastaturkürzel Einstellungen")
-        window.geometry("400x300")
+        window.geometry(WINDOW_SIZE["hotkeys"])
         window.configure(bg=self.colors["bg"])
 
-        ttk.Label(window, text="Klicke auf einen Button und drücke eine Taste", font=('Segoe UI', 10, 'bold'), background=self.colors["bg"]).pack(pady=10)
+        ttk.Label(window, text="Klicke auf einen Button und drücke eine Taste", font=FONTS["bold"]).pack(pady=10)
 
         frame = ttk.Frame(window, style="Card.TFrame")
         frame.pack(fill="both", expand=True, padx=10, pady=10)
@@ -70,7 +70,7 @@ class HotkeyHandler:
             row_frame = ttk.Frame(frame, style="Card.TFrame")
             row_frame.pack(fill="x", pady=5)
 
-            ttk.Label(row_frame, text=label_text, width=20, background=self.colors["panel"]).pack(side="left", padx=5)
+            ttk.Label(row_frame, text=label_text, width=20).pack(side="left", padx=5)
 
             current_key = HOTKEYS.get(key, "")
             btn = ttk.Button(row_frame, text=current_key)
@@ -113,17 +113,15 @@ class HotkeyHandler:
         button.winfo_toplevel().bind("<Key>", on_key)
         button.focus_set()
 
-    def save_hotkeys(self, window):
-        """Speichert die Hotkeys in die JSON Datei und aktualisiert Bindings."""
+    def save_hotkeys(self, window: tk.Toplevel) -> None:
+        """Speichert die neuen Hotkeys in die JSON-Datei."""
         try:
-            with open("hotkeys.json", 'w', encoding='utf-8') as f:
+            with open(FILES["hotkeys"], 'w', encoding='utf-8') as f:
                 json.dump(HOTKEYS, f, indent=4)
 
-            self.setup_hotkeys()
-            # Update menu accelerators if possible (requires recreating menu or accessing items)
-            self.tracker.ui_layout.create_menu() # Re-create menu to update accelerators
-
+            self.setup_hotkeys() # Re-bind keys
+            messagebox.showinfo("Erfolg", "Hotkeys gespeichert!")
             window.destroy()
-            messagebox.showinfo("Info", "Hotkeys gespeichert.")
         except Exception as e:
-            messagebox.showerror("Fehler", f"Fehler beim Speichern: {e}")
+            logger.error(f"Fehler beim Speichern der Hotkeys: {e}")
+            messagebox.showerror("Fehler", f"Speichern fehlgeschlagen: {e}")

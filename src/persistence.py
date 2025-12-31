@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 from typing import TYPE_CHECKING
 from .logger import setup_logging
+from .config import FILES
 
 if TYPE_CHECKING:
     from .main_window import CombatTracker
@@ -54,7 +55,7 @@ class PersistenceHandler:
         """Speichert den aktuellen Zustand automatisch in eine Datei."""
         try:
             state = self.tracker.engine.get_state()
-            with open("autosave.json", 'w', encoding='utf-8') as f:
+            with open(FILES["autosave"], 'w', encoding='utf-8') as f:
                 json.dump(state, f, indent=4)
         except Exception as e:
             logger.error(f"Autosave fehlgeschlagen: {e}")
@@ -62,7 +63,7 @@ class PersistenceHandler:
     def load_autosave(self) -> None:
         """Lädt den zuletzt automatisch gespeicherten Zustand."""
         try:
-            with open("autosave.json", 'r', encoding='utf-8') as f:
+            with open(FILES["autosave"], 'r', encoding='utf-8') as f:
                 state = json.load(f)
 
             self.tracker.engine.load_state(state)

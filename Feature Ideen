@@ -1,0 +1,12 @@
+- Musikplayer
+- Soundeffekte für Events
+- Regelwerk nachschlagen
+- Zauber und Skill suche
+- legendäre Effekte suche
+- Gegenstände suche
+
+
+
+
+# SPÄTER:
+- Packaging: Erstellen einer pyproject.toml oder setup.py, um das Projekt einfach als Paket installierbar zu machen oder eine .exe mit PyInstaller zu generieren.

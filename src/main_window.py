@@ -1,9 +1,8 @@
 import tkinter as tk
-from tkinter import messagebox, ttk, filedialog
-import pandas as pd
+from tkinter import messagebox, ttk
 import json
 import os
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional
 from .character import Character
 from .utils import ToolTip, generate_health_bar
 from .import_handler import ImportHandler
@@ -11,25 +10,33 @@ from .library_handler import LibraryHandler
 from .edit_handler import EditHandler
 from .hotkey_handler import HotkeyHandler
 from .ui_layout import UILayout
-from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, HOTKEYS
+from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS, FILES, WINDOW_SIZE, APP_TITLE, RULES
 from .engine import CombatEngine
 from .persistence import PersistenceHandler
 from .history import HistoryManager
 from .logger import setup_logging
+from .enums import CharacterType, EventType
 
 logger = setup_logging()
 
 class CombatTracker:
+    """
+    Hauptklasse der Anwendung (Controller/View-Controller).
+    Verbindet die UI (Tkinter) mit der Logik (CombatEngine).
+    """
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("PnP Combat Tracker v2.1 - Dark Mode")
-        self.root.geometry("1900x1200")
+        self.root.title(APP_TITLE)
+        self.root.geometry(WINDOW_SIZE["main"])
 
         # --- Modern Dark Theme Configuration ---
         self.colors: Dict[str, str] = COLORS
 
         self.engine = CombatEngine()
-        self.engine.on_log = self.log_message
+        # Subscribe to engine events
+        self.engine.subscribe(EventType.UPDATE, self.update_listbox)
+        self.engine.subscribe(EventType.LOG, self.log_message)
+        # self.engine.subscribe(EventType.TURN_CHANGE, self.on_turn_change) # Optional, if we want specific handling
 
         self.history_manager = HistoryManager(self.engine)
         self.persistence_handler = PersistenceHandler(self, self.root)
@@ -45,13 +52,22 @@ class CombatTracker:
         style.theme_use('clam')
 
         # Allgemeine Styles
-        style.configure(".", background=self.colors["bg"], foreground=self.colors["fg"], font=('Segoe UI', 10))
+        style.configure(".", background=self.colors["bg"], foreground=self.colors["fg"], font=FONTS["main"])
         style.configure("TLabel", background=self.colors["bg"], foreground=self.colors["fg"])
         style.configure("TButton", background=self.colors["panel"], foreground=self.colors["fg"], borderwidth=1, focuscolor=self.colors["accent"])
         style.map("TButton", background=[('active', self.colors["accent"])])
 
         style.configure("TEntry", fieldbackground=self.colors["entry_bg"], foreground=self.colors["fg"], insertcolor=self.colors["fg"])
-        style.configure("TCombobox", fieldbackground=self.colors["entry_bg"], foreground=self.colors["fg"], arrowcolor=self.colors["fg"])
+        style.configure("TCombobox", fieldbackground=self.colors["entry_bg"], background=self.colors["entry_bg"], foreground=self.colors["fg"], arrowcolor=self.colors["fg"])
+        style.map("TCombobox", fieldbackground=[('readonly', self.colors["entry_bg"])],
+                               selectbackground=[('readonly', self.colors["entry_bg"])],
+                               selectforeground=[('readonly', self.colors["fg"])],
+                               foreground=[('readonly', self.colors["fg"])])
+
+        self.root.option_add('*TCombobox*Listbox.background', self.colors["entry_bg"])
+        self.root.option_add('*TCombobox*Listbox.foreground', self.colors["fg"])
+        self.root.option_add('*TCombobox*Listbox.selectBackground', self.colors["accent"])
+        self.root.option_add('*TCombobox*Listbox.selectForeground', self.colors["bg"])
 
         # Treeview (Tabelle) Styles
         style.configure("Treeview",
@@ -59,11 +75,11 @@ class CombatTracker:
                         foreground=self.colors["fg"],
                         fieldbackground=self.colors["panel"],
                         rowheight=30,
-                        font=('Segoe UI', 10))
+                        font=FONTS["main"])
         style.configure("Treeview.Heading",
-                        background=self.colors["accent"],
-                        foreground="#FFFFFF",
-                        font=('Segoe UI', 10, 'bold'),
+                        background=self.colors["panel"],
+                        foreground=self.colors["accent"],
+                        font=FONTS["bold"],
                         borderwidth=0)
         style.map("Treeview", background=[('selected', self.colors["accent"])])
 
@@ -94,6 +110,7 @@ class CombatTracker:
         self.log: Optional[tk.Text] = None
         self.management_target_var: Optional[tk.StringVar] = None
         self.btn_edit: Optional[ttk.Button] = None
+        self.dice_roller: Any = None # DiceRoller instance
 
         # Info-Texte für Tooltips
         self.damage_descriptions: Dict[str, str] = DAMAGE_DESCRIPTIONS
@@ -108,16 +125,17 @@ class CombatTracker:
         # self.load_enemies()
 
     def open_hotkey_settings(self) -> None:
+        """Öffnet das Fenster für die Hotkey-Einstellungen."""
         self.hotkey_handler.open_hotkey_settings()
 
-    def load_presets(self, filename: str = "enemies.json") -> None:
+    def load_presets(self, filename: str = FILES["enemies"]) -> None:
         """Lädt Gegner-Presets aus einer JSON-Datei."""
         # Bestimme den absoluten Pfad basierend auf dem Speicherort von gui.py
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         filepath = os.path.join(base_dir, filename)
 
         if not os.path.exists(filepath):
-            logger.warning(f"Preset-Datei nicht gefunden: {filepath}")
+            logger.warning(f"Bibliotheks-Datei nicht gefunden: {filepath}")
             return
 
         try:
@@ -139,7 +157,7 @@ class CombatTracker:
                 flatten(self.enemy_presets_structure)
 
         except Exception as e:
-            logger.error(f"Fehler beim Laden der Presets: {e}")
+            logger.error(f"Fehler beim Laden der Bibliothek: {e}")
 
     def apply_preset(self, name: str) -> None:
         """Füllt die Eingabefelder basierend auf der Auswahl."""
@@ -164,17 +182,20 @@ class CombatTracker:
             self.entry_init.delete(0, tk.END)
             self.entry_init.insert(0, str(data.get("init", 0)))
 
-            self.entry_type.set(data.get("type", "Gegner"))
+            self.entry_type.set(data.get("type", CharacterType.ENEMY.value))
 
     def create_tooltip(self, widget: tk.Widget, text_func: Any) -> None:
+        """Erstellt einen Tooltip für ein Widget."""
         tt = ToolTip(widget, text_func)
         widget.bind('<Enter>', tt.showtip)
         widget.bind('<Leave>', tt.hidetip)
 
     def setup_ui(self) -> None:
+        """Initialisiert das UI-Layout."""
         self.ui_layout.setup_ui()
 
     def show_context_menu(self, event: tk.Event) -> None:
+        """Zeigt das Kontextmenü bei Rechtsklick auf die Tabelle."""
         item = self.tree.identify_row(event.y)
         if item:
             self.tree.selection_set(item)
@@ -224,7 +245,7 @@ class CombatTracker:
         self.history_manager.save_snapshot()
         self.engine.roll_initiatives()
         self.initiative_rolled = True
-        self.update_listbox()
+        # self.update_listbox() # Removed, handled by event
 
         # Zeige den ersten Charakter als aktiv an
         if self.engine.characters:
@@ -243,7 +264,7 @@ class CombatTracker:
         self.engine.turn_index = -1
         self.engine.round_number = 1
         self.initiative_rolled = False # Initiative-Modus beenden
-        self.update_listbox()
+        self.engine.notify(EventType.UPDATE) # Notify update manually as we modified characters directly
 
         type_text = "aller Charaktere" if target_type == "All" else f"aller {target_type}s"
         self.log_message(f"Initiative {type_text} wurde zurückgesetzt ({count} betroffen).")
@@ -253,10 +274,15 @@ class CombatTracker:
         self.history_manager.save_snapshot()
         char = self.engine.next_turn()
         if char:
-             # Erzeuge Log für den aktuellen Status (Engine logs status updates, but maybe not current status summary)
+            # Erzeuge Log für den aktuellen Status (Engine logs status updates, but maybe not current status summary)
             status_info = ""
             if char.status:
-                status_list = [f"{s['effect']} (Rang {s['rank']}, {s['rounds']} Rd.)" for s in char.status]
+                status_list = []
+                for s in char.status:
+                    name = s.name
+                    if hasattr(name, 'value'):
+                        name = name.value
+                    status_list.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
                 status_info = " | Status: " + ", ".join(status_list)
 
             if char.lp <= 0 or char.max_lp <= 0:
@@ -267,9 +293,10 @@ class CombatTracker:
             else:
                 self.log_message(f"▶ {char.name} ist am Zug!{status_info}")
 
-        self.update_listbox()
+        # self.update_listbox() # Removed, handled by event
 
     def highlight_current_char(self, char: Character) -> None:
+        """Markiert den aktuellen Charakter in der Tabelle."""
         # Einfache visuelle Markierung (Auswahl)
         for item in self.tree.get_children():
             if self.tree.item(item, "values")[0] == char.name:
@@ -286,7 +313,7 @@ class CombatTracker:
             return 0
 
     def deal_damage(self) -> None:
-        """Liest Schaden direkt aus dem UI-Feld."""
+        """Liest Schaden direkt aus dem UI-Feld und wendet ihn an."""
         char = self.get_selected_char()
         if not char: return
 
@@ -297,9 +324,16 @@ class CombatTracker:
 
         dmg_type = self.action_type.get()
 
+        # Ermittle max_rank basierend auf dem sekundären Effekt des Schadens
+        max_rank = 6
+        if dmg_type in RULES.get("damage_types", {}):
+            sec_effect = RULES["damage_types"][dmg_type].get("secondary_effect")
+            if sec_effect and sec_effect in RULES.get("status_effects", {}):
+                max_rank = RULES["status_effects"][sec_effect].get("max_rank", 6)
+
         try:
             rank = int(self.status_rank.get())
-            if rank > 6: rank = 6
+            if rank > max_rank: rank = max_rank
         except ValueError:
             rank = 1
 
@@ -307,9 +341,10 @@ class CombatTracker:
         self.history_manager.save_snapshot()
         log = char.apply_damage(dmg, dmg_type, rank)
         self.log_message(log)
-        self.update_listbox()
+        self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
     def add_status_to_character(self) -> None:
+        """Fügt dem ausgewählten Charakter einen Status hinzu."""
         char = self.get_selected_char()
         if not char: return
 
@@ -321,13 +356,19 @@ class CombatTracker:
             messagebox.showwarning("Fehler", "Bitte einen Status eingeben oder auswählen.")
             return
 
+        # Ermittle max_rank für den Status
+        max_rank = 6 # Default fallback
+        if status in RULES.get("status_effects", {}):
+             max_rank = RULES["status_effects"][status].get("max_rank", 6)
+
         try:
             duration = int(duration_str)
             rank = int(rank_str)
             if duration <= 0 or rank <= 0: raise ValueError
-            if rank > 6:
-                rank = 6
-                messagebox.showinfo("Info", "Maximaler Rang ist 6. Rang wurde auf 6 gesetzt.")
+
+            if rank > max_rank:
+                rank = max_rank
+                messagebox.showinfo("Info", f"Maximaler Rang für '{status}' ist {max_rank}. Rang wurde angepasst.")
         except ValueError:
             messagebox.showwarning("Fehler", "Bitte gültige Zahlen für Dauer und Rang eingeben.")
             return
@@ -335,7 +376,7 @@ class CombatTracker:
         self.history_manager.save_snapshot()
         char.add_status(status, duration, rank)
         self.log_message(f"{char.name} erhält Status '{status}' (Rang {rank}) für {duration} Runden.")
-        self.update_listbox()
+        self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
     def load_enemies(self, pfad: Optional[str] = None) -> None:
         """
@@ -345,6 +386,7 @@ class CombatTracker:
         self.import_handler.load_from_excel(pfad)
 
     def add_single_enemy(self) -> None:
+        """Veraltet: Fügt einen einzelnen Gegner hinzu."""
         # Veraltet durch Quick-Add, aber kann als Fallback bleiben oder entfernt werden
         pass
 
@@ -353,6 +395,7 @@ class CombatTracker:
         self.edit_handler.edit_selected_char()
 
     def delete_character(self) -> None:
+        """Löscht den ausgewählten Charakter."""
         selection = self.tree.selection()
         if not selection:
             messagebox.showerror("Fehler", "Wähle zuerst einen Charakter aus.")
@@ -393,10 +436,11 @@ class CombatTracker:
 
         self.history_manager.save_snapshot()
         self.engine.remove_character(actual_index)
-        self.update_listbox()
+        # self.update_listbox() # Removed, handled by event
         self.log_message(f"❌ Charakter '{deleted_char.name}' wurde gelöscht.")
 
     def delete_group(self, char_type: str) -> None:
+        """Löscht alle Charaktere eines bestimmten Typs."""
         if messagebox.askyesno("Bestätigung", f"Alle {char_type} wirklich löschen?"):
             self.history_manager.save_snapshot()
             # Create a new list excluding the type
@@ -404,7 +448,7 @@ class CombatTracker:
             # Reset turn index if needed, or just let update_listbox handle it (might be risky if index out of bounds)
             if self.engine.turn_index >= len(self.engine.characters):
                 self.engine.turn_index = 0
-            self.update_listbox()
+            self.engine.notify(EventType.UPDATE) # Notify update manually as we modified characters directly
             self.log_message(f"Alle {char_type} wurden gelöscht.")
 
     def manage_edit(self) -> None:
@@ -431,10 +475,11 @@ class CombatTracker:
                 self.history_manager.save_snapshot()
                 self.engine.characters.clear()
                 self.engine.reset_combat()
-                self.update_listbox()
+                # self.update_listbox() # Removed, handled by event
                 self.log_message("Alle Charaktere wurden gelöscht.")
 
     def apply_healing(self) -> None:
+        """Wendet Heilung auf den ausgewählten Charakter an."""
         char = self.get_selected_char()
         if not char: return
 
@@ -446,9 +491,10 @@ class CombatTracker:
         self.history_manager.save_snapshot()
         heal_log = char.heal(val)
         self.log_message(heal_log)
-        self.update_listbox()
+        self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
     def apply_shield(self) -> None:
+        """Erhöht den Schildwert des ausgewählten Charakters."""
         char = self.get_selected_char()
         if not char: return
         val = self.get_action_value()
@@ -456,9 +502,10 @@ class CombatTracker:
             self.history_manager.save_snapshot()
             char.sp += val
             self.log_message(f"{char.name} erhält {val} Schild.")
-            self.update_listbox()
+            self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
     def apply_armor(self) -> None:
+        """Erhöht den Rüstungswert des ausgewählten Charakters."""
         char = self.get_selected_char()
         if not char: return
         val = self.get_action_value()
@@ -466,9 +513,13 @@ class CombatTracker:
             self.history_manager.save_snapshot()
             char.rp += val
             self.log_message(f"{char.name} erhält {val} Rüstung.")
-            self.update_listbox()
+            self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
     def update_listbox(self) -> None:
+        """
+        Aktualisiert die Anzeige der Charakterliste (Treeview).
+        Wird automatisch aufgerufen, wenn sich der Zustand in der Engine ändert.
+        """
         # Treeview leeren
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -498,7 +549,14 @@ class CombatTracker:
             display_list.append((idx, self.engine.characters[idx]))
 
         for orig_idx, char in display_list:
-            status_str = ", ".join(f"{s['effect']} (Rang {s['rank']}, {s['rounds']} Rd.)" for s in char.status)
+            status_items = []
+            for s in char.status:
+                name = s.name
+                if hasattr(name, 'value'):
+                    name = name.value
+                status_items.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
+
+            status_str = ", ".join(status_items)
             order = str(orig_idx + 1) if self.initiative_rolled else "-"
 
             # Werte formatieren (Aktuell / Max)
@@ -519,13 +577,14 @@ class CombatTracker:
                 self.tree.item(item_id, tags=('low_hp',))
 
         # Tags für Dark Mode angepasst
-        self.tree.tag_configure('dead', background='#5e0000', foreground='#ffcccc') # Dunkelrot Hintergrund
-        self.tree.tag_configure('low_hp', foreground='#ff5252')   # Helles Rot Schrift
+        self.tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
+        self.tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
 
         # Autosave trigger
         self.persistence_handler.autosave()
 
     def get_selected_char(self) -> Optional[Character]:
+        """Gibt das Character-Objekt zurück, das aktuell in der Tabelle ausgewählt ist."""
         selection = self.tree.selection()
         if not selection:
             messagebox.showerror("Fehler", "Kein Charakter ausgewählt.")
@@ -545,15 +604,87 @@ class CombatTracker:
         return self.engine.characters[actual_index]
 
     def log_message(self, msg: str) -> None:
+        """Schreibt eine Nachricht in das Log-Fenster."""
         self.log.insert(tk.END, str(msg).strip() + "\n")
         self.log.see(tk.END)
 
     def undo_action(self) -> None:
+        """Macht die letzte Aktion rückgängig."""
         if self.history_manager.undo():
-            self.update_listbox()
+            # self.update_listbox() # Removed, handled by load_state in engine
             self.log_message("↩ Undo ausgeführt.")
 
     def redo_action(self) -> None:
+        """Wiederholt die letzte rückgängig gemachte Aktion."""
         if self.history_manager.redo():
-            self.update_listbox()
+            # self.update_listbox() # Removed, handled by load_state in engine
             self.log_message("↪ Redo ausgeführt.")
+
+    def change_theme(self, theme_name: str) -> None:
+        """Wechselt das Farbschema der Anwendung."""
+        from .config import THEMES
+        if theme_name not in THEMES:
+            return
+
+        new_colors = THEMES[theme_name]
+        self.colors = new_colors
+        self.ui_layout.colors = new_colors
+        self.edit_handler.colors = new_colors
+        self.import_handler.colors = new_colors
+        self.library_handler.colors = new_colors
+        self.hotkey_handler.colors = new_colors
+
+        # Update Root
+        self.root.configure(bg=self.colors["bg"])
+
+        # Update Styles
+        style = ttk.Style()
+        style.configure(".", background=self.colors["bg"], foreground=self.colors["fg"], font=FONTS["main"])
+        style.configure("TLabel", background=self.colors["bg"], foreground=self.colors["fg"])
+        style.configure("TButton", background=self.colors["panel"], foreground=self.colors["fg"], borderwidth=1, focuscolor=self.colors["accent"])
+        style.map("TButton", background=[('active', self.colors["accent"])])
+
+        style.configure("TEntry", fieldbackground=self.colors["entry_bg"], foreground=self.colors["fg"], insertcolor=self.colors["fg"])
+        style.configure("TCombobox", fieldbackground=self.colors["entry_bg"], background=self.colors["entry_bg"], foreground=self.colors["fg"], arrowcolor=self.colors["fg"])
+        style.map("TCombobox", fieldbackground=[('readonly', self.colors["entry_bg"])],
+                               selectbackground=[('readonly', self.colors["entry_bg"])],
+                               selectforeground=[('readonly', self.colors["fg"])],
+                               foreground=[('readonly', self.colors["fg"])])
+
+        self.root.option_add('*TCombobox*Listbox.background', self.colors["entry_bg"])
+        self.root.option_add('*TCombobox*Listbox.foreground', self.colors["fg"])
+        self.root.option_add('*TCombobox*Listbox.selectBackground', self.colors["accent"])
+        self.root.option_add('*TCombobox*Listbox.selectForeground', self.colors["bg"])
+
+        style.configure("Treeview",
+                        background=self.colors["panel"],
+                        foreground=self.colors["fg"],
+                        fieldbackground=self.colors["panel"])
+        style.configure("Treeview.Heading",
+                        background=self.colors["panel"],
+                        foreground=self.colors["accent"])
+        style.map("Treeview", background=[('selected', self.colors["accent"])])
+
+        style.configure("Card.TFrame", background=self.colors["panel"])
+        style.configure("Card.TLabelframe", background=self.colors["panel"], foreground=self.colors["fg"])
+        style.configure("Card.TLabelframe.Label", background=self.colors["panel"], foreground=self.colors["accent"])
+
+        # Manuelle Updates für Widgets, die nicht automatisch aktualisiert werden
+        if self.log:
+            self.log.configure(bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"])
+
+        if self.round_label:
+            self.round_label.configure(background=self.colors["bg"], foreground=self.colors["fg"])
+
+        if self.dice_roller:
+            self.dice_roller.update_colors(self.colors)
+
+        # Update Treeview Tags
+        if self.tree:
+            self.tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
+            self.tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
+
+        # Refresh UI components if necessary (e.g. recreating parts or just forcing update)
+        # For simple color changes, style update + specific widget config is usually enough.
+
+        self.log_message(f"Theme gewechselt zu: {theme_name}")

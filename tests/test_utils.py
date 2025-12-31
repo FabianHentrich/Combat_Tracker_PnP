@@ -34,6 +34,10 @@ def test_initiative_roll_range():
         # Mit explodierenden Würfeln kann das Ergebnis > 6 sein, daher keine Obergrenze prüfen
 
 def test_exploding_dice_logic():
+    """
+    Testet die Logik für explodierende Würfel.
+    Überprüft normale Würfe, einfache Explosionen und mehrfache Explosionen.
+    """
     # Test normal roll (no explosion)
     with patch('random.randint', return_value=3):
         total, rolls = roll_exploding_dice(6)

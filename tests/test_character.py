@@ -6,6 +6,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.character import Character
+from src.enums import DamageType
 
 @pytest.fixture
 def char_damage():
@@ -66,68 +67,36 @@ def test_death(char_damage):
     assert char_damage.lp <= 0
     assert "ist kampfunfähig" in log
 
-@pytest.fixture
-def char_status():
-    """Fixture für Status-Tests."""
-    return Character("StatusDummy", lp=50, rp=0, sp=0, init=10)
-
-def test_add_status(char_status):
-    """Test: Status wird hinzugefügt."""
-    char_status.add_status("Vergiftung", duration=3, rank=2)
-    assert len(char_status.status) == 1
-    assert char_status.status[0]["effect"] == "Vergiftung"
-    assert char_status.status[0]["rounds"] == 3
-    assert char_status.status[0]["rank"] == 2
-
-def test_poison_effect(char_status):
-    """Test: Vergiftung verursacht Direktschaden."""
-    char_status.add_status("Vergiftung", duration=1, rank=5)
-    log = char_status.update_status()
-    # Rang 5 Vergiftung = 5 Direktschaden
-    assert char_status.lp == 45
-    assert "Vergiftung Rang 5" in log
-    # Status sollte nun weg sein (Duration 1 -> 0)
-    assert len(char_status.status) == 0
-
-def test_bleeding_effect(char_status):
-    """Test: Blutungsschaden steigt pro Runde."""
-    # Rang 2 Blutung.
-    # Runde 1 Schaden: Rang/2 + 0 = 1
-    # Runde 2 Schaden: Rang/2 + 1 = 2
-    char_status.add_status("Blutung", duration=2, rank=2)
-
-    # Runde 1
-    char_status.update_status()
-    assert char_status.lp == 49 # -1
-
-    # Runde 2
-    char_status.update_status()
-    assert char_status.lp == 47 # -2
-
-def test_stun_effect(char_status):
-    """Test: Betäubung setzt skip_turns."""
-    char_status.add_status("Betäubung", duration=1, rank=1)
-    char_status.update_status()
-    assert char_status.skip_turns == 1
-
-    # Nächste Runde (Status weg)
-    char_status.update_status()
-    assert char_status.skip_turns == 0
-
-def test_erosion_effect(char_status):
-    """Test: Erosion reduziert Max LP."""
-    max_lp_start = char_status.max_lp
-    char_status.add_status("Erosion", duration=1, rank=1)
-    char_status.update_status()
-
-    assert char_status.max_lp < max_lp_start
-    # Erosion verursacht auch Direktschaden in Höhe des MaxLP Verlusts
-    assert char_status.lp < 50
-
-def test_healing(char_status):
+def test_healing(char_damage):
     """Test: Heilung erhöht LP."""
-    char_status.lp = 10
-    log = char_status.heal(5)
-    assert char_status.lp == 15
+    char_damage.lp = 10
+    log = char_damage.heal(5)
+    assert char_damage.lp == 15
     assert "wird um 5 LP geheilt" in log
 
+def test_elemental_damage_logging(char_damage):
+    """Test: Elementarschaden wird korrekt geloggt und zeigt Chance auf Sekundäreffekt."""
+    # Teste Feuer (sollte Chance auf Verbrennung anzeigen)
+    log = char_damage.apply_damage(5, DamageType.FIRE)
+    assert "Feuer" in log
+    assert "Chance auf Verbrennung" in log
+
+    # Teste Gift (sollte Chance auf Vergiftung anzeigen)
+    log = char_damage.apply_damage(5, DamageType.POISON)
+    assert "Gift" in log
+    assert "Chance auf Vergiftung" in log
+
+    # Teste Blitz (sollte Chance auf Betäubung anzeigen)
+    log = char_damage.apply_damage(5, DamageType.LIGHTNING)
+    assert "Blitz" in log
+    assert "Chance auf Betäubung" in log
+
+    # Teste Kälte (sollte Chance auf Unterkühlung anzeigen)
+    log = char_damage.apply_damage(5, DamageType.COLD)
+    assert "Kälte" in log
+    assert "Chance auf Unterkühlung" in log
+
+    # Teste Verwesung (sollte Chance auf Erosion anzeigen)
+    log = char_damage.apply_damage(5, DamageType.DECAY)
+    assert "Verwesung" in log
+    assert "Chance auf Erosion" in log

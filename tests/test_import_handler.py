@@ -19,7 +19,10 @@ def import_handler(mock_tracker):
     return ImportHandler(mock_tracker, root, colors)
 
 def test_finalize_import(import_handler):
-    """Test finalizing import creates characters correctly."""
+    """
+    Testet das Finalisieren des Imports.
+    Überprüft, ob Charaktere korrekt aus den Detail-Einträgen erstellt und der Engine hinzugefügt werden.
+    """
     window = MagicMock()
 
     # Mock detail entry
@@ -57,4 +60,3 @@ def test_finalize_import(import_handler):
     assert char.init >= 1
 
     window.destroy.assert_called_once()
-
