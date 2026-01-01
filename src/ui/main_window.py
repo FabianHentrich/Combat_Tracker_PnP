@@ -157,9 +157,7 @@ class CombatTracker:
 
         # Anwenden des Schadens
         self.history_manager.save_snapshot()
-        log = char.apply_damage(dmg, dmg_type, rank)
-        self.log_message(log)
-        self.engine.notify(EventType.UPDATE)
+        self.engine.apply_damage(char, dmg, dmg_type, rank)
 
     def add_status_to_character(self) -> None:
         """Fügt dem ausgewählten Charakter einen Status hinzu."""
@@ -193,9 +191,7 @@ class CombatTracker:
             return
 
         self.history_manager.save_snapshot()
-        char.add_status(status, duration, rank)
-        self.log_message(f"{char.name} erhält Status '{status}' (Rang {rank}) für {duration} Runden.")
-        self.engine.notify(EventType.UPDATE)
+        self.engine.add_status_effect(char, status, duration, rank)
 
     def load_enemies(self, pfad: Optional[str] = None) -> None:
         """
@@ -206,7 +202,9 @@ class CombatTracker:
 
     def edit_selected_char(self) -> None:
         """Bearbeitet alle Werte des ausgewählten Charakters."""
-        self.edit_handler.edit_selected_char()
+        char = self.get_selected_char()
+        if char:
+            self.edit_handler.open_edit_character_window(char)
 
     def delete_character(self) -> None:
         """Löscht den ausgewählten Charakter."""
@@ -228,7 +226,6 @@ class CombatTracker:
         if deleted_char:
             self.history_manager.save_snapshot()
             self.engine.remove_character(actual_index)
-            self.log_message(f"❌ Charakter '{deleted_char.name}' wurde gelöscht.")
         else:
             self.view.show_error("Fehler", "Charakter nicht gefunden (Interner Fehler).")
 
@@ -236,13 +233,7 @@ class CombatTracker:
         """Löscht alle Charaktere eines bestimmten Typs."""
         if self.view.ask_yes_no("Bestätigung", f"Alle {char_type} wirklich löschen?"):
             self.history_manager.save_snapshot()
-            # Create a new list excluding the type
-            self.engine.characters = [c for c in self.engine.characters if c.char_type != char_type]
-            # Reset turn index if needed
-            if self.engine.turn_index >= len(self.engine.characters):
-                self.engine.turn_index = 0
-            self.engine.notify(EventType.UPDATE)
-            self.log_message(f"Alle {char_type} wurden gelöscht.")
+            self.engine.remove_characters_by_type(char_type)
 
     def manage_edit(self) -> None:
         """Handhabt das Bearbeiten basierend auf der Auswahl im Verwaltungs-Panel."""
@@ -266,9 +257,7 @@ class CombatTracker:
         elif target == "Alle Charaktere":
             if self.view.ask_yes_no("Bestätigung", "Wirklich ALLE Charaktere löschen?"):
                 self.history_manager.save_snapshot()
-                self.engine.characters.clear()
-                self.engine.reset_combat()
-                self.log_message("Alle Charaktere wurden gelöscht.")
+                self.engine.clear_all_characters()
 
     def apply_healing(self) -> None:
         """Wendet Heilung auf den ausgewählten Charakter an."""
@@ -281,9 +270,7 @@ class CombatTracker:
             return
 
         self.history_manager.save_snapshot()
-        heal_log = char.heal(val)
-        self.log_message(heal_log)
-        self.engine.notify(EventType.UPDATE)
+        self.engine.apply_healing(char, val)
 
     def apply_shield(self) -> None:
         """Erhöht den Schildwert des ausgewählten Charakters."""
@@ -292,9 +279,7 @@ class CombatTracker:
         val = self.view.get_action_value()
         if val > 0:
             self.history_manager.save_snapshot()
-            char.sp += val
-            self.log_message(f"{char.name} erhält {val} Schild.")
-            self.engine.notify(EventType.UPDATE)
+            self.engine.apply_shield(char, val)
 
     def apply_armor(self) -> None:
         """Erhöht den Rüstungswert des ausgewählten Charakters."""
@@ -303,9 +288,7 @@ class CombatTracker:
         val = self.view.get_action_value()
         if val > 0:
             self.history_manager.save_snapshot()
-            char.rp += val
-            self.log_message(f"{char.name} erhält {val} Rüstung.")
-            self.engine.notify(EventType.UPDATE)
+            self.engine.apply_armor(char, val)
 
     def save_session(self) -> None:
         state = self.engine.get_state()

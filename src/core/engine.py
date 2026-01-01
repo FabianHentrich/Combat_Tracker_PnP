@@ -229,3 +229,75 @@ class CombatEngine:
         self.round_number = state["round_number"]
         self.log("Kampfstatus geladen.")
         self.notify(EventType.UPDATE)
+
+    def apply_damage(self, char: Character, amount: int, damage_type: str, rank: int) -> str:
+        """Wendet Schaden auf einen Charakter an."""
+        log = char.apply_damage(amount, damage_type, rank)
+        self.log(log)
+        self.notify(EventType.UPDATE)
+        return log
+
+    def apply_healing(self, char: Character, amount: int) -> str:
+        """Heilt einen Charakter."""
+        log = char.heal(amount)
+        self.log(log)
+        self.notify(EventType.UPDATE)
+        return log
+
+    def apply_shield(self, char: Character, amount: int) -> str:
+        """Gibt einem Charakter Schild."""
+        char.sp += amount
+        log = f"{char.name} erhält {amount} Schild."
+        self.log(log)
+        self.notify(EventType.UPDATE)
+        return log
+
+    def apply_armor(self, char: Character, amount: int) -> str:
+        """Gibt einem Charakter Rüstung."""
+        char.rp += amount
+        log = f"{char.name} erhält {amount} Rüstung."
+        self.log(log)
+        self.notify(EventType.UPDATE)
+        return log
+
+    def add_status_effect(self, char: Character, effect_name: str, duration: int, rank: int) -> str:
+        """Fügt einem Charakter einen Status-Effekt hinzu."""
+        char.add_status(effect_name, duration, rank)
+        log = f"{char.name} erhält Status '{effect_name}' (Rang {rank}) für {duration} Runden."
+        self.log(log)
+        self.notify(EventType.UPDATE)
+        return log
+
+    def remove_characters_by_type(self, char_type: str) -> None:
+        """Entfernt alle Charaktere eines bestimmten Typs."""
+        self.characters = [c for c in self.characters if c.char_type != char_type]
+        if self.turn_index >= len(self.characters):
+            self.turn_index = 0
+        self.log(f"Alle {char_type} wurden gelöscht.")
+        self.notify(EventType.UPDATE)
+
+    def clear_all_characters(self) -> None:
+        """Löscht alle Charaktere und setzt den Kampf zurück."""
+        self.characters.clear()
+        self.reset_combat()
+        self.log("Alle Charaktere wurden gelöscht.")
+        self.notify(EventType.UPDATE)
+
+    def update_character(self, char: Character, data: dict) -> None:
+        """Aktualisiert die Attribute eines Charakters."""
+        char.name = data.get("name", char.name)
+        char.char_type = data.get("char_type", char.char_type)
+        char.lp = data.get("lp", char.lp)
+        char.max_lp = data.get("max_lp", char.max_lp)
+        char.rp = data.get("rp", char.rp)
+        char.max_rp = data.get("max_rp", char.max_rp)
+        char.sp = data.get("sp", char.sp)
+        char.max_sp = data.get("max_sp", char.max_sp)
+        char.init = data.get("init", char.init)
+        char.gew = data.get("gew", char.gew)
+
+        if "status" in data:
+            char.status = data["status"]
+
+        self.log(f"✏ Charakter '{char.name}' wurde bearbeitet.")
+        self.notify(EventType.UPDATE)

@@ -1411,3 +1411,114 @@
 2026-01-01 15:22:48,233 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 20
 2026-01-01 15:22:52,379 - INFO - engine - Game Log: Ork wurde einsortiert.
 2026-01-01 15:22:52,381 - INFO - engine - Game Log: 1 Charaktere erfolgreich importiert.
+2026-01-01 15:37:14,238 - INFO - logger - Logging initialisiert.
+2026-01-01 15:37:14,323 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 15:37:19,171 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-01 15:37:19,171 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2026-01-01 15:37:19,173 - INFO - engine - Game Log: 1 Charaktere aus Bibliothek hinzugefügt.
+2026-01-01 16:01:37,325 - INFO - logger - Logging initialisiert.
+2026-01-01 16:01:37,408 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 16:01:42,753 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-01 16:01:42,753 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) wurde hinzugefügt.
+2026-01-01 16:01:42,756 - INFO - engine - Game Log: 1 Charaktere aus Bibliothek hinzugefügt.
+2026-01-01 16:01:57,054 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2026-01-01 16:01:57,055 - INFO - engine - Game Log: ✏ Charakter 'Ardomis – Der Erleuchtete (Boss)' wurde bearbeitet.
+2026-01-01 16:01:59,948 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2026-01-01 16:01:59,948 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) erhält Status 'Vergiftung' (Rang 1) für 3 Runden.
+2026-01-01 16:02:04,946 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2026-01-01 16:02:04,946 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden durch Rüstung abgefangen (5 RP verloren).
+
+2026-01-01 16:02:11,527 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:02:11,528 - INFO - history - Undo ausgeführt.
+2026-01-01 16:02:12,343 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:02:12,344 - INFO - history - Redo ausgeführt.
+2026-01-01 16:02:14,296 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2026-01-01 16:02:14,296 - INFO - engine - Game Log: Ardomis – Der Erleuchtete (Boss) erleidet 1 (Direkt) Schaden!
+→ Direkt Schaden ignoriert Rüstung.
+→ Direkt Schaden ignoriert Schild.
+→ 1 Schaden auf Lebenspunkte!
+ (Vergiftung Rang 1, Runde 1)
+
+2026-01-01 16:02:14,296 - INFO - engine - Game Log: ▶ Ardomis – Der Erleuchtete (Boss) ist am Zug! | Status: Vergiftung (Rang 1, 2 Rd.)
+2026-01-01 16:02:14,944 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2026-01-01 16:02:14,944 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-01 16:02:14,945 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-01 16:02:14,945 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-01 16:02:17,028 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2026-01-01 16:02:17,028 - INFO - engine - Game Log: Initiative aller Charaktere wurde zurückgesetzt (1 betroffen).
+2026-01-01 16:02:18,135 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2026-01-01 16:02:18,135 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-01 16:02:18,137 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-01 16:02:18,138 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-01 16:02:28,631 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2026-01-01 16:02:28,631 - INFO - engine - Game Log: ⚠ asd3 springt überraschend in den Kampf!
+2026-01-01 16:02:39,529 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 10
+2026-01-01 16:02:39,530 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 1 wurde einsortiert.
+2026-01-01 16:02:39,531 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 2 wurde einsortiert.
+2026-01-01 16:02:39,533 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 3 wurde einsortiert.
+2026-01-01 16:02:39,534 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 4 wurde einsortiert.
+2026-01-01 16:02:39,536 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 5 wurde einsortiert.
+2026-01-01 16:02:39,538 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 6 wurde einsortiert.
+2026-01-01 16:02:39,539 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 7 wurde einsortiert.
+2026-01-01 16:02:39,541 - INFO - engine - Game Log: 7 Charaktere aus Bibliothek hinzugefügt.
+2026-01-01 16:16:53,293 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 11
+2026-01-01 16:16:53,294 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 2 erhält 10 Schild.
+2026-01-01 16:16:55,882 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 12
+2026-01-01 16:16:55,882 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 1 wird um 10 LP geheilt! Aktuelle LP: 52
+2026-01-01 16:16:57,438 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 13
+2026-01-01 16:16:57,438 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) 3 erhält 10 Rüstung.
+2026-01-01 16:17:16,474 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 14
+2026-01-01 16:17:16,475 - INFO - engine - Game Log: asd3 erhält 10 Rüstung.
+2026-01-01 16:17:30,080 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 15
+2026-01-01 16:17:35,178 - INFO - engine - Game Log: Ork wurde einsortiert.
+2026-01-01 16:17:35,180 - INFO - engine - Game Log: 1 Charaktere erfolgreich importiert.
+2026-01-01 16:17:41,774 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 16
+2026-01-01 16:17:41,775 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-01 16:17:41,776 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-01 16:17:41,777 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-01 16:17:44,364 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 17
+2026-01-01 16:17:44,364 - INFO - engine - Game Log: Initiative aller Charaktere wurde zurückgesetzt (10 betroffen).
+2026-01-01 16:17:44,975 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 18
+2026-01-01 16:17:44,975 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-01 16:17:44,977 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-01 16:17:44,978 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-01 16:17:46,528 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 19
+2026-01-01 16:17:46,528 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-01 16:17:46,530 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-01 16:17:46,530 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-01 16:17:47,938 - INFO - history - Redo nicht möglich: Stack leer.
+2026-01-01 16:17:48,383 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:48,385 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:49,177 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:49,179 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:49,384 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:49,386 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:49,552 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:49,554 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:49,714 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:49,715 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:50,069 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:50,071 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:50,226 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:50,228 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:50,381 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:50,383 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:50,551 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:50,552 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:50,705 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:50,707 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:51,274 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:51,275 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:51,430 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:51,432 - INFO - history - Undo ausgeführt.
+2026-01-01 16:17:51,704 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:51,706 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:51,890 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-01 16:17:51,892 - INFO - history - Redo ausgeführt.
+2026-01-01 16:17:54,315 - INFO - dice_roller - DiceRoller: W4: 4 + 2 = 6 (Explodiert!)
+2026-01-01 16:17:55,513 - INFO - dice_roller - DiceRoller: W8: 7
+2026-01-01 16:17:56,245 - INFO - dice_roller - DiceRoller: W10: 10 + 1 = 11 (Explodiert!)
+2026-01-01 16:17:57,066 - INFO - dice_roller - DiceRoller: W6: 5
+2026-01-01 16:17:57,730 - INFO - dice_roller - DiceRoller: W12: 3
+2026-01-01 16:17:58,789 - INFO - dice_roller - DiceRoller: W10: 6

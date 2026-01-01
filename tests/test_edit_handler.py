@@ -94,11 +94,15 @@ def test_save_character_edits(edit_handler):
     edit_handler.save_character_edits(window, char, entries, status_ui_entries)
 
     # Assertions
-    assert char.name == "NewName"
-    assert char.char_type == "Spieler"
-    assert char.lp == 20
-    assert char.init == 15
-    assert char.gew == 5 # Check if gew was updated
+    # Since we moved logic to engine, we check if engine.update_character was called
+    edit_handler.engine.update_character.assert_called_once()
+    args, _ = edit_handler.engine.update_character.call_args
+    called_char, data = args
 
-    edit_handler.engine.notify.assert_called_with(EventType.UPDATE)
+    assert called_char == char
+    assert data["name"] == "NewName"
+    assert data["char_type"] == "Spieler"
+    assert data["lp"] == 20
+    assert data["init"] == 15
+    assert data["gew"] == 5
     window.destroy.assert_called_once()

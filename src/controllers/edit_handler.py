@@ -204,20 +204,18 @@ class EditHandler:
             if not new_name:
                 raise ValueError("Name darf nicht leer sein.")
 
-            char.name = new_name
-            char.char_type = entries["type"].get()
-
-            char.lp = int(entries["lp"].get())
-            char.max_lp = int(entries["max_lp"].get())
-
-            char.rp = int(entries["rp"].get())
-            char.max_rp = int(entries["max_rp"].get())
-
-            char.sp = int(entries["sp"].get())
-            char.max_sp = int(entries["max_sp"].get())
-
-            char.init = int(entries["init"].get())
-            char.gew = int(entries["gew"].get())
+            data = {
+                "name": new_name,
+                "char_type": entries["type"].get(),
+                "lp": int(entries["lp"].get()),
+                "max_lp": int(entries["max_lp"].get()),
+                "rp": int(entries["rp"].get()),
+                "max_rp": int(entries["max_rp"].get()),
+                "sp": int(entries["sp"].get()),
+                "max_sp": int(entries["max_sp"].get()),
+                "init": int(entries["init"].get()),
+                "gew": int(entries["gew"].get())
+            }
 
             # Status speichern
             new_status_list = []
@@ -234,10 +232,9 @@ class EditHandler:
                         effect = GenericStatusEffect(effect_name, rounds, rank)
                     new_status_list.append(effect)
 
-            char.status = new_status_list
+            data["status"] = new_status_list
 
-            self.engine.notify(EventType.UPDATE)
-            self.engine.log(f"✏ Charakter '{char.name}' wurde bearbeitet.")
+            self.engine.update_character(char, data)
             window.destroy()
 
         except ValueError as e:
