@@ -1,0 +1,39 @@
+{
+    "version": 1,
+    "state": {
+        "characters": [
+            {
+                "id": "1d6ef525-dc84-4087-8ac9-21081315ab8e",
+                "name": "A",
+                "char_type": "Spieler",
+                "max_lp": 10,
+                "lp": 10,
+                "max_rp": 10,
+                "rp": 10,
+                "max_sp": 10,
+                "sp": 10,
+                "gew": 1,
+                "init": 0,
+                "status": [],
+                "skip_turns": 0
+            },
+            {
+                "id": "3601ec5f-8106-4bf0-8780-21d6a082614b",
+                "name": "B",
+                "char_type": "Gegner",
+                "max_lp": 10,
+                "lp": 10,
+                "max_rp": 10,
+                "rp": 10,
+                "max_sp": 10,
+                "sp": 10,
+                "gew": 1,
+                "init": 0,
+                "status": [],
+                "skip_turns": 0
+            }
+        ],
+        "turn_index": -1,
+        "round_number": 1
+    }
+}

@@ -21,8 +21,8 @@ def app():
         # Import or reload src.main_window to use the mocked tkinter
         if 'src.ui.dice_roller' in sys.modules:
             importlib.reload(sys.modules['src.ui.dice_roller'])
-        if 'src.ui.ui_layout' in sys.modules:
-            importlib.reload(sys.modules['src.ui.ui_layout'])
+        if 'src.ui.main_view' in sys.modules:
+            importlib.reload(sys.modules['src.ui.main_view'])
         if 'src.ui.main_window' in sys.modules:
             importlib.reload(sys.modules['src.ui.main_window'])
         else:
@@ -34,17 +34,8 @@ def app():
         tracker = CombatTracker(root)
 
         # Mocke interne UI-Komponenten, auf die zugegriffen wird
-        # Da wir jetzt ui_layout nutzen, müssen wir die Mocks dort setzen oder sicherstellen, dass sie existieren
-        # tracker.ui_layout.tracker.tree = MagicMock() # ui_layout setzt tracker.tree
-
-        # Wir müssen sicherstellen, dass setup_ui durchläuft oder wir mocken es weg
-        # Aber setup_ui wird im __init__ aufgerufen.
-
-        # Nach __init__ sollten tracker.tree und tracker.log existieren (als Mocks oder echte Objekte die Tkinter Mocks nutzen)
-        # Da Tkinter gemockt ist, sind tracker.tree und tracker.log MagicMocks (oder Tkinter-Objekte die MagicMocks sind)
-
-        # Wir müssen sicherstellen, dass wir auf die richtigen Attribute zugreifen
-        # tracker.tree wird in ui_layout.create_treeview gesetzt
+        # tracker.view.tree wird in MainView.setup_ui gesetzt
+        # Da wir Tkinter gemockt haben, ist tracker.view.tree ein MagicMock
 
         # Leere die Charakterliste für jeden Test
         tracker.engine.characters = []
@@ -148,16 +139,17 @@ def test_delete_active_character(app):
 
     # Mocking der UI-Selektion für Charakter B (Index 1)
     # Wir simulieren, dass der User B in der Tabelle ausgewählt hat
-    app.tree.selection.return_value = ["item_id_for_B"]
+    # WICHTIG: delete_character nutzt jetzt die UUID als selection ID
+    app.view.tree.selection.return_value = [c2.id]
 
     # Mock für item() Aufruf mit Option "values"
     def mock_item_b(item, option=None):
         if option == "values":
              return ["2", "B", "Gegner", "10/10", "10/10", "10/10", "10", ""]
         return {}
-    app.tree.item.side_effect = mock_item_b
+    app.view.tree.item.side_effect = mock_item_b
 
-    app.tree.index.return_value = 1
+    app.view.tree.index.return_value = 1
 
     # Löschen ausführen
     app.delete_character()
@@ -187,16 +179,17 @@ def test_delete_previous_character(app):
     app.engine.turn_index = 1 # B ist dran
 
     # Wir löschen A (Index 0)
-    app.tree.selection.return_value = ["item_id_for_A"]
+    # WICHTIG: delete_character nutzt jetzt die UUID als selection ID
+    app.view.tree.selection.return_value = [c1.id]
 
     # Mock für item() Aufruf mit Option "values"
     def mock_item_a(item, option=None):
         if option == "values":
              return ["1", "A", "Gegner", "10/10", "10/10", "10/10", "10", ""]
         return {}
-    app.tree.item.side_effect = mock_item_a
+    app.view.tree.item.side_effect = mock_item_a
 
-    app.tree.index.return_value = 0
+    app.view.tree.index.return_value = 0
 
     app.delete_character()
 

@@ -1,3 +1,4 @@
+import uuid
 from typing import List, Dict, Any
 from src.core.mechanics import calculate_damage
 from src.models.enums import CharacterType
@@ -9,7 +10,8 @@ class Character:
     Repräsentiert einen einzelnen Charakter im Kampf (Spieler, Gegner oder NPC).
     Speichert Attribute wie Lebenspunkte (LP), Rüstung (RP), Schild (SP), Initiative und Status-Effekte.
     """
-    def __init__(self, name: str, lp: int, rp: int, sp: int, init: int, gew: int = 1, char_type: str = CharacterType.ENEMY):
+    def __init__(self, name: str, lp: int, rp: int, sp: int, init: int, gew: int = 1, char_type: str = CharacterType.ENEMY, char_id: str = None):
+        self.id: str = char_id if char_id else str(uuid.uuid4())
         self.name: str = name
         self.char_type: str = char_type
         self.max_lp: int = lp # Speichern der Max LP für Verhältnisse
@@ -74,8 +76,9 @@ class Character:
         return f"{self.name} wird um {healing_points} LP geheilt! Aktuelle LP: {self.lp}"
 
     def to_dict(self) -> Dict[str, Any]:
-        """Serialisiert den Charakter in ein Dictionary (für JSON-Export)."""
+        """Konvertiert den Charakter in ein Dictionary (für JSON-Export)."""
         return {
+            "id": self.id,
             "name": self.name,
             "char_type": self.char_type,
             "max_lp": self.max_lp,
@@ -100,7 +103,8 @@ class Character:
             sp=data["max_sp"],
             init=data["init"],
             gew=data.get("gew", 1),
-            char_type=data.get("char_type", CharacterType.ENEMY)
+            char_type=data.get("char_type", CharacterType.ENEMY),
+            char_id=data.get("id")
         )
         char.lp = data["lp"]
         char.rp = data["rp"]
