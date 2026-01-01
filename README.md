@@ -37,9 +37,10 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
+*   **Excel Import:** Importiere Charaktere und Gegner direkt aus Excel-Tabellen (.xlsx), um Vorbereitungszeit zu sparen.
 *   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
-*   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.), um die UI deinen Vorlieben anzupassen.
-*   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
+*   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.). Vollständige Unterstützung für Light- und Dark-Modes über alle UI-Elemente hinweg.
+*   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `saves/autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
 *   **Undo/Redo:** Fehler können einfach rückgängig gemacht werden.
 
 ---
@@ -142,11 +143,12 @@ Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines 
 
 ## ⚙️ Konfiguration & Anpassung
 
-Das Programm ist hochgradig anpassbar über JSON-Dateien im Hauptverzeichnis:
+Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 
-*   **`rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden. Du kannst eigene Schadensarten erfinden!
-*   **`enemies.json`**: Eine Bibliothek deiner häufigsten Gegner.
-*   **`config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
+*   **`data/rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden. Du kannst eigene Schadensarten erfinden!
+*   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner.
+*   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
+*   **`src/utils/config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
 
 ### Themes
 Über das Menü oder die Config können verschiedene Themes gewählt werden, z.B.:
@@ -169,7 +171,28 @@ Für einen schnellen Workflow während des Spiels:
 | **Charakter löschen** | `Entf` |
 | **Fokus auf Schaden** | `Strg + D` |
 
-*(Hotkeys können in `hotkeys.json` angepasst werden)*
+*(Hotkeys können in `data/hotkeys.json` angepasst werden)*
+
+---
+
+## 🛠️ Entwickler-Infos
+
+Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisiert und modularisiert.
+
+### Projektstruktur
+Der Code ist nun sauber in Module unterteilt (`src/`):
+*   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
+*   **`src/models/`**: Datenmodelle (Character, StatusEffects).
+*   **`src/controllers/`**: Handler für Import, Export, Hotkeys und Persistenz.
+*   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
+*   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
+*   **`data/`**: Enthält JSON-Konfigurationsdateien (`rules.json`, `enemies.json`, `hotkeys.json`).
+*   **`saves/`**: Speicherort für Spielstände und Autosaves.
+
+### Architektur-Highlights
+*   **MVC-Ansatz:** Striktere Trennung von Daten (Models), Logik (Core) und Anzeige (UI).
+*   **UUIDs:** Charaktere werden intern über eindeutige IDs identifiziert, um Namenskonflikte zu vermeiden.
+*   **Event-System:** Die UI reagiert auf Events der Engine, statt direkt Daten zu manipulieren.
 
 ---
 

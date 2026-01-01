@@ -316,9 +316,11 @@ def load_rules(filepath: str = FILES["rules"]) -> Tuple[Dict[str, Any], Dict[str
             # Check if new structure
             if "damage_types" in data and "status_effects" in data:
                 dmg_desc, status_desc = extract_descriptions(data)
+                logger.info(f"Regelwerk erfolgreich geladen: {filepath}")
                 return data, dmg_desc, status_desc
             else:
                 # Old structure fallback (unlikely to be used if we control the file, but safe)
+                logger.info(f"Altes Regelwerk-Format geladen: {filepath}")
                 return default_rules, data.get("damage_descriptions", default_damage_desc), data.get("status_descriptions", default_status_desc)
 
     except Exception as e:
@@ -339,7 +341,18 @@ def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
 
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            loaded_hotkeys = json.load(f)
+
+            # Warnung bei fehlenden Keys
+            missing = [k for k in default_hotkeys if k not in loaded_hotkeys]
+            if missing:
+                logger.warning(f"Hotkeys unvollständig. Nutze Standards für: {', '.join(missing)}")
+
+            # Merge with defaults to ensure all keys exist
+            merged_hotkeys = default_hotkeys.copy()
+            merged_hotkeys.update(loaded_hotkeys)
+            logger.info(f"Hotkeys geladen: {filepath}")
+            return merged_hotkeys
     except Exception as e:
         logger.error(f"Fehler beim Laden der Hotkeys: {e}")
         return default_hotkeys

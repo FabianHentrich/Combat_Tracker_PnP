@@ -4,6 +4,9 @@ from src.core.mechanics import calculate_damage
 from src.models.enums import CharacterType
 from src.models.status_effects import StatusEffect, EFFECT_CLASSES, GenericStatusEffect
 from src.utils.config import RULES
+from src.utils.logger import setup_logging
+
+logger = setup_logging()
 
 class Character:
     """
@@ -96,19 +99,28 @@ class Character:
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> 'Character':
         """Erstellt einen Charakter aus einem Dictionary (für JSON-Import)."""
+
+        # Check for missing critical fields
+        required_fields = ["name", "max_lp", "max_rp", "max_sp", "init", "gew", "char_type", "id"]
+        missing = [f for f in required_fields if f not in data]
+        if missing:
+            logger.warning(f"Character Import: Fehlende Felder ersetzt durch Defaults: {', '.join(missing)} (Data: {data.get('name', 'Unknown')})")
+
+        # Robuster Import mit Default-Werten
         char = cls(
-            name=data["name"],
-            lp=data["max_lp"],
-            rp=data["max_rp"],
-            sp=data["max_sp"],
-            init=data["init"],
+            name=data.get("name", "Unknown"),
+            lp=data.get("max_lp", 10),
+            rp=data.get("max_rp", 0),
+            sp=data.get("max_sp", 0),
+            init=data.get("init", 0),
             gew=data.get("gew", 1),
             char_type=data.get("char_type", CharacterType.ENEMY),
             char_id=data.get("id")
         )
-        char.lp = data["lp"]
-        char.rp = data["rp"]
-        char.sp = data["sp"]
+        # Aktuelle Werte setzen (falls abweichend von Max)
+        char.lp = data.get("lp", char.max_lp)
+        char.rp = data.get("rp", char.max_rp)
+        char.sp = data.get("sp", char.max_sp)
 
         status_data = data.get("status", [])
         char.status = [StatusEffect.from_dict(s) for s in status_data]

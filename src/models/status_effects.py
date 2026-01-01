@@ -27,9 +27,9 @@ class StatusEffect(ABC):
 
     @staticmethod
     def from_dict(data: Dict) -> 'StatusEffect':
-        name = data["effect"]
-        duration = data["rounds"]
-        rank = data["rank"]
+        name = data.get("effect", "Unknown")
+        duration = data.get("rounds", 0)
+        rank = data.get("rank", 1)
         active_rounds = data.get("active_rounds", 0)
 
         effect_class = EFFECT_CLASSES.get(name)

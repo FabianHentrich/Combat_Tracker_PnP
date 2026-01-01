@@ -31,8 +31,10 @@ class PersistenceHandler:
         try:
             with open(file_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
+            logger.info(f"Kampf erfolgreich gespeichert: {file_path}")
             return file_path
         except Exception as e:
+            logger.error(f"Fehler beim Speichern: {e}")
             messagebox.showerror("Fehler beim Speichern", str(e))
             return None
 
@@ -49,6 +51,8 @@ class PersistenceHandler:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
+            logger.info(f"Kampf erfolgreich geladen: {file_path}")
+
             # Version check / migration
             if "version" in data and "state" in data:
                 return data["state"]
@@ -57,6 +61,7 @@ class PersistenceHandler:
                 return data
 
         except Exception as e:
+            logger.error(f"Fehler beim Laden: {e}")
             messagebox.showerror("Fehler beim Laden", str(e))
             return None
 

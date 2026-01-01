@@ -43,15 +43,13 @@ class CombatTracker:
 
         # View initialisieren
         self.view: ICombatView = MainView(self, self.root)
+        self.view.setup_ui()
 
         # Subscribe to engine events
         self.engine.subscribe(EventType.UPDATE, self.view.update_listbox)
         self.engine.subscribe(EventType.LOG, self.log_message)
 
         self.root.configure(bg=self.colors["bg"])
-
-        # View Setup aufrufen (erstellt Widgets)
-        self.view.setup_ui()
 
         # Initial Theme Application
         self.view.update_colors(self.colors)
@@ -65,6 +63,8 @@ class CombatTracker:
             "focus_damage": self.view.focus_damage_input
         }
         self.hotkey_handler.setup_hotkeys(hotkey_callbacks)
+
+        logger.info(f"Anwendung gestartet: {APP_TITLE}")
 
     def open_hotkey_settings(self) -> None:
         """Öffnet das Fenster für die Hotkey-Einstellungen."""

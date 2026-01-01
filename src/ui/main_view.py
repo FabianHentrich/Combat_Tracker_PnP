@@ -533,6 +533,9 @@ class MainView(ICombatView):
         Aktualisiert die Anzeige der Charakterliste (Treeview).
         """
         tree = self.tree
+        if not tree:
+            return
+
         engine = self.controller.engine
 
         # Treeview leeren

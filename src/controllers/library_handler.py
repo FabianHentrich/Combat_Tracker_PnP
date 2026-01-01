@@ -45,6 +45,7 @@ class LibraryHandler:
                 self.enemy_presets = json.load(f)
                 self.flat_presets = {}
                 self._flatten_presets(self.enemy_presets)
+                logger.info(f"Bibliothek geladen: {len(self.flat_presets)} Presets.")
         except Exception as e:
             logger.error(f"Fehler beim Laden der Bibliothek: {e}")
 

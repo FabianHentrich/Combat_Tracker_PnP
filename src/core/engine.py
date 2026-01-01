@@ -224,9 +224,9 @@ class CombatEngine:
 
     def load_state(self, state: dict) -> None:
         """Lädt einen Zustand aus einem Dictionary."""
-        self.characters = [Character.from_dict(c_data) for c_data in state["characters"]]
-        self.turn_index = state["turn_index"]
-        self.round_number = state["round_number"]
+        self.characters = [Character.from_dict(c_data) for c_data in state.get("characters", [])]
+        self.turn_index = state.get("turn_index", -1)
+        self.round_number = state.get("round_number", 1)
         self.log("Kampfstatus geladen.")
         self.notify(EventType.UPDATE)
 

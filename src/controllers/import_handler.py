@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-import pandas as pd
+import openpyxl
 from typing import List, Dict, Any, Optional, TYPE_CHECKING
 from src.models.character import Character
 from src.utils.utils import wuerfle_initiative
@@ -38,25 +38,43 @@ class ImportHandler:
             if not file_path: return
 
         try:
-            df = pd.read_excel(file_path)
+            workbook = openpyxl.load_workbook(file_path, data_only=True)
+            sheet = workbook.active
+
+            # Header lesen (erste Zeile)
+            headers = [cell.value for cell in sheet[1]]
+            col_map = {name: i for i, name in enumerate(headers) if name}
 
             # Check for required columns
             required_columns = {"Name", "Ruestung", "Schild", "HP"}
-            if not required_columns.issubset(df.columns):
-                missing = required_columns - set(df.columns)
+            if not required_columns.issubset(col_map.keys()):
+                missing = required_columns - set(col_map.keys())
                 raise ValueError(f"Excel file is missing columns: {missing}")
 
-            # Add Gewandtheit if missing
-            if "Gewandtheit" not in df.columns:
-                df["Gewandtheit"] = 1
+            data = []
+            # Iteriere ab Zeile 2
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                # Überspringe leere Zeilen (wenn Name leer ist)
+                if not row[col_map["Name"]]:
+                    continue
 
-            self.show_import_preview(df)
+                entry = {
+                    "Name": row[col_map["Name"]],
+                    "HP": row[col_map["HP"]],
+                    "Ruestung": row[col_map["Ruestung"]],
+                    "Schild": row[col_map["Schild"]],
+                    "Gewandtheit": row[col_map["Gewandtheit"]] if "Gewandtheit" in col_map else 1
+                }
+                data.append(entry)
+
+            logger.info(f"Excel-Datei erfolgreich geladen: {file_path} ({len(data)} Zeilen)")
+            self.show_import_preview(data)
 
         except Exception as e:
             logger.error(f"Fehler beim Laden der Excel-Datei: {e}")
             messagebox.showerror("Fehler", f"Fehler beim Laden: {e}")
 
-    def show_import_preview(self, df: pd.DataFrame) -> None:
+    def show_import_preview(self, data: List[Dict[str, Any]]) -> None:
         """
         Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge).
         Erstellt eine Liste basierend auf den geladenen Daten.
@@ -99,7 +117,7 @@ class ImportHandler:
         # Zeilen generieren
         self.import_entries = []
 
-        for _, row in df.iterrows():
+        for row in data:
             row_frame = ttk.Frame(scrollable_frame, style="Card.TFrame")
             row_frame.pack(fill="x", pady=2)
 
