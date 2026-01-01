@@ -2,11 +2,10 @@ import pytest
 import sys
 import os
 
-# Füge das src Verzeichnis zum Pfad hinzu, damit Module importiert werden können
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.character import Character
-from src.enums import DamageType
+from src.models.character import Character
+from src.models.enums import DamageType, StatusEffectType
 
 @pytest.fixture
 def char_damage():

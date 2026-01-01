@@ -4,8 +4,7 @@ import sys
 import os
 import json
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
 # Mocke tkinter Module
 sys.modules['tkinter'] = MagicMock()
@@ -13,9 +12,9 @@ sys.modules['tkinter.ttk'] = MagicMock()
 sys.modules['tkinter.filedialog'] = MagicMock()
 sys.modules['tkinter.messagebox'] = MagicMock()
 
-from src.engine import CombatEngine
-from src.character import Character
-from src.persistence import PersistenceHandler
+from src.core.engine import CombatEngine
+from src.models.character import Character
+from src.controllers.persistence import PersistenceHandler
 
 @pytest.fixture
 def engine():
@@ -72,16 +71,13 @@ def test_persistence_handler_save():
     Testet das Speichern der Session über den PersistenceHandler.
     Überprüft, ob der Dateidialog aufgerufen und in die Datei geschrieben wird.
     """
-    tracker = MagicMock()
-    tracker.engine = CombatEngine()
-    tracker.engine.add_character(Character("Test", 10, 10, 10, 10))
-
-    handler = PersistenceHandler(tracker, MagicMock())
+    state = {"some": "state"}
+    handler = PersistenceHandler(MagicMock())
 
     # Patch where it is used
-    with patch('src.persistence.filedialog.asksaveasfilename', return_value="test.json"):
+    with patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json"):
         with patch('builtins.open', mock_open()) as m:
-            handler.save_session()
+            handler.save_session(state)
 
             m.assert_called_once_with("test.json", 'w', encoding='utf-8')
             handle = m()
@@ -93,26 +89,22 @@ def test_persistence_handler_load():
     Testet das Laden der Session über den PersistenceHandler.
     Überprüft, ob der Dateidialog aufgerufen und die Daten in die Engine geladen werden.
     """
-    tracker = MagicMock()
-    tracker.engine = CombatEngine()
-
-    handler = PersistenceHandler(tracker, MagicMock())
+    handler = PersistenceHandler(MagicMock())
 
     state_data = {
-        "characters": [
-            {"name": "Loaded", "char_type": "Gegner", "max_lp": 10, "lp": 10, "max_rp": 0, "rp": 0, "max_sp": 0, "sp": 0, "gew": 1, "init": 10, "status": [], "skip_turns": 0}
-        ],
-        "turn_index": 0,
-        "round_number": 2
+        "version": 1,
+        "state": {
+            "characters": [],
+            "turn_index": -1,
+            "round_number": 1
+        }
     }
     json_str = json.dumps(state_data)
 
-    # Patch where it is used
-    with patch('src.persistence.filedialog.askopenfilename', return_value="test.json"):
+    with patch('src.controllers.persistence.filedialog.askopenfilename', return_value="test.json"):
         with patch('builtins.open', mock_open(read_data=json_str)):
-            handler.load_session()
+            loaded_state = handler.load_session()
 
-            assert len(tracker.engine.characters) == 1
-            assert tracker.engine.characters[0].name == "Loaded"
-            assert tracker.engine.round_number == 2
-            assert tracker.update_listbox.called
+            assert loaded_state == state_data["state"]
+
+

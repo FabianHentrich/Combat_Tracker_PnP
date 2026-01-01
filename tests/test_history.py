@@ -3,8 +3,7 @@ from unittest.mock import MagicMock
 import sys
 import os
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
 # Mocke tkinter Module
 sys.modules['tkinter'] = MagicMock()
@@ -12,9 +11,9 @@ sys.modules['tkinter.ttk'] = MagicMock()
 sys.modules['tkinter.filedialog'] = MagicMock()
 sys.modules['tkinter.messagebox'] = MagicMock()
 
-from src.engine import CombatEngine
-from src.character import Character
-from src.history import HistoryManager
+from src.core.engine import CombatEngine
+from src.models.character import Character
+from src.core.history import HistoryManager
 
 @pytest.fixture
 def engine():

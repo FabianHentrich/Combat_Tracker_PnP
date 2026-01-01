@@ -4,10 +4,9 @@ import sys
 import os
 import json
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.config import load_rules, load_hotkeys
+from src.utils.config import load_rules, load_hotkeys
 
 def test_load_rules_default():
     """

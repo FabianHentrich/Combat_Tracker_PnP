@@ -3,8 +3,8 @@ from tkinter import ttk
 import random
 import logging
 from typing import Dict, Any
-from .config import COLORS, FONTS, DICE_TYPES
-from .utils import roll_exploding_dice
+from src.utils.config import COLORS, FONTS, DICE_TYPES
+from src.utils.utils import roll_exploding_dice
 
 logger = logging.getLogger("CombatTracker")
 

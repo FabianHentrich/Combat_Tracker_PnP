@@ -2,14 +2,15 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import pandas as pd
 from typing import List, Dict, Any, Optional, TYPE_CHECKING
-from .character import Character
-from .utils import wuerfle_initiative
-from .logger import setup_logging
-from .enums import CharacterType
-from .config import FONTS, WINDOW_SIZE
+from src.models.character import Character
+from src.utils.utils import wuerfle_initiative
+from src.utils.logger import setup_logging
+from src.models.enums import CharacterType
+from src.utils.config import FONTS, WINDOW_SIZE
 
 if TYPE_CHECKING:
-    from .main_window import CombatTracker
+    from src.core.engine import CombatEngine
+    from src.core.history import HistoryManager
 
 logger = setup_logging()
 
@@ -18,8 +19,9 @@ class ImportHandler:
     Verwaltet den Import von Charakterdaten aus externen Quellen (z.B. Excel).
     Bietet eine Vorschau- und Bearbeitungs-UI vor dem endgültigen Import.
     """
-    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
-        self.tracker = tracker
+    def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', root: tk.Tk, colors: Dict[str, str]):
+        self.engine = engine
+        self.history_manager = history_manager
         self.root = root
         self.colors = colors
         self.import_entries: List[Dict[str, Any]] = []
@@ -328,11 +330,11 @@ class ImportHandler:
                 init = wuerfle_initiative(gew)
 
                 new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type)
-                self.tracker.insert_character(new_char)
+                self.engine.insert_character(new_char)
                 count_imported += 1
 
-            self.tracker.update_listbox()
-            self.tracker.log_message(f"{count_imported} Charaktere erfolgreich importiert.")
+            # self.tracker.update_listbox() # Handled by engine event
+            self.engine.log(f"{count_imported} Charaktere erfolgreich importiert.")
             window.destroy()
 
         except ValueError:

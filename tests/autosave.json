@@ -1,34 +1,37 @@
 {
-    "characters": [
-        {
-            "name": "A",
-            "char_type": "Spieler",
-            "max_lp": 10,
-            "lp": 10,
-            "max_rp": 10,
-            "rp": 10,
-            "max_sp": 10,
-            "sp": 10,
-            "gew": 1,
-            "init": 0,
-            "status": [],
-            "skip_turns": 0
-        },
-        {
-            "name": "B",
-            "char_type": "Gegner",
-            "max_lp": 10,
-            "lp": 10,
-            "max_rp": 10,
-            "rp": 10,
-            "max_sp": 10,
-            "sp": 10,
-            "gew": 1,
-            "init": 0,
-            "status": [],
-            "skip_turns": 0
-        }
-    ],
-    "turn_index": -1,
-    "round_number": 1
+    "version": 1,
+    "state": {
+        "characters": [
+            {
+                "name": "A",
+                "char_type": "Spieler",
+                "max_lp": 10,
+                "lp": 10,
+                "max_rp": 10,
+                "rp": 10,
+                "max_sp": 10,
+                "sp": 10,
+                "gew": 1,
+                "init": 0,
+                "status": [],
+                "skip_turns": 0
+            },
+            {
+                "name": "B",
+                "char_type": "Gegner",
+                "max_lp": 10,
+                "lp": 10,
+                "max_rp": 10,
+                "rp": 10,
+                "max_sp": 10,
+                "sp": 10,
+                "gew": 1,
+                "init": 0,
+                "status": [],
+                "skip_turns": 0
+            }
+        ],
+        "turn_index": -1,
+        "round_number": 1
+    }
 }

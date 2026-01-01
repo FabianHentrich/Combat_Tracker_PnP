@@ -39,7 +39,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
 *   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
 *   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.), um die UI deinen Vorlieben anzupassen.
-*   **Persistenz:** Automatisches Speichern des aktuellen Kampfzustands (Autosave) sowie Export/Import von Regeln und Gegnern.
+*   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
 *   **Undo/Redo:** Fehler können einfach rückgängig gemacht werden.
 
 ---

@@ -8,8 +8,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(current_dir)
 
 try:
-    from src.main_window import CombatTracker
-    from src.logger import setup_logging
+    from src.ui.main_window import CombatTracker
+    from src.utils.logger import setup_logging
 except ImportError as e:
     # Fallback, falls Module fehlen (wichtig für User ohne Konsole)
     root = tk.Tk()

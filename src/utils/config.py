@@ -2,8 +2,8 @@ import json
 import os
 import platform
 from typing import Dict, Tuple, Any
-from .logger import setup_logging
-from .enums import DamageType, StatusEffectType
+from src.utils.logger import setup_logging
+from src.models.enums import DamageType, StatusEffectType
 
 logger = setup_logging()
 
@@ -170,14 +170,24 @@ FONTS = {
     "xl": (MAIN_FONT, 14, "bold"),
     "huge": (MAIN_FONT, 24, "bold"),
     "small": (MAIN_FONT, 9),
-    "mono": (MONO_FONT, 9)
+    "mono": (MONO_FONT, 9),
+    "log": (MONO_FONT, 9)
 }
 
+# Paths
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+DATA_DIR = os.path.join(ROOT_DIR, "data")
+SAVES_DIR = os.path.join(ROOT_DIR, "saves")
+
+# Ensure directories exist
+os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(SAVES_DIR, exist_ok=True)
+
 FILES = {
-    "rules": "rules.json",
-    "hotkeys": "hotkeys.json",
-    "enemies": "enemies.json",
-    "autosave": "autosave.json"
+    "rules": os.path.join(DATA_DIR, "rules.json"),
+    "hotkeys": os.path.join(DATA_DIR, "hotkeys.json"),
+    "enemies": os.path.join(DATA_DIR, "enemies.json"),
+    "autosave": os.path.join(SAVES_DIR, "autosave.json")
 }
 
 WINDOW_SIZE = {

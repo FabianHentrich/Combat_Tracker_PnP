@@ -1,10 +1,10 @@
 import random
 from typing import Tuple, List, Dict, Any, TYPE_CHECKING
-from .config import RULES
-from .enums import DamageType, StatusEffectType
+from src.utils.config import RULES
+from src.models.enums import DamageType, StatusEffectType
 
 if TYPE_CHECKING:
-    from .character import Character
+    from src.models.character import Character
 
 def calculate_damage(character: 'Character', dmg: int, damage_type: str = DamageType.NORMAL, rank: int = 1) -> str:
     """

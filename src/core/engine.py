@@ -1,9 +1,9 @@
 from typing import List, Optional, Callable, Dict, Any
 import random
-from .character import Character
-from .utils import wuerfle_initiative
-from .logger import setup_logging
-from .enums import EventType
+from src.models.character import Character
+from src.utils.utils import wuerfle_initiative
+from src.utils.logger import setup_logging
+from src.models.enums import EventType
 
 logger = setup_logging()
 
@@ -17,6 +17,7 @@ class CombatEngine:
         self.characters: List[Character] = []
         self.turn_index: int = -1
         self.round_number: int = 1
+        self.initiative_rolled: bool = False
         self.listeners: Dict[EventType, List[Callable[..., None]]] = {
             EventType.UPDATE: [],
             EventType.LOG: [],
@@ -86,6 +87,44 @@ class CombatEngine:
         self.log("Alle Initiativen neu gewürfelt.")
         self.notify(EventType.UPDATE)
 
+    def roll_initiatives(self, reroll_all: bool = False) -> None:
+        """
+        Würfelt Initiative für Charaktere mit Init 0 (oder alle, wenn reroll_all=True).
+        Startet dann den Kampf (Runde 1, erster Spieler).
+        """
+        for char in self.characters:
+            if reroll_all or char.init == 0:
+                char.init = wuerfle_initiative(char.gew)
+
+        self.sort_initiative()
+        self.turn_index = 0
+        self.round_number = 1
+        self.initiative_rolled = True
+        self.log("Initiative gewürfelt! Reihenfolge erstellt.")
+        self.log(f"--- Runde {self.round_number} beginnt ---")
+        self.notify(EventType.UPDATE)
+
+    def reset_initiative(self, target_type: str = "All") -> int:
+        """
+        Setzt die Initiative zurück.
+        target_type: "All" oder ein spezifischer CharacterType (als String).
+        Gibt die Anzahl der betroffenen Charaktere zurück.
+        """
+        count = 0
+        for char in self.characters:
+            if target_type == "All" or char.char_type == target_type:
+                char.init = 0
+                count += 1
+
+        self.turn_index = -1
+        self.round_number = 1
+        self.initiative_rolled = False
+
+        type_text = "aller Charaktere" if target_type == "All" else f"aller {target_type}s"
+        self.log(f"Initiative {type_text} wurde zurückgesetzt ({count} betroffen).")
+        self.notify(EventType.UPDATE)
+        return count
+
     def next_turn(self) -> Optional[Character]:
         """
         Schaltet zum nächsten Charakter in der Initiative-Reihenfolge weiter.
@@ -116,6 +155,22 @@ class CombatEngine:
             current_char.skip_turns -= 1
             self.notify(EventType.UPDATE) # Update status display
             return self.next_turn() # Recursively call next turn
+
+        # Prepare status info string for logging
+        status_info = ""
+        if current_char.status:
+            status_list = []
+            for s in current_char.status:
+                name = s.name
+                if hasattr(name, 'value'):
+                    name = name.value
+                status_list.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
+            status_info = " | Status: " + ", ".join(status_list)
+
+        if current_char.lp <= 0 or current_char.max_lp <= 0:
+             self.log(f"💀 {current_char.name} ist kampfunfähig.{status_info}")
+        else:
+             self.log(f"▶ {current_char.name} ist am Zug!{status_info}")
 
         self.notify(EventType.TURN_CHANGE, current_char)
         self.notify(EventType.UPDATE)
@@ -157,22 +212,6 @@ class CombatEngine:
                 if not inserted:
                     self.characters.append(char)
                 self.log(f"{char.name} wurde einsortiert.")
-        self.notify(EventType.UPDATE)
-
-    def roll_initiatives(self, reroll_all: bool = False) -> None:
-        """
-        Würfelt Initiative für Charaktere mit Init 0 (oder alle, wenn reroll_all=True).
-        Startet dann den Kampf (Runde 1, erster Spieler).
-        """
-        for char in self.characters:
-            if reroll_all or char.init == 0:
-                char.init = wuerfle_initiative(char.gew)
-
-        self.sort_initiative()
-        self.turn_index = 0
-        self.round_number = 1
-        self.log("Initiative gewürfelt! Reihenfolge erstellt.")
-        self.log(f"--- Runde {self.round_number} beginnt ---")
         self.notify(EventType.UPDATE)
 
     def get_state(self) -> dict:

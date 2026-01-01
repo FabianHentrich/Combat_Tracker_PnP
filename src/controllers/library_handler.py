@@ -1,14 +1,17 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from typing import Dict, Any, List, TYPE_CHECKING
-from .character import Character
-from .utils import wuerfle_initiative
-from .logger import setup_logging
-from .enums import CharacterType
-from .config import FONTS, WINDOW_SIZE, FILES
+import json
+import os
+from typing import Dict, Any, List, Optional, TYPE_CHECKING
+from src.models.character import Character
+from src.utils.utils import wuerfle_initiative
+from src.utils.logger import setup_logging
+from src.models.enums import CharacterType
+from src.utils.config import FONTS, WINDOW_SIZE, FILES
 
 if TYPE_CHECKING:
-    from .main_window import CombatTracker
+    from src.core.engine import CombatEngine
+    from src.core.history import HistoryManager
 
 logger = setup_logging()
 
@@ -17,11 +20,44 @@ class LibraryHandler:
     Verwaltet die Gegner-Bibliothek (Presets).
     Erlaubt das Durchsuchen, Auswählen und Hinzufügen von vordefinierten Gegnern.
     """
-    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
-        self.tracker = tracker
+    def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', root: tk.Tk, colors: Dict[str, str]):
+        self.engine = engine
+        self.history_manager = history_manager
         self.root = root
         self.colors = colors
+        self.enemy_presets: Dict[str, Any] = {}
+        self.flat_presets: Dict[str, Any] = {}
         self.staging_entries: List[Dict[str, Any]] = []
+
+        self.load_presets()
+
+    def load_presets(self, filename: str = FILES["enemies"]) -> None:
+        """Lädt Gegner-Presets aus einer JSON-Datei."""
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        filepath = os.path.join(base_dir, filename)
+
+        if not os.path.exists(filepath):
+            logger.warning(f"Bibliotheks-Datei nicht gefunden: {filepath}")
+            return
+
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                self.enemy_presets = json.load(f)
+                self.flat_presets = {}
+                self._flatten_presets(self.enemy_presets)
+        except Exception as e:
+            logger.error(f"Fehler beim Laden der Bibliothek: {e}")
+
+    def get_preset(self, name: str) -> Optional[Dict[str, Any]]:
+        """Gibt die Daten eines Presets zurück."""
+        return self.flat_presets.get(name)
+
+    def _flatten_presets(self, data: Dict[str, Any]) -> None:
+        for key, value in data.items():
+            if "lp" in value: # It's a leaf (enemy)
+                self.flat_presets[key] = value
+            else: # It's a group
+                self._flatten_presets(value)
 
     def open_library_window(self) -> None:
         """Öffnet das Bibliotheks-Fenster."""
@@ -65,12 +101,12 @@ class LibraryHandler:
         tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-        if not self.tracker.enemy_presets_structure:
+        if not self.enemy_presets:
             self.tree.insert("", "end", text=f"Keine Gegner gefunden ({FILES['enemies']} prüfen)", tags=("error",))
             logger.warning("Keine Gegner-Presets gefunden.")
         else:
             try:
-                self.populate_tree(self.tracker.enemy_presets_structure)
+                self.populate_tree(self.enemy_presets)
             except Exception as e:
                 logger.error(f"Fehler beim Befüllen des Baums: {e}")
                 self.tree.insert("", "end", text="Fehler beim Laden", tags=("error",))
@@ -135,11 +171,11 @@ class LibraryHandler:
             self.tree.delete(item)
 
         if not query:
-            self.populate_tree(self.tracker.enemy_presets_structure)
+            self.populate_tree(self.enemy_presets)
             return
 
         # Gefilterte Daten erstellen
-        filtered_data = self._filter_data_recursive(self.tracker.enemy_presets_structure, query)
+        filtered_data = self._filter_data_recursive(self.enemy_presets, query)
         self.populate_tree(filtered_data)
 
         # Alle Knoten öffnen, um Ergebnisse zu zeigen
@@ -183,9 +219,9 @@ class LibraryHandler:
         tags = self.tree.item(selected_item[0], "tags")
 
         if "enemy" in tags:
-            # Daten holen (wir nutzen das flache Dictionary im Tracker für einfachen Zugriff)
-            if item_text in self.tracker.enemy_presets:
-                data = self.tracker.enemy_presets[item_text]
+            # Daten holen
+            if item_text in self.flat_presets:
+                data = self.flat_presets[item_text]
                 self.add_staging_row(item_text, data)
 
     def create_staging_headers(self):
@@ -271,7 +307,7 @@ class LibraryHandler:
     def finalize_import(self, window):
         """Fügt die konfigurierten Gegner dem Kampf hinzu."""
         count_imported = 0
-        self.tracker.history_manager.save_snapshot()
+        self.history_manager.save_snapshot()
 
         try:
             for entry in self.staging_entries:
@@ -299,11 +335,11 @@ class LibraryHandler:
                     init = wuerfle_initiative(gew)
 
                     new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type)
-                    self.tracker.insert_character(new_char, surprise=surprise)
+                    self.engine.insert_character(new_char, surprise=surprise)
                     count_imported += 1
 
-            self.tracker.update_listbox()
-            self.tracker.log_message(f"{count_imported} Charaktere aus Bibliothek hinzugefügt.")
+            # self.tracker.update_listbox() # Handled by engine event
+            self.engine.log(f"{count_imported} Charaktere aus Bibliothek hinzugefügt.")
             window.destroy()
 
         except ValueError:

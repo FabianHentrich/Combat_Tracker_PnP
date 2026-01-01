@@ -1,14 +1,15 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Dict, TYPE_CHECKING
-from .logger import setup_logging
-from .enums import CharacterType
-from .status_effects import EFFECT_CLASSES, GenericStatusEffect
-from .config import WINDOW_SIZE
+from src.utils.logger import setup_logging
+from src.models.enums import CharacterType, EventType
+from src.models.status_effects import EFFECT_CLASSES, GenericStatusEffect
+from src.utils.config import WINDOW_SIZE
 
 if TYPE_CHECKING:
-    from .main_window import CombatTracker
-    from .character import Character
+    from src.core.engine import CombatEngine
+    from src.core.history import HistoryManager
+    from src.models.character import Character
 
 logger = setup_logging()
 
@@ -17,17 +18,12 @@ class EditHandler:
     Verwaltet das Bearbeiten von Charakteren.
     Öffnet ein Fenster mit Eingabefeldern für alle Attribute und Status-Effekte.
     """
-    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
-        self.tracker = tracker
+    def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', root: tk.Tk, colors: Dict[str, str]):
+        self.engine = engine
+        self.history_manager = history_manager
         self.root = root
         self.colors = colors
 
-    def edit_selected_char(self) -> None:
-        """Bearbeitet alle Werte des ausgewählten Charakters."""
-        char = self.tracker.get_selected_char()
-        if not char: return
-
-        self.open_edit_character_window(char)
 
     def open_edit_character_window(self, char: 'Character') -> None:
         """Öffnet ein Fenster zum Bearbeiten eines Charakters."""
@@ -201,8 +197,8 @@ class EditHandler:
         """
         try:
             # Snapshot vor Änderungen
-            if hasattr(self.tracker, 'history_manager'):
-                self.tracker.history_manager.save_snapshot()
+            if self.history_manager:
+                self.history_manager.save_snapshot()
 
             new_name = entries["name"].get()
             if not new_name:
@@ -240,8 +236,8 @@ class EditHandler:
 
             char.status = new_status_list
 
-            self.tracker.update_listbox()
-            self.tracker.log_message(f"✏ Charakter '{char.name}' wurde bearbeitet.")
+            self.engine.notify(EventType.UPDATE)
+            self.engine.log(f"✏ Charakter '{char.name}' wurde bearbeitet.")
             window.destroy()
 
         except ValueError as e:

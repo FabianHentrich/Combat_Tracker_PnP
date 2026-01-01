@@ -3,19 +3,19 @@ from tkinter import messagebox, ttk
 import json
 import os
 from typing import Dict, Any, Optional
-from .character import Character
-from .utils import ToolTip, generate_health_bar
-from .import_handler import ImportHandler
-from .library_handler import LibraryHandler
-from .edit_handler import EditHandler
-from .hotkey_handler import HotkeyHandler
-from .ui_layout import UILayout
-from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS, FILES, WINDOW_SIZE, APP_TITLE, RULES
-from .engine import CombatEngine
-from .persistence import PersistenceHandler
-from .history import HistoryManager
-from .logger import setup_logging
-from .enums import CharacterType, EventType
+from src.models.character import Character
+from src.utils.utils import ToolTip, generate_health_bar
+from src.controllers.import_handler import ImportHandler
+from src.controllers.library_handler import LibraryHandler
+from src.controllers.edit_handler import EditHandler
+from src.controllers.hotkey_handler import HotkeyHandler
+from src.ui.ui_layout import UILayout
+from src.utils.config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS, FILES, WINDOW_SIZE, APP_TITLE, RULES
+from src.core.engine import CombatEngine
+from src.controllers.persistence import PersistenceHandler
+from src.core.history import HistoryManager
+from src.utils.logger import setup_logging
+from src.models.enums import CharacterType, EventType
 
 logger = setup_logging()
 
@@ -33,18 +33,19 @@ class CombatTracker:
         self.colors: Dict[str, str] = COLORS
 
         self.engine = CombatEngine()
-        # Subscribe to engine events
-        self.engine.subscribe(EventType.UPDATE, self.update_listbox)
-        self.engine.subscribe(EventType.LOG, self.log_message)
-        # self.engine.subscribe(EventType.TURN_CHANGE, self.on_turn_change) # Optional, if we want specific handling
 
         self.history_manager = HistoryManager(self.engine)
-        self.persistence_handler = PersistenceHandler(self, self.root)
-        self.import_handler = ImportHandler(self, self.root, self.colors)
-        self.library_handler = LibraryHandler(self, self.root, self.colors)
-        self.edit_handler = EditHandler(self, self.root, self.colors)
-        self.hotkey_handler = HotkeyHandler(self, self.root, self.colors)
+        self.persistence_handler = PersistenceHandler(self.root)
+        self.import_handler = ImportHandler(self.engine, self.history_manager, self.root, self.colors)
+        self.library_handler = LibraryHandler(self.engine, self.history_manager, self.root, self.colors)
+        self.edit_handler = EditHandler(self.engine, self.history_manager, self.root, self.colors)
+        self.hotkey_handler = HotkeyHandler(self.root, self.colors)
         self.ui_layout = UILayout(self, self.root)
+
+        # Subscribe to engine events
+        self.engine.subscribe(EventType.UPDATE, self.ui_layout.update_listbox)
+        self.engine.subscribe(EventType.LOG, self.log_message)
+        # self.engine.subscribe(EventType.TURN_CHANGE, self.on_turn_change) # Optional, if we want specific handling
 
         self.root.configure(bg=self.colors["bg"])
 
@@ -88,7 +89,6 @@ class CombatTracker:
         style.configure("Card.TLabelframe", background=self.colors["panel"], foreground=self.colors["fg"], relief="flat")
         style.configure("Card.TLabelframe.Label", background=self.colors["panel"], foreground=self.colors["accent"], font=('Segoe UI', 11, 'bold'))
 
-        self.initiative_rolled: bool = False
 
         # UI Widgets placeholders
         self.tree: Optional[ttk.Treeview] = None
@@ -116,54 +116,27 @@ class CombatTracker:
         self.damage_descriptions: Dict[str, str] = DAMAGE_DESCRIPTIONS
         self.status_descriptions: Dict[str, str] = STATUS_DESCRIPTIONS
 
-        self.enemy_presets: Dict[str, Any] = {}
-        self.enemy_presets_structure: Dict[str, Any] = {}
-        self.load_presets()
-
         self.setup_ui()
-        self.hotkey_handler.setup_hotkeys()
+
+        # Hotkeys setup
+        hotkey_callbacks = {
+            "next_turn": self.next_turn,
+            "undo": self.undo_action,
+            "redo": self.redo_action,
+            "delete_char": self.delete_character,
+            "focus_damage": lambda: self.action_value.focus_set() if self.action_value else None
+        }
+        self.hotkey_handler.setup_hotkeys(hotkey_callbacks)
         # self.load_enemies()
 
     def open_hotkey_settings(self) -> None:
         """Öffnet das Fenster für die Hotkey-Einstellungen."""
         self.hotkey_handler.open_hotkey_settings()
 
-    def load_presets(self, filename: str = FILES["enemies"]) -> None:
-        """Lädt Gegner-Presets aus einer JSON-Datei."""
-        # Bestimme den absoluten Pfad basierend auf dem Speicherort von gui.py
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        filepath = os.path.join(base_dir, filename)
-
-        if not os.path.exists(filepath):
-            logger.warning(f"Bibliotheks-Datei nicht gefunden: {filepath}")
-            return
-
-        try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                self.enemy_presets_structure = json.load(f)
-
-                # Flatten structure for easy access if needed, or just use structure
-                # For now, let's keep a flat version for backward compatibility if needed
-                # But mainly we will use the structure in the library
-                self.enemy_presets = {}
-
-                def flatten(data: Dict[str, Any]) -> None:
-                    for key, value in data.items():
-                        if "lp" in value: # It's a leaf (enemy)
-                            self.enemy_presets[key] = value
-                        else: # It's a group
-                            flatten(value)
-
-                flatten(self.enemy_presets_structure)
-
-        except Exception as e:
-            logger.error(f"Fehler beim Laden der Bibliothek: {e}")
-
     def apply_preset(self, name: str) -> None:
         """Füllt die Eingabefelder basierend auf der Auswahl."""
-        if name in self.enemy_presets:
-            data = self.enemy_presets[name]
-
+        data = self.library_handler.get_preset(name)
+        if data:
             self.entry_name.delete(0, tk.END)
             self.entry_name.insert(0, name)
 
@@ -244,8 +217,6 @@ class CombatTracker:
         """Sorts characters based on their initiative. Rolls for those with 0 init."""
         self.history_manager.save_snapshot()
         self.engine.roll_initiatives()
-        self.initiative_rolled = True
-        # self.update_listbox() # Removed, handled by event
 
         # Zeige den ersten Charakter als aktiv an
         if self.engine.characters:
@@ -255,43 +226,12 @@ class CombatTracker:
     def reset_initiative(self, target_type: str = "All") -> None:
         """Setzt die Initiative zurück."""
         self.history_manager.save_snapshot()
-        count = 0
-        for char in self.engine.characters:
-            if target_type == "All" or char.char_type == target_type:
-                char.init = 0
-                count += 1
-
-        self.engine.turn_index = -1
-        self.engine.round_number = 1
-        self.initiative_rolled = False # Initiative-Modus beenden
-        self.engine.notify(EventType.UPDATE) # Notify update manually as we modified characters directly
-
-        type_text = "aller Charaktere" if target_type == "All" else f"aller {target_type}s"
-        self.log_message(f"Initiative {type_text} wurde zurückgesetzt ({count} betroffen).")
+        self.engine.reset_initiative(target_type)
 
     def next_turn(self) -> None:
         """Moves to the next turn, considering status and conditions."""
         self.history_manager.save_snapshot()
-        char = self.engine.next_turn()
-        if char:
-            # Erzeuge Log für den aktuellen Status (Engine logs status updates, but maybe not current status summary)
-            status_info = ""
-            if char.status:
-                status_list = []
-                for s in char.status:
-                    name = s.name
-                    if hasattr(name, 'value'):
-                        name = name.value
-                    status_list.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
-                status_info = " | Status: " + ", ".join(status_list)
-
-            if char.lp <= 0 or char.max_lp <= 0:
-                self.log_message(f"💀 {char.name} ist kampfunfähig.{status_info}")
-            elif char.skip_turns > 0:
-                # Engine logs skip turn
-                pass
-            else:
-                self.log_message(f"▶ {char.name} ist am Zug!{status_info}")
+        self.engine.next_turn()
 
         # self.update_listbox() # Removed, handled by event
 
@@ -416,7 +356,7 @@ class CombatTracker:
 
         # Let's recalculate rotation to find the correct index
         rot = 0
-        if self.initiative_rolled and self.engine.turn_index >= 0:
+        if self.engine.initiative_rolled and self.engine.turn_index >= 0:
              if self.engine.turn_index < len(self.engine.characters):
                 rot = self.engine.turn_index
 
@@ -515,73 +455,32 @@ class CombatTracker:
             self.log_message(f"{char.name} erhält {val} Rüstung.")
             self.engine.notify(EventType.UPDATE) # Notify update manually as we modified character directly
 
-    def update_listbox(self) -> None:
-        """
-        Aktualisiert die Anzeige der Charakterliste (Treeview).
-        Wird automatisch aufgerufen, wenn sich der Zustand in der Engine ändert.
-        """
-        # Treeview leeren
-        for item in self.tree.get_children():
-            self.tree.delete(item)
+    def save_session(self) -> None:
+        state = self.engine.get_state()
+        file_path = self.persistence_handler.save_session(state)
+        if file_path:
+            self.log_message(f"Kampf gespeichert unter: {file_path}")
 
-        # Update Round Label
-        if hasattr(self, 'round_label'):
-            self.round_label.config(text=f"Runde: {self.engine.round_number}")
+    def load_session(self) -> None:
+        state = self.persistence_handler.load_session()
+        if state:
+            self.engine.load_state(state)
+            self.engine.initiative_rolled = (self.engine.turn_index != -1)
+            self.ui_layout.update_listbox()
+            self.log_message("Kampf geladen.")
 
-        if not self.engine.characters:
-            return
+    def autosave(self) -> None:
+        state = self.engine.get_state()
+        self.persistence_handler.autosave(state)
 
-        # Rotation berechnen
-        rot = 0
-        if self.initiative_rolled and self.engine.turn_index >= 0:
-            # turn_index ist jetzt immer im gültigen Bereich (0 bis len-1)
-            if self.engine.turn_index < len(self.engine.characters):
-                rot = self.engine.turn_index
-            else:
-                # Fallback, falls turn_index durch Löschen ungültig wurde
-                rot = 0
+    def load_autosave(self) -> None:
+        state = self.persistence_handler.load_autosave()
+        if state:
+            self.engine.load_state(state)
+            self.engine.initiative_rolled = (self.engine.turn_index != -1)
+            self.ui_layout.update_listbox()
+            self.log_message("Autosave geladen.")
 
-        # Liste rotieren für Anzeige (Aktiver Char oben)
-        n = len(self.engine.characters)
-        display_list = []
-        for k in range(n):
-            idx = (rot + k) % n
-            display_list.append((idx, self.engine.characters[idx]))
-
-        for orig_idx, char in display_list:
-            status_items = []
-            for s in char.status:
-                name = s.name
-                if hasattr(name, 'value'):
-                    name = name.value
-                status_items.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
-
-            status_str = ", ".join(status_items)
-            order = str(orig_idx + 1) if self.initiative_rolled else "-"
-
-            # Werte formatieren (Aktuell / Max)
-            lp_str = f"{char.lp}/{char.max_lp}"
-            rp_str = f"{char.rp}/{char.max_rp}"
-            sp_str = f"{char.sp}/{char.max_sp}"
-
-            # Health Bar generieren
-            health_bar = generate_health_bar(char.lp, char.max_lp, length=10)
-
-            # Werte einfügen
-            item_id = self.tree.insert("", tk.END, values=(order, char.name, char.char_type, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
-
-            # Visuelles Feedback für niedrige LP (optional)
-            if char.lp <= 0 or char.max_lp <= 0:
-                self.tree.item(item_id, tags=('dead',))
-            elif char.lp < (char.max_lp * 0.3): # Unter 30% LP
-                self.tree.item(item_id, tags=('low_hp',))
-
-        # Tags für Dark Mode angepasst
-        self.tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
-        self.tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
-
-        # Autosave trigger
-        self.persistence_handler.autosave()
 
     def get_selected_char(self) -> Optional[Character]:
         """Gibt das Character-Objekt zurück, das aktuell in der Tabelle ausgewählt ist."""
@@ -594,7 +493,7 @@ class CombatTracker:
 
         # Rotation berücksichtigen
         rot = 0
-        if self.initiative_rolled and self.engine.turn_index >= 0:
+        if self.engine.initiative_rolled and self.engine.turn_index >= 0:
             if self.engine.turn_index < len(self.engine.characters):
                 rot = self.engine.turn_index
 

@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import tkinter as tk
 import sys
 import importlib
-from src.dice_roller import DiceRoller
+from src.ui.dice_roller import DiceRoller
 
 # Mock Tkinter root for the DiceRoller init
 @pytest.fixture
@@ -19,11 +19,11 @@ def clean_imports():
     if 'tkinter.ttk' in sys.modules and isinstance(sys.modules['tkinter.ttk'], MagicMock):
         del sys.modules['tkinter.ttk']
 
-    # Ensure we have a clean src.dice_roller
-    if 'src.dice_roller' in sys.modules:
-        importlib.reload(sys.modules['src.dice_roller'])
+    # Ensure we have a clean src.ui.dice_roller
+    if 'src.ui.dice_roller' in sys.modules:
+        importlib.reload(sys.modules['src.ui.dice_roller'])
     else:
-        import src.dice_roller
+        import src.ui.dice_roller
     yield
 
 def test_dice_roller_integration(mock_root):
@@ -31,17 +31,17 @@ def test_dice_roller_integration(mock_root):
     Testet die Integration des DiceRollers.
     Überprüft, ob ein Würfelwurf korrekt verarbeitet und das Ergebnis in der UI angezeigt wird.
     """
-    import src.dice_roller
+    import src.ui.dice_roller
     print(f"DEBUG: tkinter in sys.modules: {'tkinter' in sys.modules}")
     if 'tkinter' in sys.modules:
         print(f"DEBUG: tkinter is {sys.modules['tkinter']}")
-    print(f"DEBUG: DiceRoller is {src.dice_roller.DiceRoller}")
+    print(f"DEBUG: DiceRoller is {src.ui.dice_roller.DiceRoller}")
 
     # We need to mock the UI creation parts because they require a real tk environment
-    with patch('src.dice_roller.DiceRoller._create_ui'), \
+    with patch('src.ui.dice_roller.DiceRoller._create_ui'), \
          patch('tkinter.ttk.LabelFrame'), \
          patch('tkinter.StringVar'), \
-         patch('src.dice_roller.roll_exploding_dice', return_value=(10, [6, 4])) as mock_roll:
+         patch('src.ui.dice_roller.roll_exploding_dice', return_value=(10, [6, 4])) as mock_roll:
 
         roller = DiceRoller(mock_root)
         # Mock the StringVars since we patched the class but need instances on the object
@@ -62,10 +62,10 @@ def test_dice_roller_no_explosion(mock_root):
      """
      Testet einen Würfelwurf ohne Explosion.
      """
-     with patch('src.dice_roller.DiceRoller._create_ui'), \
+     with patch('src.ui.dice_roller.DiceRoller._create_ui'), \
          patch('tkinter.ttk.LabelFrame'), \
          patch('tkinter.StringVar'), \
-         patch('src.dice_roller.roll_exploding_dice', return_value=(3, [3])) as mock_roll:
+         patch('src.ui.dice_roller.roll_exploding_dice', return_value=(3, [3])) as mock_roll:
 
         roller = DiceRoller(mock_root)
         roller.result_var = MagicMock()

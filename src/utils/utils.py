@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import random
 from typing import Tuple, List, Callable, Optional
-from .config import FONTS, WINDOW_SIZE, GEW_TO_DICE
+from src.utils.config import FONTS, WINDOW_SIZE, GEW_TO_DICE
 
 def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
     """

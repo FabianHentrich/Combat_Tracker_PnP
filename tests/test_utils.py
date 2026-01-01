@@ -1,12 +1,11 @@
 import pytest
 import sys
 import os
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.utils import get_wuerfel_from_gewandtheit, wuerfle_initiative, roll_exploding_dice
+from src.utils.utils import wuerfle_initiative, generate_health_bar, ToolTip, get_wuerfel_from_gewandtheit, roll_exploding_dice
 
 def test_gewandtheit_mapping():
     """

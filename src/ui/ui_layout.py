@@ -1,13 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 from typing import TYPE_CHECKING, Callable
-from .config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS
-from .utils import ToolTip
-from .dice_roller import DiceRoller
-from .enums import DamageType, StatusEffectType, CharacterType
+from src.utils.config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS
+from src.utils.utils import ToolTip, generate_health_bar
+from src.ui.dice_roller import DiceRoller
+from src.models.enums import DamageType, StatusEffectType, CharacterType
 
 if TYPE_CHECKING:
-    from .main_window import CombatTracker
+    from src.ui.main_window import CombatTracker
 
 class UILayout:
     def __init__(self, tracker: 'CombatTracker', root: tk.Tk):
@@ -46,8 +46,8 @@ class UILayout:
         file_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Datei", menu=file_menu)
 
-        file_menu.add_command(label="Kampf speichern...", command=self.tracker.persistence_handler.save_session)
-        file_menu.add_command(label="Kampf laden...", command=self.tracker.persistence_handler.load_session)
+        file_menu.add_command(label="Kampf speichern...", command=self.tracker.save_session)
+        file_menu.add_command(label="Kampf laden...", command=self.tracker.load_session)
         file_menu.add_separator()
         file_menu.add_command(label="Bibliothek öffnen", command=self.tracker.library_handler.open_library_window)
         file_menu.add_command(label="Gegner importieren (Excel)...", command=self.tracker.load_enemies)
@@ -60,7 +60,7 @@ class UILayout:
         theme_menu = tk.Menu(menubar, tearoff=0)
         menubar.add_cascade(label="Theme", menu=theme_menu)
 
-        from .config import THEMES
+        from src.utils.config import THEMES
         for theme_name in THEMES.keys():
             theme_menu.add_command(label=theme_name, command=lambda t=theme_name: self.tracker.change_theme(t))
 
@@ -275,13 +275,12 @@ class UILayout:
         log_frame = ttk.LabelFrame(bottom_content, text="Kampfprotokoll", style="Card.TLabelframe")
         log_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
 
-        self.tracker.log = tk.Text(log_frame, height=8, width=80, state='normal', font=FONTS["mono"],
-                           bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], relief="flat")
-        log_scroll = ttk.Scrollbar(log_frame, command=self.tracker.log.yview)
-        self.tracker.log.config(yscrollcommand=log_scroll.set)
-
-        log_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        self.tracker.log = tk.Text(log_frame, height=8, state="normal", bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], font=FONTS["log"])
         self.tracker.log.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        scrollbar = ttk.Scrollbar(log_frame, orient="vertical", command=self.tracker.log.yview)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.tracker.log.configure(yscrollcommand=scrollbar.set)
 
         # Dice Roller
         self.tracker.dice_roller = DiceRoller(bottom_content, self.colors)
@@ -291,3 +290,74 @@ class UILayout:
         tt = ToolTip(widget, text_func, color_provider=lambda: (self.colors["tooltip_bg"], self.colors["tooltip_fg"]))
         widget.bind('<Enter>', tt.showtip)
         widget.bind('<Leave>', tt.hidetip)
+
+    def update_listbox(self) -> None:
+        """
+        Aktualisiert die Anzeige der Charakterliste (Treeview).
+        Wird automatisch aufgerufen, wenn sich der Zustand in der Engine ändert.
+        """
+        tree = self.tracker.tree
+        engine = self.tracker.engine
+
+        # Treeview leeren
+        for item in tree.get_children():
+            tree.delete(item)
+
+        # Update Round Label
+        if hasattr(self.tracker, 'round_label') and self.tracker.round_label:
+            self.tracker.round_label.config(text=f"Runde: {engine.round_number}")
+
+        if not engine.characters:
+            return
+
+        # Rotation berechnen
+        rot = 0
+        if engine.initiative_rolled and engine.turn_index >= 0:
+            # turn_index ist jetzt immer im gültigen Bereich (0 bis len-1)
+            if engine.turn_index < len(engine.characters):
+                rot = engine.turn_index
+            else:
+                # Fallback, falls turn_index durch Löschen ungültig wurde
+                rot = 0
+
+        # Liste rotieren für Anzeige (Aktiver Char oben)
+        n = len(engine.characters)
+        display_list = []
+        for k in range(n):
+            idx = (rot + k) % n
+            display_list.append((idx, engine.characters[idx]))
+
+        for orig_idx, char in display_list:
+            status_items = []
+            for s in char.status:
+                name = s.name
+                if hasattr(name, 'value'):
+                    name = name.value
+                status_items.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
+
+            status_str = ", ".join(status_items)
+            order = str(orig_idx + 1) if engine.initiative_rolled else "-"
+
+            # Werte formatieren (Aktuell / Max)
+            lp_str = f"{char.lp}/{char.max_lp}"
+            rp_str = f"{char.rp}/{char.max_rp}"
+            sp_str = f"{char.sp}/{char.max_sp}"
+
+            # Health Bar generieren
+            health_bar = generate_health_bar(char.lp, char.max_lp, length=10)
+
+            # Werte einfügen
+            item_id = tree.insert("", tk.END, values=(order, char.name, char.char_type, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
+
+            # Visuelles Feedback für niedrige LP (optional)
+            if char.lp <= 0 or char.max_lp <= 0:
+                tree.item(item_id, tags=('dead',))
+            elif char.lp < (char.max_lp * 0.3): # Unter 30% LP
+                tree.item(item_id, tags=('low_hp',))
+
+        # Tags für Dark Mode angepasst
+        tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
+        tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
+
+        # Autosave trigger
+        self.tracker.autosave()

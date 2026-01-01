@@ -4,11 +4,10 @@ import sys
 import os
 import importlib
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.character import Character
-from src.enums import EventType
+from src.models.character import Character
+from src.models.enums import EventType
 
 @pytest.fixture(scope="function")
 def app():
@@ -20,30 +19,38 @@ def app():
         'tkinter.messagebox': MagicMock()
     }):
         # Import or reload src.main_window to use the mocked tkinter
-        if 'src.dice_roller' in sys.modules:
-            importlib.reload(sys.modules['src.dice_roller'])
-        if 'src.ui_layout' in sys.modules:
-            importlib.reload(sys.modules['src.ui_layout'])
-        if 'src.main_window' in sys.modules:
-            importlib.reload(sys.modules['src.main_window'])
+        if 'src.ui.dice_roller' in sys.modules:
+            importlib.reload(sys.modules['src.ui.dice_roller'])
+        if 'src.ui.ui_layout' in sys.modules:
+            importlib.reload(sys.modules['src.ui.ui_layout'])
+        if 'src.ui.main_window' in sys.modules:
+            importlib.reload(sys.modules['src.ui.main_window'])
         else:
-            import src.main_window
+            import src.ui.main_window
 
-        CombatTracker = sys.modules['src.main_window'].CombatTracker
+        CombatTracker = sys.modules['src.ui.main_window'].CombatTracker
 
         root = MagicMock()
         tracker = CombatTracker(root)
 
         # Mocke interne UI-Komponenten, auf die zugegriffen wird
-        tracker.tree = MagicMock()
-        tracker.log = MagicMock()
-        tracker.round_label = MagicMock()
+        # Da wir jetzt ui_layout nutzen, müssen wir die Mocks dort setzen oder sicherstellen, dass sie existieren
+        # tracker.ui_layout.tracker.tree = MagicMock() # ui_layout setzt tracker.tree
+
+        # Wir müssen sicherstellen, dass setup_ui durchläuft oder wir mocken es weg
+        # Aber setup_ui wird im __init__ aufgerufen.
+
+        # Nach __init__ sollten tracker.tree und tracker.log existieren (als Mocks oder echte Objekte die Tkinter Mocks nutzen)
+        # Da Tkinter gemockt ist, sind tracker.tree und tracker.log MagicMocks (oder Tkinter-Objekte die MagicMocks sind)
+
+        # Wir müssen sicherstellen, dass wir auf die richtigen Attribute zugreifen
+        # tracker.tree wird in ui_layout.create_treeview gesetzt
 
         # Leere die Charakterliste für jeden Test
         tracker.engine.characters = []
         tracker.engine.turn_index = -1
         tracker.engine.round_number = 1
-        tracker.initiative_rolled = False
+        tracker.engine.initiative_rolled = False
 
         yield tracker
 
@@ -72,7 +79,7 @@ def test_initiative_sorting(app):
     assert app.engine.characters[0] == c2
     assert app.engine.characters[1] == c1
 
-    assert app.initiative_rolled is True
+    assert app.engine.initiative_rolled is True
     # Turn Index sollte auf 0 gesetzt sein (erster Char ist dran)
     assert app.engine.turn_index == 0
 
@@ -84,7 +91,7 @@ def test_next_turn_cycle(app):
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
-    app.initiative_rolled = True
+    app.engine.initiative_rolled = True
     app.engine.turn_index = 0 # A ist aktiv
     app.engine.round_number = 1
 
@@ -106,7 +113,7 @@ def test_surprise_character_insertion(app):
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
-    app.initiative_rolled = True
+    app.engine.initiative_rolled = True
     app.engine.turn_index = 0 # A ist gerade dran
 
     # Neuer Charakter C springt rein (surprise=True)
@@ -136,7 +143,7 @@ def test_delete_active_character(app):
     c2 = Character("B", 10, 10, 10, 10)
     c3 = Character("C", 10, 10, 10, 5)
     app.engine.characters = [c1, c2, c3]
-    app.initiative_rolled = True
+    app.engine.initiative_rolled = True
     app.engine.turn_index = 1 # B ist dran
 
     # Mocking der UI-Selektion für Charakter B (Index 1)
@@ -176,7 +183,7 @@ def test_delete_previous_character(app):
     c1 = Character("A", 10, 10, 10, 20)
     c2 = Character("B", 10, 10, 10, 10)
     app.engine.characters = [c1, c2]
-    app.initiative_rolled = True
+    app.engine.initiative_rolled = True
     app.engine.turn_index = 1 # B ist dran
 
     # Wir löschen A (Index 0)
@@ -207,18 +214,18 @@ def test_reset_initiative(app):
     c1 = Character("A", 10, 10, 10, 20, char_type="Spieler")
     c2 = Character("B", 10, 10, 10, 15, char_type="Gegner")
     app.engine.characters = [c1, c2]
-    app.initiative_rolled = True
+    app.engine.initiative_rolled = True
     app.engine.turn_index = 1
 
     # Reset nur für Gegner
     app.reset_initiative("Gegner")
     assert c2.init == 0
     assert c1.init == 20 # Spieler bleibt
-    assert app.initiative_rolled is False # Modus beendet
+    assert app.engine.initiative_rolled is False # Modus beendet
     assert app.engine.turn_index == -1
 
     # Reset Alle
-    app.initiative_rolled = True # Wieder an
+    app.engine.initiative_rolled = True # Wieder an
     app.reset_initiative("All")
     assert c1.init == 0
     assert c2.init == 0

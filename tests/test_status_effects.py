@@ -2,11 +2,11 @@ import pytest
 import sys
 import os
 
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.character import Character
-from src.enums import StatusEffectType
+from src.models.character import Character
+from src.models.status_effects import StatusEffect
+from src.models.enums import StatusEffectType
 
 @pytest.fixture
 def char():

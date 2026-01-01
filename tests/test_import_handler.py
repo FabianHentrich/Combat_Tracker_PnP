@@ -3,10 +3,10 @@ from unittest.mock import MagicMock
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.import_handler import ImportHandler
-from src.character import Character
+from src.controllers.import_handler import ImportHandler
+from src.models.character import Character
 
 @pytest.fixture
 def mock_tracker():
@@ -16,7 +16,9 @@ def mock_tracker():
 def import_handler(mock_tracker):
     root = MagicMock()
     colors = {"bg": "white", "panel": "grey"}
-    return ImportHandler(mock_tracker, root, colors)
+    engine = MagicMock()
+    history_manager = MagicMock()
+    return ImportHandler(engine, history_manager, root, colors)
 
 def test_finalize_import(import_handler):
     """
@@ -47,10 +49,10 @@ def test_finalize_import(import_handler):
     import_handler.finalize_import(window)
 
     # Check if insert_character was called
-    assert import_handler.tracker.insert_character.called
+    assert import_handler.engine.insert_character.called
 
     # Get the character passed to insert_character
-    args, _ = import_handler.tracker.insert_character.call_args
+    args, _ = import_handler.engine.insert_character.call_args
     char = args[0]
 
     assert isinstance(char, Character)

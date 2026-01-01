@@ -2,12 +2,17 @@ import pytest
 from unittest.mock import MagicMock, patch
 import sys
 import os
+
+# Mock tkinter globally BEFORE importing LibraryHandler
+sys.modules['tkinter'] = MagicMock()
+sys.modules['tkinter.ttk'] = MagicMock()
+sys.modules['tkinter.messagebox'] = MagicMock()
+
 import tkinter as tk
-
-# Füge das src Verzeichnis zum Pfad hinzu
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from src.library_handler import LibraryHandler
+import importlib
+import src.controllers.library_handler
+importlib.reload(src.controllers.library_handler)
+from src.controllers.library_handler import LibraryHandler
 
 def test_library_window_creation():
     """
@@ -31,11 +36,14 @@ def test_library_window_creation():
     root = MagicMock()
     colors = {"bg": "black", "panel": "gray"}
 
-    handler = LibraryHandler(tracker, root, colors)
+    handler = LibraryHandler(MagicMock(), MagicMock(), root, colors)
+    # Manually set presets since we mocked init or load_presets might fail without file
+    handler.enemy_presets = tracker.enemy_presets_structure
+    handler.flat_presets = tracker.enemy_presets
 
-    # Patch 'src.library_handler.tk' to mock tkinter used in that module
-    with patch('src.library_handler.tk') as mock_tk, \
-         patch('src.library_handler.ttk') as mock_ttk:
+    # Patch 'src.controllers.library_handler.tk' to mock tkinter used in that module
+    with patch('src.controllers.library_handler.tk') as mock_tk, \
+         patch('src.controllers.library_handler.ttk') as mock_ttk:
 
         # Setup mock for Treeview
         mock_tree = MagicMock()
@@ -60,7 +68,10 @@ def test_add_to_staging():
     tracker = MagicMock()
     tracker.enemy_presets = {"Goblin": {"lp": 7, "type": "Gegner"}}
 
-    handler = LibraryHandler(tracker, MagicMock(), {})
+    handler = LibraryHandler(MagicMock(), MagicMock(), MagicMock(), {})
+    handler.enemy_presets = tracker.enemy_presets
+    handler.flat_presets = tracker.enemy_presets
+
     handler.scrollable_frame = MagicMock()
 
     # Mock tree selection
@@ -75,7 +86,7 @@ def test_add_to_staging():
     handler.tree.item.side_effect = mock_tree_item
 
     # Patch ttk in library_handler for Entry and Combobox
-    with patch('src.library_handler.ttk') as mock_ttk:
+    with patch('src.controllers.library_handler.ttk') as mock_ttk:
         handler.add_selected_to_staging()
 
         assert len(handler.staging_entries) == 1
@@ -94,12 +105,13 @@ def test_library_search():
             "Gegner 1": {"lp": 10},
             "Gegner 2": {"lp": 20}
         },
-        "Gruppe B": {
-            "Boss": {"lp": 100}
+            "Gruppe B": {
+                "Boss": {"lp": 100}
+            }
         }
-    }
 
-    handler = LibraryHandler(tracker, MagicMock(), {})
+    handler = LibraryHandler(MagicMock(), MagicMock(), MagicMock(), {})
+    handler.enemy_presets = tracker.enemy_presets_structure
 
     # Test 1: Suche nach "Boss"
     filtered = handler._filter_data_recursive(tracker.enemy_presets_structure, "boss")

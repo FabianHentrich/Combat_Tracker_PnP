@@ -1,8 +1,8 @@
 from typing import List, Dict, Any
-from .mechanics import calculate_damage
-from .enums import CharacterType
-from .status_effects import StatusEffect, EFFECT_CLASSES, GenericStatusEffect
-from .config import RULES
+from src.core.mechanics import calculate_damage
+from src.models.enums import CharacterType
+from src.models.status_effects import StatusEffect, EFFECT_CLASSES, GenericStatusEffect
+from src.utils.config import RULES
 
 class Character:
     """

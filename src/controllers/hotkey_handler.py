@@ -2,29 +2,33 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import json
 from typing import Dict, Callable, TYPE_CHECKING
-from .config import HOTKEYS, FONTS, WINDOW_SIZE, FILES
-from .logger import setup_logging
+from src.utils.config import HOTKEYS, FONTS, WINDOW_SIZE, FILES
+from src.utils.logger import setup_logging
 
 if TYPE_CHECKING:
-    from .main_window import CombatTracker
+    from src.ui.main_window import CombatTracker
 
 logger = setup_logging()
 
 class HotkeyHandler:
-    def __init__(self, tracker: 'CombatTracker', root: tk.Tk, colors: Dict[str, str]):
-        self.tracker = tracker
+    def __init__(self, root: tk.Tk, colors: Dict[str, str]):
         self.root = root
         self.colors = colors
         self.hotkey_buttons: Dict[str, ttk.Button] = {}
 
-    def setup_hotkeys(self) -> None:
+    def setup_hotkeys(self, callbacks: Dict[str, Callable[[], None]]) -> None:
         """Bindet Tastaturkürzel an das Hauptfenster."""
         try:
-            self.root.bind(HOTKEYS["next_turn"], lambda e: self.safe_execute(e, self.tracker.next_turn))
-            self.root.bind(HOTKEYS["undo"], lambda e: self.safe_execute(e, self.tracker.undo_action))
-            self.root.bind(HOTKEYS["redo"], lambda e: self.safe_execute(e, self.tracker.redo_action))
-            self.root.bind(HOTKEYS["delete_char"], lambda e: self.safe_execute(e, self.tracker.delete_character))
-            self.root.bind(HOTKEYS["focus_damage"], lambda e: self.safe_execute(e, self.tracker.action_value.focus_set))
+            if "next_turn" in callbacks:
+                self.root.bind(HOTKEYS["next_turn"], lambda e: self.safe_execute(e, callbacks["next_turn"]))
+            if "undo" in callbacks:
+                self.root.bind(HOTKEYS["undo"], lambda e: self.safe_execute(e, callbacks["undo"]))
+            if "redo" in callbacks:
+                self.root.bind(HOTKEYS["redo"], lambda e: self.safe_execute(e, callbacks["redo"]))
+            if "delete_char" in callbacks:
+                self.root.bind(HOTKEYS["delete_char"], lambda e: self.safe_execute(e, callbacks["delete_char"]))
+            if "focus_damage" in callbacks:
+                self.root.bind(HOTKEYS["focus_damage"], lambda e: self.safe_execute(e, callbacks["focus_damage"]))
         except Exception as e:
             logger.error(f"Fehler beim Binden der Hotkeys: {e}")
 

@@ -4,11 +4,11 @@ import sys
 import os
 import tkinter as tk
 
-# Add src to path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# sys.path.append removed. Run tests with python -m pytest
 
-from src.edit_handler import EditHandler
-from src.character import Character
+from src.controllers.edit_handler import EditHandler
+from src.models.character import Character
+from src.models.enums import EventType
 
 @pytest.fixture
 def mock_tracker():
@@ -19,7 +19,10 @@ def mock_tracker():
 def edit_handler(mock_tracker):
     root = MagicMock()
     colors = {"bg": "white", "panel": "grey"}
-    return EditHandler(mock_tracker, root, colors)
+    # Mock engine and history_manager
+    engine = MagicMock()
+    history_manager = MagicMock()
+    return EditHandler(engine, history_manager, root, colors)
 
 def test_status_effect_is_label(edit_handler):
     """
@@ -29,13 +32,13 @@ def test_status_effect_is_label(edit_handler):
     char = Character("TestChar", lp=10, rp=5, sp=5, init=10)
     char.add_status("Vergiftung", 3, 1)
 
-    with patch('src.edit_handler.tk.Toplevel') as MockToplevel, \
-         patch('src.edit_handler.ttk.Frame') as MockFrame, \
-         patch('src.edit_handler.ttk.Entry') as MockEntry, \
-         patch('src.edit_handler.ttk.Label') as MockLabel, \
-         patch('src.edit_handler.ttk.Button') as MockButton, \
-         patch('src.edit_handler.ttk.Combobox') as MockCombobox, \
-         patch('src.edit_handler.ttk.Separator') as MockSeparator:
+    with patch('src.controllers.edit_handler.tk.Toplevel') as MockToplevel, \
+         patch('src.controllers.edit_handler.ttk.Frame') as MockFrame, \
+         patch('src.controllers.edit_handler.ttk.Entry') as MockEntry, \
+         patch('src.controllers.edit_handler.ttk.Label') as MockLabel, \
+         patch('src.controllers.edit_handler.ttk.Button') as MockButton, \
+         patch('src.controllers.edit_handler.ttk.Combobox') as MockCombobox, \
+         patch('src.controllers.edit_handler.ttk.Separator') as MockSeparator:
 
         edit_handler.open_edit_character_window(char)
 
@@ -97,5 +100,5 @@ def test_save_character_edits(edit_handler):
     assert char.init == 15
     assert char.gew == 5 # Check if gew was updated
 
-    edit_handler.tracker.update_listbox.assert_called_once()
+    edit_handler.engine.notify.assert_called_with(EventType.UPDATE)
     window.destroy.assert_called_once()

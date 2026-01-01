@@ -1,9 +1,9 @@
 import copy
 from typing import List, Dict, Any, TYPE_CHECKING
-from .logger import setup_logging
+from src.utils.logger import setup_logging
 
 if TYPE_CHECKING:
-    from .engine import CombatEngine
+    from src.core.engine import CombatEngine
 
 logger = setup_logging()
 
