@@ -6,6 +6,7 @@ from src.utils.utils import ToolTip, generate_health_bar
 from src.ui.dice_roller import DiceRoller
 from src.models.enums import DamageType, StatusEffectType, CharacterType
 from src.ui.interfaces import ICombatView
+from src.ui.audio_player_view import AudioPlayerWidget
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -60,8 +61,15 @@ class MainView(ICombatView):
         # Linke Seite: Tabelle (Treeview)
         self.create_treeview(content_frame)
 
-        # Rechte Seite: Aktions-Panel
-        self.create_action_panel(content_frame)
+        # Rechte Seite: Container für Player und Aktionen
+        right_frame = ttk.Frame(content_frame)
+        right_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(15, 0))
+
+        # Player
+        self.create_audio_player(right_frame)
+
+        # Aktions-Panel
+        self.create_action_panel(right_frame)
 
         # --- UNTERER BEREICH: Kampfsteuerung & Log ---
         self.create_bottom_area(main_frame)
@@ -80,6 +88,7 @@ class MainView(ICombatView):
         file_menu.add_command(label="Gegner importieren (Excel)...", command=self.controller.load_enemies)
         file_menu.add_separator()
         file_menu.add_command(label="Einstellungen...", command=self.controller.open_hotkey_settings)
+        file_menu.add_command(label="Musikeinstellungen...", command=self.controller.open_audio_settings)
         file_menu.add_separator()
         file_menu.add_command(label="Beenden", command=self.root.quit)
 
@@ -179,9 +188,13 @@ class MainView(ICombatView):
             self.tree.selection_set(item)
             self.context_menu.post(event.x_root, event.y_root)
 
+    def create_audio_player(self, parent: tk.Widget) -> None:
+        player_frame = AudioPlayerWidget(parent, self.controller.audio_controller, self.controller.open_audio_settings)
+        player_frame.pack(fill=tk.X, pady=(0, 15))
+
     def create_action_panel(self, parent: tk.Widget) -> None:
         action_frame = ttk.LabelFrame(parent, text="Interaktion", padding="15", style="Card.TLabelframe")
-        action_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(15, 0), ipadx=10)
+        action_frame.pack(fill=tk.X, ipadx=10)
 
         # Wert Eingabe (Groß)
         ttk.Label(action_frame, text="Wert:").pack(anchor="w")
@@ -488,6 +501,32 @@ class MainView(ICombatView):
         self.root.option_add('*TCombobox*Listbox.selectBackground', self.colors["accent"])
         self.root.option_add('*TCombobox*Listbox.selectForeground', self.colors["bg"])
 
+        # Spinbox Style Update
+        style.configure("TSpinbox",
+                        fieldbackground=self.colors["entry_bg"],
+                        background=self.colors["entry_bg"],
+                        foreground=self.colors["fg"],
+                        arrowcolor=self.colors["fg"],
+                        lightcolor=self.colors["entry_bg"],
+                        darkcolor=self.colors["entry_bg"],
+                        bordercolor=self.colors["fg"])
+
+        style.map("TSpinbox",
+                  fieldbackground=[('readonly', self.colors["entry_bg"]), ('!disabled', self.colors["entry_bg"])],
+                  foreground=[('!disabled', self.colors["fg"])],
+                  background=[('!disabled', self.colors["entry_bg"])])
+
+        # Scale Style Update
+        style.configure("Horizontal.TScale",
+                        background=self.colors["accent"],
+                        troughcolor=self.colors["entry_bg"],
+                        bordercolor=self.colors["fg"],
+                        lightcolor=self.colors["accent"],
+                        darkcolor=self.colors["accent"])
+
+        style.map("Horizontal.TScale",
+                  background=[('pressed', self.colors["fg"]), ('active', self.colors["accent"])])
+
         # Treeview Style Update
         style.configure("Treeview",
                         background=self.colors["panel"],
@@ -504,6 +543,12 @@ class MainView(ICombatView):
         style.configure("Card.TFrame", background=self.colors["panel"])
         style.configure("Card.TLabelframe", background=self.colors["panel"], foreground=self.colors["fg"], bordercolor=self.colors["fg"])
         style.configure("Card.TLabelframe.Label", background=self.colors["panel"], foreground=self.colors["accent"])
+        style.configure("Card.TLabel", background=self.colors["panel"], foreground=self.colors["fg"])
+        style.configure("Card.TCheckbutton", background=self.colors["panel"], foreground=self.colors["fg"],
+                        indicatorbackground=self.colors["entry_bg"], indicatorforeground=self.colors["fg"])
+        style.map("Card.TCheckbutton",
+                  background=[('active', self.colors["panel"])],
+                  indicatorbackground=[('active', self.colors["entry_bg"])])
 
         # Manuelle Updates für Widgets
         if self.log:

@@ -15,6 +15,7 @@ class HotkeyHandler:
         self.root = root
         self.colors = colors
         self.hotkey_buttons: Dict[str, ttk.Button] = {}
+        self.settings_window = None
 
     def setup_hotkeys(self, callbacks: Dict[str, Callable[[], None]]) -> None:
         """Bindet Tastaturkürzel an das Hauptfenster."""
@@ -29,6 +30,21 @@ class HotkeyHandler:
                 self.root.bind(HOTKEYS["delete_char"], lambda e: self.safe_execute(e, callbacks["delete_char"]))
             if "focus_damage" in callbacks:
                 self.root.bind(HOTKEYS["focus_damage"], lambda e: self.safe_execute(e, callbacks["focus_damage"]))
+
+            # Audio Hotkeys
+            if "audio_play_pause" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_play_pause", "<Control-p>"), lambda e: self.safe_execute(e, callbacks["audio_play_pause"]))
+            if "audio_next" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_next", "<Control-Right>"), lambda e: self.safe_execute(e, callbacks["audio_next"]))
+            if "audio_prev" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_prev", "<Control-Left>"), lambda e: self.safe_execute(e, callbacks["audio_prev"]))
+            if "audio_vol_up" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_vol_up", "<Control-Up>"), lambda e: self.safe_execute(e, callbacks["audio_vol_up"]))
+            if "audio_vol_down" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_vol_down", "<Control-Down>"), lambda e: self.safe_execute(e, callbacks["audio_vol_down"]))
+            if "audio_mute" in callbacks:
+                self.root.bind(HOTKEYS.get("audio_mute", "<Control-m>"), lambda e: self.safe_execute(e, callbacks["audio_mute"]))
+
         except Exception as e:
             logger.error(f"Fehler beim Binden der Hotkeys: {e}")
 
@@ -50,7 +66,13 @@ class HotkeyHandler:
 
     def open_hotkey_settings(self) -> None:
         """Öffnet ein Fenster zum Bearbeiten der Hotkeys."""
+        if self.settings_window and self.settings_window.winfo_exists():
+            self.settings_window.lift()
+            self.settings_window.focus_force()
+            return
+
         window = tk.Toplevel(self.root)
+        self.settings_window = window
         window.title("Tastaturkürzel Einstellungen")
         window.geometry(WINDOW_SIZE["hotkeys"])
         window.configure(bg=self.colors["bg"])
@@ -65,7 +87,13 @@ class HotkeyHandler:
             "undo": "Undo",
             "redo": "Redo",
             "delete_char": "Charakter löschen",
-            "focus_damage": "Fokus auf Schaden"
+            "focus_damage": "Fokus auf Schaden",
+            "audio_play_pause": "Musik: Play/Pause",
+            "audio_next": "Musik: Nächster Titel",
+            "audio_prev": "Musik: Vorheriger Titel",
+            "audio_vol_up": "Musik: Lauter",
+            "audio_vol_down": "Musik: Leiser",
+            "audio_mute": "Musik: Mute"
         }
 
         self.hotkey_buttons = {}

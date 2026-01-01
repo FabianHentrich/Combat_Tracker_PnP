@@ -333,7 +333,13 @@ def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
         "undo": "<Control-z>",
         "redo": "<Control-y>",
         "delete_char": "<Delete>",
-        "focus_damage": "<Control-d>"
+        "focus_damage": "<Control-d>",
+        "audio_play_pause": "<Control-p>",
+        "audio_next": "<Control-Right>",
+        "audio_prev": "<Control-Left>",
+        "audio_vol_up": "<Control-Up>",
+        "audio_vol_down": "<Control-Down>",
+        "audio_mute": "<Control-m>"
     }
 
     if not os.path.exists(filepath):

@@ -1,3 +1,5 @@
-openpyxl
-pytest
+openpyxl==3.1.5
+pygame-ce==2.5.6
+mutagen==1.47.0
+pytest==9.0.2
 

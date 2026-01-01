@@ -1522,3 +1522,257 @@
 2026-01-01 16:17:57,066 - INFO - dice_roller - DiceRoller: W6: 5
 2026-01-01 16:17:57,730 - INFO - dice_roller - DiceRoller: W12: 3
 2026-01-01 16:17:58,789 - INFO - dice_roller - DiceRoller: W10: 6
+2026-01-01 17:11:40,643 - INFO - logger - Logging initialisiert.
+2026-01-01 17:11:40,644 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:11:40,644 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:11:40,870 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:11:40,870 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:11:41,163 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:24:12,100 - INFO - logger - Logging initialisiert.
+2026-01-01 17:24:12,101 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:24:12,102 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:24:12,416 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:24:12,417 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:24:12,627 - CRITICAL - Combat_Tracker - Kritischer unerwarteter Fehler:
+Traceback (most recent call last):
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\Combat_Tracker.py", line 27, in <module>
+    app = CombatTracker(root)
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\ui\main_window.py", line 48, in __init__
+    self.view.setup_ui()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\ui\main_view.py", line 69, in setup_ui
+    self.create_audio_player(right_frame)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\ui\main_view.py", line 191, in create_audio_player
+    player_frame = AudioPlayerWidget(parent, self.controller.audio_controller, self.controller.open_audio_settings)
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\ui\audio_player_view.py", line 17, in __init__
+    self.setup_ui()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\ui\audio_player_view.py", line 25, in setup_ui
+    self.lbl_title = ttk.Label(top_frame, text="Kein Titel", font=FONTS["default"], width=15, anchor="w")
+                                                                  ~~~~~^^^^^^^^^^^
+KeyError: 'default'
+2026-01-01 17:27:12,155 - INFO - logger - Logging initialisiert.
+2026-01-01 17:27:12,157 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:27:12,157 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:27:12,478 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:27:12,479 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:27:13,110 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:34:25,099 - INFO - logger - Logging initialisiert.
+2026-01-01 17:34:25,100 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:34:25,101 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:34:25,428 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:34:25,429 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:34:26,067 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:37:26,192 - INFO - logger - Logging initialisiert.
+2026-01-01 17:37:26,193 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:37:26,194 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:37:26,516 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:37:26,517 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:37:27,165 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:40:08,435 - INFO - logger - Logging initialisiert.
+2026-01-01 17:40:08,436 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:40:08,437 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:40:08,759 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:40:08,760 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:40:09,394 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:48:41,774 - INFO - logger - Logging initialisiert.
+2026-01-01 17:48:41,776 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:48:41,776 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:48:42,093 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:48:42,094 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:48:42,732 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:54:01,729 - INFO - logger - Logging initialisiert.
+2026-01-01 17:54:01,730 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:54:01,731 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:54:02,059 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:54:02,060 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:54:02,698 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 17:57:22,560 - INFO - logger - Logging initialisiert.
+2026-01-01 17:57:22,561 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 17:57:22,562 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 17:57:22,892 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 17:57:22,893 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 17:57:23,563 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:01:01,141 - INFO - logger - Logging initialisiert.
+2026-01-01 18:01:01,143 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:01:01,143 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:01:01,470 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:01:01,470 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:01:02,108 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:02:54,181 - INFO - logger - Logging initialisiert.
+2026-01-01 18:02:54,183 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:02:54,183 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:02:54,586 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:02:54,587 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:02:55,252 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:05:29,398 - INFO - logger - Logging initialisiert.
+2026-01-01 18:05:29,399 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:05:29,400 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:05:29,741 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:05:29,741 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:05:30,464 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:08:22,980 - INFO - logger - Logging initialisiert.
+2026-01-01 18:08:22,982 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:08:22,982 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:08:23,315 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:08:23,315 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:08:23,967 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:11:53,243 - INFO - logger - Logging initialisiert.
+2026-01-01 18:11:53,244 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:11:53,244 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:11:53,623 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:11:53,623 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:11:54,260 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 18:34:23,500 - INFO - logger - Logging initialisiert.
+2026-01-01 18:34:23,501 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 18:34:23,502 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 18:34:23,813 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 18:34:23,813 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 18:34:24,447 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 19:43:14,683 - INFO - logger - Logging initialisiert.
+2026-01-01 19:43:14,685 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 19:43:14,685 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 19:43:15,080 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 19:43:15,081 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 19:43:15,856 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 19:46:38,995 - INFO - logger - Logging initialisiert.
+2026-01-01 19:46:38,996 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 19:46:38,997 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 19:46:39,335 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 19:46:39,335 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 19:46:39,986 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 19:51:00,378 - INFO - logger - Logging initialisiert.
+2026-01-01 19:51:00,379 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 19:51:00,380 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 19:51:00,734 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 19:51:00,735 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 19:51:01,377 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 19:51:10,815 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 19:51:11,539 - INFO - dice_roller - DiceRoller: W6: 1
+2026-01-01 19:51:12,611 - INFO - dice_roller - DiceRoller: W10: 4
+2026-01-01 19:51:13,380 - INFO - dice_roller - DiceRoller: W100: 64
+2026-01-01 19:51:14,413 - INFO - dice_roller - DiceRoller: W20: 5
+2026-01-01 19:51:15,273 - INFO - dice_roller - DiceRoller: W4: 3
+2026-01-01 19:51:16,023 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 19:51:17,061 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 19:51:18,171 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 19:51:19,276 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 19:51:20,446 - INFO - dice_roller - DiceRoller: W4: 2
+2026-01-01 19:51:21,574 - INFO - dice_roller - DiceRoller: W4: 3
+2026-01-01 19:51:22,640 - INFO - dice_roller - DiceRoller: W4: 4 + 3 = 7 (Explodiert!)
+2026-01-01 19:55:10,846 - INFO - logger - Logging initialisiert.
+2026-01-01 19:55:10,847 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 19:55:10,847 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 19:55:11,230 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 19:55:11,231 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 19:55:11,932 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:03:39,595 - INFO - logger - Logging initialisiert.
+2026-01-01 20:03:39,597 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:03:39,598 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:03:40,039 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:03:40,040 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:03:40,904 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:06:43,978 - INFO - logger - Logging initialisiert.
+2026-01-01 20:06:43,980 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:06:43,981 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:06:44,653 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:06:44,654 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:06:45,668 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:08:46,502 - INFO - logger - Logging initialisiert.
+2026-01-01 20:08:46,506 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:08:46,507 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:08:47,142 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:08:47,143 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:08:48,096 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:20:57,696 - INFO - logger - Logging initialisiert.
+2026-01-01 20:20:57,697 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:20:57,697 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:20:58,035 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:20:58,035 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:20:58,747 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:25:58,069 - INFO - logger - Logging initialisiert.
+2026-01-01 20:25:58,070 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:25:58,070 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:25:58,383 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:25:58,384 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:25:59,003 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:26:25,878 - INFO - dice_roller - DiceRoller: W6: 2
+2026-01-01 20:26:26,788 - INFO - dice_roller - DiceRoller: W8: 8 + 2 = 10 (Explodiert!)
+2026-01-01 20:26:27,625 - INFO - dice_roller - DiceRoller: W100: 53
+2026-01-01 20:26:28,938 - INFO - dice_roller - DiceRoller: W10: 3
+2026-01-01 20:26:29,933 - INFO - dice_roller - DiceRoller: W10: 7
+2026-01-01 20:28:30,870 - INFO - logger - Logging initialisiert.
+2026-01-01 20:28:30,871 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:28:30,872 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:28:30,872 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:28:31,183 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:28:31,183 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:28:31,818 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:29:58,306 - INFO - logger - Logging initialisiert.
+2026-01-01 20:29:58,307 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:29:58,308 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:29:58,308 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:29:58,622 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:29:58,623 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:29:59,249 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:39:47,575 - INFO - logger - Logging initialisiert.
+2026-01-01 20:39:47,576 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:39:47,577 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:39:47,577 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:39:47,888 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:39:47,889 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:39:48,519 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:42:18,943 - INFO - logger - Logging initialisiert.
+2026-01-01 20:42:18,945 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:42:18,945 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:42:18,945 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:42:19,257 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:42:19,257 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:42:19,890 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:44:05,578 - INFO - dice_roller - DiceRoller: W6: 6 + 5 = 11 (Explodiert!)
+2026-01-01 20:44:06,314 - INFO - dice_roller - DiceRoller: W8: 7
+2026-01-01 20:44:07,219 - INFO - dice_roller - DiceRoller: W100: 56
+2026-01-01 20:44:08,004 - INFO - dice_roller - DiceRoller: W4: 1
+2026-01-01 20:51:29,588 - INFO - logger - Logging initialisiert.
+2026-01-01 20:51:29,590 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:51:29,590 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:51:29,590 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:51:29,954 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:51:29,955 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:51:30,617 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:55:08,666 - INFO - logger - Logging initialisiert.
+2026-01-01 20:55:08,668 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:55:08,668 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:55:08,668 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:55:08,986 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:55:08,987 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:55:09,624 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 20:58:37,682 - INFO - logger - Logging initialisiert.
+2026-01-01 20:58:37,683 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 20:58:37,684 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 20:58:37,684 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 20:58:37,995 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 20:58:37,995 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 20:58:38,616 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 21:01:18,205 - INFO - logger - Logging initialisiert.
+2026-01-01 21:01:18,207 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 21:01:18,207 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 21:01:18,207 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 21:01:18,537 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 21:01:18,537 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 21:01:19,176 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 21:09:51,797 - INFO - logger - Logging initialisiert.
+2026-01-01 21:09:51,799 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 21:09:51,799 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 21:09:51,799 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 21:09:52,113 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 21:09:52,114 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 21:09:52,747 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-01 21:14:32,627 - INFO - logger - Logging initialisiert.
+2026-01-01 21:14:32,629 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-01 21:14:32,629 - WARNING - config - Hotkeys unvollständig. Nutze Standards für: audio_play_pause, audio_next, audio_prev, audio_vol_up, audio_vol_down, audio_mute
+2026-01-01 21:14:32,629 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-01 21:14:32,885 - INFO - engine - CombatEngine initialisiert.
+2026-01-01 21:14:32,885 - INFO - library_handler - Bibliothek geladen: 27 Presets.
+2026-01-01 21:14:33,509 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta

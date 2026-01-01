@@ -6,45 +6,38 @@ from src.models.character import Character
 from src.models.enums import CharacterType
 
 @pytest.fixture
-def app():
-    # Mock tkinter modules
-    with patch.dict(sys.modules, {
-        'tkinter': MagicMock(),
-        'tkinter.ttk': MagicMock(),
-        'tkinter.filedialog': MagicMock(),
-        'tkinter.messagebox': MagicMock()
-    }):
-        # Reload main_view to ensure it binds to the mocked tkinter
-        if 'src.ui.main_view' in sys.modules:
-            importlib.reload(sys.modules['src.ui.main_view'])
-        else:
-            import src.ui.main_view
+def app(mock_tkinter):
+    # Reload main_view to ensure it binds to the mocked tkinter
+    if 'src.ui.main_view' in sys.modules:
+        importlib.reload(sys.modules['src.ui.main_view'])
+    else:
+        import src.ui.main_view
 
-        # Reload main_window to ensure it imports the reloaded MainView
-        if 'src.ui.main_window' in sys.modules:
-            importlib.reload(sys.modules['src.ui.main_window'])
-        else:
-            import src.ui.main_window
+    # Reload main_window to ensure it imports the reloaded MainView
+    if 'src.ui.main_window' in sys.modules:
+        importlib.reload(sys.modules['src.ui.main_window'])
+    else:
+        import src.ui.main_window
 
-        from src.ui.main_window import CombatTracker
+    from src.ui.main_window import CombatTracker
 
-        # Patch MainView in main_window to return a MagicMock instance
-        # This prevents setup_ui from running real code if we don't want it to,
-        # but since we mocked tkinter, running setup_ui is also fine (and maybe better to test integration).
-        # However, to strictly test buttons -> controller -> engine, mocking view is safer.
+    # Patch MainView in main_window to return a MagicMock instance
+    # This prevents setup_ui from running real code if we don't want it to,
+    # but since we mocked tkinter, running setup_ui is also fine (and maybe better to test integration).
+    # However, to strictly test buttons -> controller -> engine, mocking view is safer.
 
-        with patch('src.ui.main_window.MainView') as MockMainView:
-            root = MagicMock()
-            tracker = CombatTracker(root)
+    with patch('src.ui.main_window.MainView') as MockMainView:
+        root = MagicMock()
+        tracker = CombatTracker(root)
 
-            # tracker.view is the mock instance
-            tracker.view = MockMainView.return_value
+        # tracker.view is the mock instance
+        tracker.view = MockMainView.return_value
 
-            tracker.engine.characters = []
-            tracker.engine.turn_index = -1
-            tracker.engine.round_number = 1
+        tracker.engine.characters = []
+        tracker.engine.turn_index = -1
+        tracker.engine.round_number = 1
 
-            yield tracker
+        yield tracker
 
 def test_btn_add_character(app):
     """Testet den 'Hinzufügen' Button (Quick Add)."""
@@ -247,3 +240,9 @@ def test_btn_undo_redo(app):
     c1_redo = app.engine.characters[0]
     assert c1_redo.lp == 5
 
+def test_btn_open_audio_settings(app):
+    """Testet den Button zum Öffnen der Audio-Einstellungen."""
+    # Mock AudioSettingsWindow
+    with patch('src.ui.audio_settings_view.AudioSettingsWindow') as MockAudioSettings:
+        app.open_audio_settings()
+        MockAudioSettings.assert_called_once()

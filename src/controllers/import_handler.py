@@ -26,6 +26,7 @@ class ImportHandler:
         self.colors = colors
         self.import_entries: List[Dict[str, Any]] = []
         self.detail_entries: List[Dict[str, Any]] = []
+        self.preview_window = None
 
     def load_from_excel(self, file_path: Optional[str] = None) -> None:
         """
@@ -79,7 +80,13 @@ class ImportHandler:
         Zeigt ein Vorschaufenster für den Import an (Schritt 1: Auswahl & Menge).
         Erstellt eine Liste basierend auf den geladenen Daten.
         """
+        if self.preview_window and self.preview_window.winfo_exists():
+            self.preview_window.lift()
+            self.preview_window.focus_force()
+            return
+
         preview_window = tk.Toplevel(self.root)
+        self.preview_window = preview_window
         preview_window.title("Import Vorschau & Auswahl")
         preview_window.geometry(WINDOW_SIZE["import"])
         preview_window.configure(bg=self.colors["bg"])

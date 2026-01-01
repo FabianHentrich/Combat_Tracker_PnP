@@ -3,7 +3,7 @@
     "state": {
         "characters": [
             {
-                "id": "27dc1306-56ec-43dc-9af5-23c001c55e22",
+                "id": "c8cc9f56-b280-4589-bc56-2e0873fcb749",
                 "name": "A",
                 "char_type": "Spieler",
                 "max_lp": 10,
@@ -18,7 +18,7 @@
                 "skip_turns": 0
             },
             {
-                "id": "dde380a4-3f34-4614-9f76-c3476cf45dc3",
+                "id": "224ee376-4551-4bad-b3ee-e3beabf860cb",
                 "name": "B",
                 "char_type": "Gegner",
                 "max_lp": 10,
@@ -34,6 +34,15 @@
             }
         ],
         "turn_index": -1,
-        "round_number": 1
+        "round_number": 1,
+        "audio": {
+            "playlist": [],
+            "current_index": -1,
+            "volume": 0.5,
+            "loop_single": false,
+            "loop_playlist": false,
+            "loop_count_target": 1,
+            "playback_position": 0.0
+        }
     }
 }

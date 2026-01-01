@@ -28,6 +28,7 @@ class LibraryHandler:
         self.enemy_presets: Dict[str, Any] = {}
         self.flat_presets: Dict[str, Any] = {}
         self.staging_entries: List[Dict[str, Any]] = []
+        self.lib_window = None
 
         self.load_presets()
 
@@ -62,7 +63,13 @@ class LibraryHandler:
 
     def open_library_window(self) -> None:
         """Öffnet das Bibliotheks-Fenster."""
+        if self.lib_window and self.lib_window.winfo_exists():
+            self.lib_window.lift()
+            self.lib_window.focus_force()
+            return
+
         lib_window = tk.Toplevel(self.root)
+        self.lib_window = lib_window
         lib_window.title("Gegner-Bibliothek")
         lib_window.geometry(WINDOW_SIZE["library"])
         lib_window.configure(bg=self.colors["bg"])

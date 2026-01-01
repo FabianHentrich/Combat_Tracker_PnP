@@ -16,11 +16,17 @@ def app():
         'tkinter': MagicMock(),
         'tkinter.ttk': MagicMock(),
         'tkinter.filedialog': MagicMock(),
-        'tkinter.messagebox': MagicMock()
+        'tkinter.messagebox': MagicMock(),
+        'pygame': MagicMock(),
+        'pygame.mixer': MagicMock(),
+        'pygame.mixer.music': MagicMock(),
+        'pygame.event': MagicMock()
     }):
         # Import or reload src.main_window to use the mocked tkinter
         if 'src.ui.dice_roller' in sys.modules:
             importlib.reload(sys.modules['src.ui.dice_roller'])
+        if 'src.ui.audio_player_view' in sys.modules:
+            importlib.reload(sys.modules['src.ui.audio_player_view'])
         if 'src.ui.main_view' in sys.modules:
             importlib.reload(sys.modules['src.ui.main_view'])
         if 'src.ui.main_window' in sys.modules:

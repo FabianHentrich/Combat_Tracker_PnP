@@ -23,11 +23,24 @@ class EditHandler:
         self.history_manager = history_manager
         self.root = root
         self.colors = colors
+        self.current_edit_window = None
+        self.current_edit_char_id = None
 
 
     def open_edit_character_window(self, char: 'Character') -> None:
         """Öffnet ein Fenster zum Bearbeiten eines Charakters."""
+        if self.current_edit_window and self.current_edit_window.winfo_exists():
+            if self.current_edit_char_id == char.id:
+                self.current_edit_window.lift()
+                self.current_edit_window.focus_force()
+                return
+            else:
+                self.current_edit_window.destroy()
+
         edit_window = tk.Toplevel(self.root)
+        self.current_edit_window = edit_window
+        self.current_edit_char_id = char.id
+
         edit_window.title(f"Bearbeiten: {char.name}")
         edit_window.geometry(WINDOW_SIZE["edit"]) # Fenster vergrößert für Status-Liste
         edit_window.configure(bg=self.colors["bg"])

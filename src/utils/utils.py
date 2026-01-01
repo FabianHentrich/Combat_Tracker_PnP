@@ -105,3 +105,29 @@ def generate_health_bar(current: int, maximum: int, length: int = 10) -> str:
     # Balken bauen
     bar = "█" * filled_len + "░" * (length - filled_len)
     return f"{bar} {current}/{maximum}"
+
+class ScrollableFrame(ttk.Frame):
+    def __init__(self, container, *args, **kwargs):
+        super().__init__(container, *args, **kwargs)
+        self.canvas = tk.Canvas(self, highlightthickness=0)
+        self.scrollbar = ttk.Scrollbar(self, orient="vertical", command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas)
+
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: self.canvas.configure(
+                scrollregion=self.canvas.bbox("all")
+            )
+        )
+
+        self.canvas_frame = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.scrollbar.pack(side="right", fill="y")
+
+        self.bind("<Configure>", self._on_resize)
+
+    def _on_resize(self, event):
+        self.canvas.itemconfig(self.canvas_frame, width=event.width)

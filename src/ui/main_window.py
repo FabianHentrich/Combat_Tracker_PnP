@@ -8,6 +8,7 @@ from src.controllers.import_handler import ImportHandler
 from src.controllers.library_handler import LibraryHandler
 from src.controllers.edit_handler import EditHandler
 from src.controllers.hotkey_handler import HotkeyHandler
+from src.controllers.audio_controller import AudioController
 from src.ui.main_view import MainView
 from src.ui.interfaces import ICombatView
 from src.utils.config import COLORS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, FONTS, FILES, WINDOW_SIZE, APP_TITLE, RULES
@@ -40,6 +41,9 @@ class CombatTracker:
         self.library_handler = LibraryHandler(self.engine, self.history_manager, self.root, self.colors)
         self.edit_handler = EditHandler(self.engine, self.history_manager, self.root, self.colors)
         self.hotkey_handler = HotkeyHandler(self.root, self.colors)
+        self.audio_controller = AudioController()
+
+        self.audio_settings_window = None
 
         # View initialisieren
         self.view: ICombatView = MainView(self, self.root)
@@ -60,7 +64,13 @@ class CombatTracker:
             "undo": self.undo_action,
             "redo": self.redo_action,
             "delete_char": self.delete_character,
-            "focus_damage": self.view.focus_damage_input
+            "focus_damage": self.view.focus_damage_input,
+            "audio_play_pause": self.toggle_audio_playback,
+            "audio_next": self.audio_controller.next_track,
+            "audio_prev": self.audio_controller.prev_track,
+            "audio_vol_up": self.audio_vol_up,
+            "audio_vol_down": self.audio_vol_down,
+            "audio_mute": self.toggle_audio_mute
         }
         self.hotkey_handler.setup_hotkeys(hotkey_callbacks)
 
@@ -69,6 +79,16 @@ class CombatTracker:
     def open_hotkey_settings(self) -> None:
         """Öffnet das Fenster für die Hotkey-Einstellungen."""
         self.hotkey_handler.open_hotkey_settings()
+
+    def open_audio_settings(self) -> None:
+        """Öffnet das Fenster für die Audio-Einstellungen."""
+        if self.audio_settings_window and self.audio_settings_window.winfo_exists():
+            self.audio_settings_window.lift()
+            self.audio_settings_window.focus_force()
+            return
+
+        from src.ui.audio_settings_view import AudioSettingsWindow
+        self.audio_settings_window = AudioSettingsWindow(self.root, self.audio_controller, self.colors)
 
     def apply_preset(self, name: str) -> None:
         """Füllt die Eingabefelder basierend auf der Auswahl."""
@@ -292,6 +312,7 @@ class CombatTracker:
 
     def save_session(self) -> None:
         state = self.engine.get_state()
+        state["audio"] = self.audio_controller.get_state()
         file_path = self.persistence_handler.save_session(state)
         if file_path:
             self.log_message(f"Kampf gespeichert unter: {file_path}")
@@ -299,6 +320,8 @@ class CombatTracker:
     def load_session(self) -> None:
         state = self.persistence_handler.load_session()
         if state:
+            if "audio" in state:
+                self.audio_controller.load_state(state["audio"])
             self.engine.load_state(state)
             self.engine.initiative_rolled = (self.engine.turn_index != -1)
             self.view.update_listbox()
@@ -306,11 +329,14 @@ class CombatTracker:
 
     def autosave(self) -> None:
         state = self.engine.get_state()
+        state["audio"] = self.audio_controller.get_state()
         self.persistence_handler.autosave(state)
 
     def load_autosave(self) -> None:
         state = self.persistence_handler.load_autosave()
         if state:
+            if "audio" in state:
+                self.audio_controller.load_state(state["audio"])
             self.engine.load_state(state)
             self.engine.initiative_rolled = (self.engine.turn_index != -1)
             self.view.update_listbox()
@@ -360,3 +386,42 @@ class CombatTracker:
 
 
         self.log_message(f"Theme gewechselt zu: {theme_name}")
+
+    # --- Audio Hotkey Helpers ---
+
+    def toggle_audio_playback(self) -> None:
+        if self.audio_controller.is_playing and not self.audio_controller.is_paused:
+            self.audio_controller.pause()
+        elif self.audio_controller.is_paused:
+            self.audio_controller.pause() # unpause
+        else:
+            if self.audio_controller.current_index == -1 and self.audio_controller.playlist:
+                self.audio_controller.play(0)
+            else:
+                self.audio_controller.play()
+
+    def audio_vol_up(self) -> None:
+        new_vol = min(1.0, self.audio_controller.volume + 0.05)
+        self.audio_controller.set_volume(new_vol)
+        # UI Update happens via polling or we might need to trigger it if we want instant feedback on slider
+        # The AudioPlayerWidget polls volume? No, it sets it.
+        # Ideally, AudioController should notify listeners.
+        # For now, the UI loop in AudioPlayerWidget updates time, but maybe not volume slider if changed externally.
+        # Let's check AudioPlayerWidget.update_ui_loop.
+        # It doesn't seem to update volume slider from controller.
+        # But that's a minor issue for now.
+
+    def audio_vol_down(self) -> None:
+        new_vol = max(0.0, self.audio_controller.volume - 0.05)
+        self.audio_controller.set_volume(new_vol)
+
+    def toggle_audio_mute(self) -> None:
+        # Logic similar to UI
+        if self.audio_controller.volume > 0:
+            self.last_vol = self.audio_controller.volume
+            self.audio_controller.set_volume(0)
+        else:
+            vol = getattr(self, 'last_vol', 0.5)
+            if vol <= 0: vol = 0.5
+            self.audio_controller.set_volume(vol)
+

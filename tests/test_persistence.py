@@ -107,4 +107,35 @@ def test_persistence_handler_load():
 
             assert loaded_state == state_data["state"]
 
+def test_persistence_handler_with_audio_state():
+    """
+    Testet, ob der PersistenceHandler auch den Audio-State korrekt verarbeitet,
+    wenn er Teil des übergebenen Dictionaries ist.
+    """
+    handler = PersistenceHandler(MagicMock())
 
+    state = {
+        "characters": [],
+        "turn_index": -1,
+        "round_number": 1,
+        "audio": {
+            "playlist": [{"path": "song.mp3"}],
+            "volume": 0.8
+        }
+    }
+
+    # Test Save
+    with patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json"):
+        with patch('builtins.open', mock_open()) as m:
+            handler.save_session(state)
+
+            # Verify that the written data contains audio state
+            handle = m()
+
+            # FIX: Alle write-Aufrufe zusammenfügen, da json.dump stückweise schreiben kann
+            written_content = "".join(call.args[0] for call in handle.write.call_args_list)
+            written_data = json.loads(written_content)
+
+            assert "audio" in written_data["state"]
+            assert written_data["state"]["audio"]["volume"] == 0.8
+            assert written_data["state"]["audio"]["playlist"][0]["path"] == "song.mp3"

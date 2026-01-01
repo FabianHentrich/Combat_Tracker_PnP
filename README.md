@@ -20,6 +20,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 - [Features](#-features)
 - [Installation & Start](#-installation--start)
 - [Benutzung](#-benutzung)
+- [Musik-Player](#-musik-player)
 - [Programmlogik & Mechaniken](#-programmlogik--mechaniken)
   - [Attribute](#attribute)
   - [Schadensberechnung](#schadensberechnung)
@@ -38,6 +39,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
 *   **Excel Import:** Importiere Charaktere und Gegner direkt aus Excel-Tabellen (.xlsx), um Vorbereitungszeit zu sparen.
+*   **Musik-Player:** Integrierter Audio-Player für lokale Dateien mit Playlist- und Loop-Funktionen.
 *   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
 *   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.). Vollständige Unterstützung für Light- und Dark-Modes über alle UI-Elemente hinweg.
 *   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `saves/autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
@@ -76,6 +78,21 @@ Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
 2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
 3.  **Schadens-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet. Man wählt Schadenshöhe, Typ und ggf. Status-Effekte.
 4.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
+
+---
+
+## 🎵 Musik-Player
+
+Der integrierte Musik-Player ermöglicht es, die passende Atmosphäre für jede Szene zu schaffen. Er befindet sich oben rechts über dem Interaktions-Panel.
+
+*   **Lokale Wiedergabe:** Spiele Musikdateien (MP3, WAV, OGG) direkt von deinem Computer ab.
+*   **Playlist-Management:** Öffne die Musikeinstellungen (Zahnrad-Symbol), um Dateien hinzuzufügen. Du kannst Titel per Drag & Drop sortieren.
+*   **Loop-Modi:**
+    *   🔁 **Einzeln (Inf):** Wiederholt den aktuellen Titel unendlich.
+    *   🔢 **Anzahl (x N):** Wiederholt einen Titel N-mal, bevor zum nächsten gewechselt wird.
+    *   🔄 **Playlist:** Wenn kein Loop aktiv ist, wird die Playlist von oben nach unten abgespielt.
+*   **Tabletop Audio:** Ein Button öffnet [Tabletop Audio](https://tabletopaudio.com/) im Browser, um dort Sounds abzuspielen.
+*   **Steuerung:** Play/Pause, Vor/Zurück, Lautstärke und Mute sind direkt im Hauptfenster erreichbar.
 
 ---
 
