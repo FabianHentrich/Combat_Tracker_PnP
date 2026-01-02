@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 from src.core.mechanics import calculate_damage
 from src.models.enums import CharacterType
 from src.models.status_effects import StatusEffect, EFFECT_CLASSES, GenericStatusEffect
-from src.utils.config import RULES
+from src.config import RULES
 from src.utils.logger import setup_logging
 
 logger = setup_logging()
@@ -73,10 +73,40 @@ class Character:
         self.status = new_status
         return log
 
+    def get_status_string(self) -> str:
+        """Gibt eine formatierte Liste der Status-Effekte zurück."""
+        if not self.status:
+            return ""
+
+        status_list = []
+        for s in self.status:
+            name = s.name
+            if hasattr(name, 'value'):
+                name = name.value
+            status_list.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
+
+        return " | Status: " + ", ".join(status_list)
+
     def heal(self, healing_points: int) -> str:
         """Heilt den Charakter um eine bestimmte Anzahl an Lebenspunkten."""
         self.lp += healing_points
         return f"{self.name} wird um {healing_points} LP geheilt! Aktuelle LP: {self.lp}"
+
+    def update(self, data: Dict[str, Any]) -> None:
+        """Aktualisiert die Attribute des Charakters basierend auf einem Dictionary."""
+        self.name = data.get("name", self.name)
+        self.char_type = data.get("char_type", self.char_type)
+        self.lp = data.get("lp", self.lp)
+        self.max_lp = data.get("max_lp", self.max_lp)
+        self.rp = data.get("rp", self.rp)
+        self.max_rp = data.get("max_rp", self.max_rp)
+        self.sp = data.get("sp", self.sp)
+        self.max_sp = data.get("max_sp", self.max_sp)
+        self.init = data.get("init", self.init)
+        self.gew = data.get("gew", self.gew)
+
+        if "status" in data:
+            self.status = data["status"]
 
     def to_dict(self) -> Dict[str, Any]:
         """Konvertiert den Charakter in ein Dictionary (für JSON-Export)."""

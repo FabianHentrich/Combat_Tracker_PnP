@@ -1,0 +1,2 @@
+## Chronoversum (Unendlichkeit der Zeit und des Universums):
+Kosmos und Zeit als eine Wunde im Sternenzelt: Wo Bahnen reißen und Sekunden knicken. Seine Wesen stehlen Takte, verschieben sich im Parallaxenschritt und biegen Ereignisse an den Rand des Möglichen.

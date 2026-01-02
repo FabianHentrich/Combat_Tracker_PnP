@@ -1,38 +1,7 @@
 {
     "version": 1,
     "state": {
-        "characters": [
-            {
-                "id": "c8cc9f56-b280-4589-bc56-2e0873fcb749",
-                "name": "A",
-                "char_type": "Spieler",
-                "max_lp": 10,
-                "lp": 10,
-                "max_rp": 10,
-                "rp": 10,
-                "max_sp": 10,
-                "sp": 10,
-                "gew": 1,
-                "init": 0,
-                "status": [],
-                "skip_turns": 0
-            },
-            {
-                "id": "224ee376-4551-4bad-b3ee-e3beabf860cb",
-                "name": "B",
-                "char_type": "Gegner",
-                "max_lp": 10,
-                "lp": 10,
-                "max_rp": 10,
-                "rp": 10,
-                "max_sp": 10,
-                "sp": 10,
-                "gew": 1,
-                "init": 0,
-                "status": [],
-                "skip_turns": 0
-            }
-        ],
+        "characters": [],
         "turn_index": -1,
         "round_number": 1,
         "audio": {

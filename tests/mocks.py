@@ -23,6 +23,10 @@ class MockWidget:
     def title(self, *args): pass
     def geometry(self, *args): pass
     def wait_window(self): pass
+    def cget(self, key): return ""
+    def winfo_exists(self): return True
+    def winfo_children(self): return []
+    def protocol(self, *args): pass
 
 class MockVar:
     def __init__(self, value=None, **kwargs):
@@ -49,4 +53,3 @@ class MockScrollableFrame(MockWidget):
         super().__init__(master, **kwargs)
         self.canvas = MockWidget()
         self.scrollable_frame = MockWidget()
-

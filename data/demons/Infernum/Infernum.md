@@ -1,0 +1,2 @@
+## Infernum (Chaosebene): 
+Domäne von Glut, Urteil und Verdammnis. Seine Brut brennt durch Schutz und Anstand, nährt sich von Schuld und prägt Pein wie ein Siegel. Naturgesetze spielen hier keine Rolle. 

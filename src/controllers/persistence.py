@@ -1,15 +1,17 @@
-import json
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from typing import Optional, Dict, Any
 from src.utils.logger import setup_logging
-from src.utils.config import FILES, SAVES_DIR
+from src.config import FILES, SAVES_DIR
+from src.utils.save_manager import SaveManager
 
 logger = setup_logging()
 
-DATA_VERSION = 1
-
 class PersistenceHandler:
+    """
+    Controller für das Speichern und Laden.
+    Verwaltet Dateidialoge und delegiert IO an SaveManager.
+    """
     def __init__(self, root: tk.Tk):
         self.root = root
 
@@ -23,15 +25,8 @@ class PersistenceHandler:
         if not file_path:
             return None
 
-        data = {
-            "version": DATA_VERSION,
-            "state": state
-        }
-
         try:
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=4, ensure_ascii=False)
-            logger.info(f"Kampf erfolgreich gespeichert: {file_path}")
+            SaveManager.save_to_file(file_path, state)
             return file_path
         except Exception as e:
             logger.error(f"Fehler beim Speichern: {e}")
@@ -48,18 +43,7 @@ class PersistenceHandler:
             return None
 
         try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            logger.info(f"Kampf erfolgreich geladen: {file_path}")
-
-            # Version check / migration
-            if "version" in data and "state" in data:
-                return data["state"]
-            else:
-                # Old format (direct state)
-                return data
-
+            return SaveManager.load_from_file(file_path)
         except Exception as e:
             logger.error(f"Fehler beim Laden: {e}")
             messagebox.showerror("Fehler beim Laden", str(e))
@@ -67,26 +51,19 @@ class PersistenceHandler:
 
     def autosave(self, state: Dict[str, Any]) -> None:
         """Speichert den aktuellen Zustand automatisch in eine Datei."""
-        data = {
-            "version": DATA_VERSION,
-            "state": state
-        }
         try:
-            with open(FILES["autosave"], 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=4)
+            SaveManager.save_to_file(FILES["autosave"], state)
         except Exception as e:
             logger.error(f"Autosave fehlgeschlagen: {e}")
 
     def load_autosave(self) -> Optional[Dict[str, Any]]:
         """Lädt den zuletzt automatisch gespeicherten Zustand."""
         try:
-            with open(FILES["autosave"], 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            if "version" in data and "state" in data:
-                return data["state"]
-            else:
-                return data
+            return SaveManager.load_from_file(FILES["autosave"])
         except Exception as e:
-            messagebox.showerror("Fehler beim Laden des Autosaves", str(e))
+            # Nur loggen, kein Popup beim Start, wenn Autosave kaputt/nicht da ist (könnte nerven)
+            # Oder doch Popup? Im Original war Popup. Ich lasse es mal, aber vielleicht als Warning.
+            logger.warning(f"Konnte Autosave nicht laden: {e}")
             return None
+
+

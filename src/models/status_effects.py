@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Dict, Type
 import random
 from src.models.enums import StatusEffectType, DamageType
+from src.core.mechanics import calculate_damage
 
 if TYPE_CHECKING:
     from src.models.character import Character
@@ -50,7 +51,6 @@ class PoisonEffect(StatusEffect):
         super().__init__(StatusEffectType.POISON, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        from src.core.mechanics import calculate_damage
         dmg = self.rank
         log = calculate_damage(character, dmg, DamageType.DIRECT)
         return log + f" (Vergiftung Rang {self.rank}, Runde {self.active_rounds})\n"
@@ -60,7 +60,6 @@ class BurnEffect(StatusEffect):
         super().__init__(StatusEffectType.BURN, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        from src.core.mechanics import calculate_damage
         dmg = self.rank
         log = calculate_damage(character, dmg, DamageType.NORMAL)
         return log + f" (Verbrennung Rang {self.rank}, Runde {self.active_rounds})\n"
@@ -70,7 +69,6 @@ class BleedEffect(StatusEffect):
         super().__init__(StatusEffectType.BLEED, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        from src.core.mechanics import calculate_damage
         # Schaden = Rang/2 + (Runde - 1)
         dmg = int((self.rank / 2) + (self.active_rounds - 1))
         if dmg < 1: dmg = 1
@@ -82,7 +80,6 @@ class ErosionEffect(StatusEffect):
         super().__init__(StatusEffectType.EROSION, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        from src.core.mechanics import calculate_damage
         dmg = self.rank * random.randint(1, 4)
         character.max_lp -= dmg
         if character.max_lp < 0: character.max_lp = 0

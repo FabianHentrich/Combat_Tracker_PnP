@@ -1,0 +1,2 @@
+﻿Der Wert der [[Talente]]
+

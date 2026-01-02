@@ -2,36 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import random
 from typing import Tuple, List, Callable, Optional
-from src.utils.config import FONTS, WINDOW_SIZE, GEW_TO_DICE
-
-def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
-    """
-    Simuliert einen explodierenden Würfelwurf.
-    Wenn die höchste Augenzahl gewürfelt wird, darf erneut gewürfelt werden.
-    Gibt die Summe und die Liste der Einzelwürfe zurück.
-    """
-    rolls = []
-    while True:
-        roll = random.randint(1, sides)
-        rolls.append(roll)
-        if roll != sides:
-            break
-        # Safety break to prevent infinite loops
-        if len(rolls) > 20:
-            break
-    return sum(rolls), rolls
-
-def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
-    # Einfache Validierung, um Abstürze zu vermeiden
-    if gewandtheit < 1: return 4
-    if gewandtheit > 6: return 20
-    return GEW_TO_DICE.get(gewandtheit, 20)
-
-def wuerfle_initiative(gewandtheit: int) -> int:
-    """Würfelt Initiative basierend auf Gewandtheit (mit explodierenden Würfeln). Rückgabe des Wurfwerts."""
-    wuerfel = get_wuerfel_from_gewandtheit(gewandtheit)
-    total, _ = roll_exploding_dice(wuerfel)
-    return total
+from src.config import FONTS, WINDOW_SIZE
 
 class ToolTip:
     """Klasse für Tooltips beim Hovern über Widgets."""
@@ -99,12 +70,15 @@ def generate_health_bar(current: int, maximum: int, length: int = 10) -> str:
     if maximum <= 0:
         return f"💀 {current}/{maximum}"
 
-    ratio = max(0, min(1, current / maximum))
-    filled_len = int(round(length * ratio))
-
-    # Balken bauen
-    bar = "█" * filled_len + "░" * (length - filled_len)
+    percent = max(0, min(1, current / maximum))
+    filled = int(length * percent)
+    bar = "█" * filled + "░" * (length - filled)
     return f"{bar} {current}/{maximum}"
+
+def format_time(seconds: float) -> str:
+    """Formatiert Sekunden in MM:SS Format."""
+    m, s = divmod(int(seconds), 60)
+    return f"{m:02d}:{s:02d}"
 
 class ScrollableFrame(ttk.Frame):
     def __init__(self, container, *args, **kwargs):

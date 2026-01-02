@@ -1,10 +1,39 @@
 import random
 from typing import Tuple, List, Dict, Any, TYPE_CHECKING
-from src.utils.config import RULES
+from src.config import RULES, GEW_TO_DICE
 from src.models.enums import DamageType, StatusEffectType
 
 if TYPE_CHECKING:
     from src.models.character import Character
+
+def roll_exploding_dice(sides: int) -> Tuple[int, List[int]]:
+    """
+    Simuliert einen explodierenden Würfelwurf.
+    Wenn die höchste Augenzahl gewürfelt wird, darf erneut gewürfelt werden.
+    Gibt die Summe und die Liste der Einzelwürfe zurück.
+    """
+    rolls = []
+    while True:
+        roll = random.randint(1, sides)
+        rolls.append(roll)
+        if roll != sides:
+            break
+        # Safety break to prevent infinite loops
+        if len(rolls) > 20:
+            break
+    return sum(rolls), rolls
+
+def get_wuerfel_from_gewandtheit(gewandtheit: int) -> int:
+    # Einfache Validierung, um Abstürze zu vermeiden
+    if gewandtheit < 1: return 4
+    if gewandtheit > 6: return 20
+    return GEW_TO_DICE.get(gewandtheit, 20)
+
+def wuerfle_initiative(gewandtheit: int) -> int:
+    """Würfelt Initiative basierend auf Gewandtheit (mit explodierenden Würfeln). Rückgabe des Wurfwerts."""
+    wuerfel = get_wuerfel_from_gewandtheit(gewandtheit)
+    total, _ = roll_exploding_dice(wuerfel)
+    return total
 
 def calculate_damage(character: 'Character', dmg: int, damage_type: str = DamageType.NORMAL, rank: int = 1) -> str:
     """
@@ -58,7 +87,6 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
              if effect:
                  log += f"❓ Chance auf {effect} (Rang {rank})!\n"
 
-    # Schild Berechnung
 
     # Schild Berechnung
     if not ignore_shield and character.sp > 0:

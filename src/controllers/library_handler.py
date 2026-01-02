@@ -1,13 +1,17 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
-import json
+from tkinter import ttk
 import os
+import re
+import glob
 from typing import Dict, Any, List, Optional, TYPE_CHECKING
-from src.models.character import Character
-from src.utils.utils import wuerfle_initiative
 from src.utils.logger import setup_logging
-from src.models.enums import CharacterType
-from src.utils.config import FONTS, WINDOW_SIZE, FILES
+from src.config import FONTS, WINDOW_SIZE
+from src.utils.library_data_manager import LibraryDataManager
+from src.utils.navigation_manager import NavigationManager
+
+from src.controllers.library_import_tab import LibraryImportTab
+from src.controllers.library_markdown_tab import LibraryMarkdownTab
+from src.utils.enemy_data_loader import EnemyDataLoader
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
@@ -25,44 +29,29 @@ class LibraryHandler:
         self.history_manager = history_manager
         self.root = root
         self.colors = colors
-        self.enemy_presets: Dict[str, Any] = {}
-        self.flat_presets: Dict[str, Any] = {}
-        self.staging_entries: List[Dict[str, Any]] = []
         self.lib_window = None
+        self.notebook = None
+        self._ignore_search_trace = False
+        self.import_tab = None
+        self.markdown_tabs = {}
 
-        self.load_presets()
+        self.data_manager = LibraryDataManager()
+        self.dirs = self.data_manager.dirs
 
-    def load_presets(self, filename: str = FILES["enemies"]) -> None:
-        """Lädt Gegner-Presets aus einer JSON-Datei."""
-        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        filepath = os.path.join(base_dir, filename)
+        # Tab storage
+        self.tabs = {}
 
-        if not os.path.exists(filepath):
-            logger.warning(f"Bibliotheks-Datei nicht gefunden: {filepath}")
-            return
-
-        try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                self.enemy_presets = json.load(f)
-                self.flat_presets = {}
-                self._flatten_presets(self.enemy_presets)
-                logger.info(f"Bibliothek geladen: {len(self.flat_presets)} Presets.")
-        except Exception as e:
-            logger.error(f"Fehler beim Laden der Bibliothek: {e}")
+        # Navigation Manager
+        self.navigator = NavigationManager(self._restore_state, self._update_nav_buttons_ui)
+        self.btn_back = None
+        self.btn_forward = None
 
     def get_preset(self, name: str) -> Optional[Dict[str, Any]]:
         """Gibt die Daten eines Presets zurück."""
-        return self.flat_presets.get(name)
-
-    def _flatten_presets(self, data: Dict[str, Any]) -> None:
-        for key, value in data.items():
-            if "lp" in value: # It's a leaf (enemy)
-                self.flat_presets[key] = value
-            else: # It's a group
-                self._flatten_presets(value)
+        return EnemyDataLoader().get_preset(name)
 
     def open_library_window(self) -> None:
-        """Öffnet das Bibliotheks-Fenster."""
+        """Öffnet das Bibliotheks-Fenster mit Tabs für Gegner und Regelwerk."""
         if self.lib_window and self.lib_window.winfo_exists():
             self.lib_window.lift()
             self.lib_window.focus_force()
@@ -70,285 +59,208 @@ class LibraryHandler:
 
         lib_window = tk.Toplevel(self.root)
         self.lib_window = lib_window
-        lib_window.title("Gegner-Bibliothek")
+        lib_window.title("Bibliothek & Regelwerk")
         lib_window.geometry(WINDOW_SIZE["library"])
         lib_window.configure(bg=self.colors["bg"])
 
-        # Layout: Links Baumstruktur (Auswahl), Rechts Liste (Bearbeitung/Anzahl)
-        paned = ttk.PanedWindow(lib_window, orient=tk.HORIZONTAL)
-        paned.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        # --- Navigation & Suche ---
+        top_frame = ttk.Frame(lib_window, style="Card.TFrame")
+        top_frame.pack(fill=tk.X, padx=5, pady=(5, 0))
 
-        # --- Linke Seite: Auswahl ---
-        left_frame = ttk.Frame(paned, style="Card.TFrame")
-        paned.add(left_frame, weight=1)
+        # Navigation Buttons
+        nav_frame = ttk.Frame(top_frame)
+        nav_frame.pack(side=tk.LEFT, padx=5)
 
-        ttk.Label(left_frame, text="Verfügbare Gegner", font=FONTS["large"]).pack(pady=5)
+        self.btn_back = ttk.Button(nav_frame, text="<", width=3, command=self.navigator.back, state="disabled")
+        self.btn_back.pack(side=tk.LEFT, padx=(0, 2))
 
-        # --- Suchfeld ---
-        search_frame = ttk.Frame(left_frame, style="Card.TFrame")
-        search_frame.pack(fill=tk.X, padx=5, pady=(0, 5))
+        self.btn_forward = ttk.Button(nav_frame, text=">", width=3, command=self.navigator.forward, state="disabled")
+        self.btn_forward.pack(side=tk.LEFT)
 
-        ttk.Label(search_frame, text="🔍").pack(side=tk.LEFT, padx=(5, 2))
-        self.search_var = tk.StringVar()
-        self.search_var.trace("w", self.on_search_change)
-        search_entry = ttk.Entry(search_frame, textvariable=self.search_var)
-        search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 5))
-        # ----------------
+        # Globale Suche
+        ttk.Label(top_frame, text="🔍 Globale Suche:", font=FONTS["bold"]).pack(side=tk.LEFT, padx=5)
+        self.global_search_var = tk.StringVar()
+        self.global_search_var.trace("w", self._on_global_search)
+        entry = ttk.Entry(top_frame, textvariable=self.global_search_var)
+        entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5, pady=5)
 
-        # Treeview für Kategorien
-        self.tree = ttk.Treeview(left_frame, selectmode="browse", show="tree headings")
-        self.tree.heading("#0", text="Kategorie / Name", anchor="w")
-        self.tree.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.notebook = ttk.Notebook(lib_window)
+        self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+        self.notebook.bind("<<NotebookTabChanged>>", self._on_tab_changed)
 
-        # Scrollbar für Treeview
-        tree_scroll = ttk.Scrollbar(left_frame, orient="vertical", command=self.tree.yview)
-        self.tree.configure(yscrollcommand=tree_scroll.set)
-        tree_scroll.pack(side="right", fill="y") # Pack scrollbar next to tree? No, pack layout is tricky here.
-        # Better layout for scrollbar
-        self.tree.pack_forget()
-        tree_scroll.pack(side=tk.RIGHT, fill=tk.Y)
-        self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self._init_tabs()
 
-        if not self.enemy_presets:
-            self.tree.insert("", "end", text=f"Keine Gegner gefunden ({FILES['enemies']} prüfen)", tags=("error",))
-            logger.warning("Keine Gegner-Presets gefunden.")
-        else:
-            try:
-                self.populate_tree(self.enemy_presets)
-            except Exception as e:
-                logger.error(f"Fehler beim Befüllen des Baums: {e}")
-                self.tree.insert("", "end", text="Fehler beim Laden", tags=("error",))
+    def _init_tabs(self):
+        """Initialisiert alle Tabs im Notebook."""
+        # Tab 1: Gegner (Import)
+        tab_enemies_frame = ttk.Frame(self.notebook)
+        self.notebook.add(tab_enemies_frame, text="Gegner (Import)")
 
-        # Doppelklick fügt zur Liste hinzu
-        self.tree.bind("<Double-1>", self.on_tree_double_click)
+        # Initialize Import Tab Controller
+        self.import_tab = LibraryImportTab(tab_enemies_frame, self.engine, self.history_manager, self.colors, self.lib_window.destroy)
 
-        # Button zum Hinzufügen
-        ttk.Button(left_frame, text="Hinzufügen ->", command=self.add_selected_to_staging).pack(fill=tk.X, padx=5, pady=5)
+        # Generic Markdown Tabs
+        self.markdown_tabs = {}
+        self._create_markdown_tab("rules", "Regelwerk", self.dirs["rules"])
+        self._create_markdown_tab("items", "Gegenstände", self.dirs["items"])
+        self._create_markdown_tab("enemies", "Gegner (Info)", self.dirs["enemies"])
+        self._create_markdown_tab("npcs", "NPCs", self.dirs["npcs"])
+        self._create_markdown_tab("locations", "Orte", self.dirs["locations"])
+        self._create_markdown_tab("organizations", "Organisationen", self.dirs["organizations"])
+        self._create_markdown_tab("gods", "Götter", self.dirs["gods"])
+        self._create_markdown_tab("demons", "Dämonen", self.dirs["demons"])
+
+    def _create_markdown_tab(self, tab_id, title, root_dir):
+        """Erstellt einen generischen Tab für Markdown-Dateien."""
+        tab = LibraryMarkdownTab(self.notebook, tab_id, title, root_dir, self.colors, self.search_and_open, self.on_navigation_event)
+        self.markdown_tabs[tab_id] = tab
+
+    def _get_controller_by_widget_id(self, widget_id: str) -> Optional[Any]:
+        """Ermittelt den Controller basierend auf der Widget-ID des Tabs."""
+        if self.import_tab and str(self.import_tab.parent) == widget_id:
+            return self.import_tab
+
+        for tab in self.markdown_tabs.values():
+            if str(tab.frame) == widget_id:
+                return tab
+        return None
+
+    def search_and_open(self, name):
+        """Sucht nach einer Regeldatei mit dem Namen und öffnet sie."""
+
+        # Setze den Suchbegriff in die globale Suche (für Anzeige)
+        # Wir setzen ein Flag, damit _on_global_search nicht feuert und die Tabs filtert
+        self._ignore_search_trace = True
+        self.global_search_var.set(name)
+        self._ignore_search_trace = False
+
+        # Reset filters in all tabs to ensure we can find the item
+        for tab in self.markdown_tabs.values():
+            tab.search_var.set("")
+
+        # Suche über DataManager
+        result = self.data_manager.search_file(name)
+
+        if result:
+            category, filepath = result
+            logger.info(f"Datei gefunden: {filepath} in Kategorie {category}")
+
+            # Tab finden
+            if category in self.markdown_tabs:
+                tab = self.markdown_tabs[category]
+
+                # Switch to tab
+                for i, child in enumerate(self.notebook.tabs()):
+                    if self.notebook.nametowidget(child) == tab.frame:
+                        self.notebook.select(i)
+                        break
+
+                # Datei anzeigen und im Baum selektieren
+                tab.display_content(filepath)
+                tab.select_file(filepath)
+                return
+
+        # Fallback: Wenn nichts gefunden wurde, führe die globale Suche aus,
+        # damit der Nutzer wenigstens gefilterte Listen sieht.
+        logger.info(f"Kein direkter Treffer für '{name}'. Starte globale Suche.")
+        self._ignore_search_trace = False # Trace wieder aktivieren
+        self._on_global_search() # Manuell auslösen
 
 
-        # --- Rechte Seite: Staging Area (Bearbeitung) ---
-        right_frame = ttk.Frame(paned, style="Card.TFrame")
-        paned.add(right_frame, weight=2)
 
-        ttk.Label(right_frame, text="Ausgewählte Gegner (Anzahl & Werte anpassen)", font=FONTS["large"]).pack(pady=5)
-
-        # Canvas für scrollbare Liste
-        canvas = tk.Canvas(right_frame, bg=self.colors["panel"], highlightthickness=0)
-        scrollbar = ttk.Scrollbar(right_frame, orient="vertical", command=canvas.yview)
-        self.scrollable_frame = ttk.Frame(canvas, style="Card.TFrame")
-
-        self.scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-
-        canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-
-        canvas.pack(side="left", fill="both", expand=True, padx=5, pady=5)
-        scrollbar.pack(side="right", fill="y", pady=5)
-
-        # Header für Staging Area
-        self.create_staging_headers()
-
-        self.staging_entries = []
-
-        # Footer Buttons
-        btn_frame = ttk.Frame(lib_window, style="Card.TFrame")
-        btn_frame.pack(fill=tk.X, pady=10, padx=10)
-
-        ttk.Button(btn_frame, text="Alle zum Kampf hinzufügen", command=lambda: self.finalize_import(lib_window)).pack(side="right")
-        ttk.Button(btn_frame, text="Abbrechen", command=lib_window.destroy).pack(side="right", padx=10)
-
-    def populate_tree(self, data: Dict[str, Any], parent: str = "") -> None:
-        """Füllt den Treeview rekursiv mit Kategorien und Gegnern."""
-        for key, value in sorted(data.items()):
-            if "lp" in value: # Es ist ein Gegner (Blatt)
-                # Wir speichern die Stats direkt im Item als Values oder Tags, oder holen sie später aus self.tracker.enemy_presets
-                self.tree.insert(parent, "end", text=key, values=("enemy",), tags=("enemy",))
-            else: # Es ist eine Kategorie
-                node = self.tree.insert(parent, "end", text=key, open=False, tags=("category",))
-                self.populate_tree(value, node)
-
-    def on_search_change(self, *args):
-        """Filtert den Baum basierend auf der Sucheingabe."""
-        query = self.search_var.get().lower()
-
-        # Baum leeren
-        for item in self.tree.get_children():
-            self.tree.delete(item)
-
-        if not query:
-            self.populate_tree(self.enemy_presets)
+    def _on_global_search(self, *args):
+        """Handler für die globale Suche."""
+        if self._ignore_search_trace:
             return
 
-        # Gefilterte Daten erstellen
-        filtered_data = self._filter_data_recursive(self.enemy_presets, query)
-        self.populate_tree(filtered_data)
+        query = self.global_search_var.get().lower()
+        logger.info(f"Globale Suche gestartet: '{query}'")
 
-        # Alle Knoten öffnen, um Ergebnisse zu zeigen
-        self._expand_all_nodes()
+        current_tab_id = self.notebook.select()
+        current_has_results = False
+        first_tab_with_results = None
 
-    def _filter_data_recursive(self, data: Dict[str, Any], query: str) -> Dict[str, Any]:
-        """
-        Erstellt rekursiv ein Subset der Daten, das nur Einträge enthält,
-        die auf die Suchanfrage passen (oder deren Kinder passen).
-        """
-        result = {}
-        for key, value in data.items():
-            if "lp" in value: # Blatt (Gegner)
-                if query in key.lower():
-                    result[key] = value
-            else: # Kategorie
-                # Rekursiv in die Kategorie absteigen
-                filtered_children = self._filter_data_recursive(value, query)
-                if filtered_children:
-                    result[key] = filtered_children
-                # Optional: Wenn der Kategoriename selbst matcht, alles darunter anzeigen?
-                # Hier entscheiden wir uns dagegen, um die Suche präzise auf Gegnernamen zu halten.
-        return result
+        # Iterate over tabs in visual order
+        all_tabs = self.notebook.tabs()
 
-    def _expand_all_nodes(self, parent=""):
-        """Öffnet alle Knoten im Treeview."""
-        for item in self.tree.get_children(parent):
-            self.tree.item(item, open=True)
-            self._expand_all_nodes(item)
+        for tab_id in all_tabs:
+            controller = self._get_controller_by_widget_id(tab_id)
 
-    def on_tree_double_click(self, event):
-        """Handler für Doppelklick auf einen Eintrag im Baum."""
-        self.add_selected_to_staging()
+            if controller:
+                # Perform search on this tab
+                count = controller.search(query)
 
-    def add_selected_to_staging(self):
-        """Fügt den ausgewählten Gegner zur Staging-Area (rechte Seite) hinzu."""
-        selected_item = self.tree.selection()
-        if not selected_item: return
+                if tab_id == current_tab_id:
+                    if count > 0:
+                        current_has_results = True
 
-        item_text = self.tree.item(selected_item[0], "text")
-        tags = self.tree.item(selected_item[0], "tags")
+                if count > 0 and first_tab_with_results is None:
+                    first_tab_with_results = tab_id
+            else:
+                logger.warning(f"Kein Controller für Tab ID {tab_id} gefunden!")
 
-        if "enemy" in tags:
-            # Daten holen
-            if item_text in self.flat_presets:
-                data = self.flat_presets[item_text]
-                self.add_staging_row(item_text, data)
+        # If current tab has no results, but another tab does, switch to it
+        if not current_has_results and first_tab_with_results:
+            logger.info(f"Wechsle zu Tab: {first_tab_with_results}")
+            try:
+                self.notebook.select(first_tab_with_results)
+            except Exception as e:
+                logger.error(f"Fehler beim Wechseln des Tabs: {e}")
 
-    def create_staging_headers(self):
-        """Erstellt die Überschriften für die Staging-Area."""
-        header_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
-        header_frame.pack(fill="x", pady=5)
+    def on_navigation_event(self, tab_id, filepath=None):
+        """Wird aufgerufen, wenn der Nutzer navigiert (Tab wechselt oder Datei öffnet)."""
+        self.navigator.push({'tab_id': tab_id, 'filepath': filepath})
 
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Anzahl", "Sofort", ""]
-        widths = [30, 10, 5, 5, 5, 5, 5, 5, 5]
-        for i, col in enumerate(headers):
-            ttk.Label(header_frame, text=col, font=FONTS["small"], width=widths[i], anchor="w").pack(side="left", padx=2)
+    def _on_tab_changed(self, event):
+        """Handler für Tab-Wechsel."""
+        if self.navigator.is_navigating:
+            return
 
-    def add_staging_row(self, name, data):
-        """Fügt eine Zeile für einen Gegner in der Staging-Area hinzu."""
-        row_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
-        row_frame.pack(fill="x", pady=5)
+        selected_tab_id = self.notebook.select()
+        controller = self._get_controller_by_widget_id(selected_tab_id)
 
-        # Name
-        e_name = ttk.Entry(row_frame, width=30)
-        e_name.insert(0, name)
-        e_name.pack(side="left", padx=5)
+        if controller:
+            controller_id = getattr(controller, 'tab_id', 'import')
+            filepath = getattr(controller, 'current_file', None)
+            self.on_navigation_event(controller_id, filepath)
 
-        # Typ
-        e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
-        e_type.set(data.get("type", CharacterType.ENEMY.value))
-        e_type.pack(side="left", padx=5)
+    def go_back(self):
+        self.navigator.back()
 
-        # LP
-        e_lp = ttk.Entry(row_frame, width=5)
-        e_lp.insert(0, str(data.get("lp", 10)))
-        e_lp.pack(side="left", padx=5)
+    def go_forward(self):
+        self.navigator.forward()
 
-        # RP
-        e_rp = ttk.Entry(row_frame, width=5)
-        e_rp.insert(0, str(data.get("rp", 0)))
-        e_rp.pack(side="left", padx=5)
-
-        # SP
-        e_sp = ttk.Entry(row_frame, width=5)
-        e_sp.insert(0, str(data.get("sp", 0)))
-        e_sp.pack(side="left", padx=5)
-
-        # GEW
-        e_gew = ttk.Entry(row_frame, width=5)
-        e_gew.insert(0, str(data.get("gew", 1)))
-        e_gew.pack(side="left", padx=5)
-
-        # Anzahl
-        e_count = ttk.Entry(row_frame, width=5)
-        e_count.insert(0, "1")
-        e_count.pack(side="left", padx=5)
-
-        # Sofort Checkbox
-        var_surprise = tk.BooleanVar()
-        cb_surprise = ttk.Checkbutton(row_frame, variable=var_surprise)
-        cb_surprise.pack(side="left", padx=5)
-
-        # Löschen Button
-        btn_del = ttk.Button(row_frame, text="X", width=3)
-        btn_del.pack(side="left", padx=5)
-
-        entry_obj = {
-            "frame": row_frame,
-            "name": e_name,
-            "type": e_type,
-            "lp": e_lp,
-            "rp": e_rp,
-            "sp": e_sp,
-            "gew": e_gew,
-            "count": e_count,
-            "surprise": var_surprise
-        }
-
-        btn_del.configure(command=lambda: self.remove_staging_row(row_frame, entry_obj))
-        self.staging_entries.append(entry_obj)
-
-    def remove_staging_row(self, frame, entry_obj):
-        """Entfernt eine Zeile aus der Staging-Area."""
-        frame.destroy()
-        if entry_obj in self.staging_entries:
-            self.staging_entries.remove(entry_obj)
-
-    def finalize_import(self, window):
-        """Fügt die konfigurierten Gegner dem Kampf hinzu."""
-        count_imported = 0
-        self.history_manager.save_snapshot()
-
+    def _restore_state(self, state):
         try:
-            for entry in self.staging_entries:
-                try:
-                    count = int(entry["count"].get())
-                except ValueError:
-                    count = 1
+            tab_id = state.get('tab_id')
+            filepath = state.get('filepath')
 
-                if count <= 0: continue
+            # Switch tab
+            target_controller = None
+            if tab_id == "import":
+                target_controller = self.import_tab
+            elif tab_id in self.markdown_tabs:
+                target_controller = self.markdown_tabs[tab_id]
 
-                name_base = entry["name"].get()
-                char_type = entry["type"].get()
-                lp = int(entry["lp"].get())
-                rp = int(entry["rp"].get())
-                sp = int(entry["sp"].get())
-                gew = int(entry["gew"].get())
-                surprise = entry["surprise"].get()
+            if target_controller:
+                # Select tab
+                frame = target_controller.frame if hasattr(target_controller, 'frame') else target_controller.parent
 
-                for i in range(count):
-                    final_name = name_base
-                    if count > 1:
-                        final_name = f"{name_base} {i+1}"
+                # Find index
+                for i, child in enumerate(self.notebook.tabs()):
+                    if self.notebook.nametowidget(child) == frame:
+                        self.notebook.select(i)
+                        break
 
-                    # Init würfeln
-                    init = wuerfle_initiative(gew)
+                # Restore file if applicable
+                if filepath and hasattr(target_controller, 'display_content'):
+                    target_controller.display_content(filepath)
 
-                    new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type)
-                    self.engine.insert_character(new_char, surprise=surprise)
-                    count_imported += 1
+        except Exception as e:
+            logger.error(f"Fehler bei der Navigation: {e}")
 
-            # self.tracker.update_listbox() # Handled by engine event
-            self.engine.log(f"{count_imported} Charaktere aus Bibliothek hinzugefügt.")
-            window.destroy()
-
-        except ValueError:
-            messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
+    def _update_nav_buttons_ui(self, can_back, can_forward):
+        if self.btn_back:
+            self.btn_back.config(state="normal" if can_back else "disabled")
+        if self.btn_forward:
+            self.btn_forward.config(state="normal" if can_forward else "disabled")

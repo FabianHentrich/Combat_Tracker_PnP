@@ -1,12 +1,36 @@
-- Musikplayer
+- Regelwerk optimeren
 - Soundeffekte für Events
-- Regelwerk nachschlagen
-- Zauber und Skill suche
-- legendäre Effekte suche
-- Gegenstände suche
+- gew bei hinzufügen auf 6 limitieren
+- Kampfprotokall sollte only read sein
 
+- bilder in markdown Anzeigen
 
-
+- spieler ansicht
 
 # SPÄTER:
+- Datenbank: Aktuell werden Daten rekursiv aus JSON geladen. Bei sehr vielen Gegnern/Items könnte dies langsam werden. Für die Zukunft wäre eine kleine SQLite-Datenbank oder ein optimierter Index-Mechanismus sinnvoll.
 - Packaging: Erstellen einer pyproject.toml oder setup.py, um das Projekt einfach als Paket installierbar zu machen oder eine .exe mit PyInstaller zu generieren.
+
+
+
+## Problem/ Verbesserungen
+
+-"Gott-Objekt" Controller: Die Klasse CombatTracker in src/ui/main_window.py tendiert dazu, sehr groß zu werden, da sie alle Handler (Import, Library, Audio, Edit, Persistence) instanziiert und verwaltet.
+-Harte Abhängigkeiten in Config: Die Datei src/utils/config.py enthält hardcodierte Regeln und Themes. Das macht es schwer, Konfigurationen zu ändern, ohne den Code anzufassen (z.B. für User-Custom-Themes).
+-Globaler State: Die Nutzung von globalen Variablen (wie RULES in mechanics.py) ist pragmatisch, kann aber Tests erschweren, wenn man unterschiedliche Regelwerke testen möchte.
+
+
+## Performance & Skalierbarkeit (Datenbank):
+-Problem: Wie in "Feature Ideen" angemerkt, werden Daten (Gegner, Items) rekursiv aus JSON-Dateien geladen und im Speicher gehalten.
+-Risiko: Bei Tausenden von Einträgen wird der Start langsam und der Speicherverbrauch hoch.
+-Lösung: Umstieg auf SQLite oder Lazy-Loading (Daten erst laden, wenn sie gebraucht werden).
+
+## Threading & GUI-Blockierung:
+-Problem: Tkinter läuft im Main-Thread. Wenn eine große Excel-Datei importiert wird oder eine komplexe Berechnung läuft, friert die GUI ein ("Keine Rückmeldung").
+-Risiko: Schlechte User Experience bei großen Datenmengen.
+-Lösung: Auslagern von schweren Aufgaben (I/O, Import) in separate Threads (threading Modul) und Nutzung von Queues zur Kommunikation mit der GUI.
+
+## Snapshot-Größe (Undo/Redo):
+-Problem: HistoryManager speichert bei jeder Aktion eine tiefe Kopie (deepcopy) des gesamten Kampfzustands.
+-Risiko: Wenn der Kampf sehr viele Teilnehmer und Status-Effekte hat, kann der Speicherverbrauch explodieren.
+-Lösung: Implementierung eines "Command Patterns", das nur die Änderung (Delta) speichert, statt des gesamten Zustands.

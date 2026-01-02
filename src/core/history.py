@@ -1,6 +1,8 @@
 import copy
 from typing import List, Dict, Any, TYPE_CHECKING
 from src.utils.logger import setup_logging
+from src.config import MAX_HISTORY
+from src.models.enums import EventType
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
@@ -12,7 +14,7 @@ class HistoryManager:
         self.engine = engine
         self.undo_stack: List[Dict[str, Any]] = []
         self.redo_stack: List[Dict[str, Any]] = []
-        self.max_history: int = 20
+        self.max_history: int = MAX_HISTORY
 
     def save_snapshot(self) -> None:
         """Wird vor jeder Aktion aufgerufen (Schaden, Next Turn, etc.)"""
@@ -42,6 +44,7 @@ class HistoryManager:
         prev_state = self.undo_stack.pop()
         self.engine.load_state(prev_state)
         logger.info("Undo ausgeführt.")
+        self.engine.notify(EventType.LOG, "↩ Undo ausgeführt.")
         return True
 
     def redo(self) -> bool:
@@ -55,4 +58,5 @@ class HistoryManager:
         next_state = self.redo_stack.pop()
         self.engine.load_state(next_state)
         logger.info("Redo ausgeführt.")
+        self.engine.notify(EventType.LOG, "↪ Redo ausgeführt.")
         return True

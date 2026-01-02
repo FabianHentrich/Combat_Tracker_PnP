@@ -3,23 +3,23 @@ try:
 except ImportError:
     pygame = None
 import os
-import time
 from typing import List, Optional, Dict, Callable, Any
 try:
     import mutagen
 except ImportError:
     mutagen = None
+from src.utils.logger import setup_logging
+
+logger = setup_logging()
 
 class AudioController:
     def __init__(self):
-        self.playlist: List[Dict[str, str]] = []  # List of {"title": str, "path": str, "type": "file"|"url", "duration": float}
+        self.playlist: List[Dict[str, Any]] = []  # List of {"title": str, "path": str, "type": "file", "duration": float}
         self.current_index: int = -1
         self.is_playing: bool = False
         self.is_paused: bool = False
         self.volume: float = 0.5
         self.current_track_duration: float = 0.0
-        self.last_request_time: float = 0.0
-        self.min_request_interval: float = 1.0  # Minimum seconds between requests
 
         # Loop settings
         self.loop_single: bool = False
@@ -31,27 +31,39 @@ class AudioController:
         self.saved_playback_position: float = 0.0
 
         self.on_track_end_callback: Optional[Callable] = None
-        self.on_track_change_callback: Optional[Callable] = None
+        self._track_change_listeners: List[Callable] = []
+
+        self.last_vol: float = 0.5  # For mute toggle
 
         self._initialized = False
+        self.init_error = None
+        self._check_event_id = None
+
+        self._initialize_audio_system()
+
+    def _initialize_audio_system(self):
+        """Versucht, das Pygame Audio-System zu initialisieren."""
         if pygame:
             try:
                 pygame.mixer.init()
                 if not pygame.get_init():
                     pygame.init()
                 self._initialized = True
-            except Exception as e:
-                print(f"Error initializing pygame mixer: {e}")
 
-            # Timer für Track-Ende Prüfung
-            self._check_event_id = pygame.USEREVENT + 1
-            if self._initialized:
-                try:
-                    pygame.mixer.music.set_endevent(self._check_event_id)
-                except Exception as e:
-                    print(f"Error setting endevent: {e}")
+                # Timer für Track-Ende Prüfung
+                self._check_event_id = pygame.USEREVENT + 1
+                pygame.mixer.music.set_endevent(self._check_event_id)
+
+            except Exception as e:
+                self.init_error = str(e)
+                logger.error(f"Error initializing pygame mixer: {e}")
         else:
-            print("Pygame not available. Audio features disabled.")
+            self.init_error = "Pygame module not found."
+            logger.warning("Pygame not available. Audio features disabled.")
+
+    @property
+    def is_initialized(self) -> bool:
+        return self._initialized
 
     def add_track(self, path: str, title: str = None):
         track_type = "file"
@@ -79,7 +91,7 @@ class AudioController:
             if audio and audio.info:
                 return audio.info.length
         except Exception as e:
-            print(f"Error getting duration for {path}: {e}")
+            logger.error(f"Error getting duration for {path}: {e}")
         return 0.0
 
     def play(self, index: int = None, start_offset: float = 0.0):
@@ -115,10 +127,10 @@ class AudioController:
                 self.start_time_offset = start_offset
                 self.is_playing = True
                 self.is_paused = False
-                if self.on_track_change_callback:
-                    self.on_track_change_callback(track)
+                for listener in self._track_change_listeners:
+                    listener(track)
             except Exception as e:
-                print(f"Error playing track {file_path}: {e}")
+                logger.error(f"Error playing track {file_path}: {e}")
                 self.next_track()
 
     def pause(self):
@@ -278,3 +290,43 @@ class AudioController:
 
     def get_total_duration(self) -> float:
         return self.current_track_duration
+
+    def toggle_playback(self) -> None:
+        """Schaltet zwischen Play und Pause um oder startet die Wiedergabe."""
+        if self.is_playing and not self.is_paused:
+            self.pause()
+        elif self.is_paused:
+            self.pause() # unpause
+        else:
+            if self.current_index == -1 and self.playlist:
+                self.play(0)
+            else:
+                self.play()
+
+    def increase_volume(self, step: float = 0.05) -> None:
+        """Erhöht die Lautstärke."""
+        new_vol = min(1.0, self.volume + step)
+        self.set_volume(new_vol)
+
+    def decrease_volume(self, step: float = 0.05) -> None:
+        """Verringert die Lautstärke."""
+        new_vol = max(0.0, self.volume - step)
+        self.set_volume(new_vol)
+
+    def toggle_mute(self) -> None:
+        """Schaltet Stummschaltung ein/aus."""
+        if self.volume > 0:
+            self.last_vol = self.volume
+            self.set_volume(0)
+        else:
+            vol = getattr(self, 'last_vol', 0.5)
+            if vol <= 0: vol = 0.5
+            self.set_volume(vol)
+
+    def add_track_change_listener(self, listener: Callable):
+        if listener not in self._track_change_listeners:
+            self._track_change_listeners.append(listener)
+
+    def remove_track_change_listener(self, listener: Callable):
+        if listener in self._track_change_listeners:
+            self._track_change_listeners.remove(listener)

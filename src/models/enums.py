@@ -1,11 +1,11 @@
-from enum import Enum
+from enum import StrEnum
 
-class CharacterType(str, Enum):
+class CharacterType(StrEnum):
     PLAYER = "Spieler"
     ENEMY = "Gegner"
     NPC = "NPC"
 
-class DamageType(str, Enum):
+class DamageType(StrEnum):
     NORMAL = "Normal"
     PIERCING = "Durchschlagend"
     DIRECT = "Direkt"
@@ -15,7 +15,7 @@ class DamageType(str, Enum):
     LIGHTNING = "Blitz"
     COLD = "Kälte"
 
-class StatusEffectType(str, Enum):
+class StatusEffectType(StrEnum):
     POISON = "Vergiftung"
     BURN = "Verbrennung"
     BLEED = "Blutung"
@@ -26,7 +26,7 @@ class StatusEffectType(str, Enum):
     CONFUSION = "Verwirrung"
     BLIND = "Blendung"
 
-class EventType(str, Enum):
+class EventType(StrEnum):
     UPDATE = "update"
     LOG = "log"
     TURN_CHANGE = "turn_change"
