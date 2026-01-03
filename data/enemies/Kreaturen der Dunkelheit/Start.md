@@ -1,8 +1,8 @@
--  [[Geisterwesen]] 
--  [[Seuchenmönch]] 
+- [[Geisterwesen]]
+- [[Seuchenmönch]] 
 - [[Grabeswolf]] 
+- [[Nebelerscheinung]]
 - [[Königin Maela, die Klagende]] (Miniboss)
 - [[Sir Varik Kettentreu, der Rückholer]] (Miniboss)
-- [[Kastellan Morcant Riegelhand, der Torhalter]] (Boss)
 - [[Rosenwitwe Serapha]] (Boss)
-- [[Nebelerscheinung]]
+

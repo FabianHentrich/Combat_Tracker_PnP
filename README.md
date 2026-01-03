@@ -7,9 +7,9 @@
 
 Ein professioneller, feature-reicher Combat Tracker für Pen & Paper Rollenspiele.
 
-> ℹ️ **Hinweis:** Dieses Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt. Es ist jedoch flexibel genug, um auch für andere Systeme angepasst zu werden.
+> ℹ️ **Hinweis:** Dieses Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt.
 >
-> **Interesse am Regelwerk?** Wenn du das zugrundeliegende Regelwerk kennenlernen möchtest, schreib mir gerne eine E-Mail!
+> **Interesse am Regelwerk?** Das Regelwerk und einige Ressourcen aus der einer beispielhaften Welt (Orte, Gegner, NPCs, Gegenstände, etc.) sind im Programm einsehbar. Wenn du das näher kennenlernen möchtest oder Fragen hast, schreib mir gerne eine E-Mail!
 
 Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu verwalten, Initiative zu tracken, Schaden zu berechnen und Status-Effekte im Blick zu behalten.
 
@@ -38,10 +38,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
-*   **Integrierte Bibliothek / Wiki:** Verwalte deine gesamte Kampagne direkt im Tool.
-    *   **Dynamische Struktur:** Die Bibliothek passt sich automatisch deiner Ordnerstruktur in `data/` an. Erstelle einfach neue Ordner für neue Kategorien (z.B. `data/meine_kampagne`).
-    *   **Markdown-Support:** Schreibe deine Notizen in Markdown.
-    *   **Suche:** Globale Suche über alle Kategorien.
+*   **Integrierte Bibliothek / Wiki:** Verwalte deine gesamte Kampagne direkt im Tool. Durchsuche Regeln, Items, NPCs, Orte und mehr in einer übersichtlichen Markdown-basierten Bibliothek.
 *   **Excel Import:** Importiere Charaktere und Gegner direkt aus Excel-Tabellen (.xlsx), um Vorbereitungszeit zu sparen.
 *   **Musik-Player:** Integrierter Audio-Player für lokale Dateien mit Playlist- und Loop-Funktionen.
 *   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
@@ -174,9 +171,7 @@ Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 *   **`data/rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden.
 *   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner (Presets).
 *   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
-*   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek.
-    *   Jeder Unterordner in `data/` wird automatisch als Tab in der Bibliothek angezeigt.
-    *   Die Namen der Tabs können in `src/config/defaults.py` (`LIBRARY_TABS`) angepasst werden.
+*   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.).
 *   **`src/utils/config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
 
 ### Themes

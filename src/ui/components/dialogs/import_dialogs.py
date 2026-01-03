@@ -56,8 +56,8 @@ class ImportPreviewDialog(BaseImportDialog):
         scroll_frame = self._setup_scrollable_area()
 
         # Spaltenüberschriften
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Anzahl"]
-        widths = [15, 8, 5, 5, 5, 5, 10]
+        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level", "Anzahl"]
+        widths = [15, 8, 5, 5, 5, 5, 5, 10]
         self._create_header_row(scroll_frame, headers, widths)
 
         # Zeilen generieren
@@ -97,8 +97,13 @@ class ImportPreviewDialog(BaseImportDialog):
             e_gew.insert(0, str(row["Gewandtheit"]))
             e_gew.pack(side="left", padx=5)
 
+            # Level
+            e_level = ttk.Entry(row_frame, width=widths[6])
+            e_level.insert(0, str(row.get("level", 0)))
+            e_level.pack(side="left", padx=5)
+
             # Anzahl (Spinbox)
-            e_count = ttk.Entry(row_frame, width=widths[6])
+            e_count = ttk.Entry(row_frame, width=widths[7])
             e_count.insert(0, "1") # Standardmäßig 1
             e_count.pack(side="left", padx=5)
 
@@ -110,6 +115,7 @@ class ImportPreviewDialog(BaseImportDialog):
                 "rp": e_rp,
                 "sp": e_sp,
                 "gew": e_gew,
+                "level": e_level,
                 "count": e_count
             })
 
@@ -137,6 +143,7 @@ class ImportPreviewDialog(BaseImportDialog):
                     rp = entry["rp"].get()
                     sp = entry["sp"].get()
                     gew = entry["gew"].get()
+                    level = entry["level"].get()
 
                     for i in range(count):
                         final_name = name_base
@@ -149,7 +156,8 @@ class ImportPreviewDialog(BaseImportDialog):
                             "HP": lp,
                             "Ruestung": rp,
                             "Schild": sp,
-                            "Gewandtheit": gew
+                            "Gewandtheit": gew,
+                            "Level": level
                         })
 
             if not expanded_data:
@@ -182,8 +190,8 @@ class ImportDetailDialog(BaseImportDialog):
         scroll_frame = self._setup_scrollable_area()
 
         # Header Zeile
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW"]
-        widths = [20, 10, 5, 5, 5, 5, 5]
+        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level"]
+        widths = [20, 10, 5, 5, 5, 5, 5, 5]
         self._create_header_row(scroll_frame, headers, widths)
 
         self.detail_entries = []
@@ -222,6 +230,11 @@ class ImportDetailDialog(BaseImportDialog):
             e_gew.insert(0, str(row["Gewandtheit"]))
             e_gew.pack(side="left", padx=5)
 
+            # Level
+            e_level = ttk.Entry(row_frame, width=8)
+            e_level.insert(0, str(row.get("level", 0)))
+            e_level.pack(side="left", padx=5)
+
             # Löschen Button für einzelne Zeile
             btn_del = ttk.Button(row_frame, text="X", width=3)
             btn_del.pack(side="left", padx=5)
@@ -234,7 +247,8 @@ class ImportDetailDialog(BaseImportDialog):
                 "lp": e_lp,
                 "rp": e_rp,
                 "sp": e_sp,
-                "gew": e_gew
+                "gew": e_gew,
+                "level": e_level
             }
 
             # Command setzen mit Referenz auf das Objekt
@@ -266,7 +280,8 @@ class ImportDetailDialog(BaseImportDialog):
                     "lp": int(entry["lp"].get()),
                     "rp": int(entry["rp"].get()),
                     "sp": int(entry["sp"].get()),
-                    "gew": int(entry["gew"].get())
+                    "gew": int(entry["gew"].get()),
+                    "level": int(entry["level"].get())
                 }
                 final_data.append(data)
 
@@ -275,4 +290,3 @@ class ImportDetailDialog(BaseImportDialog):
 
         except ValueError:
             messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte in den Feldern verwenden.")
-

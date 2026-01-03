@@ -58,3 +58,25 @@ def test_finalize_import(import_handler):
     # Init should be rolled based on gew=3 (which is d8 -> 1-8, but can explode)
     assert char.init >= 1
 
+def test_finalize_import_limits_gew(import_handler):
+    """
+    Testet, ob GEW beim Import auf 6 limitiert wird.
+    """
+    # Mock data passed from dialog with GEW > 6
+    final_data = [{
+        "name": "FastChar",
+        "type": "Gegner",
+        "lp": 30,
+        "rp": 5,
+        "sp": 0,
+        "gew": 10 # Should be capped
+    }]
+
+    import_handler.on_details_confirmed(final_data)
+
+    # Check if insert_character was called
+    assert import_handler.engine.insert_character.called
+    args, _ = import_handler.engine.insert_character.call_args
+    char = args[0]
+
+    assert char.gew == 6

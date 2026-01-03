@@ -249,14 +249,17 @@ DEFAULT_RULES = {
     }
 }
 
-# Mapping von Ordnernamen zu Tab-Titeln in der Bibliothek
-LIBRARY_TABS = {
-    "enemies": "Gegner (Info)",
-    "rules": "Regelwerk",
-    "items": "Gegenstände",
-    "npcs": "NPCs",
-    "locations": "Orte",
-    "organizations": "Organisationen",
-    "gods": "Götter",
-    "demons": "Dämonen"
-}
+# --- LIBRARY TABS ---
+LIBRARY_TABS = [
+    {"id": "rules", "title": "Regelwerk", "dir": "rules"},
+    {"id": "items", "title": "Gegenstände", "dir": "items"},
+    {"id": "enemies", "title": "Gegner (Info)", "dir": "enemies"},
+    {"id": "npcs", "title": "NPCs", "dir": "npcs"},
+    {"id": "locations", "title": "Orte", "dir": "locations"},
+    {"id": "organizations", "title": "Organisationen", "dir": "organizations"},
+    {"id": "gods", "title": "Götter", "dir": "gods"}
+]
+
+# --- CHARACTER DEFAULTS ---
+DEFAULT_GEW = 1
+MAX_GEW = 6

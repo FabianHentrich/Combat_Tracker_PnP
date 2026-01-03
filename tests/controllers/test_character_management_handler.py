@@ -70,3 +70,33 @@ def test_save_character_callback(char_handler):
     char_handler.engine.update_character.assert_called_once_with(char, data)
     # Verify history snapshot was taken
     char_handler.history_manager.save_snapshot.assert_called_once()
+
+def test_add_character_quick_limits_gew(char_handler):
+    """
+    Testet, ob GEW beim schnellen Hinzufügen auf 6 limitiert wird.
+    """
+    # Setup mock data with GEW > 6
+    data = {
+        "name": "Speedy",
+        "lp": "10",
+        "rp": "0",
+        "sp": "0",
+        "init": "10",
+        "gew": "10", # Should be capped at 6
+        "level": "0",
+        "type": "Gegner",
+        "surprise": False
+    }
+    char_handler.view.get_quick_add_data.return_value = data
+
+    char_handler.add_character_quick()
+
+    # Verify insert_character was called with correct GEW
+    char_handler.engine.insert_character.assert_called_once()
+    args, _ = char_handler.engine.insert_character.call_args
+    new_char = args[0]
+
+    assert new_char.gew == 6
+
+    # Verify show_info was called
+    char_handler.view.show_info.assert_called_once()

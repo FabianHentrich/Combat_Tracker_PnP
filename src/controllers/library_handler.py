@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
-from typing import Dict, Any, Optional, TYPE_CHECKING
+import os
+import re
+import glob
+from typing import Dict, Any, List, Optional, TYPE_CHECKING
 from src.utils.logger import setup_logging
 from src.config import FONTS, WINDOW_SIZE, LIBRARY_TABS
+
 from src.utils.library_data_manager import LibraryDataManager
 from src.utils.navigation_manager import NavigationManager
 
@@ -98,22 +102,16 @@ class LibraryHandler:
 
         # Generic Markdown Tabs
         self.markdown_tabs = {}
+        for tab_config in LIBRARY_TABS:
+            tab_id = tab_config["id"]
+            title = tab_config["title"]
+            dir_name = tab_config["dir"]
 
-        # Sort directories: Priority from LIBRARY_TABS, then alphabetical
-        available_dirs = list(self.dirs.keys())
-        priority_order = list(LIBRARY_TABS.keys())
-
-        def sort_key(name):
-            if name in priority_order:
-                return (0, priority_order.index(name))
-            return (1, name)
-
-        available_dirs.sort(key=sort_key)
-
-        for dir_name in available_dirs:
-            path = self.dirs[dir_name]
-            title = LIBRARY_TABS.get(dir_name, dir_name.capitalize())
-            self._create_markdown_tab(dir_name, title, path)
+            # Ensure directory exists in data_manager.dirs, otherwise fallback or skip
+            if dir_name in self.dirs:
+                self._create_markdown_tab(tab_id, title, self.dirs[dir_name])
+            else:
+                logger.warning(f"Verzeichnis für Tab '{title}' ({dir_name}) nicht gefunden.")
 
     def _create_markdown_tab(self, tab_id, title, root_dir):
         """Erstellt einen generischen Tab für Markdown-Dateien."""
@@ -280,5 +278,5 @@ class LibraryHandler:
             self.import_tab.update_colors(colors)
 
         for tab in self.markdown_tabs.values():
-            if hasattr(tab, 'update_colors'):
-                tab.update_colors(colors)
+            if hasattr(tab.browser, 'update_colors'):
+                tab.browser.update_colors(colors)

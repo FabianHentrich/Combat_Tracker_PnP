@@ -94,5 +94,7 @@ class DiceRoller(ttk.LabelFrame):
     def update_colors(self, new_colors: Dict[str, str]) -> None:
         """Aktualisiert die Farben der UI-Elemente."""
         self.colors = new_colors
-        self.result_label.configure(foreground=self.colors["accent"])
-        self.history_label.configure(foreground=self.colors["fg"])
+        if self.result_label and self.result_label.winfo_exists():
+            self.result_label.configure(foreground=self.colors["accent"])
+        if self.history_label and self.history_label.winfo_exists():
+            self.history_label.configure(foreground=self.colors["fg"])

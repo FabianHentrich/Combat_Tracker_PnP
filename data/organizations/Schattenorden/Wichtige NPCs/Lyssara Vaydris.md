@@ -35,7 +35,7 @@ Eigenheiten:
 
 - **MP: 80 Punkte**
 - **AP: 0 Punkte**
-- **[[Lebenspunkte (LP)]]:** 26
+- **[[Lebenspunkte (LP)]]:** 36
 - **[[Rüstung (RP)]]:** 2
 - **[[Magisches Schild (SP)]]:** 8
 - **[[Marke]]: 2/2**

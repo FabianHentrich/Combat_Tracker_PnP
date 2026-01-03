@@ -53,6 +53,7 @@ def test_btn_add_character(app):
         "sp": 0,
         "init": 10,
         "gew": 2,
+        "level": 0,
         "type": CharacterType.PLAYER,
         "surprise": False
     }

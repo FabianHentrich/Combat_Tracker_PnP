@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import os
 from typing import Dict, Optional
 from src.models.character import Character
 from src.controllers.import_handler import ImportHandler
@@ -10,7 +11,7 @@ from src.controllers.combat_action_handler import CombatActionHandler
 from src.controllers.character_management_handler import CharacterManagementHandler
 from src.ui.main_view import MainView
 from src.ui.interfaces import ICombatView
-from src.config import COLORS, WINDOW_SIZE, APP_TITLE, RULES
+from src.config import COLORS, WINDOW_SIZE, APP_TITLE, RULES, FILES
 from src.core.engine import CombatEngine
 from src.controllers.persistence import PersistenceHandler
 from src.core.history import HistoryManager
@@ -64,6 +65,7 @@ class CombatTracker:
 
         # Subscribe to engine events
         self.engine.subscribe(EventType.UPDATE, self.view.update_listbox)
+        self.engine.subscribe(EventType.UPDATE, self.autosave) # Autosave bei jeder Änderung
         self.engine.subscribe(EventType.LOG, self.log_message)
 
         self.root.configure(bg=self.colors["bg"])
@@ -87,7 +89,36 @@ class CombatTracker:
         }
         self.hotkey_handler.setup_hotkeys(hotkey_callbacks)
 
+        # Crash Recovery Logic
+        lock_file = FILES["lock"]
+        if os.path.exists(lock_file):
+            logger.warning("Absturz erkannt (Lock-Datei vorhanden). Versuche Autosave zu laden.")
+            if messagebox.askyesno("Absturz erkannt", "Das Programm wurde nicht ordnungsgemäß beendet.\nMöchtest du den letzten automatischen Speicherstand laden?"):
+                self.load_autosave()
+        else:
+            # Normal startup - create lock file
+            try:
+                with open(lock_file, 'w') as f:
+                    f.write("locked")
+            except Exception as e:
+                logger.error(f"Konnte Lock-Datei nicht erstellen: {e}")
+
+        # Handle clean shutdown
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         logger.info(f"Anwendung gestartet: {APP_TITLE}")
+
+    def on_closing(self):
+        """Wird beim Schließen des Fensters aufgerufen."""
+        # Remove lock file to indicate clean exit
+        lock_file = FILES["lock"]
+        if os.path.exists(lock_file):
+            try:
+                os.remove(lock_file)
+            except Exception as e:
+                logger.error(f"Konnte Lock-Datei nicht entfernen: {e}")
+
+        self.root.destroy()
 
     def open_hotkey_settings(self) -> None:
         """Öffnet das Fenster für die Hotkey-Einstellungen."""

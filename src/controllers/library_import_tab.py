@@ -7,6 +7,7 @@ from src.utils.logger import setup_logging
 from src.models.enums import CharacterType
 from src.config import FONTS, FILES
 from src.utils.enemy_data_loader import EnemyDataLoader
+from src.config.defaults import MAX_GEW
 
 logger = setup_logging()
 
@@ -190,8 +191,8 @@ class LibraryImportTab:
         header_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Anzahl", "Sofort", ""]
-        widths = [30, 10, 5, 5, 5, 5, 5, 5, 5]
+        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level", "Anzahl", "Sofort", ""]
+        widths = [30, 10, 5, 5, 5, 5, 5, 5, 5, 5]
         for i, col in enumerate(headers):
             ttk.Label(header_frame, text=col, font=FONTS["small"], width=widths[i], anchor="w").pack(side="left", padx=2)
 
@@ -229,6 +230,11 @@ class LibraryImportTab:
         e_gew.insert(0, str(data.get("gew", 1)))
         e_gew.pack(side="left", padx=5)
 
+        # Level
+        e_level = ttk.Entry(row_frame, width=5)
+        e_level.insert(0, str(data.get("level", 0)))
+        e_level.pack(side="left", padx=5)
+
         # Anzahl
         e_count = ttk.Entry(row_frame, width=5)
         e_count.insert(0, "1")
@@ -251,6 +257,7 @@ class LibraryImportTab:
             "rp": e_rp,
             "sp": e_sp,
             "gew": e_gew,
+            "level": e_level,
             "count": e_count,
             "surprise": var_surprise
         }
@@ -283,6 +290,9 @@ class LibraryImportTab:
                 rp = int(entry["rp"].get())
                 sp = int(entry["sp"].get())
                 gew = int(entry["gew"].get())
+                if gew > MAX_GEW:
+                    gew = MAX_GEW
+                level = int(entry["level"].get())
                 surprise = entry["surprise"].get()
 
                 for i in range(count):
@@ -293,7 +303,7 @@ class LibraryImportTab:
                     # Init würfeln
                     init = wuerfle_initiative(gew)
 
-                    new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type)
+                    new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type, level=level)
                     self.engine.insert_character(new_char, surprise=surprise)
                     count_imported += 1
 
@@ -306,5 +316,5 @@ class LibraryImportTab:
     def update_colors(self, colors: Dict[str, str]):
         """Aktualisiert die Farben des Tabs."""
         self.colors = colors
-        if self.canvas:
+        if self.canvas and self.canvas.winfo_exists():
             self.canvas.configure(bg=self.colors["panel"])

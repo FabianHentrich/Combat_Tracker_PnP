@@ -82,8 +82,10 @@ class MainView(ICombatView):
 
     def log_message(self, message: str) -> None:
         if self.bottom_panel and self.bottom_panel.log:
+            self.bottom_panel.log.config(state="normal")
             self.bottom_panel.log.insert(tk.END, str(message).strip() + "\n")
             self.bottom_panel.log.see(tk.END)
+            self.bottom_panel.log.config(state="disabled")
 
     def get_quick_add_data(self) -> Dict[str, Any]:
         return self.quick_add_panel.get_data()

@@ -59,6 +59,10 @@ class EditCharacterDialog:
         self.entries["type"] = e_type
         row += 1
 
+        # Level
+        self._create_entry_row(frame, "Level:", "level", self.char.level, row, width=10)
+        row += 1
+
         # LP, RP, SP (Dual Entries)
         self._create_dual_entry_row(frame, "LP (Aktuell / Max):", "lp", self.char.lp, "max_lp", self.char.max_lp, row)
         row += 1
@@ -176,7 +180,8 @@ class EditCharacterDialog:
                 "sp": int(self.entries["sp"].get()),
                 "max_sp": int(self.entries["max_sp"].get()),
                 "init": int(self.entries["init"].get()),
-                "gew": int(self.entries["gew"].get())
+                "gew": int(self.entries["gew"].get()),
+                "level": int(self.entries["level"].get())
             }
 
             # Status speichern
@@ -201,4 +206,3 @@ class EditCharacterDialog:
 
         except ValueError as e:
             messagebox.showerror("Fehler", f"Ungültige Eingabe: {e}")
-

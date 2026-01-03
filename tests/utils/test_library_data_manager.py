@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, patch, mock_open
 from src.utils.library_data_manager import LibraryDataManager
 
 @pytest.fixture
@@ -70,3 +70,23 @@ def test_search_file_not_found(data_manager):
         result = data_manager.search_file("NonExistent")
         assert result is None
 
+def test_search_file_content(data_manager):
+    """Testet die Suche im Dateiinhalt."""
+    with patch('glob.glob', return_value=["path/to/Collection.md"]), \
+         patch('builtins.open', new_callable=mock_open, read_data="Hier steht der BossName drin."):
+
+        result = data_manager.search_file("BossName")
+        assert result is not None
+        _, path = result
+        assert path == "path/to/Collection.md"
+
+def test_search_file_content_cleaned(data_manager):
+    """Testet die Suche im Dateiinhalt mit bereinigtem Namen (Suffix entfernen)."""
+    with patch('glob.glob', return_value=["path/to/Wolves.md"]), \
+         patch('builtins.open', new_callable=mock_open, read_data="Hier ist der Weisse Wolf beschrieben."):
+
+        # Suche nach "Weisse Wolf (Boss)" -> Sollte "Weisse Wolf" im Text finden
+        result = data_manager.search_file("Weisse Wolf (Boss)")
+        assert result is not None
+        _, path = result
+        assert path == "path/to/Wolves.md"

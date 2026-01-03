@@ -53,7 +53,7 @@ class BottomPanel(ttk.Frame):
         log_frame = ttk.LabelFrame(bottom_content, text="Kampfprotokoll", style="Card.TLabelframe")
         log_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
 
-        self.log = tk.Text(log_frame, height=8, state="normal", bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], font=FONTS["log"])
+        self.log = tk.Text(log_frame, height=8, state="disabled", bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], font=FONTS["log"])
         self.log.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         scrollbar = ttk.Scrollbar(log_frame, orient="vertical", command=self.log.yview)
@@ -65,9 +65,9 @@ class BottomPanel(ttk.Frame):
 
     def update_colors(self, colors: Dict[str, str]):
         self.colors = colors
-        if self.log:
+        if self.log and self.log.winfo_exists():
             self.log.configure(bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"])
-        if self.round_label:
+        if self.round_label and self.round_label.winfo_exists():
             self.round_label.configure(background=self.colors["bg"], foreground=self.colors["fg"])
         if self.dice_roller:
             self.dice_roller.update_colors(colors)

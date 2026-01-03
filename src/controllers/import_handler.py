@@ -6,6 +6,7 @@ from src.models.character import Character
 from src.core.mechanics import wuerfle_initiative
 from src.utils.logger import setup_logging
 from src.ui.components.dialogs.import_dialogs import ImportPreviewDialog, ImportDetailDialog
+from src.config.defaults import MAX_GEW
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
@@ -94,11 +95,14 @@ class ImportHandler:
                 rp = entry["rp"]
                 sp = entry["sp"]
                 gew = entry["gew"]
+                if gew > MAX_GEW:
+                    gew = MAX_GEW
+                level = entry.get("level", 0)
 
                 # Init würfeln
                 init = wuerfle_initiative(gew)
 
-                new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type)
+                new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type, level=level)
                 self.engine.insert_character(new_char)
                 count_imported += 1
 

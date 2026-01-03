@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Dict, Any, TYPE_CHECKING
 from src.models.enums import CharacterType
+from src.config.defaults import DEFAULT_GEW
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -17,6 +18,7 @@ class QuickAddPanel(ttk.LabelFrame):
         self.entry_sp = None
         self.entry_init = None
         self.entry_gew = None
+        self.entry_level = None
         self.entry_type = None
         self.var_surprise = None
 
@@ -40,6 +42,10 @@ class QuickAddPanel(ttk.LabelFrame):
         self.entry_init = self._create_entry("INIT:", col, width=8)
         col += 2
         self.entry_gew = self._create_entry("GEW:", col, width=8)
+        self.entry_gew.insert(0, str(DEFAULT_GEW))
+        col += 2
+        self.entry_level = self._create_entry("Level:", col, width=8)
+        self.entry_level.insert(0, "0")
         col += 2
 
         ttk.Label(self, text="Typ:").grid(row=1, column=col, padx=5, sticky="w")
@@ -69,6 +75,7 @@ class QuickAddPanel(ttk.LabelFrame):
             "sp": self.entry_sp.get(),
             "init": self.entry_init.get(),
             "gew": self.entry_gew.get(),
+            "level": self.entry_level.get(),
             "type": self.entry_type.get(),
             "surprise": self.var_surprise.get()
         }
@@ -80,11 +87,16 @@ class QuickAddPanel(ttk.LabelFrame):
         self.entry_sp.delete(0, tk.END)
         self.entry_init.delete(0, tk.END)
         self.entry_gew.delete(0, tk.END)
+        self.entry_level.delete(0, tk.END)
         self.entry_name.focus()
         self.var_surprise.set(False)
 
     def set_defaults(self) -> None:
         self.var_surprise.set(False)
+        self.entry_gew.delete(0, tk.END)
+        self.entry_gew.insert(0, str(DEFAULT_GEW))
+        self.entry_level.delete(0, tk.END)
+        self.entry_level.insert(0, "0")
 
     def fill_fields(self, data: Dict[str, Any]) -> None:
         self.entry_name.delete(0, tk.END)
@@ -105,5 +117,7 @@ class QuickAddPanel(ttk.LabelFrame):
         self.entry_init.delete(0, tk.END)
         self.entry_init.insert(0, str(data.get("init", 0)))
 
-        self.entry_type.set(data.get("type", CharacterType.ENEMY.value))
+        self.entry_level.delete(0, tk.END)
+        self.entry_level.insert(0, str(data.get("level", 0)))
 
+        self.entry_type.set(data.get("type", CharacterType.ENEMY.value))

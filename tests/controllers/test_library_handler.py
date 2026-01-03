@@ -39,15 +39,32 @@ def mock_root():
 def colors():
     return {"bg": "black", "panel": "gray", "fg": "white", "accent": "blue"}
 
-def test_library_handler_init(mock_engine, mock_history, mock_root, colors):
+@pytest.fixture
+def mock_data_manager():
+    with patch('src.controllers.library_handler.LibraryDataManager') as MockManager:
+        instance = MockManager.return_value
+        instance.dirs = {
+            "rules": "/mock/rules",
+            "items": "/mock/items",
+            "enemies": "/mock/enemies",
+            "npcs": "/mock/npcs",
+            "locations": "/mock/locations",
+            "organizations": "/mock/organizations",
+            "gods": "/mock/gods",
+            "demons": "/mock/demons"
+        }
+        yield instance
+
+def test_library_handler_init(mock_engine, mock_history, mock_root, colors, mock_data_manager):
     handler = LibraryHandler(mock_engine, mock_history, mock_root, colors)
     assert handler.engine == mock_engine
     assert handler.history_manager == mock_history
     assert handler.root == mock_root
     assert handler.colors == colors
     assert handler.markdown_tabs == {}
+    assert handler.dirs == mock_data_manager.dirs
 
-def test_open_library_window(mock_engine, mock_history, mock_root, colors):
+def test_open_library_window(mock_engine, mock_history, mock_root, colors, mock_data_manager):
     handler = LibraryHandler(mock_engine, mock_history, mock_root, colors)
 
     with patch('src.controllers.library_handler.tk.Toplevel') as mock_toplevel, \

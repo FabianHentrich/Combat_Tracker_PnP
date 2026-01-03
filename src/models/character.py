@@ -13,10 +13,11 @@ class Character:
     Repräsentiert einen einzelnen Charakter im Kampf (Spieler, Gegner oder NPC).
     Speichert Attribute wie Lebenspunkte (LP), Rüstung (RP), Schild (SP), Initiative und Status-Effekte.
     """
-    def __init__(self, name: str, lp: int, rp: int, sp: int, init: int, gew: int = 1, char_type: str = CharacterType.ENEMY, char_id: str = None):
+    def __init__(self, name: str, lp: int, rp: int, sp: int, init: int, gew: int = 1, char_type: str = CharacterType.ENEMY, char_id: str = None, level: int = 0):
         self.id: str = char_id if char_id else str(uuid.uuid4())
         self.name: str = name
         self.char_type: str = char_type
+        self.level: int = level
         self.max_lp: int = lp # Speichern der Max LP für Verhältnisse
         self.lp: int = lp
         self.max_rp: int = rp
@@ -104,6 +105,7 @@ class Character:
         self.max_sp = data.get("max_sp", self.max_sp)
         self.init = data.get("init", self.init)
         self.gew = data.get("gew", self.gew)
+        self.level = data.get("level", self.level)
 
         if "status" in data:
             self.status = data["status"]
@@ -122,6 +124,7 @@ class Character:
             "sp": self.sp,
             "gew": self.gew,
             "init": self.init,
+            "level": self.level,
             "status": [s.to_dict() for s in self.status],
             "skip_turns": self.skip_turns
         }
@@ -145,7 +148,8 @@ class Character:
             init=data.get("init", 0),
             gew=data.get("gew", 1),
             char_type=data.get("char_type", CharacterType.ENEMY),
-            char_id=data.get("id")
+            char_id=data.get("id"),
+            level=data.get("level", 0)
         )
         # Aktuelle Werte setzen (falls abweichend von Max)
         char.lp = data.get("lp", char.max_lp)

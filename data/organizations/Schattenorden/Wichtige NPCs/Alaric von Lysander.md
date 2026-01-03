@@ -37,7 +37,7 @@ Eigenheiten (Vorschläge): **[[Zweites Gesicht]]**, **[[Schattenfreund]]**, **[[
 ---
 ## ❤️ Ressourcen
 - **MP:** 90  **AP:** 30  **[[Marke]]:** 3/3  
-- **[[Lebenspunkte (LP)]]:** 36  
+- **[[Lebenspunkte (LP)]]:** 45  
 - **[[Rüstung (RP)]]:** 4  
 - **[[Magisches Schild (SP)]]:** 12
 

@@ -17,7 +17,7 @@ class CharacterList(ttk.Frame):
         self._setup_ui()
 
     def _setup_ui(self):
-        columns = ("Order", "Name", "Typ", "LP", "RP", "SP", "GEW", "INIT", "Status")
+        columns = ("Order", "Name", "Typ", "Level", "LP", "RP", "SP", "GEW", "INIT", "Status")
         self.tree = ttk.Treeview(self, columns=columns, show="headings", selectmode="browse")
 
         # Spalten-Definitionen: (Name, Text, Breite, Anchor, Stretch)
@@ -25,6 +25,7 @@ class CharacterList(ttk.Frame):
             ("Order", "#", 30, "center", False),
             ("Name", "Name", 200, "w", True), # minwidth=100 handled separately or default
             ("Typ", "Typ", 80, "center", False),
+            ("Level", "Level", 50, "center", False),
             ("LP", "LP (Balken)", 200, "center", False),
             ("RP", "RP", 60, "center", False),
             ("SP", "SP", 60, "center", False),
@@ -106,7 +107,7 @@ class CharacterList(ttk.Frame):
             health_bar = generate_health_bar(char.lp, char.max_lp, length=10)
 
             # Werte einfügen
-            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char.char_type, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
+            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char.char_type, char.level, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
 
             # Visuelles Feedback für niedrige LP
             tags = []
@@ -136,9 +137,9 @@ class CharacterList(ttk.Frame):
 
     def update_colors(self, colors: Dict[str, str]):
         self.colors = colors
-        if self.context_menu:
+        if self.context_menu and self.context_menu.winfo_exists():
             self.context_menu.configure(bg=self.colors["panel"], fg=self.colors["fg"])
-        if self.tree:
+        if self.tree and self.tree.winfo_exists():
             self.tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
             self.tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
 

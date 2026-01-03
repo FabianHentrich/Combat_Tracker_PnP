@@ -93,6 +93,15 @@ class LibraryDataManager:
         result = self._perform_search_partial(name)
         if result: return result
 
+        # 5. Versuch: Inhaltssuche (Falls der Name in einer Datei vorkommt)
+        result = self._perform_content_search(name)
+        if result: return result
+
+        # 6. Versuch: Inhaltssuche mit bereinigtem Namen (ohne Suffix)
+        if clean_name and clean_name != name:
+            result = self._perform_content_search(clean_name)
+            if result: return result
+
         return None
 
     def _perform_search(self, name: str) -> Optional[Tuple[str, str]]:
@@ -119,3 +128,20 @@ class LibraryDataManager:
                     return category, filepath
         return None
 
+    def _perform_content_search(self, name: str) -> Optional[Tuple[str, str]]:
+        """
+        Sucht nach dem Vorkommen eines Namens in den Inhalten der Dateien.
+        Gibt die erste gefundene Datei zurück, die den Namen im Inhalt enthält.
+        """
+        name_lower = name.lower()
+        for category, root_dir in self.dirs.items():
+            files = self.get_files_in_category(category)
+            for filepath in files:
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as file:
+                        content = file.read()
+                        if name_lower in content.lower():
+                            return category, filepath
+                except Exception as e:
+                    logger.warning(f"Fehler beim Lesen der Datei {filepath}: {e}")
+        return None

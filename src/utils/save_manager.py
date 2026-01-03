@@ -1,5 +1,6 @@
 import json
 import os
+import time
 from typing import Dict, Any, Optional
 from src.utils.logger import setup_logging
 
@@ -29,9 +30,28 @@ class SaveManager:
             with open(tmp_path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=4, ensure_ascii=False)
 
-            # Atomares Ersetzen (Atomic Write)
-            os.replace(tmp_path, file_path)
-            logger.info(f"Daten gespeichert: {file_path}")
+            # Atomares Ersetzen (Atomic Write) mit Retry für Windows/OneDrive
+            max_retries = 5
+            for attempt in range(max_retries):
+                try:
+                    # Auf Windows kann os.replace fehlschlagen, wenn die Datei gerade von OneDrive gesynct wird
+                    if os.path.exists(file_path):
+                        try:
+                            os.replace(tmp_path, file_path)
+                        except OSError:
+                            # Fallback: Löschen und Umbenennen (nicht atomar, aber robuster auf Windows)
+                            os.remove(file_path)
+                            os.rename(tmp_path, file_path)
+                    else:
+                        os.rename(tmp_path, file_path)
+
+                    logger.info(f"Daten gespeichert: {file_path}")
+                    break
+                except OSError as e:
+                    if attempt == max_retries - 1:
+                        raise e
+                    time.sleep(0.1) # Kurz warten und erneut versuchen
+
         except Exception as e:
             logger.error(f"Fehler beim Speichern nach {file_path}: {e}")
             if os.path.exists(tmp_path):
@@ -65,4 +85,3 @@ class SaveManager:
         else:
             # Old format (direct state)
             return data
-

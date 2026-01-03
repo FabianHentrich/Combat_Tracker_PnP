@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Optional, Dict, Any
 from src.models.character import Character
 from src.models.enums import CharacterType
 from src.ui.components.dialogs.edit_character_dialog import EditCharacterDialog
+from src.config.defaults import MAX_GEW, DEFAULT_GEW
 import re
 import tkinter as tk
 
@@ -48,10 +49,14 @@ class CharacterManagementHandler:
             sp = int(data["sp"]) if data["sp"] else 0
             init = int(data["init"]) if data["init"] else 0
             gew = int(data["gew"]) if data["gew"] else 1
+            if gew > MAX_GEW:
+                gew = MAX_GEW
+                self.view.show_info("Info", f"Gewandtheit wurde auf das Maximum von {MAX_GEW} gesetzt.")
+            level = int(data["level"]) if data["level"] else 0
             char_type = data["type"]
             surprise = data["surprise"]
 
-            new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type)
+            new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type, level=level)
             self.engine.insert_character(new_char, surprise=surprise)
 
             self.view.clear_quick_add_fields()
