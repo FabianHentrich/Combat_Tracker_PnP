@@ -1,10 +1,12 @@
 - Regelwerk optimeren
-- Soundeffekte für Events
+
 - gew bei hinzufügen auf 6 limitieren
 - Kampfprotokall sollte only read sein
-
+- Suche funktioniert noch nicht richtig: Weißer Wolf (Gruppen-Boss) und Bärensjunges
 - bilder in markdown Anzeigen
-
+- kombinationsschaden?
+- zufälliger gegnerauswahl nach kategorie
+- Soundeffekte für Events
 - spieler ansicht
 
 # SPÄTER:
@@ -12,8 +14,10 @@
 - Packaging: Erstellen einer pyproject.toml oder setup.py, um das Projekt einfach als Paket installierbar zu machen oder eine .exe mit PyInstaller zu generieren.
 
 
-
 ## Problem/ Verbesserungen
+
+
+
 
 -"Gott-Objekt" Controller: Die Klasse CombatTracker in src/ui/main_window.py tendiert dazu, sehr groß zu werden, da sie alle Handler (Import, Library, Audio, Edit, Persistence) instanziiert und verwaltet.
 -Harte Abhängigkeiten in Config: Die Datei src/utils/config.py enthält hardcodierte Regeln und Themes. Das macht es schwer, Konfigurationen zu ändern, ohne den Code anzufassen (z.B. für User-Custom-Themes).

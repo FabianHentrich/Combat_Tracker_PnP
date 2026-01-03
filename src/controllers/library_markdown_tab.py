@@ -56,4 +56,8 @@ class LibraryMarkdownTab:
         """Delegiert die Selektion an den Browser."""
         self.browser.select_file(filepath)
 
-
+    def update_colors(self, colors: Dict[str, str]):
+        """Aktualisiert die Farben des Tabs."""
+        self.colors = colors
+        if self.browser:
+            self.browser.update_colors(colors)

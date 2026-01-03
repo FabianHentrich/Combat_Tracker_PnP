@@ -24,23 +24,21 @@ class LibraryDataManager:
         if self._initialized:
             return
 
-        self.dirs = {
-            "rules": os.path.join(DATA_DIR, "rules"),
-            "items": os.path.join(DATA_DIR, "items"),
-            "npcs": os.path.join(DATA_DIR, "npcs"),
-            "enemies": os.path.join(DATA_DIR, "enemies"),
-            "demons": os.path.join(DATA_DIR, "demons"),
-            "gods": os.path.join(DATA_DIR, "gods"),
-            "locations": os.path.join(DATA_DIR, "locations"),
-            "organizations": os.path.join(DATA_DIR, "organizations"),
-        }
+        # Ensure default directories exist
+        default_folders = ["rules", "items", "enemies"]
+        for folder in default_folders:
+            path = os.path.join(DATA_DIR, folder)
+            if not os.path.exists(path):
+                os.makedirs(path, exist_ok=True)
+
+        # Dynamic scanning of directories in DATA_DIR
+        self.dirs = {}
+        if os.path.exists(DATA_DIR):
+            for entry in os.scandir(DATA_DIR):
+                if entry.is_dir():
+                    self.dirs[entry.name] = entry.path
 
         self._file_cache: Dict[str, List[str]] = {}
-
-        # Ensure directories exist
-        for d in self.dirs.values():
-            if not os.path.exists(d):
-                os.makedirs(d, exist_ok=True)
 
         self._initialized = True
 

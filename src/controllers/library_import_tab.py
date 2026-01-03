@@ -93,19 +93,19 @@ class LibraryImportTab:
         ttk.Label(right_frame, text="Ausgewählte Gegner (Anzahl & Werte anpassen)", font=FONTS["large"]).pack(pady=5)
 
         # Canvas für scrollbare Liste
-        canvas = tk.Canvas(right_frame, bg=self.colors["panel"], highlightthickness=0)
-        scrollbar = ttk.Scrollbar(right_frame, orient="vertical", command=canvas.yview)
-        self.scrollable_frame = ttk.Frame(canvas, style="Card.TFrame")
+        self.canvas = tk.Canvas(right_frame, bg=self.colors["panel"], highlightthickness=0)
+        scrollbar = ttk.Scrollbar(right_frame, orient="vertical", command=self.canvas.yview)
+        self.scrollable_frame = ttk.Frame(self.canvas, style="Card.TFrame")
 
         self.scrollable_frame.bind(
             "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+            lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
         )
 
-        canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
+        self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
+        self.canvas.configure(yscrollcommand=scrollbar.set)
 
-        canvas.pack(side="left", fill="both", expand=True, padx=5, pady=5)
+        self.canvas.pack(side="left", fill="both", expand=True, padx=5, pady=5)
         scrollbar.pack(side="right", fill="y", pady=5)
 
         # Header für Staging Area
@@ -302,3 +302,9 @@ class LibraryImportTab:
 
         except ValueError:
             messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
+
+    def update_colors(self, colors: Dict[str, str]):
+        """Aktualisiert die Farben des Tabs."""
+        self.colors = colors
+        if self.canvas:
+            self.canvas.configure(bg=self.colors["panel"])

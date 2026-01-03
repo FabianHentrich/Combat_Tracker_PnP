@@ -19,6 +19,7 @@ class StyleManager:
         self._configure_buttons()
         self._configure_inputs()
         self._configure_treeview()
+        self._configure_notebook()
         self._configure_custom_cards()
 
     def _configure_defaults(self):
@@ -108,15 +109,39 @@ class StyleManager:
 
     def _configure_treeview(self):
         self.style.configure("Treeview",
-                        background=self.colors["panel"],
+                        background=self.colors["entry_bg"],
                         foreground=self.colors["fg"],
-                        fieldbackground=self.colors["panel"],
+                        fieldbackground=self.colors["entry_bg"],
+                        bordercolor=self.colors["fg"],
                         borderwidth=0)
+
+        self.style.map("Treeview",
+                  background=[('selected', self.colors["accent"])],
+                  foreground=[('selected', self.colors["bg"])])
+
         self.style.configure("Treeview.Heading",
                         background=self.colors["panel"],
-                        foreground=self.colors["accent"],
-                        borderwidth=1)
-        self.style.map("Treeview", background=[('selected', self.colors["accent"])])
+                        foreground=self.colors["fg"],
+                        relief="flat")
+
+        self.style.map("Treeview.Heading",
+                  background=[('active', self.colors["entry_bg"])])
+
+    def _configure_notebook(self):
+        # Notebook (Tabs)
+        self.style.configure("TNotebook",
+                        background=self.colors["bg"],
+                        borderwidth=0)
+
+        self.style.configure("TNotebook.Tab",
+                        background=self.colors["panel"],
+                        foreground=self.colors["fg"],
+                        padding=[10, 4],
+                        borderwidth=0)
+
+        self.style.map("TNotebook.Tab",
+                  background=[("selected", self.colors["accent"]), ("active", self.colors["entry_bg"])],
+                  foreground=[("selected", self.colors["bg"]), ("active", self.colors["fg"])])
 
     def _configure_custom_cards(self):
         self.style.configure("Card.TFrame", background=self.colors["panel"])

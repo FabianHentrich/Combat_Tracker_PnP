@@ -249,3 +249,14 @@ DEFAULT_RULES = {
     }
 }
 
+# Mapping von Ordnernamen zu Tab-Titeln in der Bibliothek
+LIBRARY_TABS = {
+    "enemies": "Gegner (Info)",
+    "rules": "Regelwerk",
+    "items": "Gegenstände",
+    "npcs": "NPCs",
+    "locations": "Orte",
+    "organizations": "Organisationen",
+    "gods": "Götter",
+    "demons": "Dämonen"
+}

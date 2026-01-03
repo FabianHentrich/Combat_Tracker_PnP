@@ -4,7 +4,7 @@ import platform
 from typing import Dict, Tuple, Any
 from src.utils.logger import setup_logging
 from src.models.enums import DamageType, StatusEffectType
-from .defaults import THEMES, DEFAULT_RULES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS
+from .defaults import THEMES, DEFAULT_RULES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS, LIBRARY_TABS
 
 logger = setup_logging()
 

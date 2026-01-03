@@ -151,7 +151,7 @@ class CombatTracker:
         self.colors = new_colors
         self.view.update_colors(new_colors)
         self.import_handler.colors = new_colors
-        self.library_handler.colors = new_colors
+        self.library_handler.update_colors(new_colors)
         self.hotkey_handler.colors = new_colors
         self.character_handler.colors = new_colors
 

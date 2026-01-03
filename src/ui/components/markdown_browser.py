@@ -224,3 +224,9 @@ class MarkdownBrowser(ttk.Frame):
 
         self._on_select(None)
 
+    def update_colors(self, colors: Dict[str, str]):
+        """Aktualisiert die Farben der Komponente."""
+        self.colors = colors
+        if self.text_widget:
+            self.text_widget.configure(bg=self.colors["panel"], fg=self.colors["fg"])
+            MarkdownUtils.configure_text_tags(self.text_widget, self._on_link_click, self.colors)

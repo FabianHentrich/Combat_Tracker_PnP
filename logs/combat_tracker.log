@@ -3715,3 +3715,127 @@ Ardomis – Der Erleuchtete (Boss) erleidet 5 (Direkt) Schaden!
 2026-01-02 16:57:51,493 - INFO - config - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
 2026-01-02 16:57:51,493 - INFO - config - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
 2026-01-02 16:57:51,807 - INFO - engine - CombatEngine initialisiert.
+2026-01-02 18:23:50,159 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-02 18:23:50,160 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-02 18:23:50,160 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-02 18:23:50,420 - INFO - engine - CombatEngine initialisiert.
+2026-01-02 18:23:51,227 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-02 18:23:52,618 - INFO - enemy_data_loader - Bibliothek geladen: 27 Presets.
+2026-01-03 12:19:52,732 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 12:19:52,733 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 12:19:52,734 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 12:19:53,097 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 12:19:53,849 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 12:20:00,529 - INFO - enemy_data_loader - Bibliothek geladen: 27 Presets.
+2026-01-03 12:20:36,918 - INFO - library_handler - Globale Suche gestartet: 'a'
+2026-01-03 12:20:37,025 - INFO - library_handler - Globale Suche gestartet: 'al'
+2026-01-03 12:20:37,359 - INFO - library_handler - Globale Suche gestartet: 'alt'
+2026-01-03 12:20:37,434 - INFO - library_handler - Globale Suche gestartet: 'alte'
+2026-01-03 12:20:37,543 - INFO - library_handler - Globale Suche gestartet: 'alter'
+2026-01-03 12:20:38,652 - INFO - library_handler - Globale Suche gestartet: 'alters'
+2026-01-03 12:20:38,702 - INFO - library_handler - Wechsle zu Tab: .!toplevel.!notebook.!frame2
+2026-01-03 12:20:39,798 - INFO - library_handler - Globale Suche gestartet: 'altersb'
+2026-01-03 12:20:39,892 - INFO - library_handler - Globale Suche gestartet: 'altersbr'
+2026-01-03 12:20:39,986 - INFO - library_handler - Globale Suche gestartet: 'altersbra'
+2026-01-03 12:20:40,140 - INFO - library_handler - Globale Suche gestartet: 'altersbran'
+2026-01-03 12:20:40,310 - INFO - library_handler - Globale Suche gestartet: 'altersbrand'
+2026-01-03 12:20:42,261 - INFO - library_handler - Globale Suche gestartet: 'altersbran'
+2026-01-03 12:20:42,764 - INFO - library_handler - Globale Suche gestartet: 'altersbra'
+2026-01-03 12:20:42,814 - INFO - library_handler - Globale Suche gestartet: 'altersbr'
+2026-01-03 12:20:42,863 - INFO - library_handler - Globale Suche gestartet: 'altersb'
+2026-01-03 12:20:42,913 - INFO - library_handler - Globale Suche gestartet: 'alters'
+2026-01-03 12:20:42,964 - INFO - library_handler - Globale Suche gestartet: 'alter'
+2026-01-03 12:20:43,014 - INFO - library_handler - Globale Suche gestartet: 'alte'
+2026-01-03 12:20:43,067 - INFO - library_handler - Globale Suche gestartet: 'alt'
+2026-01-03 12:20:43,118 - INFO - library_handler - Globale Suche gestartet: 'al'
+2026-01-03 12:20:43,170 - INFO - library_handler - Globale Suche gestartet: 'a'
+2026-01-03 12:20:43,216 - INFO - library_handler - Globale Suche gestartet: ''
+2026-01-03 12:20:44,150 - INFO - library_handler - Globale Suche gestartet: 'v'
+2026-01-03 12:20:44,338 - INFO - library_handler - Globale Suche gestartet: 'vi'
+2026-01-03 12:20:44,496 - INFO - library_handler - Globale Suche gestartet: 'vin'
+2026-01-03 12:20:44,547 - INFO - library_handler - Wechsle zu Tab: .!toplevel.!notebook.!frame4
+2026-01-03 12:20:44,707 - INFO - library_handler - Globale Suche gestartet: 'vinc'
+2026-01-03 12:20:44,806 - INFO - library_handler - Globale Suche gestartet: 'vinca'
+2026-01-03 12:20:45,021 - INFO - library_handler - Globale Suche gestartet: 'vincar'
+2026-01-03 12:21:01,848 - INFO - library_handler - Globale Suche gestartet: ''
+2026-01-03 12:21:07,641 - INFO - library_handler - Globale Suche gestartet: 's'
+2026-01-03 12:21:07,717 - INFO - library_handler - Globale Suche gestartet: 'sc'
+2026-01-03 12:21:07,875 - INFO - library_handler - Globale Suche gestartet: 'sch'
+2026-01-03 12:21:08,040 - INFO - library_handler - Globale Suche gestartet: 'schw'
+2026-01-03 12:21:08,092 - INFO - library_handler - Wechsle zu Tab: .!toplevel.!notebook.!frame2
+2026-01-03 12:21:08,108 - INFO - library_handler - Globale Suche gestartet: 'schwe'
+2026-01-03 12:21:08,319 - INFO - library_handler - Globale Suche gestartet: 'schwer'
+2026-01-03 12:21:08,552 - INFO - library_handler - Globale Suche gestartet: 'schwert'
+2026-01-03 12:22:09,484 - INFO - library_handler - Globale Suche gestartet: ''
+2026-01-03 12:24:19,158 - INFO - library_handler - Globale Suche gestartet: 'k'
+2026-01-03 12:24:19,309 - INFO - library_handler - Globale Suche gestartet: 'ka'
+2026-01-03 12:24:19,390 - INFO - library_handler - Globale Suche gestartet: 'kam'
+2026-01-03 12:24:19,624 - INFO - library_handler - Globale Suche gestartet: 'kamp'
+2026-01-03 12:24:19,877 - INFO - library_handler - Globale Suche gestartet: 'kampf'
+2026-01-03 12:24:53,252 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-03 12:24:53,253 - INFO - engine - Game Log: Bandit (Fernkampf) wurde hinzugefügt.
+2026-01-03 12:24:53,255 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:24:53,255 - INFO - engine - Game Log: Bandit (Nahkampf) wurde hinzugefügt.
+2026-01-03 12:24:53,256 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:24:53,256 - INFO - engine - Game Log: 2 Charaktere aus Bibliothek hinzugefügt.
+2026-01-03 12:24:54,411 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Banditen-Gruppe.md in Kategorie enemies
+2026-01-03 12:25:16,342 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2026-01-03 12:25:16,343 - INFO - engine - Game Log: Bärenjunges wurde hinzugefügt.
+2026-01-03 12:25:16,345 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:25:16,345 - INFO - engine - Game Log: Weißer Wolf (Gruppen-Boss) wurde hinzugefügt.
+2026-01-03 12:25:16,346 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:25:16,346 - INFO - engine - Game Log: 2 Charaktere aus Bibliothek hinzugefügt.
+2026-01-03 12:25:17,549 - INFO - library_handler - Kein direkter Treffer für 'Weißer Wolf (Gruppen-Boss)'. Starte globale Suche.
+2026-01-03 12:25:17,549 - INFO - library_handler - Globale Suche gestartet: 'weißer wolf (gruppen-boss)'
+2026-01-03 12:25:40,321 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Banditen-Gruppe.md in Kategorie enemies
+2026-01-03 12:25:42,633 - INFO - library_handler - Kein direkter Treffer für 'Bärenjunges'. Starte globale Suche.
+2026-01-03 12:25:42,633 - INFO - library_handler - Globale Suche gestartet: 'bärenjunges'
+2026-01-03 12:25:44,126 - INFO - library_handler - Kein direkter Treffer für 'Weißer Wolf (Gruppen-Boss)'. Starte globale Suche.
+2026-01-03 12:25:44,126 - INFO - library_handler - Globale Suche gestartet: 'weißer wolf (gruppen-boss)'
+2026-01-03 12:25:44,177 - INFO - library_handler - Wechsle zu Tab: .!toplevel6.!notebook.!frame
+2026-01-03 12:25:52,302 - INFO - library_handler - Kein direkter Treffer für 'Weißer Wolf (Gruppen-Boss)'. Starte globale Suche.
+2026-01-03 12:25:52,303 - INFO - library_handler - Globale Suche gestartet: 'weißer wolf (gruppen-boss)'
+2026-01-03 12:26:23,913 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2026-01-03 12:26:23,913 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) wurde hinzugefügt.
+2026-01-03 12:26:23,915 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:26:23,915 - INFO - engine - Game Log: Bandit (Gruppen-Boss) wurde hinzugefügt.
+2026-01-03 12:26:23,917 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:26:23,917 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) wurde hinzugefügt.
+2026-01-03 12:26:23,918 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:26:23,918 - INFO - engine - Game Log: Kastellan Morcant Riegelhand, der Torhalter (Boss) wurde hinzugefügt.
+2026-01-03 12:26:23,920 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 12:26:23,920 - INFO - engine - Game Log: 4 Charaktere aus Bibliothek hinzugefügt.
+2026-01-03 12:26:48,686 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Bossgegner\Kastellan Morcant Riegelhand, der Torhalter.md in Kategorie enemies
+2026-01-03 12:26:52,662 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Minibossgegner\Chaosbestie.md in Kategorie enemies
+2026-01-03 12:26:54,781 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Banditen-Gruppe.md in Kategorie enemies
+2026-01-03 12:26:56,702 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Minibossgegner\Chaosbestie.md in Kategorie enemies
+2026-01-03 12:26:58,905 - INFO - library_handler - Kein direkter Treffer für 'Weißer Wolf (Gruppen-Boss)'. Starte globale Suche.
+2026-01-03 12:26:58,905 - INFO - library_handler - Globale Suche gestartet: 'weißer wolf (gruppen-boss)'
+2026-01-03 12:27:02,249 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Banditen-Gruppe.md in Kategorie enemies
+2026-01-03 12:27:04,598 - INFO - library_handler - Kein direkter Treffer für 'Bärenjunges'. Starte globale Suche.
+2026-01-03 12:27:04,599 - INFO - library_handler - Globale Suche gestartet: 'bärenjunges'
+2026-01-03 12:27:08,559 - INFO - library_handler - Kein direkter Treffer für 'Bärenjunges'. Starte globale Suche.
+2026-01-03 12:27:08,559 - INFO - library_handler - Globale Suche gestartet: 'bärenjunges'
+2026-01-03 12:38:02,983 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 12:38:02,984 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 12:38:02,984 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 12:38:03,542 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 12:38:04,306 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 12:38:05,840 - INFO - enemy_data_loader - Bibliothek geladen: 27 Presets.
+2026-01-03 13:03:03,726 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 13:03:03,727 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 13:03:03,727 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 13:03:04,143 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 13:03:04,933 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 13:03:06,483 - INFO - enemy_data_loader - Bibliothek geladen: 27 Presets.
+2026-01-03 19:48:58,264 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 19:48:58,266 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 19:48:58,267 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 19:48:58,686 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 19:48:59,325 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 19:49:10,833 - INFO - enemy_data_loader - Bibliothek geladen: 27 Presets.
+2026-01-03 19:57:28,131 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 19:57:28,133 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 19:57:28,133 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 19:57:28,416 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 19:57:28,996 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta

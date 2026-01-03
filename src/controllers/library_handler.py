@@ -1,11 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
-import os
-import re
-import glob
-from typing import Dict, Any, List, Optional, TYPE_CHECKING
+from typing import Dict, Any, Optional, TYPE_CHECKING
 from src.utils.logger import setup_logging
-from src.config import FONTS, WINDOW_SIZE
+from src.config import FONTS, WINDOW_SIZE, LIBRARY_TABS
 from src.utils.library_data_manager import LibraryDataManager
 from src.utils.navigation_manager import NavigationManager
 
@@ -101,14 +98,22 @@ class LibraryHandler:
 
         # Generic Markdown Tabs
         self.markdown_tabs = {}
-        self._create_markdown_tab("rules", "Regelwerk", self.dirs["rules"])
-        self._create_markdown_tab("items", "Gegenstände", self.dirs["items"])
-        self._create_markdown_tab("enemies", "Gegner (Info)", self.dirs["enemies"])
-        self._create_markdown_tab("npcs", "NPCs", self.dirs["npcs"])
-        self._create_markdown_tab("locations", "Orte", self.dirs["locations"])
-        self._create_markdown_tab("organizations", "Organisationen", self.dirs["organizations"])
-        self._create_markdown_tab("gods", "Götter", self.dirs["gods"])
-        self._create_markdown_tab("demons", "Dämonen", self.dirs["demons"])
+
+        # Sort directories: Priority from LIBRARY_TABS, then alphabetical
+        available_dirs = list(self.dirs.keys())
+        priority_order = list(LIBRARY_TABS.keys())
+
+        def sort_key(name):
+            if name in priority_order:
+                return (0, priority_order.index(name))
+            return (1, name)
+
+        available_dirs.sort(key=sort_key)
+
+        for dir_name in available_dirs:
+            path = self.dirs[dir_name]
+            title = LIBRARY_TABS.get(dir_name, dir_name.capitalize())
+            self._create_markdown_tab(dir_name, title, path)
 
     def _create_markdown_tab(self, tab_id, title, root_dir):
         """Erstellt einen generischen Tab für Markdown-Dateien."""
@@ -264,3 +269,16 @@ class LibraryHandler:
             self.btn_back.config(state="normal" if can_back else "disabled")
         if self.btn_forward:
             self.btn_forward.config(state="normal" if can_forward else "disabled")
+
+    def update_colors(self, colors: Dict[str, str]):
+        """Aktualisiert die Farben des Bibliotheks-Fensters und aller Tabs."""
+        self.colors = colors
+        if self.lib_window and self.lib_window.winfo_exists():
+            self.lib_window.configure(bg=self.colors["bg"])
+
+        if self.import_tab:
+            self.import_tab.update_colors(colors)
+
+        for tab in self.markdown_tabs.values():
+            if hasattr(tab, 'update_colors'):
+                tab.update_colors(colors)
