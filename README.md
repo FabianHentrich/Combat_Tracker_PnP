@@ -38,6 +38,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
+*   **Integrierte Bibliothek / Wiki:** Verwalte deine gesamte Kampagne direkt im Tool. Durchsuche Regeln, Items, NPCs, Orte und mehr in einer übersichtlichen Markdown-basierten Bibliothek.
 *   **Excel Import:** Importiere Charaktere und Gegner direkt aus Excel-Tabellen (.xlsx), um Vorbereitungszeit zu sparen.
 *   **Musik-Player:** Integrierter Audio-Player für lokale Dateien mit Playlist- und Loop-Funktionen.
 *   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
@@ -51,7 +52,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 
 ### Voraussetzungen
 *   Python 3.8 oder höher
-*   Standard-Bibliotheken (keine externen `pip install` Abhängigkeiten notwendig).
+*   Abhängigkeiten aus `requirements.txt`
     *   **Windows/macOS:** `tkinter` ist meist im Python-Installer enthalten.
     *   **Linux:** Muss oft separat installiert werden: `sudo apt-get install python3-tk`
 
@@ -64,7 +65,11 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
     ```bash
     cd Combat_Tracker_PnP
     ```
-3.  Starte das Programm:
+3.  Installiere die Abhängigkeiten:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Starte das Programm:
     ```bash
     python Combat_Tracker.py
     ```
@@ -77,7 +82,8 @@ Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
 1.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
 2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
 3.  **Schadens-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet. Man wählt Schadenshöhe, Typ und ggf. Status-Effekte.
-4.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
+4.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets.
+5.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
 
 ---
 
@@ -162,9 +168,10 @@ Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines 
 
 Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 
-*   **`data/rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden. Du kannst eigene Schadensarten erfinden!
-*   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner.
+*   **`data/rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden.
+*   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner (Presets).
 *   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
+*   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.).
 *   **`src/utils/config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
 
 ### Themes
@@ -200,10 +207,10 @@ Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisie
 Der Code ist nun sauber in Module unterteilt (`src/`):
 *   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
 *   **`src/models/`**: Datenmodelle (Character, StatusEffects).
-*   **`src/controllers/`**: Handler für Import, Export, Hotkeys und Persistenz.
+*   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
 *   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
 *   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
-*   **`data/`**: Enthält JSON-Konfigurationsdateien (`rules.json`, `enemies.json`, `hotkeys.json`).
+*   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
 *   **`saves/`**: Speicherort für Spielstände und Autosaves.
 
 ### Architektur-Highlights
