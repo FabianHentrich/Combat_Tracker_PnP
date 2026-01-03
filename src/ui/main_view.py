@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from typing import TYPE_CHECKING, Callable, Dict, Any, Optional, List
+from typing import TYPE_CHECKING, Callable, Dict, Any, Optional, List, Tuple
 from src.config import COLORS, FONTS
 from src.ui.components.dice_roller import DiceRoller
 from src.ui.interfaces import ICombatView
@@ -107,6 +107,9 @@ class MainView(ICombatView):
 
     def get_action_type(self) -> str:
         return self.action_panel.get_type()
+        
+    def get_damage_data(self) -> Tuple[int, str]:
+        return self.action_panel.get_damage_data()
 
     def get_status_input(self) -> Dict[str, Any]:
         return self.action_panel.get_status_input()
@@ -145,6 +148,3 @@ class MainView(ICombatView):
             self.action_panel.update_colors(colors)
         if self.bottom_panel:
             self.bottom_panel.update_colors(colors)
-
-
-

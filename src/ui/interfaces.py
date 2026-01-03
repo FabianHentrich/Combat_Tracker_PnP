@@ -1,4 +1,4 @@
-from typing import Protocol, Any, Optional, Dict
+from typing import Protocol, Any, Optional, Dict, Tuple
 
 class ICombatView(Protocol):
     """Interface für die Haupt-Ansicht des Combat Trackers."""
@@ -57,6 +57,10 @@ class ICombatView(Protocol):
 
     def get_action_type(self) -> str:
         """Gibt den ausgewählten Schadenstyp zurück."""
+        ...
+        
+    def get_damage_data(self) -> Tuple[int, str]:
+        """Gibt (Gesamtschaden, Detail-String) aus dem ActionPanel zurück."""
         ...
 
     def get_status_input(self) -> Dict[str, Any]:

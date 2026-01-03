@@ -35,6 +35,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 
 *   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
 *   **Erweitertes Schadenssystem:** Unterscheidung zwischen Lebenspunkten (LP), Rüstungspunkten (RP) und Schildpunkten (SP).
+*   **Dynamische Schadenseingabe:** Kombiniere mehrere Schadensarten in einer Aktion (z.B. "10 Feuer + 5 Kälte").
 *   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
@@ -81,7 +82,9 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
 1.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
 2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
-3.  **Schadens-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet. Man wählt Schadenshöhe, Typ und ggf. Status-Effekte.
+3.  **Interaktions-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet.
+    *   **Dynamische Zeilen:** Füge über den `+` Button weitere Schadenskomponenten hinzu (z.B. 10 Feuer und 5 Kälte).
+    *   **Status:** Wähle Status-Effekte, Rang und Dauer.
 4.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets.
 5.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
 
@@ -224,4 +227,3 @@ Der Code ist nun sauber in Module unterteilt (`src/`):
 
 Dieses Projekt steht unter der **MIT Lizenz**.
 Das bedeutet, du darfst den Code frei verwenden, verändern und verbreiten, solange der ursprüngliche Urheberrechtsvermerk erhalten bleibt.
-

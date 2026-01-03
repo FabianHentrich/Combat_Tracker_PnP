@@ -47,8 +47,9 @@ def test_deal_damage_valid(handler_setup):
     char.id = "uuid-1"
     engine.get_character_by_id.return_value = char
     view.get_selected_char_id.return_value = "uuid-1"
-    view.get_action_value.return_value = 5
-    view.get_action_type.return_value = "Normal"
+    
+    # Mock get_damage_data instead of get_action_value/type
+    view.get_damage_data.return_value = (5, "5 Normal")
     view.get_status_input.return_value = {"rank": "1"}
 
     handler.deal_damage()
@@ -57,12 +58,33 @@ def test_deal_damage_valid(handler_setup):
     # Verify engine was called with correct parameters
     engine.apply_damage.assert_called_once_with(char, 5, "Normal", 1)
 
+def test_deal_damage_multiple_types(handler_setup):
+    """Testet Schaden mit mehreren Typen (Engine nimmt ersten als Haupttyp)."""
+    handler, engine, history, view = handler_setup
+
+    char = Character("Target", 20, 0, 0, 10)
+    char.id = "uuid-1"
+    engine.get_character_by_id.return_value = char
+    view.get_selected_char_id.return_value = "uuid-1"
+    
+    # 10 Feuer + 5 Kälte = 15 Gesamt
+    view.get_damage_data.return_value = (15, "10 Feuer, 5 Kälte")
+    view.get_status_input.return_value = {"rank": "1"}
+
+    handler.deal_damage()
+
+    history.save_snapshot.assert_called_once()
+    # Engine sollte mit Summe (15) und erstem Typ (Feuer) aufgerufen werden
+    engine.apply_damage.assert_called_once_with(char, 15, "Feuer", 1)
+    # Log sollte Details enthalten
+    engine.log.assert_called_with("Details: 10 Feuer, 5 Kälte")
+
 def test_deal_damage_invalid_value(handler_setup):
     """Testet Schaden mit ungültigem Wert."""
     handler, engine, history, view = handler_setup
 
     view.get_selected_char_id.return_value = "uuid-1"
-    view.get_action_value.return_value = 0 # Invalid
+    view.get_damage_data.return_value = (0, "0 Normal") # Invalid
 
     handler.deal_damage()
 
@@ -85,4 +107,3 @@ def test_apply_healing(handler_setup):
     # Verify engine was called
     engine.apply_healing.assert_called_once_with(char, 5)
     history.save_snapshot.assert_called_once()
-

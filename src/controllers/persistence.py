@@ -52,6 +52,8 @@ class PersistenceHandler:
     def autosave(self, state: Dict[str, Any]) -> None:
         """Speichert den aktuellen Zustand automatisch in eine Datei."""
         try:
+            # Debug-Log, um sicherzustellen, dass autosave aufgerufen wird
+            logger.info(f"Autosave wird ausgeführt. Charaktere: {len(state.get('characters', []))}")
             SaveManager.save_to_file(FILES["autosave"], state)
         except Exception as e:
             logger.error(f"Autosave fehlgeschlagen: {e}")
@@ -65,5 +67,3 @@ class PersistenceHandler:
             # Oder doch Popup? Im Original war Popup. Ich lasse es mal, aber vielleicht als Warning.
             logger.warning(f"Konnte Autosave nicht laden: {e}")
             return None
-
-

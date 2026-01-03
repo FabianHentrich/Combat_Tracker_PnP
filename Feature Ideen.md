@@ -1,13 +1,5 @@
 # Feature Roadmap
 
-## Phase 1: Kern-Gameplay & Workflow (Sofortiger Nutzen)
-Diese Features verbessern den direkten Spielfluss und beheben aktuelle "Pain Points".
-
-- **Kombinationsschaden ermöglichen** (z.B. Schwert macht 3 Normalschaden und 6 Feuerschaden)
-    - *Warum:* Essentiell für korrekte Schadensberechnung bei verzauberten Waffen oder komplexen Angriffen.
-- **Gegner/NPC direkt aus der Bibliothek hinzufügen**
-    - *Warum:* Massiver Workflow-Gewinn. Verhindert unnötiges Hin- und Herwechseln zwischen Tabs.
-
 ## Phase 2: Erweiterte Features & Content (Tiefe)
 Diese Features erweitern die Möglichkeiten des Tools und bieten mehr Komfort für den Spielleiter.
 
@@ -31,6 +23,8 @@ Features, die das Tool "lebendiger" machen und die User Experience abrunden.
 ## Langfristig / Architektur
 - **Datenbank-Integration (SQLite)**
     - *Warum:* Performance bei sehr vielen Daten, bessere Suchmöglichkeiten, Verknüpfung von IDs.
+- **Gegner/NPC direkt aus der Bibliothek hinzufügen**
+  - *Warum:* Massiver Workflow-Gewinn. Verhindert unnötiges Hin- und Herwechseln zwischen Tabs.
 - **Packaging (.exe / Installer)**
     - *Warum:* Einfachere Weitergabe und Installation für Endnutzer.
 

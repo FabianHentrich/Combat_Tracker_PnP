@@ -112,8 +112,7 @@ def test_btn_deal_damage(app):
     # Mock Selection
     app.view.get_selected_char_id.return_value = "uuid-1"
     # Mock Input
-    app.view.get_action_value.return_value = 5
-    app.view.get_action_type.return_value = "Normal"
+    app.view.get_damage_data.return_value = (5, "5 Normal")
     app.view.get_status_input.return_value = {"rank": 1}
 
     # Action
@@ -226,8 +225,7 @@ def test_btn_undo_redo(app):
     # Change state (Damage)
     c1.id = "uuid-1"
     app.view.get_selected_char_id.return_value = "uuid-1"
-    app.view.get_action_value.return_value = 5
-    app.view.get_action_type.return_value = "Normal"
+    app.view.get_damage_data.return_value = (5, "5 Normal")
     app.view.get_status_input.return_value = {"rank": 1}
 
     app.combat_handler.deal_damage()

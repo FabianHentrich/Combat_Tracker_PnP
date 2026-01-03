@@ -41,24 +41,30 @@ class CombatActionHandler:
         self.engine.next_turn()
 
     def deal_damage(self) -> None:
-        """Liest Schaden direkt aus dem UI-Feld und wendet ihn an."""
+        """Liest Schaden direkt aus dem UI-Panel und wendet ihn an."""
         char = self._get_selected_char()
         if not char: return
 
-        dmg = self.view.get_action_value()
-        if dmg <= 0:
-            self.view.show_info("Info", "Bitte einen Schadenswert > 0 im Feld 'Wert' eingeben.")
+        # Daten direkt aus dem ActionPanel holen
+        damage_amount, damage_details = self.view.get_damage_data()
+        
+        if damage_amount <= 0:
+            self.view.show_info("Info", "Bitte einen Schadenswert > 0 eingeben.")
             return
 
-        dmg_type = self.view.get_action_type()
+        # Wir nehmen den ersten Typ aus dem Detail-String oder "Normal" als Fallback für die Logik
+        first_part = damage_details.split(",")[0].strip() # "10 Feuer"
+        parts = first_part.split(" ", 1)
+        main_type = parts[1] if len(parts) > 1 else "Normal"
 
-        # Ermittle max_rank basierend auf dem sekundären Effekt des Schadens
+        # Ermittle max_rank basierend auf dem sekundären Effekt des Haupt-Schadens
         max_rank = 6
-        if dmg_type in RULES.get("damage_types", {}):
-            sec_effect = RULES["damage_types"][dmg_type].get("secondary_effect")
+        if main_type in RULES.get("damage_types", {}):
+            sec_effect = RULES["damage_types"][main_type].get("secondary_effect")
             if sec_effect and sec_effect in RULES.get("status_effects", {}):
                 max_rank = RULES["status_effects"][sec_effect].get("max_rank", 6)
 
+        # Status Rank aus dem UI holen (falls dort noch gesetzt) oder Default 1
         status_input = self.view.get_status_input()
         try:
             rank = int(status_input["rank"])
@@ -67,7 +73,13 @@ class CombatActionHandler:
             rank = 1
 
         self.history_manager.save_snapshot()
-        self.engine.apply_damage(char, dmg, dmg_type, rank)
+        
+        # Schaden anwenden
+        self.engine.apply_damage(char, damage_amount, main_type, rank)
+        
+        # Details loggen, falls es mehr als eine Komponente gab oder der String informativ ist
+        if "," in damage_details:
+            self.engine.log(f"Details: {damage_details}")
 
     def add_status_to_character(self) -> None:
         """Fügt dem ausgewählten Charakter einen Status hinzu."""
@@ -140,4 +152,3 @@ class CombatActionHandler:
             self.view.show_error("Fehler", "Kein Charakter ausgewählt.")
             return None
         return self.engine.get_character_by_id(char_id)
-

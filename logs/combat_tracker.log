@@ -4344,3 +4344,205 @@ Ardomis – Der Erleuchtete (Boss) erleidet 5 (Direkt) Schaden!
 2026-01-03 23:04:15,326 - INFO - engine - Game Log: Alle Gegner wurden gelöscht.
 2026-01-03 23:04:15,329 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
 2026-01-03 23:04:15,330 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:35:47,099 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 23:35:47,101 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 23:35:47,101 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 23:35:47,468 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 23:35:48,109 - WARNING - main_window - Absturz erkannt (Lock-Datei vorhanden). Versuche Autosave zu laden.
+2026-01-03 23:35:49,844 - INFO - save_manager - Daten geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:35:49,844 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-03 23:35:49,846 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:35:49,848 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:35:49,849 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:35:49,850 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 23:41:03,350 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-03 23:41:03,351 - INFO - engine - Game Log: A erleidet 9 (Normal) Schaden!
+→ 9 Schaden auf Lebenspunkte!
+⚔️ A ist kampfunfähig!
+
+2026-01-03 23:41:03,362 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:41:03,364 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:47:44,047 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 23:47:44,049 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 23:47:44,050 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 23:47:44,384 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 23:47:45,019 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 23:48:31,928 - INFO - enemy_data_loader - Bibliothek geladen: 37 Presets.
+2026-01-03 23:48:37,115 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-03 23:48:37,115 - INFO - engine - Game Log: Chaoskreatur wurde hinzugefügt.
+2026-01-03 23:48:37,118 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:37,119 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:37,119 - INFO - engine - Game Log: 1 Charaktere aus Bibliothek hinzugefügt.
+2026-01-03 23:48:40,720 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2026-01-03 23:48:40,720 - INFO - engine - Game Log: Chaoskreatur erleidet 1 (Normal) Schaden!
+→ 1 Schaden auf Lebenspunkte!
+
+2026-01-03 23:48:40,729 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:40,730 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:45,367 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2026-01-03 23:48:45,368 - INFO - engine - Game Log: Chaoskreatur wird um 1 LP geheilt! Aktuelle LP: 15
+2026-01-03 23:48:45,369 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:45,371 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:47,466 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2026-01-03 23:48:47,466 - INFO - engine - Game Log: Chaoskreatur erhält 1 Schild.
+2026-01-03 23:48:47,468 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:48:47,469 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:49:09,739 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 5
+2026-01-03 23:49:09,739 - INFO - engine - Game Log: Chaoskreatur erleidet 11 (Normal) Schaden!
+→ 1 Schaden vom Schild absorbiert.
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-03 23:49:09,741 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:49:09,742 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:49:09,742 - INFO - engine - Game Log: Details: 1 Normal, 10 Durchschlagend
+2026-01-03 23:49:28,466 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 6
+2026-01-03 23:49:28,466 - INFO - engine - Game Log: Chaoskreatur erhält 11 Schild.
+2026-01-03 23:49:28,469 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:49:28,470 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:06,384 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 7
+2026-01-03 23:50:06,384 - INFO - engine - Game Log: Chaoskreatur wird um 11 LP geheilt! Aktuelle LP: 16
+2026-01-03 23:50:06,387 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:06,388 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:08,030 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 8
+2026-01-03 23:50:08,030 - INFO - engine - Game Log: Chaoskreatur erhält 11 Rüstung.
+2026-01-03 23:50:08,032 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:08,034 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:16,307 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 9
+2026-01-03 23:50:16,307 - INFO - engine - Game Log: Chaoskreatur erleidet 33 (Normal) Schaden!
+→ 11 Schaden vom Schild absorbiert.
+→ 22 Schaden durch Rüstung abgefangen (11 RP verloren).
+
+2026-01-03 23:50:16,315 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:16,316 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:50:16,316 - INFO - engine - Game Log: Details: 1 Normal, 10 Durchschlagend, 22 Feuer
+2026-01-03 23:54:18,978 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-03 23:54:18,980 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-03 23:54:18,980 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-03 23:54:19,291 - INFO - engine - CombatEngine initialisiert.
+2026-01-03 23:54:19,936 - WARNING - main_window - Absturz erkannt (Lock-Datei vorhanden). Versuche Autosave zu laden.
+2026-01-03 23:54:21,442 - INFO - save_manager - Daten geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:21,442 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-03 23:54:21,444 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:21,445 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:21,446 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:21,447 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-03 23:54:40,551 - INFO - enemy_data_loader - Bibliothek geladen: 37 Presets.
+2026-01-03 23:54:49,163 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-03 23:54:49,163 - INFO - engine - Game Log: Chaosritter (Boss) wurde hinzugefügt.
+2026-01-03 23:54:49,165 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,166 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,167 - INFO - engine - Game Log: Chaoskreatur wurde hinzugefügt.
+2026-01-03 23:54:49,169 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,170 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,170 - INFO - engine - Game Log: Chaoskrieger wurde hinzugefügt.
+2026-01-03 23:54:49,172 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,173 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,173 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) wurde hinzugefügt.
+2026-01-03 23:54:49,175 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,177 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:49,177 - INFO - engine - Game Log: 4 Charaktere aus Bibliothek hinzugefügt.
+2026-01-03 23:54:52,400 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2026-01-03 23:54:52,401 - INFO - engine - Game Log: A wurde entfernt.
+2026-01-03 23:54:52,403 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:54:52,404 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:55:19,418 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2026-01-03 23:55:19,418 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-03 23:55:19,420 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:55:19,422 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:55:19,422 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-03 23:55:19,422 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-03 23:55:19,424 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-03 23:55:19,426 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:46,548 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-04 00:02:46,550 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-04 00:02:46,550 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-04 00:02:46,850 - INFO - engine - CombatEngine initialisiert.
+2026-01-04 00:02:47,540 - WARNING - main_window - Absturz erkannt (Lock-Datei vorhanden). Versuche Autosave zu laden.
+2026-01-04 00:02:49,067 - INFO - save_manager - Daten geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:49,068 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-04 00:02:49,068 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 1
+2026-01-04 00:02:49,070 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:49,070 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 1
+2026-01-04 00:02:49,071 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:49,071 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 1
+2026-01-04 00:02:49,072 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:49,072 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-04 00:02:52,582 - INFO - enemy_data_loader - Bibliothek geladen: 37 Presets.
+2026-01-04 00:02:56,928 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 1
+2026-01-04 00:02:56,928 - INFO - engine - Game Log: Chaoskreatur wurde hinzugefügt.
+2026-01-04 00:02:56,929 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 2
+2026-01-04 00:02:56,931 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,931 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 2
+2026-01-04 00:02:56,933 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,933 - INFO - engine - Game Log: Chaoskreatur wurde hinzugefügt.
+2026-01-04 00:02:56,934 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 3
+2026-01-04 00:02:56,935 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,935 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 3
+2026-01-04 00:02:56,936 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,936 - INFO - engine - Game Log: Chaoskrieger wurde hinzugefügt.
+2026-01-04 00:02:56,937 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:02:56,938 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,938 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:02:56,939 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:02:56,939 - INFO - engine - Game Log: 3 Charaktere aus Bibliothek hinzugefügt.
+2026-01-04 00:03:27,242 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 2
+2026-01-04 00:03:27,242 - INFO - engine - Game Log: A erleidet 99 (Normal) Schaden!
+→ 99 Schaden auf Lebenspunkte!
+⚔️ A ist kampfunfähig!
+
+2026-01-04 00:03:27,253 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:27,255 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:27,255 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:27,256 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:33,165 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Chaoswesen\Chaoskreatur.md in Kategorie enemies
+2026-01-04 00:03:35,809 - INFO - library_handler - Datei gefunden: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\enemies\Chaoswesen\Boss\Chaosritter.md in Kategorie enemies
+2026-01-04 00:03:38,240 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 3
+2026-01-04 00:03:38,240 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-04 00:03:38,240 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:38,242 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:38,242 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:38,243 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:38,243 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-04 00:03:38,244 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-04 00:03:38,245 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:38,246 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:38,246 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:38,247 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:39,174 - DEBUG - history - Snapshot gespeichert. Undo Stack Größe: 4
+2026-01-04 00:03:39,174 - INFO - engine - Game Log: ▶ Chaoskreatur ist am Zug!
+2026-01-04 00:03:39,175 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:39,177 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:39,177 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:39,178 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:40,943 - INFO - history - Redo nicht möglich: Stack leer.
+2026-01-04 00:03:41,497 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-04 00:03:41,498 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:41,500 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:41,500 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:41,501 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:41,502 - INFO - history - Undo ausgeführt.
+2026-01-04 00:03:42,013 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-04 00:03:42,014 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:42,016 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:42,016 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:03:42,017 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:03:42,018 - INFO - history - Redo ausgeführt.
+2026-01-04 00:04:02,697 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-04 00:04:02,698 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-04 00:04:02,699 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-04 00:04:03,007 - INFO - engine - CombatEngine initialisiert.
+2026-01-04 00:04:03,642 - WARNING - main_window - Absturz erkannt (Lock-Datei vorhanden). Versuche Autosave zu laden.
+2026-01-04 00:04:04,792 - INFO - save_manager - Daten geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:04:04,792 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-04 00:04:04,793 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:04:04,794 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:04:04,794 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:04:04,796 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:04:04,796 - INFO - persistence - Autosave wird ausgeführt. Charaktere: 4
+2026-01-04 00:04:04,798 - INFO - save_manager - Daten gespeichert: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-04 00:04:04,798 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
+2026-01-04 00:04:10,473 - INFO - logger - Logging initialisiert. Log-Datei: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-04 00:04:10,474 - INFO - __init__ - Regelwerk erfolgreich geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\rules.json
+2026-01-04 00:04:10,474 - INFO - __init__ - Hotkeys geladen: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-04 00:04:10,810 - INFO - engine - CombatEngine initialisiert.
+2026-01-04 00:04:11,472 - INFO - main_window - Anwendung gestartet: PnP Combat Tracker v2.1 - Beta
