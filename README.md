@@ -36,6 +36,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
 *   **Erweitertes Schadenssystem:** Unterscheidung zwischen Lebenspunkten (LP), Rüstungspunkten (RP) und Schildpunkten (SP).
 *   **Dynamische Schadenseingabe:** Kombiniere mehrere Schadensarten in einer Aktion (z.B. "10 Feuer + 5 Kälte").
+*   **Mehrfachauswahl:** Wende Aktionen wie Schaden oder Heilung auf mehrere Charaktere gleichzeitig an (`Strg+Klick` oder `Shift+Klick`).
 *   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
 *   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
 *   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
@@ -82,7 +83,8 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
 1.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
 2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
-3.  **Interaktions-Panel:** Hier wird Schaden auf den *aktuell ausgewählten* Charakter angewendet.
+3.  **Interaktions-Panel:** Hier werden Aktionen auf die *aktuell ausgewählten* Charaktere angewendet.
+    *   **Mehrfachauswahl:** Halte `Strg` oder `Shift` gedrückt, um mehrere Charaktere in der Liste auszuwählen. Aktionen werden auf alle angewendet.
     *   **Dynamische Zeilen:** Füge über den `+` Button weitere Schadenskomponenten hinzu (z.B. 10 Feuer und 5 Kälte).
     *   **Status:** Wähle Status-Effekte, Rang und Dauer.
 4.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets.
@@ -171,11 +173,11 @@ Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines 
 
 Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 
-*   **`data/rules.json`**: Hier können Schadensarten und Status-Effekte definiert oder angepasst werden.
+*   **`data/rules.json` (Dynamisches Regelwerk):** Das Herzstück der Anpassbarkeit. Hier können Schadensarten, ihre Effekte (z.B. `ignores_armor`) und Status-Effekte (inkl. `max_rank`, `stackable`) frei definiert oder geändert werden, ohne den Code anzufassen.
 *   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner (Presets).
 *   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
 *   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.).
-*   **`src/utils/config.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
+*   **`src/config/__init__.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
 
 ### Themes
 Über das Menü oder die Config können verschiedene Themes gewählt werden, z.B.:
@@ -209,9 +211,9 @@ Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisie
 ### Projektstruktur
 Der Code ist nun sauber in Module unterteilt (`src/`):
 *   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
-*   **`src/models/`**: Datenmodelle (Character, StatusEffects).
+*   **`src.models/`**: Datenmodelle (Character, StatusEffects).
 *   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
-*   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
+*   **`src.ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
 *   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
 *   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
 *   **`saves/`**: Speicherort für Spielstände und Autosaves.

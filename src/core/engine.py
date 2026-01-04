@@ -1,7 +1,7 @@
 from typing import List, Optional, Callable, Dict, Any
 import random
 from src.models.character import Character
-from src.core.mechanics import wuerfle_initiative
+from src.core.mechanics import wuerfle_initiative, format_damage_log
 from src.utils.logger import setup_logging
 from src.models.enums import EventType
 from src.core.event_manager import EventManager
@@ -123,7 +123,8 @@ class CombatEngine:
 
     # --- Combat Actions ---
     def apply_damage(self, char: Character, amount: int, damage_type: str, rank: int) -> str:
-        log = char.apply_damage(amount, damage_type, rank)
+        result = char.apply_damage(amount, damage_type, rank)
+        log = format_damage_log(char, result)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log

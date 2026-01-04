@@ -7,7 +7,7 @@
                 "name": "A",
                 "char_type": "Gegner",
                 "max_lp": 10,
-                "lp": -94,
+                "lp": 5,
                 "max_rp": 0,
                 "rp": 0,
                 "max_sp": 0,
@@ -15,11 +15,18 @@
                 "gew": 1,
                 "init": 10,
                 "level": 0,
-                "status": [],
+                "status": [
+                    {
+                        "effect": "Vergiftung",
+                        "rounds": 3,
+                        "rank": 1,
+                        "active_rounds": 0
+                    }
+                ],
                 "skip_turns": 0
             },
             {
-                "id": "dc296d55-2f6e-441c-bba5-e8f4870f4eed",
+                "id": "9e559e4f-8952-4fe4-8281-c6c69e845696",
                 "name": "Chaoskreatur",
                 "char_type": "Gegner",
                 "max_lp": 15,
@@ -29,29 +36,20 @@
                 "max_sp": 0,
                 "sp": 0,
                 "gew": 4,
-                "init": 6,
+                "init": 3,
                 "level": 0,
-                "status": [],
+                "status": [
+                    {
+                        "effect": "Vergiftung",
+                        "rounds": 3,
+                        "rank": 1,
+                        "active_rounds": 0
+                    }
+                ],
                 "skip_turns": 0
             },
             {
-                "id": "92067d6e-8c51-455e-b694-5d1e71dee106",
-                "name": "Chaoskreatur",
-                "char_type": "Gegner",
-                "max_lp": 15,
-                "lp": 15,
-                "max_rp": 0,
-                "rp": 0,
-                "max_sp": 0,
-                "sp": 0,
-                "gew": 4,
-                "init": 4,
-                "level": 0,
-                "status": [],
-                "skip_turns": 0
-            },
-            {
-                "id": "b23ae8cc-20fd-4039-b675-e9a7fb27a945",
+                "id": "770cab87-ef53-46a2-ad28-0f7bdcc4a8e7",
                 "name": "Chaoskrieger",
                 "char_type": "Gegner",
                 "max_lp": 30,
@@ -63,11 +61,64 @@
                 "gew": 3,
                 "init": 2,
                 "level": 0,
-                "status": [],
+                "status": [
+                    {
+                        "effect": "Vergiftung",
+                        "rounds": 3,
+                        "rank": 1,
+                        "active_rounds": 0
+                    }
+                ],
+                "skip_turns": 0
+            },
+            {
+                "id": "382fe1f1-d660-4a90-9a8b-2732309348ac",
+                "name": "Chaosbestie (Mini-Boss)",
+                "char_type": "Gegner",
+                "max_lp": 40,
+                "lp": 40,
+                "max_rp": 3,
+                "rp": 3,
+                "max_sp": 0,
+                "sp": 0,
+                "gew": 2,
+                "init": 2,
+                "level": 0,
+                "status": [
+                    {
+                        "effect": "Vergiftung",
+                        "rounds": 3,
+                        "rank": 1,
+                        "active_rounds": 0
+                    }
+                ],
+                "skip_turns": 0
+            },
+            {
+                "id": "1c69754b-ae93-4380-a1cc-f537eff19b4d",
+                "name": "Grabeswolf",
+                "char_type": "Gegner",
+                "max_lp": 22,
+                "lp": 22,
+                "max_rp": 0,
+                "rp": 0,
+                "max_sp": 4,
+                "sp": 4,
+                "gew": 5,
+                "init": 9,
+                "level": 0,
+                "status": [
+                    {
+                        "effect": "Vergiftung",
+                        "rounds": 3,
+                        "rank": 1,
+                        "active_rounds": 0
+                    }
+                ],
                 "skip_turns": 0
             }
         ],
-        "turn_index": 1,
+        "turn_index": -1,
         "round_number": 1,
         "audio": {
             "playlist": [],

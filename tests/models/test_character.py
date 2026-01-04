@@ -6,6 +6,7 @@ import os
 
 from src.models.character import Character
 from src.models.enums import DamageType, StatusEffectType
+from src.models.combat_results import DamageResult
 
 @pytest.fixture
 def char_damage():
@@ -14,21 +15,25 @@ def char_damage():
 
 def test_normal_damage_full_absorb_by_shield(char_damage):
     """Test: Normaler Schaden wird komplett vom Schild absorbiert."""
-    log = char_damage.apply_damage(5, "Normal")
+    result = char_damage.apply_damage(5, "Normal")
     assert char_damage.sp == 5  # 10 - 5
     assert char_damage.rp == 5  # Unverändert
     assert char_damage.lp == 20 # Unverändert
-    assert "vom Schild absorbiert" in log
+    assert result.absorbed_by_shield == 5
+    assert result.final_damage_hp == 0
 
 def test_normal_damage_pierces_shield_absorb_by_armor(char_damage):
     """Test: Schaden bricht Schild und wird von Rüstung gefangen."""
     # 15 Schaden: 10 Schild weg, 5 Rest. Rüstung 5 absorbiert bis zu 10.
-    log = char_damage.apply_damage(15, "Normal")
+    result = char_damage.apply_damage(15, "Normal")
     assert char_damage.sp == 0
     # Restschaden 5. Rüstung absorbiert 5.
     # RP Verlust = (5 + 1) // 2 = 3.
     assert char_damage.rp == 2 # 5 - 3
     assert char_damage.lp == 20
+    assert result.absorbed_by_shield == 10
+    assert result.absorbed_by_armor == 5
+    assert result.final_damage_hp == 0
 
 def test_normal_damage_pierces_all(char_damage):
     """Test: Schaden bricht Schild und Rüstung und trifft LP."""
@@ -37,10 +42,13 @@ def test_normal_damage_pierces_all(char_damage):
     # Rüstung 5 absorbiert max 10.
     # 15 Rest > 10 Max Absorb -> 5 Schaden gehen durch auf LP.
     # RP Verlust für 10 Absorb = 5.
-    log = char_damage.apply_damage(25, "Normal")
+    result = char_damage.apply_damage(25, "Normal")
     assert char_damage.sp == 0
     assert char_damage.rp == 0
     assert char_damage.lp == 15 # 20 - 5
+    assert result.absorbed_by_shield == 10
+    assert result.absorbed_by_armor == 10
+    assert result.final_damage_hp == 5
 
 def test_piercing_damage(char_damage):
     """Test: Durchschlagender Schaden ignoriert Rüstung."""
@@ -48,23 +56,29 @@ def test_piercing_damage(char_damage):
     # 10 Schild -> 5 Rest.
     # Rüstung wird ignoriert.
     # 5 Schaden auf LP.
-    log = char_damage.apply_damage(15, "Durchschlagend")
+    result = char_damage.apply_damage(15, "Durchschlagend")
     assert char_damage.sp == 0
     assert char_damage.rp == 5 # Rüstung unberührt
     assert char_damage.lp == 15 # 20 - 5
+    assert result.ignores_armor is True
+    assert result.absorbed_by_shield == 10
+    assert result.final_damage_hp == 5
 
 def test_direct_damage(char_damage):
     """Test: Direktschaden ignoriert Schild und Rüstung."""
-    log = char_damage.apply_damage(10, "Direkt")
+    result = char_damage.apply_damage(10, "Direkt")
     assert char_damage.sp == 10 # Unberührt
     assert char_damage.rp == 5  # Unberührt
     assert char_damage.lp == 10 # 20 - 10
+    assert result.ignores_armor is True
+    assert result.ignores_shield is True
+    assert result.final_damage_hp == 10
 
 def test_death(char_damage):
     """Test: Charakter stirbt bei LP <= 0."""
-    log = char_damage.apply_damage(100, "Direkt")
+    result = char_damage.apply_damage(100, "Direkt")
     assert char_damage.lp <= 0
-    assert "ist kampfunfähig" in log
+    assert result.is_dead is True
 
 def test_healing(char_damage):
     """Test: Heilung erhöht LP."""
@@ -76,26 +90,26 @@ def test_healing(char_damage):
 def test_elemental_damage_logging(char_damage):
     """Test: Elementarschaden wird korrekt geloggt und zeigt Chance auf Sekundäreffekt."""
     # Teste Feuer (sollte Chance auf Verbrennung anzeigen)
-    log = char_damage.apply_damage(5, DamageType.FIRE)
-    assert "Feuer" in log
-    assert "Chance auf Verbrennung" in log
+    result = char_damage.apply_damage(5, DamageType.FIRE)
+    assert result.damage_type == DamageType.FIRE
+    assert result.secondary_effect == StatusEffectType.BURN
 
     # Teste Gift (sollte Chance auf Vergiftung anzeigen)
-    log = char_damage.apply_damage(5, DamageType.POISON)
-    assert "Gift" in log
-    assert "Chance auf Vergiftung" in log
+    result = char_damage.apply_damage(5, DamageType.POISON)
+    assert result.damage_type == DamageType.POISON
+    assert result.secondary_effect == StatusEffectType.POISON
 
     # Teste Blitz (sollte Chance auf Betäubung anzeigen)
-    log = char_damage.apply_damage(5, DamageType.LIGHTNING)
-    assert "Blitz" in log
-    assert "Chance auf Betäubung" in log
+    result = char_damage.apply_damage(5, DamageType.LIGHTNING)
+    assert result.damage_type == DamageType.LIGHTNING
+    assert result.secondary_effect == StatusEffectType.STUN
 
     # Teste Kälte (sollte Chance auf Unterkühlung anzeigen)
-    log = char_damage.apply_damage(5, DamageType.COLD)
-    assert "Kälte" in log
-    assert "Chance auf Unterkühlung" in log
+    result = char_damage.apply_damage(5, DamageType.COLD)
+    assert result.damage_type == DamageType.COLD
+    assert result.secondary_effect == StatusEffectType.FREEZE
 
     # Teste Verwesung (sollte Chance auf Erosion anzeigen)
-    log = char_damage.apply_damage(5, DamageType.DECAY)
-    assert "Verwesung" in log
-    assert "Chance auf Erosion" in log
+    result = char_damage.apply_damage(5, DamageType.DECAY)
+    assert result.damage_type == DamageType.DECAY
+    assert result.secondary_effect == StatusEffectType.EROSION

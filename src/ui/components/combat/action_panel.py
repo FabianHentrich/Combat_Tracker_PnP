@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Dict, Any, TYPE_CHECKING, Callable, List
 from src.models.enums import DamageType, StatusEffectType
-from src.config import FONTS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS, DEFAULT_RULES
+from src.config import FONTS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS
+from src.config.rule_manager import get_rules
 from src.utils.utils import ToolTip
 
 if TYPE_CHECKING:
@@ -24,8 +25,9 @@ class ActionPanel(ttk.LabelFrame):
         self.management_target_var = None
         self.btn_edit = None
         
-        # Schadenstypen aus DEFAULT_RULES laden
-        self.damage_types = list(DEFAULT_RULES["damage_types"].keys())
+        # Schadenstypen aus den geladenen Regeln laden
+        rules = get_rules()
+        self.damage_types = list(rules.get("damage_types", {}).keys())
 
         self._setup_ui()
 

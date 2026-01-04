@@ -98,6 +98,9 @@ class MainView(ICombatView):
 
     def get_selected_char_id(self) -> Optional[str]:
         return self.character_list.get_selected_id()
+        
+    def get_selected_char_ids(self) -> List[str]:
+        return self.character_list.get_selected_ids()
 
     def highlight_character(self, char_id: str) -> None:
         self.character_list.highlight(char_id)

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from src.config.defaults import DEFAULT_RULES
+from src.config.rule_manager import get_rules
 
 class DamageDialog(tk.Toplevel):
     def __init__(self, parent, title="Schaden zufügen"):
@@ -12,8 +12,9 @@ class DamageDialog(tk.Toplevel):
         self.result = None
         self.rows = [] # Speichert Referenzen auf die Widgets jeder Zeile
         
-        # Schadenstypen aus DEFAULT_RULES laden
-        self.damage_types = list(DEFAULT_RULES["damage_types"].keys())
+        # Schadenstypen aus den geladenen Regeln laden
+        rules = get_rules()
+        self.damage_types = list(rules.get("damage_types", {}).keys())
         
         # Haupt-Container
         self.main_frame = ttk.Frame(self, padding="10")

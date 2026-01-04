@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING, Dict, Type
 import random
 from src.models.enums import StatusEffectType, DamageType
-from src.core.mechanics import calculate_damage
+from src.core.mechanics import calculate_damage, format_damage_log
 
 if TYPE_CHECKING:
     from src.models.character import Character
@@ -52,8 +52,9 @@ class PoisonEffect(StatusEffect):
 
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank
-        log = calculate_damage(character, dmg, DamageType.DIRECT)
-        return log + f" (Vergiftung Rang {self.rank}, Runde {self.active_rounds})\n"
+        result = calculate_damage(character, dmg, DamageType.DIRECT)
+        result.messages.append(f"(Vergiftung Rang {self.rank}, Runde {self.active_rounds})")
+        return format_damage_log(character, result)
 
 class BurnEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -61,8 +62,9 @@ class BurnEffect(StatusEffect):
 
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank
-        log = calculate_damage(character, dmg, DamageType.NORMAL)
-        return log + f" (Verbrennung Rang {self.rank}, Runde {self.active_rounds})\n"
+        result = calculate_damage(character, dmg, DamageType.NORMAL)
+        result.messages.append(f"(Verbrennung Rang {self.rank}, Runde {self.active_rounds})")
+        return format_damage_log(character, result)
 
 class BleedEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -72,8 +74,9 @@ class BleedEffect(StatusEffect):
         # Schaden = Rang/2 + (Runde - 1)
         dmg = int((self.rank / 2) + (self.active_rounds - 1))
         if dmg < 1: dmg = 1
-        log = calculate_damage(character, dmg, DamageType.NORMAL)
-        return log + f" (Blutung Rang {self.rank}, Runde {self.active_rounds})\n"
+        result = calculate_damage(character, dmg, DamageType.NORMAL)
+        result.messages.append(f"(Blutung Rang {self.rank}, Runde {self.active_rounds})")
+        return format_damage_log(character, result)
 
 class ErosionEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -83,8 +86,9 @@ class ErosionEffect(StatusEffect):
         dmg = self.rank * random.randint(1, 4)
         character.max_lp -= dmg
         if character.max_lp < 0: character.max_lp = 0
-        log = calculate_damage(character, dmg, DamageType.DIRECT)
-        return log + f" (Erosion Rang {self.rank} - {dmg} Max LP dauerhaft verloren)\n"
+        result = calculate_damage(character, dmg, DamageType.DIRECT)
+        result.messages.append(f"(Erosion Rang {self.rank} - {dmg} Max LP dauerhaft verloren)")
+        return format_damage_log(character, result)
 
 class FreezeEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):

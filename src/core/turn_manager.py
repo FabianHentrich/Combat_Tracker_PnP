@@ -64,9 +64,30 @@ class TurnManager:
         self.engine.notify(EventType.UPDATE)
         return count
 
+    def _update_character_status(self, character: Character) -> None:
+        """
+        Aktualisiert alle aktiven Status-Effekte für einen Charakter.
+        Diese Methode gehört logisch zum TurnManager, da sie zu Beginn eines Zuges ausgeführt wird.
+        """
+        log_msg = ""
+        new_status = []
+        character.skip_turns = 0
+
+        for s in character.status:
+            s.active_rounds += 1
+            log_msg += s.apply_round_effect(character)
+
+            s.duration -= 1
+            if s.duration > 0:
+                new_status.append(s)
+
+        character.status = new_status
+        if log_msg:
+            self.engine.log(log_msg)
+
     def next_turn(self) -> Optional[Character]:
         """
-        Schaltet zum nächsten Charakter weiter.
+        Schaltet zum nächsten Charakter weiter und wendet Statuseffekte an.
         """
         if not self.engine.characters:
             return None
@@ -82,28 +103,17 @@ class TurnManager:
         current_char = self.engine.characters[self.turn_index]
 
         # Status-Effekte verarbeiten
-        if current_char.status:
-            log_msg = current_char.update_status()
-            if log_msg:
-                self.engine.log(log_msg)
+        self._update_character_status(current_char)
 
         # Aussetzen verarbeiten
         if current_char.skip_turns > 0:
             self.engine.log(f"{current_char.name} setzt aus.")
-            current_char.skip_turns -= 1
+            current_char.skip_turns -= 1 # Wird in _update_character_status auf 0 gesetzt, hier aber für den Fall, dass es mehrere Runden sind
             self.engine.notify(EventType.UPDATE)
             return self.next_turn() # Rekursiv weiter
 
         # Status Info für Log
-        status_info = ""
-        if current_char.status:
-            status_list = []
-            for s in current_char.status:
-                name = s.name
-                if hasattr(name, 'value'):
-                    name = name.value
-                status_list.append(f"{name} (Rang {s.rank}, {s.duration} Rd.)")
-            status_info = " | Status: " + ", ".join(status_list)
+        status_info = current_char.get_status_string()
 
         if current_char.lp <= 0 or current_char.max_lp <= 0:
              self.engine.log(f"💀 {current_char.name} ist kampfunfähig.{status_info}")
@@ -132,12 +142,6 @@ class TurnManager:
                 # Surprise: Füge VOR dem aktuellen Zug ein (oder an aktueller Stelle)
                 target_index = max(0, self.turn_index)
                 self.engine.characters.insert(target_index, char)
-                # Turn index muss nicht angepasst werden, da der neue Char jetzt an turn_index steht
-                # und der alte Char eins nach hinten rutscht.
-                # Aber: Wenn wir wollen, dass der neue Char SOFORT dran ist, muss turn_index gleich bleiben (er zeigt auf den neuen).
-                # Wenn wir wollen, dass er als nächstes dran ist, müssten wir insert(turn_index + 1) machen.
-                # Die Logik "springt überraschend in den Kampf" impliziert meist "ist jetzt dran" oder "unterbricht".
-                # Im alten Code: insert an target_index. Wenn turn_index < 0 war, setze auf 0.
                 if self.turn_index < 0:
                     self.turn_index = 0
                 self.engine.log(f"⚠ {char.name} springt überraschend in den Kampf!")
@@ -147,8 +151,6 @@ class TurnManager:
                 for i, c in enumerate(self.engine.characters):
                     if char.init > c.init:
                         self.engine.characters.insert(i, char)
-                        # Wenn wir VOR dem aktuellen Index einfügen, muss der Index erhöht werden,
-                        # damit der aktive Spieler aktiv bleibt.
                         if i <= self.turn_index:
                             self.turn_index += 1
                         inserted = True
@@ -167,14 +169,10 @@ class TurnManager:
 
             # Turn Index anpassen
             if index < self.turn_index:
-                # Ein Charakter vor dem aktuellen wurde gelöscht -> Index verringern
                 self.turn_index -= 1
             elif index == self.turn_index:
-                # Der aktuelle Charakter wurde gelöscht -> Index bleibt gleich (nächster rutscht nach),
-                # außer wir waren am Ende der Liste.
                 if self.turn_index >= len(self.engine.characters):
                     self.turn_index = 0
-                    # Falls Liste jetzt leer ist, wird turn_index 0 sein, aber len 0.
                     if not self.engine.characters:
                         self.turn_index = -1
 

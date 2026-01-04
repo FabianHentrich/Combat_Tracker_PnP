@@ -6,43 +6,10 @@ import json
 
 # sys.path.append removed. Run tests with python -m pytest
 
-from src.config import load_rules, load_hotkeys
+from src.config import load_hotkeys
 
-def test_load_rules_default():
-    """
-    Testet das Laden der Standard-Regeln, wenn keine rules.json existiert.
-    Überprüft, ob die Standard-Schlüssel vorhanden sind.
-    """
-    with patch("os.path.exists", return_value=False):
-        rules, dmg_desc, status_desc = load_rules("dummy.json")
-
-        assert "damage_types" in rules
-        assert "status_effects" in rules
-        assert "Normal" in rules["damage_types"]
-        assert "Vergiftung" in rules["status_effects"]
-
-def test_load_rules_from_file():
-    """
-    Testet das Laden von Regeln aus einer JSON-Datei.
-    Überprüft, ob die geladenen Werte korrekt übernommen werden.
-    """
-    mock_data = {
-        "damage_types": {
-            "TestDmg": {"description": "Test", "ignores_armor": True}
-        },
-        "status_effects": {
-            "TestStatus": {"description": "Test", "max_rank": 1}
-        }
-    }
-    json_data = json.dumps(mock_data)
-
-    with patch("os.path.exists", return_value=True):
-        with patch("builtins.open", mock_open(read_data=json_data)):
-            rules, dmg_desc, status_desc = load_rules("dummy.json")
-
-            assert "TestDmg" in rules["damage_types"]
-            assert "TestStatus" in rules["status_effects"]
-            assert dmg_desc["TestDmg"] == "Test"
+# Die Tests für load_rules wurden entfernt, da die Funktion nicht mehr existiert
+# und die Logik nun im RuleManager liegt, der global gemockt wird.
 
 def test_load_hotkeys_default():
     """

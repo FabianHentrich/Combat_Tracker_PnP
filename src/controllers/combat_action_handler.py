@@ -1,6 +1,6 @@
-from typing import TYPE_CHECKING, Optional, Dict, Any
+from typing import TYPE_CHECKING, Optional, List
 from src.models.character import Character
-from src.config import RULES
+from src.config.rule_manager import get_rules
 from src.models.enums import EventType
 
 if TYPE_CHECKING:
@@ -11,11 +11,12 @@ if TYPE_CHECKING:
 class CombatActionHandler:
     """
     Controller für Kampfaktionen wie Schaden, Heilung, Status und Initiative.
+    Unterstützt jetzt Mehrfachauswahl.
     """
     def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', view_provider):
         self.engine = engine
         self.history_manager = history_manager
-        self._view_provider = view_provider # Lambda oder Funktion, um View zu holen (da View erst später initiiert wird)
+        self._view_provider = view_provider
 
     @property
     def view(self) -> 'ICombatView':
@@ -41,30 +42,27 @@ class CombatActionHandler:
         self.engine.next_turn()
 
     def deal_damage(self) -> None:
-        """Liest Schaden direkt aus dem UI-Panel und wendet ihn an."""
-        char = self._get_selected_char()
-        if not char: return
+        """Liest Schaden aus dem UI-Panel und wendet ihn auf alle ausgewählten Charaktere an."""
+        chars = self._get_selected_chars()
+        if not chars: return
 
-        # Daten direkt aus dem ActionPanel holen
         damage_amount, damage_details = self.view.get_damage_data()
         
         if damage_amount <= 0:
             self.view.show_info("Info", "Bitte einen Schadenswert > 0 eingeben.")
             return
 
-        # Wir nehmen den ersten Typ aus dem Detail-String oder "Normal" als Fallback für die Logik
-        first_part = damage_details.split(",")[0].strip() # "10 Feuer"
+        first_part = damage_details.split(",")[0].strip()
         parts = first_part.split(" ", 1)
         main_type = parts[1] if len(parts) > 1 else "Normal"
 
-        # Ermittle max_rank basierend auf dem sekundären Effekt des Haupt-Schadens
+        rules = get_rules()
         max_rank = 6
-        if main_type in RULES.get("damage_types", {}):
-            sec_effect = RULES["damage_types"][main_type].get("secondary_effect")
-            if sec_effect and sec_effect in RULES.get("status_effects", {}):
-                max_rank = RULES["status_effects"][sec_effect].get("max_rank", 6)
+        if main_type in rules.get("damage_types", {}):
+            sec_effect = rules["damage_types"][main_type].get("secondary_effect")
+            if sec_effect and sec_effect in rules.get("status_effects", {}):
+                max_rank = rules["status_effects"][sec_effect].get("max_rank", 6)
 
-        # Status Rank aus dem UI holen (falls dort noch gesetzt) oder Default 1
         status_input = self.view.get_status_input()
         try:
             rank = int(status_input["rank"])
@@ -74,17 +72,19 @@ class CombatActionHandler:
 
         self.history_manager.save_snapshot()
         
-        # Schaden anwenden
-        self.engine.apply_damage(char, damage_amount, main_type, rank)
+        for char in chars:
+            self.engine.apply_damage(char, damage_amount, main_type, rank)
         
-        # Details loggen, falls es mehr als eine Komponente gab oder der String informativ ist
         if "," in damage_details:
             self.engine.log(f"Details: {damage_details}")
+        
+        if len(chars) > 1:
+            self.engine.log(f"Schaden auf {len(chars)} Ziele angewendet.")
 
     def add_status_to_character(self) -> None:
-        """Fügt dem ausgewählten Charakter einen Status hinzu."""
-        char = self._get_selected_char()
-        if not char: return
+        """Fügt allen ausgewählten Charakteren einen Status hinzu."""
+        chars = self._get_selected_chars()
+        if not chars: return
 
         status_input = self.view.get_status_input()
         status = status_input["status"]
@@ -95,9 +95,10 @@ class CombatActionHandler:
             self.view.show_warning("Fehler", "Bitte einen Status eingeben oder auswählen.")
             return
 
+        rules = get_rules()
         max_rank = 6
-        if status in RULES.get("status_effects", {}):
-             max_rank = RULES["status_effects"][status].get("max_rank", 6)
+        if status in rules.get("status_effects", {}):
+             max_rank = rules["status_effects"][status].get("max_rank", 6)
 
         try:
             duration = int(duration_str)
@@ -112,12 +113,16 @@ class CombatActionHandler:
             return
 
         self.history_manager.save_snapshot()
-        self.engine.add_status_effect(char, status, duration, rank)
+        for char in chars:
+            self.engine.add_status_effect(char, status, duration, rank)
+            
+        if len(chars) > 1:
+            self.engine.log(f"Status '{status}' auf {len(chars)} Ziele angewendet.")
 
     def apply_healing(self) -> None:
-        """Wendet Heilung auf den ausgewählten Charakter an."""
-        char = self._get_selected_char()
-        if not char: return
+        """Wendet Heilung auf alle ausgewählten Charaktere an."""
+        chars = self._get_selected_chars()
+        if not chars: return
 
         val = self.view.get_action_value()
         if val <= 0:
@@ -125,30 +130,35 @@ class CombatActionHandler:
             return
 
         self.history_manager.save_snapshot()
-        self.engine.apply_healing(char, val)
+        for char in chars:
+            self.engine.apply_healing(char, val)
 
     def apply_shield(self) -> None:
-        """Erhöht den Schildwert des ausgewählten Charakters."""
-        char = self._get_selected_char()
-        if not char: return
+        """Erhöht den Schildwert aller ausgewählten Charaktere."""
+        chars = self._get_selected_chars()
+        if not chars: return
         val = self.view.get_action_value()
         if val > 0:
             self.history_manager.save_snapshot()
-            self.engine.apply_shield(char, val)
+            for char in chars:
+                self.engine.apply_shield(char, val)
 
     def apply_armor(self) -> None:
-        """Erhöht den Rüstungswert des ausgewählten Charakters."""
-        char = self._get_selected_char()
-        if not char: return
+        """Erhöht den Rüstungswert aller ausgewählten Charaktere."""
+        chars = self._get_selected_chars()
+        if not chars: return
         val = self.view.get_action_value()
         if val > 0:
             self.history_manager.save_snapshot()
-            self.engine.apply_armor(char, val)
+            for char in chars:
+                self.engine.apply_armor(char, val)
 
-    def _get_selected_char(self) -> Optional[Character]:
-        """Hilfsmethode: Holt den ausgewählten Charakter über die View."""
-        char_id = self.view.get_selected_char_id()
-        if not char_id:
+    def _get_selected_chars(self) -> List[Character]:
+        """Hilfsmethode: Holt alle ausgewählten Charaktere über die View."""
+        char_ids = self.view.get_selected_char_ids() # Beachte das 's' am Ende
+        if not char_ids:
             self.view.show_error("Fehler", "Kein Charakter ausgewählt.")
-            return None
-        return self.engine.get_character_by_id(char_id)
+            return []
+        
+        chars = [self.engine.get_character_by_id(cid) for cid in char_ids]
+        return [c for c in chars if c is not None]

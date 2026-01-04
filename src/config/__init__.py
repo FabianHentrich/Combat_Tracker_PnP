@@ -4,7 +4,8 @@ import platform
 from typing import Dict, Tuple, Any
 from src.utils.logger import setup_logging
 from src.models.enums import DamageType, StatusEffectType
-from .defaults import THEMES, DEFAULT_RULES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS, LIBRARY_TABS
+from .defaults import THEMES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS, LIBRARY_TABS
+from .rule_manager import get_rules
 
 logger = setup_logging()
 
@@ -69,35 +70,11 @@ WINDOW_SIZE = {
     "small_dialog": "300x120"
 }
 
-def load_rules(filepath: str = FILES["rules"]) -> Tuple[Dict[str, Any], Dict[str, str], Dict[str, str]]:
-    # Helper to extract descriptions
-    def extract_descriptions(rules_data: Dict[str, Any]) -> Tuple[Dict[str, str], Dict[str, str]]:
-        dmg_desc = {k: v.get("description", "") for k, v in rules_data.get("damage_types", {}).items()}
-        status_desc = {k: v.get("description", "") for k, v in rules_data.get("status_effects", {}).items()}
-        return dmg_desc, status_desc
-
-    default_damage_desc, default_status_desc = extract_descriptions(DEFAULT_RULES)
-
-    if not os.path.exists(filepath):
-        return DEFAULT_RULES, default_damage_desc, default_status_desc
-
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-
-            # Check if new structure
-            if "damage_types" in data and "status_effects" in data:
-                dmg_desc, status_desc = extract_descriptions(data)
-                logger.info(f"Regelwerk erfolgreich geladen: {filepath}")
-                return data, dmg_desc, status_desc
-            else:
-                # Old structure fallback (unlikely to be used if we control the file, but safe)
-                logger.info(f"Altes Regelwerk-Format geladen: {filepath}")
-                return DEFAULT_RULES, data.get("damage_descriptions", default_damage_desc), data.get("status_descriptions", default_status_desc)
-
-    except Exception as e:
-        logger.error(f"Fehler beim Laden der Regeln: {e}")
-        return DEFAULT_RULES, default_damage_desc, default_status_desc
+def load_descriptions_from_rules(rules_data: Dict[str, Any]) -> Tuple[Dict[str, str], Dict[str, str]]:
+    """Extrahiert Beschreibungen aus den Regeldaten."""
+    dmg_desc = {k: v.get("description", "") for k, v in rules_data.get("damage_types", {}).items()}
+    status_desc = {k: v.get("description", "") for k, v in rules_data.get("status_effects", {}).items()}
+    return dmg_desc, status_desc
 
 def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
     if not os.path.exists(filepath):
@@ -121,9 +98,10 @@ def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
         logger.error(f"Fehler beim Laden der Hotkeys: {e}")
         return DEFAULT_HOTKEYS
 
-RULES, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS = load_rules()
+# Lade die Regeln und extrahiere die Beschreibungen
+RULES = get_rules()
+DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS = load_descriptions_from_rules(RULES)
 HOTKEYS = load_hotkeys()
 
 # --- HISTORY ---
 MAX_HISTORY = 20
-
