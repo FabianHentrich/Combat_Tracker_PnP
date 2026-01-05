@@ -18,7 +18,7 @@ $$
 \left\lfloor \frac{3 + 3 + 5}{3} \right\rfloor = \left\lfloor \frac{11}{3} \right\rfloor = 3
 $$
 
-â†’ Der Spieler fÃ¼hrt den Wurf mit **RANG 3 = W8** durch.
+Der Spieler fÃ¼hrt den Wurf mit **RANG 3 = W8** durch.
 
 
 

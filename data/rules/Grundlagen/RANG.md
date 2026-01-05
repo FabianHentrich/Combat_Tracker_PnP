@@ -7,28 +7,28 @@ Der **RANG** (auch FÃ¤higkeitsrang) gibt an, wie gut ein Charakter  bestimmte 
 ## RANG-Tabelle
 
 | **Rang** | **WÃ¼rfel** | **Chance auf Erfolg** | **Bedeutung**                        |
-| -------- | ---------- | --------------------- | ------------------------------------ |
-| 1        | W4         | 25â€¯%                  | AnfÃ¤nger                             |
+| -------- | ---------- | --------------------- |--------------------------------------|
+| 1        | W4         | 25â€¯%                  | Anfänger                             |
 | 2        | W6         | 50â€¯%                  | Normal                               |
 | 3        | W8         | 62,5â€¯%                | Beruf                                |
 | 4        | W10        | 70â€¯%                  | Elite                                |
 | 5        | W12        | 75â€¯%                  | Meisterhaft                          |
-| 6        | W20        | 80â€¯%                  | LegendÃ¤r (siehe [[LegendÃ¤rer RANG]]) |
+| 6        | W20        | 80â€¯%                  | Legendär (siehe [[Legendärer RANG]]) |
 
-> **Hinweis:** Die Erfolgswahrscheinlichkeit bezieht sich auf die Grundchance, eine `4` oder hÃ¶her zu wÃ¼rfeln. Durch [[Ass-Mechanik]], Modifikatoren und Synergien kann sie deutlich steigen.
+> **Hinweis:** Die Erfolgswahrscheinlichkeit bezieht sich auf die Grundchance, eine `4` oder höher zu würfeln. Durch [[Ass-Mechanik]], Modifikatoren und Synergien kann sie deutlich steigen.
 
- RANG 6 gilt als [[LegendÃ¤rer RANG]] und ist nur unter besonderen UmstÃ¤nden erreichbar.
+ RANG 6 gilt als [[Legendärer RANG]] und ist nur unter besonderen Umständen erreichbar.
 
 ### Bedeutung des RANGs:
 
-- **WÃ¼rfelgrÃ¶ÃŸe:** Der RANG legt fest, mit welchem WÃ¼rfeltyp gewÃ¼rfelt wird.
-- **Effekte:** Viele Zauber und Skills skalieren mit dem RANG (z.â€¯B. zusÃ¤tzlicher Schaden, Reichweite, Wirkungsdauer).
-- **Kosten:** Manche FÃ¤higkeiten haben Kosten, die vom RANG abhÃ¤ngen (z.â€¯B. 5 â€“ RANG [[Manapunkte (MP)]] oder [[Aktionspunkte (AP)]]).
-- **KombinationswÃ¼rfe:** Bei komplexen Proben kann ein RANG aus mehreren Talenten berechnet werden.
+- **Würfelgröße:** Der RANG legt fest, mit welchem WÃ¼rfeltyp gewÃ¼rfelt wird.
+- **Effekte:** Viele Zauber und Skills skalieren mit dem RANG (z.B. zusätzlicher Schaden, Reichweite, Wirkungsdauer).
+- **Kosten:** Manche FÃ¤higkeiten haben Kosten, die vom RANG abhÃ¤ngen (z.B. `5 + RANG [[Manapunkte (MP)]] oder [[Aktionspunkte (AP)]]`).
+- **Kombinationswürfe:** Bei komplexen Proben kann ein RANG aus mehreren Talenten berechnet werden.
 
 ### Beispiel:
 
-Ein Charakter mit **[[KAMPF]] Rang 3** wÃ¼rfelt bei einem Angriff mit einem **W8**.  
-Ein [[Zauber]] mit Effekt "verursacht `RANG x 2` Schaden" wÃ¼rde bei Rang 3 also `6` [[Schaden]] verursachen.
+Ein Charakter mit **[[KAMPF]] Rang 3** würfelt bei einem Angriff mit einem **W8**.  
+Ein [[Zauber]] mit Effekt "verursacht `RANG x 2` Schaden" würde bei Rang 3 also `6` [[Schaden]] verursachen.
 
 
