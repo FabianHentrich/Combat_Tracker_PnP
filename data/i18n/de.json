@@ -1,0 +1,305 @@
+{
+  "app": {
+    "title": "PnP Combat Tracker"
+  },
+  "character_attributes": {
+    "name": "Name",
+    "lp": "LP",
+    "rp": "RP",
+    "sp": "SP",
+    "init": "INIT",
+    "gew": "GEW",
+    "level": "Level",
+    "type": "Typ",
+    "status": "Status"
+  },
+  "character_types": {
+    "PLAYER": "Spieler",
+    "ENEMY": "Gegner",
+    "NPC": "NPC"
+  },
+  "damage_types": {
+    "NORMAL": "Normal",
+    "PIERCING": "Durchschlagend",
+    "DIRECT": "Direkt",
+    "DECAY": "Verwesung",
+    "POISON": "Gift",
+    "FIRE": "Feuer",
+    "LIGHTNING": "Blitz",
+    "COLD": "Kälte"
+  },
+  "status_effects": {
+    "POISON": "Vergiftung",
+    "BURN": "Verbrennung",
+    "BLEED": "Blutung",
+    "FREEZE": "Unterkühlung",
+    "EXHAUSTION": "Erschöpfung",
+    "STUN": "Betäubung",
+    "EROSION": "Erosion",
+    "CONFUSION": "Verwirrung",
+    "BLIND": "Blendung"
+  },
+  "main_view": {
+    "round": "Runde",
+    "add_character": "Charakter hinzufügen",
+    "open_library": "📚 Bibliothek öffnen...",
+    "excel_import": "Excel-Import"
+  },
+  "quick_add": {
+    "act_immediately": "Sofort handeln"
+  },
+  "action_panel": {
+    "title": "Interaktion",
+    "damage_healing_label": "Schaden / Heilung:",
+    "total": "Gesamt",
+    "deal_damage_btn": "⚔️ Schaden",
+    "heal_btn": "💚 Heilen",
+    "add_shield_btn": "🛡️ Schild +",
+    "add_armor_btn": "👕 Rüstung +",
+    "status_effect_label": "Status-Effekt:",
+    "rank": "Rang",
+    "duration": "Dauer",
+    "add_status_btn": "Status hinzufügen",
+    "management_label": "Verwaltung:"
+  },
+  "management_targets": {
+    "selected": "Ausgewählter Charakter",
+    "all_enemies": "Alle Gegner",
+    "all_players": "Alle Spieler",
+    "all_npcs": "Alle NPCs",
+    "all_characters": "Alle Charaktere"
+  },
+  "bottom_panel": {
+    "roll_initiative_btn": "🎲 Initiative würfeln & sortieren",
+    "next_turn_btn": "⏭ Nächster Zug",
+    "reset_initiative_btn": "🔄 Init Reset",
+    "reset_options": {
+      "all": "Alle",
+      "enemies": "Nur Gegner",
+      "players": "Nur Spieler",
+      "npcs": "Nur NPCs"
+    },
+    "undo_btn": "↩ Undo",
+    "redo_btn": "↪ Redo",
+    "combat_log_label": "Kampfprotokoll"
+  },
+  "dice_roller": {
+    "title": "Würfel-Simulator",
+    "ready": "Bereit",
+    "rolling": "Würfle W{sides}...",
+    "result_exploded": "W{sides}: {roll_str} = {total} (Explodiert!)",
+    "result_normal": "W{sides}: {roll_str}"
+  },
+  "character_list": {
+    "order": "#",
+    "lp_bar": "LP (Balken)",
+    "status": "Status"
+  },
+  "menu": {
+    "file": "Datei",
+    "exit": "Beenden",
+    "save_combat": "Kampf speichern...",
+    "load_combat": "Kampf laden...",
+    "open_library": "Bibliothek öffnen",
+    "import_excel": "Gegner importieren (Excel)...",
+    "settings": "Einstellungen...",
+    "music_settings": "Musik-Einstellungen...",
+    "theme": "Theme",
+    "language": "Sprache"
+  },
+  "dialog": {
+    "confirm": {
+      "title": "Bestätigung"
+    },
+    "error": {
+      "title": "Fehler"
+    },
+    "info": {
+      "title": "Info"
+    },
+    "add_damage": {
+      "title": "Schaden hinzufügen",
+      "add_type": "+ Typ hinzufügen"
+    },
+    "edit_character": {
+      "title": "Bearbeiten",
+      "current": "Aktuell",
+      "max": "Max",
+      "status_label": "Status (Effekt | Rang | Dauer)"
+    },
+    "hotkey_settings": {
+      "title": "Tastaturkürzel Einstellungen",
+      "instruction": "Klicke auf einen Button und drücke eine Taste",
+      "press_key": "Taste drücken..."
+    },
+    "import_preview": {
+      "title": "Import-Vorschau & Auswahl",
+      "header": "Auswählen und anpassen",
+      "count": "Anzahl",
+      "next_btn": "Weiter zur Detail-Anpassung"
+    },
+    "import_detail": {
+      "title": "Import - Detail-Anpassung",
+      "header": "Details anpassen",
+      "subheader": "Hier können einzelne Charaktere final bearbeitet werden.",
+      "import_all_btn": "Alle importieren"
+    },
+    "file": {
+      "json": "JSON-Dateien",
+      "all": "Alle Dateien",
+      "excel": "Excel-Dateien",
+      "audio": "Audio-Dateien",
+      "save_combat_title": "Kampf speichern",
+      "load_combat_title": "Kampf laden",
+      "load_enemy_data_title": "Gegnerdaten laden",
+      "select_folder_title": "Ordner auswählen"
+    }
+  },
+  "hotkeys": {
+    "next_turn": "Nächster Zug",
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "delete_char": "Charakter löschen",
+    "focus_damage": "Fokus auf Schaden",
+    "audio_play_pause": "Musik: Play/Pause",
+    "audio_next": "Musik: Nächster Titel",
+    "audio_prev": "Musik: Vorheriger Titel",
+    "audio_vol_up": "Musik: Lauter",
+    "audio_vol_down": "Musik: Leiser",
+    "audio_mute": "Musik: Stumm"
+  },
+  "library": {
+    "title": "Bibliothek & Regelwerk",
+    "global_search": "🔍 Globale Suche:",
+    "enemies_tab": "Gegner (Import)",
+    "available_enemies": "Verfügbare Gegner",
+    "category_header": "Kategorie / Name",
+    "add_btn": "Hinzufügen ->",
+    "staging_area": "Ausgewählte Gegner (Anzahl & Werte anpassen)",
+    "act_immediately": "Sofort handeln",
+    "add_all_to_combat": "Alle zum Kampf hinzufügen",
+    "select_folder": "Ordner auswählen..."
+  },
+  "audio_player": {
+    "title": "Musik-Player",
+    "no_track": "Kein Titel",
+    "loop_track": "Titel wiederholen",
+    "loop_all": "Playlist wiederholen"
+  },
+  "audio_settings": {
+    "title": "Musikplayer-Einstellungen",
+    "add_file": "Datei hinzufügen...",
+    "add_folder": "Ordner hinzufügen...",
+    "add_file_tooltip": "Einzelne Audio-Dateien (mp3, wav, ogg) zur Playlist hinzufügen.",
+    "add_folder_tooltip": "Alle Audio-Dateien aus einem Ordner (und Unterordnern) hinzufügen.",
+    "open_tta_tooltip": "Öffnet tabletopaudio.com im Browser für hochwertige Ambience-Sounds.",
+    "playlist_label": "Playlist (Drag & Drop zum Sortieren)"
+  },
+  "markdown": {
+    "contents_of": "Inhalt von",
+    "folders": "Ordner",
+    "files": "Dateien"
+  },
+  "messages": {
+    "no_info": "Keine Info",
+    "no_enemies_selected": "Keine Gegner ausgewählt.",
+    "use_valid_numbers": "Bitte gültige Zahlenwerte verwenden.",
+    "name_not_empty": "Name darf nicht leer sein.",
+    "invalid_input": "Ungültige Eingabe",
+    "hotkeys_saved": "Tastaturkürzel gespeichert und angewendet!",
+    "save_failed": "Speichern fehlgeschlagen",
+    "enter_damage_value": "Bitte einen Schadenswert > 0 eingeben.",
+    "enter_or_select_status": "Bitte einen Status eingeben oder auswählen.",
+    "max_rank_adjusted": "Maximaler Rang für '{status}' ist {max_rank}. Rang wurde angepasst.",
+    "enter_valid_numbers_duration_rank": "Bitte gültige Zahlen für Dauer und Rang eingeben.",
+    "enter_healing_value": "Bitte einen Heilungswert > 0 im 'Wert'-Feld eingeben.",
+    "no_character_selected": "Kein Charakter ausgewählt.",
+    "select_character_first": "Zuerst einen Charakter auswählen.",
+    "character_not_found": "Charakter nicht gefunden (Interner Fehler).",
+    "bulk_editing_not_available": "Massenbearbeitung ist derzeit nicht verfügbar.",
+    "really_delete_all_characters": "Wirklich ALLE Charaktere löschen?",
+    "really_delete_all": "Wirklich alle {char_type} löschen?",
+    "excel_missing_columns": "Excel-Datei fehlen Spalten",
+    "error_loading_file": "Fehler beim Laden der Datei",
+    "error_during_import": "Fehler während des Imports",
+    "error_reading_folder": "Fehler beim Lesen des Ordners.",
+    "error_executing_listener": "Fehler beim Ausführen des Listeners für {event_type}: {error}",
+    "agility_set_to_max": "Beweglichkeit wurde auf das Maximum von {max_gew} gesetzt.",
+    "unknown_error": "Unbekannter Fehler",
+    "audio_disabled": "Das Audiosystem konnte nicht initialisiert werden.",
+    "reason": "Grund",
+    "audio_functions_disabled": "Audiofunktionen sind deaktiviert.",
+    "crash_detected": "Das Programm wurde nicht ordnungsgemäß beendet. Letzten Autosave laden?",
+    "theme_changed": "Theme geändert zu: {theme_name}",
+    "combat_saved": "Kampf gespeichert: {file_path}",
+    "combat_loaded": "Kampf geladen.",
+    "autosave_loaded": "Autosave geladen.",
+    "characters_imported": "{count} Charaktere erfolgreich importiert.",
+    "characters_added_from_library": "{count} Charaktere aus Bibliothek hinzugefügt.",
+    "character_added_to_combat": "{name} wurde dem Kampf hinzugefügt.",
+    "combat_reset": "Kampf zurückgesetzt.",
+    "combat_status_loaded": "Kampfstatus geladen.",
+    "character_receives_shield": "{name} erhält {amount} Schild.",
+    "character_receives_armor": "{name} erhält {amount} Rüstung.",
+    "character_receives_status": "{name} erhält Status '{effect_name}' (Rang {rank}) für {duration} Runden.",
+    "character_edited": "✏ Charakter '{name}' wurde bearbeitet.",
+    "damage_applied_to_targets": "Schaden auf {count} Ziele angewendet.",
+    "status_applied_to_targets": "Status '{status}' auf {count} Ziele angewendet.",
+    "undo_executed": "↩ Rückgängig ausgeführt.",
+    "redo_executed": "↪ Wiederholen ausgeführt.",
+    "character_healed": "{name} wird um {amount} LP geheilt! Aktuelle LP: {lp}",
+    "initiative_sorted": "Initiative sortiert.",
+    "all_initiatives_rerolled": "Alle Initiativen neu gewürfelt.",
+    "initiative_rolled": "Initiative gewürfelt! Reihenfolge erstellt.",
+    "round_begins": "--- Runde {round_number} beginnt ---",
+    "initiative_reset": "Initiative von {type_text} wurde zurückgesetzt ({count} betroffen).",
+    "character_skips_turn": "{name} setzt aus.",
+    "is_incapacitated": "ist kampfunfähig.",
+    "is_on_turn": " ist am Zug!",
+    "character_added": "{name} wurde hinzugefügt.",
+    "character_jumps_in": "⚠ {name} springt überraschend in den Kampf!",
+    "character_sorted_in": "{name} wurde einsortiert.",
+    "character_removed": "{name} wurde entfernt.",
+    "all_characters_of_type_deleted": "Alle {type} wurden gelöscht.",
+    "all_characters_deleted": "Alle Charaktere wurden gelöscht.",
+    "damage": {
+      "receives_damage": "{name} erleidet {damage} Schaden!",
+      "receives_typed_damage": "{name} erleidet {damage} ({type}) Schaden!",
+      "ignores_both": "{type}-Schaden ignoriert Schild und Rüstung.",
+      "ignores_armor": "{type}-Schaden ignoriert Rüstung.",
+      "ignores_shield": "{type}-Schaden ignoriert Schild.",
+      "secondary_effect_chance": "Chance auf {effect} (Rang {rank})!",
+      "absorbed_by_shield": "{amount} Schaden vom Schild absorbiert.",
+      "absorbed_by_armor": "{amount} Schaden durch Rüstung abgefangen ({loss} RP verloren).",
+      "final_damage": "{amount} Schaden auf Lebenspunkte!",
+      "is_down": "{name} ist kampfunfähig!"
+    },
+    "status": {
+      "poison": "(Vergiftung Rang {rank}, Runde {round})",
+      "burn": "(Verbrennung Rang {rank}, Runde {round})",
+      "bleed": "(Blutung Rang {rank}, Runde {round})",
+      "erosion": "(Erosion Rang {rank} - {dmg} Max LP dauerhaft verloren)",
+      "freeze": "ℹ️ {name} verliert Bonusaktion (Unterkühlung Rang {rank}).\n",
+      "stun": "🛑 {name} ist betäubt und verliert alle Aktionen!\n",
+      "exhaustion": "ℹ️ {name} hat -2 Malus auf GEWANDTHEIT (Erschöpfung).\n",
+      "confusion": "ℹ️ {name} hat -1 Malus auf KAMPF-Probe (Verwirrung).\n",
+      "blind_rank1": "ℹ️ {name} ist geblendet: -1 auf Angriffsprobe (Rang 1).\n",
+      "blind_rank2": "ℹ️ {name} ist geblendet: -2 auf Angriffsprobe (Rang 2).\n",
+      "blind_rank3": "ℹ️ {name} ist geblendet: -2 auf alle Aktionen (Rang 3).\n",
+      "blind_rank4": "ℹ️ {name} ist geblendet: -2 auf alle Aktionen (Rang 4).\n",
+      "blind_rank5": "ℹ️ {name} ist geblendet: -3 auf alle Aktionen (Rang 5).\n",
+      "blind_generic": "ℹ️ {name} ist geblendet (Rang {rank}).\n"
+    }
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
+    "bar": "Balken",
+    "details": "Details",
+    "rounds": "Rdn."
+  }
+}

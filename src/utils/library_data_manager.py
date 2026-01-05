@@ -9,8 +9,8 @@ logger = setup_logging()
 
 class LibraryDataManager:
     """
-    Verwaltet den Zugriff auf die Markdown-Bibliothek (Regeln, Items, etc.).
-    Scannt Verzeichnisse und ermöglicht die Suche nach Dateien.
+    Manages access to the Markdown library (rules, items, etc.).
+    Scans directories and allows searching for files.
     """
     _instance = None
 
@@ -46,7 +46,7 @@ class LibraryDataManager:
         return self.dirs.get(category)
 
     def get_files_in_category(self, category: str) -> List[str]:
-        """Gibt alle Markdown-Dateien in einer Kategorie zurück."""
+        """Returns all Markdown files in a category."""
         if category in self._file_cache:
             return self._file_cache[category]
 
@@ -60,44 +60,44 @@ class LibraryDataManager:
         return files
 
     def refresh_cache(self):
-        """Leert den Cache, damit beim nächsten Zugriff neu gescannt wird."""
+        """Clears the cache, so the next access will re-scan."""
         self._file_cache.clear()
 
     def search_file(self, name: str) -> Optional[Tuple[str, str]]:
         """
-        Sucht nach einer Datei in allen Kategorien.
-        Gibt (Kategorie, Dateipfad) zurück oder None.
+        Searches for a file in all categories.
+        Returns (category, filepath) or None.
         """
-        # Falls der Name einen Pfad enthält (z.B. "Ordner/Datei"), nur den Dateinamen nehmen
+        # If the name contains a path (e.g., "Folder/File"), only take the filename
         if "/" in name:
             name = name.split("/")[-1]
         if "\\" in name:
             name = name.split("\\")[-1]
 
-        # 1. Versuch: Exakte Suche
+        # 1. Attempt: Exact search
         result = self._perform_search(name)
         if result: return result
 
-        # 2. Versuch: Ohne Suffix in Klammern (z.B. "Bandit (Boss)" -> "Bandit")
+        # 2. Attempt: Without suffix in parentheses (e.g., "Bandit (Boss)" -> "Bandit")
         clean_name = re.sub(r'\s*\([^)]+\)\s*$', '', name).strip()
         if clean_name and clean_name != name:
             result = self._perform_search(clean_name)
             if result: return result
 
-        # 3. Versuch: Teilstring-Suche (Fallback)
+        # 3. Attempt: Substring search (fallback)
         if clean_name and clean_name != name:
              result = self._perform_search_partial(clean_name)
              if result: return result
 
-        # 4. Versuch: Teilstring-Suche mit Originalnamen
+        # 4. Attempt: Substring search with original name
         result = self._perform_search_partial(name)
         if result: return result
 
-        # 5. Versuch: Inhaltssuche (Falls der Name in einer Datei vorkommt)
+        # 5. Attempt: Content search (if the name appears in a file)
         result = self._perform_content_search(name)
         if result: return result
 
-        # 6. Versuch: Inhaltssuche mit bereinigtem Namen (ohne Suffix)
+        # 6. Attempt: Content search with cleaned name (without suffix)
         if clean_name and clean_name != name:
             result = self._perform_content_search(clean_name)
             if result: return result
@@ -105,7 +105,7 @@ class LibraryDataManager:
         return None
 
     def _perform_search(self, name: str) -> Optional[Tuple[str, str]]:
-        """Sucht nach exaktem Dateinamen (ohne Extension)."""
+        """Searches for exact filename (without extension)."""
         name_lower = name.lower()
         for category, root_dir in self.dirs.items():
             files = self.get_files_in_category(category)
@@ -117,7 +117,7 @@ class LibraryDataManager:
         return None
 
     def _perform_search_partial(self, name: str) -> Optional[Tuple[str, str]]:
-        """Sucht nach Teilstring im Dateinamen."""
+        """Searches for substring in filename."""
         name_lower = name.lower()
         for category, root_dir in self.dirs.items():
             files = self.get_files_in_category(category)
@@ -130,8 +130,8 @@ class LibraryDataManager:
 
     def _perform_content_search(self, name: str) -> Optional[Tuple[str, str]]:
         """
-        Sucht nach dem Vorkommen eines Namens in den Inhalten der Dateien.
-        Gibt die erste gefundene Datei zurück, die den Namen im Inhalt enthält.
+        Searches for the occurrence of a name in the contents of the files.
+        Returns the first file found that contains the name in its content.
         """
         name_lower = name.lower()
         for category, root_dir in self.dirs.items():
@@ -143,5 +143,5 @@ class LibraryDataManager:
                         if name_lower in content.lower():
                             return category, filepath
                 except Exception as e:
-                    logger.warning(f"Fehler beim Lesen der Datei {filepath}: {e}")
+                    logger.warning(f"Error reading file {filepath}: {e}")
         return None

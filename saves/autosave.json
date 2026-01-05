@@ -3,131 +3,56 @@
     "state": {
         "characters": [
             {
-                "id": "uuid-1",
-                "name": "A",
-                "char_type": "Gegner",
-                "max_lp": 10,
-                "lp": 5,
-                "max_rp": 0,
-                "rp": 0,
-                "max_sp": 0,
-                "sp": 0,
-                "gew": 1,
-                "init": 10,
-                "level": 0,
-                "status": [
-                    {
-                        "effect": "Vergiftung",
-                        "rounds": 3,
-                        "rank": 1,
-                        "active_rounds": 0
-                    }
-                ],
-                "skip_turns": 0
-            },
-            {
-                "id": "9e559e4f-8952-4fe4-8281-c6c69e845696",
-                "name": "Chaoskreatur",
-                "char_type": "Gegner",
-                "max_lp": 15,
-                "lp": 15,
-                "max_rp": 0,
-                "rp": 0,
-                "max_sp": 0,
-                "sp": 0,
-                "gew": 4,
-                "init": 3,
-                "level": 0,
-                "status": [
-                    {
-                        "effect": "Vergiftung",
-                        "rounds": 3,
-                        "rank": 1,
-                        "active_rounds": 0
-                    }
-                ],
-                "skip_turns": 0
-            },
-            {
-                "id": "770cab87-ef53-46a2-ad28-0f7bdcc4a8e7",
-                "name": "Chaoskrieger",
-                "char_type": "Gegner",
-                "max_lp": 30,
-                "lp": 30,
-                "max_rp": 2,
-                "rp": 2,
-                "max_sp": 0,
-                "sp": 0,
-                "gew": 3,
-                "init": 2,
-                "level": 0,
-                "status": [
-                    {
-                        "effect": "Vergiftung",
-                        "rounds": 3,
-                        "rank": 1,
-                        "active_rounds": 0
-                    }
-                ],
-                "skip_turns": 0
-            },
-            {
-                "id": "382fe1f1-d660-4a90-9a8b-2732309348ac",
-                "name": "Chaosbestie (Mini-Boss)",
-                "char_type": "Gegner",
+                "id": "95f768cf-33fc-47fe-b5d8-73a04a5da622",
+                "name": "Silithar",
+                "char_type": "PLAYER",
                 "max_lp": 40,
-                "lp": 40,
-                "max_rp": 3,
-                "rp": 3,
+                "lp": 0,
+                "max_rp": 15,
+                "rp": 20,
                 "max_sp": 0,
-                "sp": 0,
-                "gew": 2,
-                "init": 2,
-                "level": 0,
-                "status": [
-                    {
-                        "effect": "Vergiftung",
-                        "rounds": 3,
-                        "rank": 1,
-                        "active_rounds": 0
-                    }
-                ],
-                "skip_turns": 0
-            },
-            {
-                "id": "1c69754b-ae93-4380-a1cc-f537eff19b4d",
-                "name": "Grabeswolf",
-                "char_type": "Gegner",
-                "max_lp": 22,
-                "lp": 22,
-                "max_rp": 0,
-                "rp": 0,
-                "max_sp": 4,
-                "sp": 4,
+                "sp": 10,
                 "gew": 5,
-                "init": 9,
-                "level": 0,
+                "init": 3,
+                "level": 5,
                 "status": [
                     {
-                        "effect": "Vergiftung",
-                        "rounds": 3,
-                        "rank": 1,
-                        "active_rounds": 0
+                        "effect": "POISON",
+                        "rounds": 3332,
+                        "rank": 5,
+                        "active_rounds": 10
                     }
                 ],
                 "skip_turns": 0
             }
         ],
-        "turn_index": -1,
-        "round_number": 1,
+        "turn_index": 0,
+        "round_number": 12,
         "audio": {
-            "playlist": [],
-            "current_index": -1,
-            "volume": 0.5,
+            "playlist": [
+                {
+                    "title": "492_Maturation_Chamber.mp3",
+                    "path": "C:/Users/iQ_3_/OneDrive/GitHub/Combat_Tracker_PnP/music/492_Maturation_Chamber.mp3",
+                    "type": "file",
+                    "duration": 600.0
+                },
+                {
+                    "title": "492_Maturation_Chamber.mp3",
+                    "path": "C:/Users/iQ_3_/OneDrive/GitHub/Combat_Tracker_PnP/music\\492_Maturation_Chamber.mp3",
+                    "type": "file"
+                },
+                {
+                    "title": "483_Ice_Harvester_Station.mp3",
+                    "path": "C:/Users/iQ_3_/OneDrive/GitHub/Combat_Tracker_PnP/music\\483_Ice_Harvester_Station.mp3",
+                    "type": "file"
+                }
+            ],
+            "current_index": 0,
+            "volume": 0.43478260869565216,
             "loop_single": false,
-            "loop_playlist": false,
+            "loop_playlist": true,
             "loop_count_target": 1,
-            "playback_position": 0.0
+            "playback_position": 25.24
         }
     }
 }

@@ -1,7 +1,8 @@
-from typing import TYPE_CHECKING, Optional, List
+from typing import TYPE_CHECKING, List
 from src.models.character import Character
 from src.config.rule_manager import get_rules
-from src.models.enums import EventType
+from src.models.enums import EventType, ScopeType, RuleKey
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
@@ -10,46 +11,41 @@ if TYPE_CHECKING:
 
 class CombatActionHandler:
     """
-    Controller für Kampfaktionen wie Schaden, Heilung, Status und Initiative.
-    Unterstützt jetzt Mehrfachauswahl.
+    Controller for combat actions like damage, healing, status, and initiative.
     """
-    def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', view_provider):
-        self.engine = engine
-        self.history_manager = history_manager
-        self._view_provider = view_provider
-
-    @property
-    def view(self) -> 'ICombatView':
-        return self._view_provider()
+    def __init__(self, engine: 'CombatEngine', history_manager: 'HistoryManager', view: 'ICombatView'):
+        self.engine: 'CombatEngine' = engine
+        self.history_manager: 'HistoryManager' = history_manager
+        self.view = view
 
     def roll_initiative_all(self) -> None:
-        """Sortiert Charaktere basierend auf Initiative. Würfelt für die mit 0."""
+        """Sorts characters based on initiative, rolling for those with 0."""
         self.history_manager.save_snapshot()
         self.engine.roll_initiatives()
 
         if self.engine.characters:
             char = self.engine.characters[0]
-            self.engine.notify(EventType.LOG, f"▶ {char.name} ist am Zug!")
+            self.engine.notify(EventType.LOG, f"▶ {char.name}'s turn!")
 
-    def reset_initiative(self, target_type: str = "All") -> None:
-        """Setzt die Initiative zurück."""
+    def reset_initiative(self, target_type: str = ScopeType.ALL.value) -> None:
+        """Resets the initiative."""
         self.history_manager.save_snapshot()
         self.engine.reset_initiative(target_type)
 
     def next_turn(self) -> None:
-        """Geht zum nächsten Zug über."""
+        """Proceeds to the next turn."""
         self.history_manager.save_snapshot()
         self.engine.next_turn()
 
     def deal_damage(self) -> None:
-        """Liest Schaden aus dem UI-Panel und wendet ihn auf alle ausgewählten Charaktere an."""
+        """Reads damage from the UI panel and applies it to all selected characters."""
         chars = self._get_selected_chars()
         if not chars: return
 
         damage_amount, damage_details = self.view.get_damage_data()
         
         if damage_amount <= 0:
-            self.view.show_info("Info", "Bitte einen Schadenswert > 0 eingeben.")
+            self.view.show_info(translate("dialog.info.title"), translate("messages.enter_damage_value"))
             return
 
         first_part = damage_details.split(",")[0].strip()
@@ -58,10 +54,10 @@ class CombatActionHandler:
 
         rules = get_rules()
         max_rank = 6
-        if main_type in rules.get("damage_types", {}):
-            sec_effect = rules["damage_types"][main_type].get("secondary_effect")
-            if sec_effect and sec_effect in rules.get("status_effects", {}):
-                max_rank = rules["status_effects"][sec_effect].get("max_rank", 6)
+        if main_type in rules.get(RuleKey.DAMAGE_TYPES, {}):
+            sec_effect = rules[RuleKey.DAMAGE_TYPES][main_type].get(RuleKey.SECONDARY_EFFECT)
+            if sec_effect and sec_effect in rules.get(RuleKey.STATUS_EFFECTS, {}):
+                max_rank = rules[RuleKey.STATUS_EFFECTS][sec_effect].get(RuleKey.MAX_RANK, 6)
 
         status_input = self.view.get_status_input()
         try:
@@ -73,16 +69,16 @@ class CombatActionHandler:
         self.history_manager.save_snapshot()
         
         for char in chars:
-            self.engine.apply_damage(char, damage_amount, main_type, rank)
+            self.engine.apply_damage(char, damage_amount, main_type, rank, damage_details)
         
         if "," in damage_details:
-            self.engine.log(f"Details: {damage_details}")
+            self.engine.log(f"{translate('common.details')}: {damage_details}")
         
         if len(chars) > 1:
-            self.engine.log(f"Schaden auf {len(chars)} Ziele angewendet.")
+            self.engine.log(translate("messages.damage_applied_to_targets", count=len(chars)))
 
     def add_status_to_character(self) -> None:
-        """Fügt allen ausgewählten Charakteren einen Status hinzu."""
+        """Adds a status effect to all selected characters."""
         chars = self._get_selected_chars()
         if not chars: return
 
@@ -92,13 +88,13 @@ class CombatActionHandler:
         rank_str = status_input["rank"]
 
         if not status:
-            self.view.show_warning("Fehler", "Bitte einen Status eingeben oder auswählen.")
+            self.view.show_warning(translate("dialog.error.title"), translate("messages.enter_or_select_status"))
             return
 
         rules = get_rules()
         max_rank = 6
-        if status in rules.get("status_effects", {}):
-             max_rank = rules["status_effects"][status].get("max_rank", 6)
+        if status in rules.get(RuleKey.STATUS_EFFECTS, {}):
+             max_rank = rules[RuleKey.STATUS_EFFECTS][status].get(RuleKey.MAX_RANK, 6)
 
         try:
             duration = int(duration_str)
@@ -107,9 +103,9 @@ class CombatActionHandler:
 
             if rank > max_rank:
                 rank = max_rank
-                self.view.show_info("Info", f"Maximaler Rang für '{status}' ist {max_rank}. Rang wurde angepasst.")
+                self.view.show_info(translate("dialog.info.title"), translate("messages.max_rank_adjusted", status=status, max_rank=max_rank))
         except ValueError:
-            self.view.show_warning("Fehler", "Bitte gültige Zahlen für Dauer und Rang eingeben.")
+            self.view.show_warning(translate("dialog.error.title"), translate("messages.enter_valid_numbers_duration_rank"))
             return
 
         self.history_manager.save_snapshot()
@@ -117,16 +113,16 @@ class CombatActionHandler:
             self.engine.add_status_effect(char, status, duration, rank)
             
         if len(chars) > 1:
-            self.engine.log(f"Status '{status}' auf {len(chars)} Ziele angewendet.")
+            self.engine.log(translate("messages.status_applied_to_targets", status=status, count=len(chars)))
 
     def apply_healing(self) -> None:
-        """Wendet Heilung auf alle ausgewählten Charaktere an."""
+        """Applies healing to all selected characters."""
         chars = self._get_selected_chars()
         if not chars: return
 
         val = self.view.get_action_value()
         if val <= 0:
-            self.view.show_info("Info", "Bitte einen Heilwert > 0 im Feld 'Wert' eingeben.")
+            self.view.show_info(translate("dialog.info.title"), translate("messages.enter_healing_value"))
             return
 
         self.history_manager.save_snapshot()
@@ -134,7 +130,7 @@ class CombatActionHandler:
             self.engine.apply_healing(char, val)
 
     def apply_shield(self) -> None:
-        """Erhöht den Schildwert aller ausgewählten Charaktere."""
+        """Increases the shield value of all selected characters."""
         chars = self._get_selected_chars()
         if not chars: return
         val = self.view.get_action_value()
@@ -144,7 +140,7 @@ class CombatActionHandler:
                 self.engine.apply_shield(char, val)
 
     def apply_armor(self) -> None:
-        """Erhöht den Rüstungswert aller ausgewählten Charaktere."""
+        """Increases the armor value of all selected characters."""
         chars = self._get_selected_chars()
         if not chars: return
         val = self.view.get_action_value()
@@ -154,10 +150,10 @@ class CombatActionHandler:
                 self.engine.apply_armor(char, val)
 
     def _get_selected_chars(self) -> List[Character]:
-        """Hilfsmethode: Holt alle ausgewählten Charaktere über die View."""
-        char_ids = self.view.get_selected_char_ids() # Beachte das 's' am Ende
+        """Helper method: Fetches all selected characters via the view."""
+        char_ids = self.view.get_selected_char_ids()
         if not char_ids:
-            self.view.show_error("Fehler", "Kein Charakter ausgewählt.")
+            self.view.show_error(translate("dialog.error.title"), translate("messages.no_character_selected"))
             return []
         
         chars = [self.engine.get_character_by_id(cid) for cid in char_ids]

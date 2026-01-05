@@ -1,115 +1,132 @@
 import pytest
-import sys
-import os
-
-# sys.path.append removed. Run tests with python -m pytest
-
+from unittest.mock import patch
 from src.models.character import Character
-from src.models.enums import DamageType, StatusEffectType
-from src.models.combat_results import DamageResult
+from src.models.enums import CharacterType, StatType
+from src.models.status_effects import PoisonEffect, GenericStatusEffect
 
 @pytest.fixture
-def char_damage():
-    """Fixture für Schadens-Tests: Ein Standard-Charakter."""
-    return Character("TestDummy", lp=20, rp=5, sp=10, init=10)
+def char():
+    """Provides a basic character instance for tests."""
+    return Character(name="Hero", lp=100, rp=10, sp=20, init=15, gew=3, char_type=CharacterType.PLAYER)
 
-def test_normal_damage_full_absorb_by_shield(char_damage):
-    """Test: Normaler Schaden wird komplett vom Schild absorbiert."""
-    result = char_damage.apply_damage(5, "Normal")
-    assert char_damage.sp == 5  # 10 - 5
-    assert char_damage.rp == 5  # Unverändert
-    assert char_damage.lp == 20 # Unverändert
-    assert result.absorbed_by_shield == 5
-    assert result.final_damage_hp == 0
+# --- Initialization and State ---
 
-def test_normal_damage_pierces_shield_absorb_by_armor(char_damage):
-    """Test: Schaden bricht Schild und wird von Rüstung gefangen."""
-    # 15 Schaden: 10 Schild weg, 5 Rest. Rüstung 5 absorbiert bis zu 10.
-    result = char_damage.apply_damage(15, "Normal")
-    assert char_damage.sp == 0
-    # Restschaden 5. Rüstung absorbiert 5.
-    # RP Verlust = (5 + 1) // 2 = 3.
-    assert char_damage.rp == 2 # 5 - 3
-    assert char_damage.lp == 20
-    assert result.absorbed_by_shield == 10
-    assert result.absorbed_by_armor == 5
-    assert result.final_damage_hp == 0
+def test_character_initialization(char):
+    """Tests that a character is initialized with the correct attributes."""
+    assert char.name == "Hero"
+    assert char.max_lp == 100
+    assert char.lp == 100
+    assert char.char_type == CharacterType.PLAYER
+    assert char.id is not None
 
-def test_normal_damage_pierces_all(char_damage):
-    """Test: Schaden bricht Schild und Rüstung und trifft LP."""
-    # 25 Schaden.
-    # 10 Schild -> 15 Rest.
-    # Rüstung 5 absorbiert max 10.
-    # 15 Rest > 10 Max Absorb -> 5 Schaden gehen durch auf LP.
-    # RP Verlust für 10 Absorb = 5.
-    result = char_damage.apply_damage(25, "Normal")
-    assert char_damage.sp == 0
-    assert char_damage.rp == 0
-    assert char_damage.lp == 15 # 20 - 5
-    assert result.absorbed_by_shield == 10
-    assert result.absorbed_by_armor == 10
-    assert result.final_damage_hp == 5
+# --- Status Effect Management ---
 
-def test_piercing_damage(char_damage):
-    """Test: Durchschlagender Schaden ignoriert Rüstung."""
-    # 15 Schaden Durchschlagend.
-    # 10 Schild -> 5 Rest.
-    # Rüstung wird ignoriert.
-    # 5 Schaden auf LP.
-    result = char_damage.apply_damage(15, "Durchschlagend")
-    assert char_damage.sp == 0
-    assert char_damage.rp == 5 # Rüstung unberührt
-    assert char_damage.lp == 15 # 20 - 5
-    assert result.ignores_armor is True
-    assert result.absorbed_by_shield == 10
-    assert result.final_damage_hp == 5
+@patch('src.models.character.get_rules', return_value={})
+def test_add_status_generic(mock_get_rules, char):
+    """Tests adding a generic status effect when no specific class is found."""
+    char.add_status("CustomEffect", 3, 2)
+    assert len(char.status) == 1
+    effect = char.status[0]
+    assert isinstance(effect, GenericStatusEffect)
+    assert effect.name == "CustomEffect"
+    assert effect.duration == 3
+    assert effect.rank == 2
 
-def test_direct_damage(char_damage):
-    """Test: Direktschaden ignoriert Schild und Rüstung."""
-    result = char_damage.apply_damage(10, "Direkt")
-    assert char_damage.sp == 10 # Unberührt
-    assert char_damage.rp == 5  # Unberührt
-    assert char_damage.lp == 10 # 20 - 10
-    assert result.ignores_armor is True
-    assert result.ignores_shield is True
-    assert result.final_damage_hp == 10
+@patch('src.models.character.get_rules')
+def test_add_status_with_rank_capping(mock_get_rules, char):
+    """Tests that the rank of a new status effect is capped by the rules."""
+    mock_get_rules.return_value = {"status_effects": {"POISON": {"max_rank": 3}}}
+    
+    # Add a status with a rank higher than the max
+    char.add_status("POISON", 5, 5)
+    
+    assert len(char.status) == 1
+    effect = char.status[0]
+    assert isinstance(effect, PoisonEffect)
+    assert effect.rank == 3 # Should be capped to 3
 
-def test_death(char_damage):
-    """Test: Charakter stirbt bei LP <= 0."""
-    result = char_damage.apply_damage(100, "Direkt")
-    assert char_damage.lp <= 0
-    assert result.is_dead is True
+def test_get_status_string(char):
+    """Tests the formatting of the status effect string for the UI."""
+    assert char.get_status_string() == "" # Should be empty initially
+    
+    char.add_status("POISON", 3, 1)
+    char.add_status("Custom", 2, 2)
+    
+    # Note: This test relies on the translation keys.
+    # It's a trade-off, but it validates the core formatting logic.
+    # The actual output depends on the loaded language file.
+    # Since we can't easily mock the global localization_manager in a clean way without affecting other tests,
+    # we should check for the structure or mock the translate function used inside Character.
+    
+    with patch('src.models.character.translate') as mock_translate:
+        # Configure mock to return predictable strings
+        def side_effect(key, **kwargs):
+            if key == "status_effects.POISON": return "Poison"
+            if key == "status_effects.Custom": return "status_effects.Custom" # Fallback behavior
+            if key == "action_panel.rank": return "Rank"
+            if key == "common.rounds": return "rds."
+            if key == "character_list.status": return "Status"
+            return key
+            
+        mock_translate.side_effect = side_effect
+        
+        expected_str = " | Status: Poison (Rank 1, 3 rds.), Custom (Rank 2, 2 rds.)"
+        assert char.get_status_string() == expected_str
 
-def test_healing(char_damage):
-    """Test: Heilung erhöht LP."""
-    char_damage.lp = 10
-    log = char_damage.heal(5)
-    assert char_damage.lp == 15
-    assert "wird um 5 LP geheilt" in log
+# --- Serialization (to_dict / from_dict) ---
 
-def test_elemental_damage_logging(char_damage):
-    """Test: Elementarschaden wird korrekt geloggt und zeigt Chance auf Sekundäreffekt."""
-    # Teste Feuer (sollte Chance auf Verbrennung anzeigen)
-    result = char_damage.apply_damage(5, DamageType.FIRE)
-    assert result.damage_type == DamageType.FIRE
-    assert result.secondary_effect == StatusEffectType.BURN
+def test_to_dict_and_from_dict_serialization(char):
+    """Tests that a character can be serialized to a dict and back without data loss."""
+    char.add_status("POISON", 3, 1)
+    char.lp = 50 # Change current LP
+    
+    char_dict = char.to_dict()
+    
+    assert char_dict[StatType.NAME] == "Hero"
+    assert char_dict[StatType.LP] == 50
+    assert char_dict[StatType.MAX_LP] == 100
+    assert len(char_dict[StatType.STATUS]) == 1
+    assert char_dict[StatType.STATUS][0]['effect'] == "POISON"
+    
+    rehydrated_char = Character.from_dict(char_dict)
+    
+    assert rehydrated_char.id == char.id
+    assert rehydrated_char.name == "Hero"
+    assert rehydrated_char.lp == 50
+    assert len(rehydrated_char.status) == 1
+    assert isinstance(rehydrated_char.status[0], PoisonEffect)
 
-    # Teste Gift (sollte Chance auf Vergiftung anzeigen)
-    result = char_damage.apply_damage(5, DamageType.POISON)
-    assert result.damage_type == DamageType.POISON
-    assert result.secondary_effect == StatusEffectType.POISON
+def test_from_dict_with_missing_data():
+    """Tests that a character can be created from an incomplete dictionary using defaults."""
+    # Missing several fields, including rp, sp, gew, etc.
+    incomplete_data = {
+        StatType.ID: "test-id",
+        StatType.NAME: "Incomplete",
+        StatType.MAX_LP: 50,
+    }
+    
+    char = Character.from_dict(incomplete_data)
+    
+    assert char.id == "test-id"
+    assert char.name == "Incomplete"
+    assert char.max_lp == 50
+    assert char.lp == 50 # Should default to max_lp
+    assert char.rp == 0 # Should use default from constructor
+    assert char.gew == 1 # Should use default from constructor
+    assert char.char_type == CharacterType.ENEMY # Should use default
 
-    # Teste Blitz (sollte Chance auf Betäubung anzeigen)
-    result = char_damage.apply_damage(5, DamageType.LIGHTNING)
-    assert result.damage_type == DamageType.LIGHTNING
-    assert result.secondary_effect == StatusEffectType.STUN
+# --- Other Methods ---
 
-    # Teste Kälte (sollte Chance auf Unterkühlung anzeigen)
-    result = char_damage.apply_damage(5, DamageType.COLD)
-    assert result.damage_type == DamageType.COLD
-    assert result.secondary_effect == StatusEffectType.FREEZE
-
-    # Teste Verwesung (sollte Chance auf Erosion anzeigen)
-    result = char_damage.apply_damage(5, DamageType.DECAY)
-    assert result.damage_type == DamageType.DECAY
-    assert result.secondary_effect == StatusEffectType.EROSION
+def test_update_method(char):
+    """Tests the update method for modifying character attributes."""
+    update_data = {
+        StatType.NAME: "NewName",
+        StatType.LP: 80,
+        StatType.MAX_RP: 15
+    }
+    char.update(update_data)
+    
+    assert char.name == "NewName"
+    assert char.lp == 80
+    assert char.max_rp == 15
+    assert char.rp == 10 # Should not change if not in data

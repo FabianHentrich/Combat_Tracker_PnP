@@ -1,14 +1,15 @@
 from typing import List, Optional, TYPE_CHECKING
 from src.models.character import Character
 from src.core.mechanics import wuerfle_initiative
-from src.models.enums import EventType
+from src.models.enums import EventType, CharacterType, ScopeType
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
 
 class TurnManager:
     """
-    Verwaltet die Initiative, Runden und den aktuellen Zug.
+    Manages initiative, rounds, and the current turn.
     """
     def __init__(self, engine: 'CombatEngine'):
         self.engine = engine
@@ -17,23 +18,23 @@ class TurnManager:
         self.initiative_rolled: bool = False
 
     def sort_initiative(self) -> None:
-        """Sortiert die Charaktere absteigend nach Initiative."""
+        """Sorts characters in descending order of initiative."""
         self.engine.characters.sort(key=lambda c: c.init, reverse=True)
-        self.engine.log("Initiative sortiert.")
+        self.engine.log(translate("messages.initiative_sorted"))
         self.engine.notify(EventType.UPDATE)
 
     def roll_all_initiatives(self) -> None:
-        """Würfelt die Initiative für alle Charaktere neu."""
+        """Rerolls initiative for all characters."""
         for char in self.engine.characters:
             char.init = wuerfle_initiative(char.gew)
         self.sort_initiative()
-        self.engine.log("Alle Initiativen neu gewürfelt.")
+        self.engine.log(translate("messages.all_initiatives_rerolled"))
         self.engine.notify(EventType.UPDATE)
 
     def roll_initiatives(self, reroll_all: bool = False) -> None:
         """
-        Würfelt Initiative für Charaktere mit Init 0 (oder alle).
-        Startet dann den Kampf.
+        Rolls initiative for characters with Init 0 (or all).
+        Then starts the combat.
         """
         for char in self.engine.characters:
             if reroll_all or char.init == 0:
@@ -43,15 +44,15 @@ class TurnManager:
         self.turn_index = 0
         self.round_number = 1
         self.initiative_rolled = True
-        self.engine.log("Initiative gewürfelt! Reihenfolge erstellt.")
-        self.engine.log(f"--- Runde {self.round_number} beginnt ---")
+        self.engine.log(translate("messages.initiative_rolled"))
+        self.engine.log(translate("messages.round_begins", round_number=self.round_number))
         self.engine.notify(EventType.UPDATE)
 
-    def reset_initiative(self, target_type: str = "All") -> int:
-        """Setzt die Initiative zurück."""
+    def reset_initiative(self, target_type: str = ScopeType.ALL.value) -> int:
+        """Resets the initiative."""
         count = 0
         for char in self.engine.characters:
-            if target_type == "All" or char.char_type == target_type:
+            if target_type == ScopeType.ALL.value or char.char_type == target_type:
                 char.init = 0
                 count += 1
 
@@ -59,15 +60,15 @@ class TurnManager:
         self.round_number = 1
         self.initiative_rolled = False
 
-        type_text = "aller Charaktere" if target_type == "All" else f"aller {target_type}s"
-        self.engine.log(f"Initiative {type_text} wurde zurückgesetzt ({count} betroffen).")
+        type_text = translate("management_targets.all_characters") if target_type == ScopeType.ALL.value else f"{translate('management_targets.all_enemies')}s" if target_type == CharacterType.ENEMY else f"{translate('management_targets.all_players')}s" if target_type == CharacterType.PLAYER else f"{translate('management_targets.all_npcs')}s"
+        self.engine.log(translate("messages.initiative_reset", type_text=type_text, count=count))
         self.engine.notify(EventType.UPDATE)
         return count
 
     def _update_character_status(self, character: Character) -> None:
         """
-        Aktualisiert alle aktiven Status-Effekte für einen Charakter.
-        Diese Methode gehört logisch zum TurnManager, da sie zu Beginn eines Zuges ausgeführt wird.
+        Updates all active status effects for a character.
+        This method logically belongs to the TurnManager, as it is executed at the beginning of a turn.
         """
         log_msg = ""
         new_status = []
@@ -87,38 +88,38 @@ class TurnManager:
 
     def next_turn(self) -> Optional[Character]:
         """
-        Schaltet zum nächsten Charakter weiter und wendet Statuseffekte an.
+        Switches to the next character and applies status effects.
         """
         if not self.engine.characters:
             return None
 
         self.turn_index += 1
 
-        # Neue Runde
+        # New round
         if self.turn_index >= len(self.engine.characters):
             self.turn_index = 0
             self.round_number += 1
-            self.engine.log(f"--- Runde {self.round_number} beginnt ---")
+            self.engine.log(translate("messages.round_begins", round_number=self.round_number))
 
         current_char = self.engine.characters[self.turn_index]
 
-        # Status-Effekte verarbeiten
+        # Process status effects
         self._update_character_status(current_char)
 
-        # Aussetzen verarbeiten
+        # Process skipping turns
         if current_char.skip_turns > 0:
-            self.engine.log(f"{current_char.name} setzt aus.")
-            current_char.skip_turns -= 1 # Wird in _update_character_status auf 0 gesetzt, hier aber für den Fall, dass es mehrere Runden sind
+            self.engine.log(translate("messages.character_skips_turn", name=current_char.name))
+            current_char.skip_turns -= 1 # Is set to 0 in _update_character_status, but here in case of multiple rounds
             self.engine.notify(EventType.UPDATE)
-            return self.next_turn() # Rekursiv weiter
+            return self.next_turn() # Recursively continue
 
-        # Status Info für Log
+        # Status info for log
         status_info = current_char.get_status_string()
 
         if current_char.lp <= 0 or current_char.max_lp <= 0:
-             self.engine.log(f"💀 {current_char.name} ist kampfunfähig.{status_info}")
+             self.engine.log(f"💀 {current_char.name} {translate('messages.is_incapacitated')}{status_info}")
         else:
-             self.engine.log(f"▶ {current_char.name} ist am Zug!{status_info}")
+             self.engine.log(f"▶ {current_char.name}{translate('messages.is_on_turn')}{status_info}")
 
         self.engine.notify(EventType.TURN_CHANGE, current_char)
         self.engine.notify(EventType.UPDATE)
@@ -132,21 +133,21 @@ class TurnManager:
 
     def insert_character(self, char: Character, surprise: bool = False) -> None:
         """
-        Fügt einen Charakter in die Liste ein und berücksichtigt Initiative/Surprise.
+        Inserts a character into the list, considering initiative/surprise.
         """
-        if self.turn_index == -1: # Initiative noch nicht gewürfelt
+        if self.turn_index == -1: # Initiative not yet rolled
             self.engine.characters.append(char)
-            self.engine.log(f"{char.name} wurde hinzugefügt.")
+            self.engine.log(translate("messages.character_added", name=char.name))
         else:
             if surprise:
-                # Surprise: Füge VOR dem aktuellen Zug ein (oder an aktueller Stelle)
+                # Surprise: Insert BEFORE the current turn (or at the current position)
                 target_index = max(0, self.turn_index)
                 self.engine.characters.insert(target_index, char)
                 if self.turn_index < 0:
                     self.turn_index = 0
-                self.engine.log(f"⚠ {char.name} springt überraschend in den Kampf!")
+                self.engine.log(translate("messages.character_jumps_in", name=char.name))
             else:
-                # Normales Einsortieren nach Initiative
+                # Normal sorting by initiative
                 inserted = False
                 for i, c in enumerate(self.engine.characters):
                     if char.init > c.init:
@@ -157,17 +158,17 @@ class TurnManager:
                         break
                 if not inserted:
                     self.engine.characters.append(char)
-                self.engine.log(f"{char.name} wurde einsortiert.")
+                self.engine.log(translate("messages.character_sorted_in", name=char.name))
 
         self.engine.notify(EventType.UPDATE)
 
     def remove_character(self, index: int) -> None:
-        """Entfernt einen Charakter und passt den Turn-Index an."""
+        """Removes a character and adjusts the turn index."""
         if 0 <= index < len(self.engine.characters):
             char = self.engine.characters.pop(index)
-            self.engine.log(f"{char.name} wurde entfernt.")
+            self.engine.log(translate("messages.character_removed", name=char.name))
 
-            # Turn Index anpassen
+            # Adjust turn index
             if index < self.turn_index:
                 self.turn_index -= 1
             elif index == self.turn_index:
@@ -179,21 +180,21 @@ class TurnManager:
             self.engine.notify(EventType.UPDATE)
 
     def remove_characters_by_type(self, char_type: str) -> None:
-        """Entfernt alle Charaktere eines bestimmten Typs."""
+        """Removes all characters of a specific type."""
         self.engine.characters = [c for c in self.engine.characters if c.char_type != char_type]
 
-        # Turn Index korrigieren
+        # Correct turn index
         if self.turn_index >= len(self.engine.characters):
             self.turn_index = 0
             if not self.engine.characters:
                 self.turn_index = -1
 
-        self.engine.log(f"Alle {char_type} wurden gelöscht.")
+        self.engine.log(translate("messages.all_characters_of_type_deleted", type=char_type))
         self.engine.notify(EventType.UPDATE)
 
     def clear_all_characters(self) -> None:
-        """Löscht alle Charaktere und setzt den Kampf zurück."""
+        """Deletes all characters and resets the combat."""
         self.engine.characters.clear()
         self.reset_combat()
-        self.engine.log("Alle Charaktere wurden gelöscht.")
+        self.engine.log(translate("messages.all_characters_deleted"))
         self.engine.notify(EventType.UPDATE)

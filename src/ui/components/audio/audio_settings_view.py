@@ -6,13 +6,14 @@ from src.config import FONTS
 from src.utils.utils import ScrollableFrame, ToolTip
 from src.ui.components.audio.track_card import TrackCard
 from src.ui.components.audio.drag_drop_manager import DragDropManager
+from src.utils.localization import translate
 
 class AudioSettingsWindow(tk.Toplevel):
     def __init__(self, parent, controller: AudioController, colors: dict = None):
         super().__init__(parent)
         self.controller = controller
         self.colors = colors if colors else {"bg": "#1e1e1e", "fg": "#d4d4d4", "panel": "#252526", "accent": "#3794ff"}
-        self.title("Musikplayer Einstellungen")
+        self.title(translate("audio_settings.title"))
         self.geometry("700x600")
         self.configure(bg=self.colors["bg"])
 
@@ -43,21 +44,21 @@ class AudioSettingsWindow(tk.Toplevel):
         btn_frame = ttk.Frame(main_frame)
         btn_frame.pack(fill=tk.X, pady=(0, 10))
 
-        btn_file = ttk.Button(btn_frame, text="Datei hinzufügen...", command=self.add_file)
+        btn_file = ttk.Button(btn_frame, text=translate("audio_settings.add_file"), command=self.add_file)
         btn_file.pack(side=tk.LEFT, padx=5)
-        self.create_tooltip(btn_file, "Einzelne Audio-Dateien (mp3, wav, ogg) zur Playlist hinzufügen.")
+        self.create_tooltip(btn_file, translate("audio_settings.add_file_tooltip"))
 
-        btn_folder = ttk.Button(btn_frame, text="Ordner hinzufügen...", command=self.add_folder)
+        btn_folder = ttk.Button(btn_frame, text=translate("audio_settings.add_folder"), command=self.add_folder)
         btn_folder.pack(side=tk.LEFT, padx=5)
-        self.create_tooltip(btn_folder, "Alle Audio-Dateien aus einem Ordner (und Unterordnern) hinzufügen.")
+        self.create_tooltip(btn_folder, translate("audio_settings.add_folder_tooltip"))
 
 
         btn_tta = ttk.Button(btn_frame, text="TabletopAudio", command=self.open_tabletopaudio)
         btn_tta.pack(side=tk.LEFT, padx=5)
-        self.create_tooltip(btn_tta, "Öffnet tabletopaudio.com im Browser für hochwertige Ambience-Sounds.")
+        self.create_tooltip(btn_tta, translate("audio_settings.open_tta_tooltip"))
 
         # Playlist Container
-        list_frame = ttk.LabelFrame(main_frame, text="Playlist (Drag & Drop zum Sortieren)", padding=5, style="Card.TLabelframe")
+        list_frame = ttk.LabelFrame(main_frame, text=translate("audio_settings.playlist_label"), padding=5, style="Card.TLabelframe")
         list_frame.pack(fill=tk.BOTH, expand=True)
 
         self.scroll_frame = ScrollableFrame(list_frame)
@@ -99,7 +100,7 @@ class AudioSettingsWindow(tk.Toplevel):
         widget.bind('<Leave>', tt.hidetip)
 
     def add_file(self):
-        files = filedialog.askopenfilenames(filetypes=[("Audio Files", "*.mp3 *.wav *.ogg")], parent=self)
+        files = filedialog.askopenfilenames(filetypes=[(translate("dialog.file.audio"), "*.mp3 *.wav *.ogg")], parent=self)
         for f in files:
             self.controller.add_track(f)
         self.refresh_playlist()

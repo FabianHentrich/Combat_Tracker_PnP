@@ -254,13 +254,34 @@
     },
     "Dämonen": {
       "Chronoversum": {
-        "Vincar:, Sternfalter des Chronoversums": {}
+        "Vincar:, Sternfalter des Chronoversums": {
+          "lp": 0,
+          "rp": 0,
+          "sp": 0,
+          "gew": 0,
+          "type": "Gegner",
+          "level": 0
+        }
       },
 
       "Infernum": {},
       "Mendacium": {
-        "Nahlith, die Spiegelzunge": {},
-        "Ephraskal, der Kettenträger": {}
+        "Nahlith, die Spiegelzunge": {
+          "lp": 0,
+          "rp": 0,
+          "sp": 0,
+          "gew": 0,
+          "type": "Gegner",
+          "level": 0
+        },
+        "Ephraskal, der Kettenträger": {
+          "lp": 0,
+          "rp": 0,
+          "sp": 0,
+          "gew": 0,
+          "type": "Gegner",
+          "level": 0
+        }
       },
 
       "Sonderklasse": {
@@ -282,8 +303,8 @@
         }
       }
     }
+  },
 
-    },
   "NPCs": {
     "Chronos - Geheimbund der Zeit": {
       "Neben NPCs": {},

@@ -8,6 +8,7 @@ from src.models.enums import CharacterType
 from src.config import FONTS, FILES
 from src.utils.enemy_data_loader import EnemyDataLoader
 from src.config.defaults import MAX_GEW
+from src.utils.localization import translate
 
 logger = setup_logging()
 
@@ -48,7 +49,7 @@ class LibraryImportTab:
         left_frame = ttk.Frame(paned, style="Card.TFrame")
         paned.add(left_frame, weight=1)
 
-        ttk.Label(left_frame, text="Verfügbare Gegner", font=FONTS["large"]).pack(pady=5)
+        ttk.Label(left_frame, text=translate("library.available_enemies"), font=FONTS["large"]).pack(pady=5)
 
         # --- Suchfeld ---
         search_frame = ttk.Frame(left_frame, style="Card.TFrame")
@@ -62,7 +63,7 @@ class LibraryImportTab:
 
         # Treeview für Kategorien
         self.tree = ttk.Treeview(left_frame, selectmode="browse", show="tree headings")
-        self.tree.heading("#0", text="Kategorie / Name", anchor="w")
+        self.tree.heading("#0", text=translate("library.category_header"), anchor="w")
         self.tree.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         # Scrollbar für Treeview
@@ -72,26 +73,26 @@ class LibraryImportTab:
         self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         if not self.enemy_presets:
-            self.tree.insert("", "end", text=f"Keine Gegner gefunden ({FILES['enemies']} prüfen)", tags=("error",))
+            self.tree.insert("", "end", text=translate("messages.no_enemies_found", file=FILES['enemies']), tags=("error",))
         else:
             try:
                 self.populate_tree(self.enemy_presets)
             except Exception as e:
                 logger.error(f"Fehler beim Befüllen des Baums: {e}")
-                self.tree.insert("", "end", text="Fehler beim Laden", tags=("error",))
+                self.tree.insert("", "end", text=translate("messages.error_loading"), tags=("error",))
 
         # Doppelklick fügt zur Liste hinzu
         self.tree.bind("<Double-1>", self.on_tree_double_click)
 
         # Button zum Hinzufügen
-        ttk.Button(left_frame, text="Hinzufügen ->", command=self.add_selected_to_staging).pack(fill=tk.X, padx=5, pady=5)
+        ttk.Button(left_frame, text=translate("library.add_btn"), command=self.add_selected_to_staging).pack(fill=tk.X, padx=5, pady=5)
 
 
         # --- Rechte Seite: Staging Area (Bearbeitung) ---
         right_frame = ttk.Frame(paned, style="Card.TFrame")
         paned.add(right_frame, weight=2)
 
-        ttk.Label(right_frame, text="Ausgewählte Gegner (Anzahl & Werte anpassen)", font=FONTS["large"]).pack(pady=5)
+        ttk.Label(right_frame, text=translate("library.staging_area"), font=FONTS["large"]).pack(pady=5)
 
         # Canvas für scrollbare Liste
         self.canvas = tk.Canvas(right_frame, bg=self.colors["panel"], highlightthickness=0)
@@ -118,8 +119,8 @@ class LibraryImportTab:
         btn_frame = ttk.Frame(self.parent, style="Card.TFrame")
         btn_frame.pack(fill=tk.X, pady=10, padx=10)
 
-        ttk.Button(btn_frame, text="Alle zum Kampf hinzufügen", command=self.finalize_import).pack(side="right")
-        ttk.Button(btn_frame, text="Abbrechen", command=self.close_callback).pack(side="right", padx=10)
+        ttk.Button(btn_frame, text=translate("library.add_all_to_combat"), command=self.finalize_import).pack(side="right")
+        ttk.Button(btn_frame, text=translate("common.cancel"), command=self.close_callback).pack(side="right", padx=10)
 
     def populate_tree(self, data: Dict[str, Any], parent: str = "") -> None:
         """Füllt den Treeview rekursiv mit Kategorien und Gegnern."""
@@ -191,7 +192,7 @@ class LibraryImportTab:
         header_frame = ttk.Frame(self.scrollable_frame, style="Card.TFrame")
         header_frame.pack(fill="x", pady=5)
 
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level", "Anzahl", "Sofort", ""]
+        headers = [translate("character_attributes.name"), translate("character_attributes.type"), translate("character_attributes.lp"), translate("character_attributes.rp"), translate("character_attributes.sp"), translate("character_attributes.gew"), translate("character_attributes.level"), translate("dialog.import_preview.count"), translate("library.act_immediately"), ""]
         widths = [30, 10, 5, 5, 5, 5, 5, 5, 5, 5]
         for i, col in enumerate(headers):
             ttk.Label(header_frame, text=col, font=FONTS["small"], width=widths[i], anchor="w").pack(side="left", padx=2)
@@ -206,8 +207,12 @@ class LibraryImportTab:
         e_name.pack(side="left", padx=5)
 
         # Typ
-        e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
-        e_type.set(data.get("type", CharacterType.ENEMY.value))
+        translated_types = {translate(f"character_types.{t.name}"): t.value for t in CharacterType}
+        e_type = ttk.Combobox(row_frame, values=list(translated_types.keys()), width=10, state="readonly")
+        
+        type_value = data.get("type", CharacterType.ENEMY.value)
+        display_value = translate(f"character_types.{type_value}")
+        e_type.set(display_value)
         e_type.pack(side="left", padx=5)
 
         # LP
@@ -259,7 +264,8 @@ class LibraryImportTab:
             "gew": e_gew,
             "level": e_level,
             "count": e_count,
-            "surprise": var_surprise
+            "surprise": var_surprise,
+            "translated_types": translated_types
         }
 
         btn_del.configure(command=lambda: self.remove_staging_row(row_frame, entry_obj))
@@ -285,7 +291,9 @@ class LibraryImportTab:
                 if count <= 0: continue
 
                 name_base = entry["name"].get()
-                char_type = entry["type"].get()
+                selected_type_display = entry["type"].get()
+                char_type_value = entry["translated_types"].get(selected_type_display, CharacterType.ENEMY.value)
+                
                 lp = int(entry["lp"].get())
                 rp = int(entry["rp"].get())
                 sp = int(entry["sp"].get())
@@ -303,15 +311,15 @@ class LibraryImportTab:
                     # Init würfeln
                     init = wuerfle_initiative(gew)
 
-                    new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type, level=level)
+                    new_char = Character(final_name, lp, rp, sp, init, gew=gew, char_type=char_type_value, level=level)
                     self.engine.insert_character(new_char, surprise=surprise)
                     count_imported += 1
 
-            self.engine.log(f"{count_imported} Charaktere aus Bibliothek hinzugefügt.")
+            self.engine.log(translate("messages.characters_added_from_library", count=count_imported))
             self.close_callback()
 
         except ValueError:
-            messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
+            messagebox.showerror(translate("dialog.error.title"), translate("messages.use_valid_numbers"))
 
     def update_colors(self, colors: Dict[str, str]):
         """Aktualisiert die Farben des Tabs."""

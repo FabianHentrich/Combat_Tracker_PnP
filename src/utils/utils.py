@@ -3,6 +3,7 @@ from tkinter import ttk
 import random
 from typing import Tuple, List, Callable, Optional
 from src.config import FONTS, WINDOW_SIZE
+from src.utils.localization import translate
 
 class ToolTip:
     """Klasse für Tooltips beim Hovern über Widgets."""
@@ -58,7 +59,7 @@ def simple_input_dialog(root: tk.Tk, title: str, prompt: str, default_value: str
     entry.pack(pady=5)
     entry.focus()
     entry.bind('<Return>', lambda e: on_ok())
-    ttk.Button(dialog, text="OK", command=on_ok).pack(pady=5)
+    ttk.Button(dialog, text=translate("common.ok"), command=on_ok).pack(pady=5)
 
     dialog.transient(root)
     dialog.grab_set()

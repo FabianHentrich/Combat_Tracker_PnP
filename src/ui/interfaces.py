@@ -1,4 +1,5 @@
-from typing import Protocol, Any, Optional, Dict, Tuple
+from typing import Protocol, Any, Optional, Dict, Tuple, List
+from src.models.enums import ScopeType
 
 class ICombatView(Protocol):
     """Interface für die Haupt-Ansicht des Combat Trackers."""
@@ -46,6 +47,10 @@ class ICombatView(Protocol):
     def get_selected_char_id(self) -> Optional[str]:
         """Gibt die ID des aktuell ausgewählten Charakters zurück."""
         ...
+        
+    def get_selected_char_ids(self) -> List[str]:
+        """Gibt eine Liste aller ausgewählten Item-IDs zurück."""
+        ...
 
     def highlight_character(self, char_id: str) -> None:
         """Hebt den Charakter mit der angegebenen ID in der Liste hervor."""
@@ -65,6 +70,10 @@ class ICombatView(Protocol):
 
     def get_status_input(self) -> Dict[str, Any]:
         """Gibt die Eingaben für Status-Effekte zurück (status, rank, duration)."""
+        ...
+
+    def get_management_target(self) -> ScopeType:
+        """Gibt den ausgewählten Management-Zielbereich zurück."""
         ...
 
     def update_round_label(self, round_number: int) -> None:

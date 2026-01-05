@@ -5,11 +5,11 @@
 ![Status](https://img.shields.io/badge/status-Beta-orange)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-Ein professioneller, feature-reicher Combat Tracker für Pen & Paper Rollenspiele.
+Ein professioneller, feature-reicher Combat Tracker für Pen & Paper Rollenspiele, entwickelt mit Python und Tkinter.
 
 > ℹ️ **Hinweis:** Dieses Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt.
 >
-> **Interesse am Regelwerk?** Das Regelwerk und einige Ressourcen aus der einer beispielhaften Welt (Orte, Gegner, NPCs, Gegenstände, etc.) sind im Programm einsehbar. Wenn du das näher kennenlernen möchtest oder Fragen hast, schreib mir gerne eine E-Mail!
+> **Interesse am Regelwerk?** Das Regelwerk und einige Ressourcen aus einer beispielhaften Welt (Orte, Gegner, NPCs, Gegenstände, etc.) sind im Programm einsehbar. Wenn du das näher kennenlernen möchtest oder Fragen hast, schreib mir gerne eine E-Mail!
 
 Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu verwalten, Initiative zu tracken, Schaden zu berechnen und Status-Effekte im Blick zu behalten.
 
@@ -27,6 +27,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
   - [Status-Effekte](#status-effekte)
 - [Konfiguration & Anpassung](#-konfiguration--anpassung)
 - [Hotkeys](#-hotkeys)
+- [Entwickler-Infos](#-entwickler-infos)
 - [Lizenz](#-lizenz)
 
 ---
@@ -73,7 +74,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
     ```
 4.  Starte das Programm:
     ```bash
-    python Combat_Tracker.py
+    python main.py
     ```
 
 ---
@@ -121,14 +122,14 @@ Jeder Charakter verfügt über folgende Kern-Werte:
 **Initiative-Berechnung:**
 Die Initiative wird basierend auf dem GEW-Wert gewürfelt. Dabei kommt ein **"Exploding Dice"** (explodierender Würfel) System zum Einsatz: Würfelt man die höchstmögliche Augenzahl, darf man erneut würfeln und das Ergebnis addieren.
 
-| GEW Wert | Würfel |
-| :--- | :--- |
-| 1 | W4 |
-| 2 | W6 |
-| 3 | W8 |
-| 4 | W10 |
-| 5 | W12 |
-| 6+ | W20 |
+| Charakter-Wert | Würfel |
+|:---------------| :--- |
+| 1              | W4 |
+| 2              | W6 |
+| 3              | W8 |
+| 4              | W10 |
+| 5              | W12 |
+| 6+             | W20 |
 
 ### Schadensberechnung
 Wenn ein Charakter Schaden erleidet, prüft das System den **Schadenstyp** und wendet folgende Prioritätenkette an:
@@ -173,7 +174,7 @@ Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines 
 
 Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 
-*   **`data/rules.json` (Dynamisches Regelwerk):** Das Herzstück der Anpassbarkeit. Hier können Schadensarten, ihre Effekte (z.B. `ignores_armor`) und Status-Effekte (inkl. `max_rank`, `stackable`) frei definiert oder geändert werden, ohne den Code anzufassen.
+*   **`data/i18n/*_rules.json` (Dynamisches Regelwerk):** Das Herzstück der Anpassbarkeit. Hier können Schadensarten, ihre Effekte (z.B. `ignores_armor`) und Status-Effekte (inkl. `max_rank`, `stackable`) frei definiert oder geändert werden, ohne den Code anzufassen.
 *   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner (Presets).
 *   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
 *   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.).
@@ -211,17 +212,20 @@ Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisie
 ### Projektstruktur
 Der Code ist nun sauber in Module unterteilt (`src/`):
 *   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
-*   **`src.models/`**: Datenmodelle (Character, StatusEffects).
+*   **`src.models/`**: Datenmodelle (Character, StatusEffects, Enums).
 *   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
 *   **`src.ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
 *   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
 *   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
 *   **`saves/`**: Speicherort für Spielstände und Autosaves.
+*   **`tests/`**: Unit- und Integrationstests mit `pytest`.
 
 ### Architektur-Highlights
+*   **Service Locator:** Ein zentraler `services`-Registrar stellt Abhängigkeiten (Engine, Handler, etc.) bereit, um die Kopplung zwischen Modulen zu reduzieren.
 *   **MVC-Ansatz:** Striktere Trennung von Daten (Models), Logik (Core) und Anzeige (UI).
 *   **UUIDs:** Charaktere werden intern über eindeutige IDs identifiziert, um Namenskonflikte zu vermeiden.
 *   **Event-System:** Die UI reagiert auf Events der Engine, statt direkt Daten zu manipulieren.
+*   **Datengetriebenes Design:** Spielregeln, Themes und Hotkeys sind in externen JSON-Dateien definiert und können ohne Code-Änderungen angepasst werden.
 
 ---
 

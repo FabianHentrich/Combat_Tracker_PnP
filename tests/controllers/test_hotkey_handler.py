@@ -1,91 +1,72 @@
 import pytest
-from unittest.mock import MagicMock, patch
-import sys
-import os
+from unittest.mock import MagicMock, patch, mock_open, ANY
 import tkinter as tk
-
-# sys.path.append removed. Run tests with python -m pytest
-
-# Mocke tkinter Module
-# Wir definieren Dummy-Klassen, damit isinstance funktioniert
-class MockWidget:
-    pass
-
-class MockEntry(MockWidget):
-    pass
-
-class MockText(MockWidget):
-    pass
-
-# Erstelle ein Mock-Modul für tkinter.ttk
-mock_ttk = MagicMock()
-mock_ttk.Entry = MockEntry
-sys.modules['tkinter.ttk'] = mock_ttk
-
-# Erstelle ein Mock-Modul für tkinter
-mock_tk = MagicMock()
-mock_tk.Entry = MockEntry
-mock_tk.Text = MockText
-mock_tk.ttk = mock_ttk # WICHTIG: ttk muss auch als Attribut verfügbar sein
-sys.modules['tkinter'] = mock_tk
-
-sys.modules['tkinter.messagebox'] = MagicMock()
-
-import src.controllers.hotkey_handler
-import importlib
-importlib.reload(src.controllers.hotkey_handler)
 from src.controllers.hotkey_handler import HotkeyHandler
 
-def test_safe_execute_no_focus():
-    """Test: Callback wird ausgeführt, wenn kein Entry Fokus hat."""
+@pytest.fixture
+def handler():
+    """Provides a HotkeyHandler instance with a mock root."""
     root = MagicMock()
-    colors = {}
+    root.focus_get.return_value = None
+    return HotkeyHandler(root, colors={"bg": "#FFF", "fg": "#000"})
 
-    handler = HotkeyHandler(root, colors)
+# --- Tests ---
 
-    # Mock focus_get to return None (or something that is not an Entry)
-    root.focus_get.return_value = MockWidget() # Generic widget, not Entry
+@patch('src.controllers.hotkey_handler.messagebox')
+@patch('src.controllers.hotkey_handler.json.dump')
+@patch('src.controllers.hotkey_handler.open', new_callable=mock_open)
+@patch('src.controllers.hotkey_handler.HOTKEYS', {})
+@patch('src.controllers.hotkey_handler.FILES', {"hotkeys": "dummy_path.json"})
+def test_save_hotkeys_success(mock_open_file, mock_json_dump, mock_messagebox, handler):
+    """Tests the successful saving and reloading of hotkeys without blocking."""
+    new_hotkeys = {"next_turn": "<F1>"}
+    handler.settings_dialog = MagicMock()
 
+    # Patch the instance method directly using a context manager for robustness
+    with patch.object(handler, '_bind_keys') as mock_bind:
+        handler.save_hotkeys(new_hotkeys)
+
+        mock_open_file.assert_called_with("dummy_path.json", 'w', encoding='utf-8')
+        mock_json_dump.assert_called_with(new_hotkeys, mock_open_file(), indent=4)
+        mock_bind.assert_called_once()
+        handler.settings_dialog.destroy.assert_called_once()
+        mock_messagebox.showinfo.assert_called_once()
+
+def test_setup_hotkeys(handler):
+    """Tests that hotkeys are correctly bound."""
+    callbacks = {"next_turn": MagicMock()}
+    with patch('src.controllers.hotkey_handler.HOTKEYS', {"next_turn": "<F1>"}):
+        handler.setup_hotkeys(callbacks)
+        # Check that root.bind was called with the correct hotkey and ANY callable
+        handler.root.bind.assert_called_once_with("<F1>", ANY)
+
+@patch('src.controllers.hotkey_handler.isinstance', return_value=False)
+def test_safe_execute_no_focus(mock_isinstance, handler):
+    """Tests that the callback is executed when the focused widget is not an input field."""
     callback = MagicMock()
-    event = MagicMock()
-    event.keysym = "space"
-
+    event = MagicMock(keysym='a')
     handler.safe_execute(event, callback)
+    callback.assert_called_once()
+    mock_isinstance.assert_called_once()
 
-    assert callback.called
-
-def test_safe_execute_with_focus_space():
-    """Test: Callback wird NICHT ausgeführt, wenn Entry Fokus hat und Taste Space ist."""
-    root = MagicMock()
-    colors = {}
-
-    handler = HotkeyHandler(root, colors)
-
-    # Mock focus_get to return an Entry
-    root.focus_get.return_value = MockEntry()
-
+@patch('src.controllers.hotkey_handler.isinstance', return_value=True)
+def test_safe_execute_input_focus(mock_isinstance, handler):
+    """Tests that the callback is NOT executed when an Entry has focus."""
     callback = MagicMock()
-    event = MagicMock()
-    event.keysym = "space"
-
+    event = MagicMock(keysym='a')
+    
     handler.safe_execute(event, callback)
+    
+    callback.assert_not_called()
+    mock_isinstance.assert_called_once()
 
-    assert not callback.called
-
-def test_safe_execute_with_focus_other_key():
-    """Test: Callback wird ausgeführt, wenn Entry Fokus hat aber Taste NICHT Space ist."""
-    root = MagicMock()
-    colors = {}
-
-    handler = HotkeyHandler(root, colors)
-
-    root.focus_get.return_value = MockEntry()
-
+def test_safe_execute_non_char_key(handler):
+    """Tests that the callback IS executed for non-character keys (like F-keys) even with focus."""
     callback = MagicMock()
-    event = MagicMock()
-    event.keysym = "F5"
-
+    event = MagicMock(keysym='F1') # A non-character key
+    
+    # This test doesn't need to patch isinstance because the first part of the 'if' condition
+    # `is_char_key` will be False, short-circuiting the evaluation.
     handler.safe_execute(event, callback)
-
-    assert callback.called
-
+    
+    callback.assert_called_once()

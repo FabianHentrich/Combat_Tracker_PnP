@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Optional, TYPE_CHECKING, Dict, List
 from src.utils.utils import generate_health_bar
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -23,16 +24,16 @@ class CharacterList(ttk.Frame):
 
         # Spalten-Definitionen
         col_defs = [
-            ("Order", "#", 30, "center", False),
-            ("Name", "Name", 200, "w", True),
-            ("Typ", "Typ", 80, "center", False),
-            ("Level", "Level", 50, "center", False),
-            ("LP", "LP (Balken)", 200, "center", False),
-            ("RP", "RP", 60, "center", False),
-            ("SP", "SP", 60, "center", False),
-            ("GEW", "GEW", 60, "center", False),
-            ("INIT", "INIT", 60, "center", False),
-            ("Status", "Status", 700, "w", False)
+            ("Order", translate("character_list.order"), 30, "center", False),
+            ("Name", translate("character_attributes.name"), 200, "w", True),
+            ("Typ", translate("character_attributes.type"), 80, "center", False),
+            ("Level", translate("character_attributes.level"), 50, "center", False),
+            ("LP", translate("character_list.lp_bar"), 200, "center", False),
+            ("RP", translate("character_attributes.rp"), 60, "center", False),
+            ("SP", translate("character_attributes.sp"), 60, "center", False),
+            ("GEW", translate("character_attributes.gew"), 60, "center", False),
+            ("INIT", translate("character_attributes.init"), 60, "center", False),
+            ("Status", translate("character_list.status"), 700, "w", False)
         ]
 
         for col_id, text, width, anchor, stretch in col_defs:
@@ -48,7 +49,7 @@ class CharacterList(ttk.Frame):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         self.context_menu = tk.Menu(self.winfo_toplevel(), tearoff=0, bg=self.colors["panel"], fg=self.colors["fg"])
-        self.context_menu.add_command(label="Löschen", command=self.controller.character_handler.delete_character)
+        self.context_menu.add_command(label=translate("common.delete"), command=self.controller.character_handler.delete_character)
         self.tree.bind("<Button-3>", self.show_context_menu)
         self.tree.bind("<Double-1>", self.controller.character_handler.on_character_double_click)
 
@@ -66,6 +67,10 @@ class CharacterList(ttk.Frame):
         if not tree: return
 
         engine = self.controller.engine
+        
+        # Store current selection
+        selected_ids = self.tree.selection()
+        
         for item in tree.get_children():
             tree.delete(item)
 
@@ -81,12 +86,16 @@ class CharacterList(ttk.Frame):
         for orig_idx, char in display_list:
             status_str = char.get_status_string().replace(" | Status: ", "")
             order = str(orig_idx + 1) if engine.initiative_rolled else "-"
+            
+            # Translate character type for display
+            char_type_display = translate(f"character_types.{char.char_type}")
+            
             lp_str = f"{char.lp}/{char.max_lp}"
             rp_str = f"{char.rp}/{char.max_rp}"
             sp_str = f"{char.sp}/{char.max_sp}"
             health_bar = generate_health_bar(char.lp, char.max_lp, length=10)
 
-            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char.char_type, char.level, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
+            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char_type_display, char.level, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
 
             tags = []
             if char.lp <= 0 or char.max_lp <= 0:
@@ -99,6 +108,11 @@ class CharacterList(ttk.Frame):
 
         tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
         tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
+        
+        # Restore selection if items still exist
+        valid_selection = [sid for sid in selected_ids if tree.exists(sid)]
+        if valid_selection:
+            tree.selection_set(valid_selection)
 
     def get_selected_id(self) -> Optional[str]:
         """Gibt die ID des ERSTEN ausgewählten Items zurück (für Abwärtskompatibilität)."""

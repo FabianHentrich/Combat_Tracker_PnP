@@ -3,6 +3,7 @@ from typing import List, Dict, Any, TYPE_CHECKING
 from src.utils.logger import setup_logging
 from src.config import MAX_HISTORY
 from src.models.enums import EventType
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.core.engine import CombatEngine
@@ -17,7 +18,7 @@ class HistoryManager:
         self.max_history: int = MAX_HISTORY
 
     def save_snapshot(self) -> None:
-        """Wird vor jeder Aktion aufgerufen (Schaden, Next Turn, etc.)"""
+        """Called before every action (damage, next turn, etc.)"""
         state = self.engine.get_state()
         # Deep copy is usually safer for state snapshots if get_state returns references
         # But get_state returns dicts with new lists, so it should be fine if Character.to_dict returns values.
@@ -26,16 +27,16 @@ class HistoryManager:
         state_copy = copy.deepcopy(state)
 
         self.undo_stack.append(state_copy)
-        self.redo_stack.clear() # Redo leeren bei neuer Aktion
+        self.redo_stack.clear() # Clear redo stack on new action
 
         if len(self.undo_stack) > self.max_history:
             self.undo_stack.pop(0)
 
-        logger.debug("Snapshot gespeichert. Undo Stack Größe: %d", len(self.undo_stack))
+        logger.debug("Snapshot saved. Undo stack size: %d", len(self.undo_stack))
 
     def undo(self) -> bool:
         if not self.undo_stack:
-            logger.info("Undo nicht möglich: Stack leer.")
+            logger.info("Cannot undo: stack empty.")
             return False
 
         current_state = self.engine.get_state()
@@ -43,13 +44,13 @@ class HistoryManager:
 
         prev_state = self.undo_stack.pop()
         self.engine.load_state(prev_state)
-        logger.info("Undo ausgeführt.")
-        self.engine.notify(EventType.LOG, "↩ Undo ausgeführt.")
+        logger.info("Undo executed.")
+        self.engine.notify(EventType.LOG, translate("messages.undo_executed"))
         return True
 
     def redo(self) -> bool:
         if not self.redo_stack:
-            logger.info("Redo nicht möglich: Stack leer.")
+            logger.info("Cannot redo: stack empty.")
             return False
 
         current_state = self.engine.get_state()
@@ -57,6 +58,6 @@ class HistoryManager:
 
         next_state = self.redo_stack.pop()
         self.engine.load_state(next_state)
-        logger.info("Redo ausgeführt.")
-        self.engine.notify(EventType.LOG, "↪ Redo ausgeführt.")
+        logger.info("Redo executed.")
+        self.engine.notify(EventType.LOG, translate("messages.redo_executed"))
         return True

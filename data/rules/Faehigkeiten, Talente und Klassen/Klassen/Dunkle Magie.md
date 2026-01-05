@@ -1,12 +1,11 @@
-﻿
-**Rolle:** Verbotener Seelenformer / Meister der SchattenkrÃ¤fte  
+﻿**Rolle:** Verbotener Seelenformer / Meister der Schattenkräfte  
 
-**Beschreibung:** Dunkle Magie schÃ¶pft ihre Macht aus Tod, Schmerz und verborgenen KrÃ¤ften der Schattenwelt. Diese Zauber sind gefÃ¤hrlich â€“ nicht nur fÃ¼r die Feinde, sondern auch fÃ¼r den Anwender. Dunkelmagier setzen auf mÃ¤chtige FlÃ¼che, nekromantische BeschwÃ¶rungen und den Tausch von Lebenskraft gegen arkane Macht. Ihre Magie ist nicht ehrenhaft, aber effizient â€“ und gefÃ¼rchtet.
+**Beschreibung:** Dunkle Magie schöpft ihre Macht aus Tod, Schmerz und verborgenen Kräften der Schattenwelt. Diese Zauber sind gefährlich – nicht nur für die Feinde, sondern auch für den Anwender. Dunkelmagier setzen auf mächtige Flüche, nekromantische Beschwörungen und den Tausch von Lebenskraft gegen arkane Macht. Ihre Magie ist nicht ehrenhaft, aber effizient – und gefürchtet.
 
-- **StÃ¤rken:** Sehr hohe Schadenspotenziale und Kontrollzauber, Seelenenergie als Ressource, Zugriff auf Untote  
-- **Kampfstil:** Berechnend, manipulierend â€“ agiert Ã¼ber SchwÃ¤chung, Kontrolle und Leichenverwertung
+- **Stärken:** Sehr hohe Schadenspotenziale und Kontrollzauber, Seelenenergie als Ressource, Zugriff auf Untote  
+- **Schwäche:** Viele Zauber sind riskant und können dem Anwender selbst schaden; gesellschaftlich oft geächtet.
 
-### ZusÃ¤tzliche AusrÃ¼stung:
+### Zusätzliche Ausrüstung:
 
 | Gegenstand                  | Eigenschaften                                                                                                                  |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -25,5 +24,4 @@
 - **[[Seelenentzug]]**
 
 ---
-#DunkleMagie 
-
+#DunkleMagie

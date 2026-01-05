@@ -2,13 +2,14 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Dict, Any, Callable, List, Optional
 from src.models.character import Character
-from src.models.enums import CharacterType
+from src.models.enums import CharacterType, StatType
 from src.models.status_effects import EFFECT_CLASSES, GenericStatusEffect
 from src.config import WINDOW_SIZE
+from src.utils.localization import translate
 
 class EditCharacterDialog:
     """
-    Dialog-Fenster zum Bearbeiten eines Charakters.
+    Dialog window for editing a character.
     """
     def __init__(self, parent: tk.Tk, char: Character, colors: Dict[str, str], on_save: Callable[[Dict[str, Any]], None]):
         self.parent = parent
@@ -17,7 +18,7 @@ class EditCharacterDialog:
         self.on_save = on_save
 
         self.window = tk.Toplevel(parent)
-        self.window.title(f"Bearbeiten: {char.name}")
+        self.window.title(f"{translate('dialog.edit_character.title')}: {char.name}")
         self.window.geometry(WINDOW_SIZE["edit"])
         self.window.configure(bg=self.colors["bg"])
 
@@ -48,47 +49,52 @@ class EditCharacterDialog:
         row = 0
 
         # Name
-        self._create_entry_row(frame, "Name:", "name", self.char.name, row, width=25)
+        self._create_entry_row(frame, f"{translate('character_attributes.name')}:", StatType.NAME.value, self.char.name, row, width=25)
         row += 1
 
-        # Typ
-        ttk.Label(frame, text="Typ:").grid(row=row, column=0, sticky="w", pady=5)
-        e_type = ttk.Combobox(frame, values=[t.value for t in CharacterType], state="readonly", width=23)
-        e_type.set(self.char.char_type)
+        # Type
+        ttk.Label(frame, text=f"{translate('character_attributes.type')}:").grid(row=row, column=0, sticky="w", pady=5)
+        
+        self.translated_types = {translate(f"character_types.{t.name}"): t.value for t in CharacterType}
+        e_type = ttk.Combobox(frame, values=list(self.translated_types.keys()), state="readonly", width=23)
+        
+        current_type_display = translate(f"character_types.{self.char.char_type}")
+        e_type.set(current_type_display)
+        
         e_type.grid(row=row, column=1, sticky="ew", pady=5)
-        self.entries["type"] = e_type
+        self.entries[StatType.TYPE.value] = e_type
         row += 1
 
         # Level
-        self._create_entry_row(frame, "Level:", "level", self.char.level, row, width=10)
+        self._create_entry_row(frame, f"{translate('character_attributes.level')}:", StatType.LEVEL.value, self.char.level, row, width=10)
         row += 1
 
         # LP, RP, SP (Dual Entries)
-        self._create_dual_entry_row(frame, "LP (Aktuell / Max):", "lp", self.char.lp, "max_lp", self.char.max_lp, row)
+        self._create_dual_entry_row(frame, f"{translate('character_attributes.lp')} ({translate('dialog.edit_character.current')} / {translate('dialog.edit_character.max')}):", StatType.LP.value, self.char.lp, StatType.MAX_LP.value, self.char.max_lp, row)
         row += 1
-        self._create_dual_entry_row(frame, "RP (Aktuell / Max):", "rp", self.char.rp, "max_rp", self.char.max_rp, row)
+        self._create_dual_entry_row(frame, f"{translate('character_attributes.rp')} ({translate('dialog.edit_character.current')} / {translate('dialog.edit_character.max')}):", StatType.RP.value, self.char.rp, StatType.MAX_RP.value, self.char.max_rp, row)
         row += 1
-        self._create_dual_entry_row(frame, "SP (Aktuell / Max):", "sp", self.char.sp, "max_sp", self.char.max_sp, row)
+        self._create_dual_entry_row(frame, f"{translate('character_attributes.sp')} ({translate('dialog.edit_character.current')} / {translate('dialog.edit_character.max')}):", StatType.SP.value, self.char.sp, StatType.MAX_SP.value, self.char.max_sp, row)
         row += 1
 
         # Gewandtheit & Initiative
-        self._create_entry_row(frame, "Gewandtheit:", "gew", self.char.gew, row, width=10)
+        self._create_entry_row(frame, f"{translate('character_attributes.gew')}:", StatType.GEW.value, self.char.gew, row, width=10)
         row += 1
-        self._create_entry_row(frame, "Initiative:", "init", self.char.init, row, width=10)
+        self._create_entry_row(frame, f"{translate('character_attributes.init')}:", StatType.INIT.value, self.char.init, row, width=10)
         row += 1
 
         # --- Status Section ---
         ttk.Separator(frame, orient='horizontal').grid(row=row, column=0, columnspan=2, sticky="ew", pady=10)
         row += 1
 
-        ttk.Label(frame, text="Status (Effekt | Rang | Dauer):").grid(row=row, column=0, columnspan=2, sticky="w", pady=5)
+        ttk.Label(frame, text=translate('dialog.edit_character.status_label')).grid(row=row, column=0, columnspan=2, sticky="w", pady=5)
         row += 1
 
         self.status_container = ttk.Frame(frame, style="Card.TFrame")
         self.status_container.grid(row=row, column=0, columnspan=2, sticky="ew")
         row += 1
 
-        # Bestehende Statusse laden
+        # Load existing statuses
         for st in self.char.status:
             self._add_status_row(st)
 
@@ -96,8 +102,8 @@ class EditCharacterDialog:
         btn_frame = ttk.Frame(self.window, style="Card.TFrame")
         btn_frame.pack(fill=tk.X, pady=10, padx=20)
 
-        ttk.Button(btn_frame, text="Speichern", command=self._on_save_click).pack(side=tk.RIGHT)
-        ttk.Button(btn_frame, text="Abbrechen", command=self.window.destroy).pack(side=tk.RIGHT, padx=10)
+        ttk.Button(btn_frame, text=translate("common.save"), command=self._on_save_click).pack(side=tk.RIGHT)
+        ttk.Button(btn_frame, text=translate("common.cancel"), command=self.window.destroy).pack(side=tk.RIGHT, padx=10)
 
     def _create_entry_row(self, parent, label, key, value, row, width=20):
         ttk.Label(parent, text=label).grid(row=row, column=0, sticky="w", pady=5)
@@ -127,7 +133,7 @@ class EditCharacterDialog:
         row_frame = ttk.Frame(self.status_container, style="Card.TFrame")
         row_frame.pack(fill=tk.X, pady=2)
 
-        # Effekt Name
+        # Effect Name
         effect_name = st_data.name
         if hasattr(effect_name, 'value'):
             effect_name = effect_name.value
@@ -135,12 +141,12 @@ class EditCharacterDialog:
         e_effect = ttk.Label(row_frame, text=str(effect_name), width=18, anchor="w")
         e_effect.pack(side=tk.LEFT, padx=(0, 5))
 
-        # Rang
+        # Rank
         e_rank = ttk.Entry(row_frame, width=5)
         e_rank.insert(0, str(st_data.rank))
         e_rank.pack(side=tk.LEFT, padx=(0, 5))
 
-        # Dauer
+        # Duration
         e_rounds = ttk.Entry(row_frame, width=5)
         e_rounds.insert(0, str(st_data.duration))
         e_rounds.pack(side=tk.LEFT, padx=(0, 5))
@@ -152,7 +158,7 @@ class EditCharacterDialog:
             "frame": row_frame
         }
 
-        # Löschen Button
+        # Delete Button
         btn_del = ttk.Button(row_frame, text="X", width=3, command=lambda: self._delete_status_row(entry_dict))
         btn_del.pack(side=tk.LEFT)
 
@@ -164,27 +170,30 @@ class EditCharacterDialog:
             self.status_ui_entries.remove(entry_dict)
 
     def _on_save_click(self):
-        """Sammelt Daten, validiert und ruft Callback auf."""
+        """Collects data, validates, and calls the callback."""
         try:
-            new_name = self.entries["name"].get()
+            new_name = self.entries[StatType.NAME.value].get()
             if not new_name:
-                raise ValueError("Name darf nicht leer sein.")
+                raise ValueError(translate("messages.name_not_empty"))
+
+            selected_type_display = self.entries[StatType.TYPE.value].get()
+            char_type_value = self.translated_types.get(selected_type_display, self.char.char_type)
 
             data = {
-                "name": new_name,
-                "char_type": self.entries["type"].get(),
-                "lp": int(self.entries["lp"].get()),
-                "max_lp": int(self.entries["max_lp"].get()),
-                "rp": int(self.entries["rp"].get()),
-                "max_rp": int(self.entries["max_rp"].get()),
-                "sp": int(self.entries["sp"].get()),
-                "max_sp": int(self.entries["max_sp"].get()),
-                "init": int(self.entries["init"].get()),
-                "gew": int(self.entries["gew"].get()),
-                "level": int(self.entries["level"].get())
+                StatType.NAME.value: new_name,
+                StatType.CHAR_TYPE.value: char_type_value,
+                StatType.LP.value: int(self.entries[StatType.LP.value].get()),
+                StatType.MAX_LP.value: int(self.entries[StatType.MAX_LP.value].get()),
+                StatType.RP.value: int(self.entries[StatType.RP.value].get()),
+                StatType.MAX_RP.value: int(self.entries[StatType.MAX_RP.value].get()),
+                StatType.SP.value: int(self.entries[StatType.SP.value].get()),
+                StatType.MAX_SP.value: int(self.entries[StatType.MAX_SP.value].get()),
+                StatType.INIT.value: int(self.entries[StatType.INIT.value].get()),
+                StatType.GEW.value: int(self.entries[StatType.GEW.value].get()),
+                StatType.LEVEL.value: int(self.entries[StatType.LEVEL.value].get())
             }
 
-            # Status speichern
+            # Save statuses
             new_status_list = []
             for item in self.status_ui_entries:
                 effect_name = item["effect"].cget("text")
@@ -199,10 +208,10 @@ class EditCharacterDialog:
                         effect = GenericStatusEffect(effect_name, rounds, rank)
                     new_status_list.append(effect)
 
-            data["status"] = new_status_list
+            data[StatType.STATUS.value] = new_status_list
 
             self.on_save(data)
             self.window.destroy()
 
         except ValueError as e:
-            messagebox.showerror("Fehler", f"Ungültige Eingabe: {e}")
+            messagebox.showerror(translate("dialog.error.title"), f"{translate('messages.invalid_input')}: {e}")

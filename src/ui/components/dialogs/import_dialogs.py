@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import List, Dict, Any, Callable
 from src.config import FONTS, WINDOW_SIZE
-from src.models.enums import CharacterType
+from src.models.enums import CharacterType, StatType
+from src.utils.localization import translate
 
 class BaseImportDialog:
     """Basisklasse für Import-Dialoge mit scrollbarem Bereich."""
@@ -43,7 +44,7 @@ class ImportPreviewDialog(BaseImportDialog):
     Dialog für Schritt 1 des Imports: Auswahl der Zeilen und Anzahl.
     """
     def __init__(self, parent: tk.Tk, data: List[Dict[str, Any]], colors: Dict[str, str], on_confirm: Callable[[List[Dict[str, Any]]], None]):
-        super().__init__(parent, "Import Vorschau & Auswahl", colors)
+        super().__init__(parent, translate("dialog.import_preview.title"), colors)
         self.data = data
         self.on_confirm = on_confirm
         self.import_entries = []
@@ -51,17 +52,18 @@ class ImportPreviewDialog(BaseImportDialog):
 
     def _setup_ui(self):
         # Header
-        ttk.Label(self.window, text="Auswählen und anpassen", font=FONTS["xl"]).pack(pady=10)
+        ttk.Label(self.window, text=translate("dialog.import_preview.header"), font=FONTS["xl"]).pack(pady=10)
 
         scroll_frame = self._setup_scrollable_area()
 
         # Spaltenüberschriften
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level", "Anzahl"]
+        headers = [translate("character_attributes.name"), translate("character_attributes.type"), translate("character_attributes.lp"), translate("character_attributes.rp"), translate("character_attributes.sp"), translate("character_attributes.gew"), translate("character_attributes.level"), translate("dialog.import_preview.count")]
         widths = [15, 8, 5, 5, 5, 5, 5, 10]
         self._create_header_row(scroll_frame, headers, widths)
 
         # Zeilen generieren
         self.import_entries = []
+        self.translated_types = {translate(f"character_types.{t.name}"): t.value for t in CharacterType}
 
         for row in self.data:
             row_frame = ttk.Frame(scroll_frame, style="Card.TFrame")
@@ -73,8 +75,8 @@ class ImportPreviewDialog(BaseImportDialog):
             e_name.pack(side="left", padx=5)
 
             # Typ
-            e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=widths[1], state="readonly")
-            e_type.set(CharacterType.ENEMY.value)
+            e_type = ttk.Combobox(row_frame, values=list(self.translated_types.keys()), width=widths[1], state="readonly")
+            e_type.set(translate(f"character_types.{CharacterType.ENEMY.name}"))
             e_type.pack(side="left", padx=5)
 
             # LP
@@ -123,8 +125,8 @@ class ImportPreviewDialog(BaseImportDialog):
         btn_frame = ttk.Frame(self.window, style="Card.TFrame")
         btn_frame.pack(fill="x", pady=10, padx=10)
 
-        ttk.Button(btn_frame, text="Weiter zur Detail-Anpassung", command=self._on_next).pack(side="right")
-        ttk.Button(btn_frame, text="Abbrechen", command=self.window.destroy).pack(side="right", padx=10)
+        ttk.Button(btn_frame, text=translate("dialog.import_preview.next_btn"), command=self._on_next).pack(side="right")
+        ttk.Button(btn_frame, text=translate("common.cancel"), command=self.window.destroy).pack(side="right", padx=10)
 
     def _on_next(self):
         """Sammelt Daten und ruft den Callback auf."""
@@ -138,7 +140,9 @@ class ImportPreviewDialog(BaseImportDialog):
 
                 if count > 0:
                     name_base = entry["name"].get()
-                    char_type = entry["type"].get()
+                    selected_type_display = entry["type"].get()
+                    char_type_value = self.translated_types.get(selected_type_display, CharacterType.ENEMY.value)
+                    
                     lp = entry["lp"].get()
                     rp = entry["rp"].get()
                     sp = entry["sp"].get()
@@ -151,24 +155,24 @@ class ImportPreviewDialog(BaseImportDialog):
                             final_name = f"{name_base} {i+1}"
 
                         expanded_data.append({
-                            "Name": final_name,
-                            "Typ": char_type,
-                            "HP": lp,
-                            "Ruestung": rp,
-                            "Schild": sp,
-                            "Gewandtheit": gew,
-                            "Level": level
+                            StatType.NAME.value: final_name,
+                            StatType.TYPE.value: char_type_value,
+                            StatType.LP.value: lp,
+                            StatType.RP.value: rp,
+                            StatType.SP.value: sp,
+                            StatType.GEW.value: gew,
+                            StatType.LEVEL.value: level
                         })
 
             if not expanded_data:
-                messagebox.showinfo("Info", "Keine Gegner ausgewählt.")
+                messagebox.showinfo(translate("dialog.info.title"), translate("messages.no_enemies_selected"))
                 return
 
             self.window.destroy()
             self.on_confirm(expanded_data)
 
         except ValueError:
-            messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte verwenden.")
+            messagebox.showerror(translate("dialog.error.title"), translate("messages.use_valid_numbers"))
 
 
 class ImportDetailDialog(BaseImportDialog):
@@ -176,7 +180,7 @@ class ImportDetailDialog(BaseImportDialog):
     Dialog für Schritt 2 des Imports: Finale Bearbeitung einzelner Einträge.
     """
     def __init__(self, parent: tk.Tk, data: List[Dict[str, Any]], colors: Dict[str, str], on_finish: Callable[[List[Dict[str, Any]]], None]):
-        super().__init__(parent, "Import - Detail Anpassung", colors)
+        super().__init__(parent, translate("dialog.import_detail.title"), colors)
         self.data = data
         self.on_finish = on_finish
         self.detail_entries = []
@@ -184,17 +188,18 @@ class ImportDetailDialog(BaseImportDialog):
 
     def _setup_ui(self):
         # Header
-        ttk.Label(self.window, text="Details anpassen", font=FONTS["xl"], background=self.colors["bg"]).pack(pady=10)
-        ttk.Label(self.window, text="Hier können einzelne Charaktere final bearbeitet werden.", font=FONTS["main"], background=self.colors["bg"]).pack(pady=(0, 10))
+        ttk.Label(self.window, text=translate("dialog.import_detail.header"), font=FONTS["xl"], background=self.colors["bg"]).pack(pady=10)
+        ttk.Label(self.window, text=translate("dialog.import_detail.subheader"), font=FONTS["main"], background=self.colors["bg"]).pack(pady=(0, 10))
 
         scroll_frame = self._setup_scrollable_area()
 
         # Header Zeile
-        headers = ["Name", "Typ", "LP", "RP", "SP", "GEW", "Level"]
+        headers = [translate("character_attributes.name"), translate("character_attributes.type"), translate("character_attributes.lp"), translate("character_attributes.rp"), translate("character_attributes.sp"), translate("character_attributes.gew"), translate("character_attributes.level")]
         widths = [20, 10, 5, 5, 5, 5, 5, 5]
         self._create_header_row(scroll_frame, headers, widths)
 
         self.detail_entries = []
+        self.translated_types = {translate(f"character_types.{t.name}"): t.value for t in CharacterType}
 
         for row in self.data:
             row_frame = ttk.Frame(scroll_frame, style="Card.TFrame")
@@ -202,37 +207,38 @@ class ImportDetailDialog(BaseImportDialog):
 
             # Name
             e_name = ttk.Entry(row_frame, width=20)
-            e_name.insert(0, str(row["Name"]))
+            e_name.insert(0, str(row[StatType.NAME.value]))
             e_name.pack(side="left", padx=5)
 
             # Typ
-            e_type = ttk.Combobox(row_frame, values=[t.value for t in CharacterType], width=10, state="readonly")
-            e_type.set(row["Typ"])
+            e_type = ttk.Combobox(row_frame, values=list(self.translated_types.keys()), width=10, state="readonly")
+            current_type_display = translate(f"character_types.{row[StatType.TYPE.value]}")
+            e_type.set(current_type_display)
             e_type.pack(side="left", padx=5)
 
             # LP
             e_lp = ttk.Entry(row_frame, width=8)
-            e_lp.insert(0, str(row["HP"]))
+            e_lp.insert(0, str(row[StatType.LP.value]))
             e_lp.pack(side="left", padx=5)
 
             # RP
             e_rp = ttk.Entry(row_frame, width=8)
-            e_rp.insert(0, str(row["Ruestung"]))
+            e_rp.insert(0, str(row[StatType.RP.value]))
             e_rp.pack(side="left", padx=5)
 
             # SP
             e_sp = ttk.Entry(row_frame, width=8)
-            e_sp.insert(0, str(row["Schild"]))
+            e_sp.insert(0, str(row[StatType.SP.value]))
             e_sp.pack(side="left", padx=5)
 
             # Gewandtheit
             e_gew = ttk.Entry(row_frame, width=12)
-            e_gew.insert(0, str(row["Gewandtheit"]))
+            e_gew.insert(0, str(row[StatType.GEW.value]))
             e_gew.pack(side="left", padx=5)
 
             # Level
             e_level = ttk.Entry(row_frame, width=8)
-            e_level.insert(0, str(row.get("level", 0)))
+            e_level.insert(0, str(row.get(StatType.LEVEL.value, 0)))
             e_level.pack(side="left", padx=5)
 
             # Löschen Button für einzelne Zeile
@@ -260,8 +266,8 @@ class ImportDetailDialog(BaseImportDialog):
         btn_frame = ttk.Frame(self.window, style="Card.TFrame")
         btn_frame.pack(fill="x", pady=10, padx=10)
 
-        ttk.Button(btn_frame, text="Alle Importieren", command=self._on_finish).pack(side="right")
-        ttk.Button(btn_frame, text="Abbrechen", command=self.window.destroy).pack(side="right", padx=10)
+        ttk.Button(btn_frame, text=translate("dialog.import_detail.import_all_btn"), command=self._on_finish).pack(side="right")
+        ttk.Button(btn_frame, text=translate("common.cancel"), command=self.window.destroy).pack(side="right", padx=10)
 
     def remove_detail_row(self, frame, entry_obj):
         """Entfernt eine Zeile aus der Detailansicht."""
@@ -274,14 +280,17 @@ class ImportDetailDialog(BaseImportDialog):
         final_data = []
         try:
             for entry in self.detail_entries:
+                selected_type_display = entry["type"].get()
+                char_type_value = self.translated_types.get(selected_type_display, CharacterType.ENEMY.value)
+                
                 data = {
-                    "name": entry["name"].get(),
-                    "type": entry["type"].get(),
-                    "lp": int(entry["lp"].get()),
-                    "rp": int(entry["rp"].get()),
-                    "sp": int(entry["sp"].get()),
-                    "gew": int(entry["gew"].get()),
-                    "level": int(entry["level"].get())
+                    StatType.NAME.value: entry["name"].get(),
+                    StatType.TYPE.value: char_type_value,
+                    StatType.LP.value: int(entry["lp"].get()),
+                    StatType.RP.value: int(entry["rp"].get()),
+                    StatType.SP.value: int(entry["sp"].get()),
+                    StatType.GEW.value: int(entry["gew"].get()),
+                    StatType.LEVEL.value: int(entry["level"].get())
                 }
                 final_data.append(data)
 
@@ -289,4 +298,4 @@ class ImportDetailDialog(BaseImportDialog):
             self.on_finish(final_data)
 
         except ValueError:
-            messagebox.showerror("Fehler", "Bitte gültige Zahlenwerte in den Feldern verwenden.")
+            messagebox.showerror(translate("dialog.error.title"), translate("messages.use_valid_numbers"))

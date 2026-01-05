@@ -3,6 +3,7 @@ import re
 import os
 from typing import Dict, Any, Callable
 from src.utils.logger import setup_logging
+from src.utils.localization import translate
 
 logger = setup_logging()
 
@@ -14,7 +15,7 @@ class MarkdownUtils:
 
     @staticmethod
     def configure_text_tags(text_widget: tk.Text, link_callback: Callable[[Any], None], colors: Dict[str, str]):
-        """Konfiguriert die Tags für ein Text-Widget."""
+        """Configures the tags for a text widget."""
         text_widget.tag_config("h1", font=("Segoe UI", 16, "bold"), foreground=colors["accent"])
         text_widget.tag_config("h2", font=("Segoe UI", 14, "bold"), foreground=colors["accent"])
         text_widget.tag_config("h3", font=("Segoe UI", 12, "bold"))
@@ -29,7 +30,7 @@ class MarkdownUtils:
 
     @staticmethod
     def parse_markdown(text: str, text_widget: tk.Text):
-        """Einfacher Markdown-Parser für die Anzeige."""
+        """Simple Markdown parser for display."""
         lines = text.split("\n")
         for line in lines:
             tags = []
@@ -43,16 +44,16 @@ class MarkdownUtils:
                 tags.append("h3")
                 line = line[4:]
 
-            # Links verarbeiten [[Link]]
+            # Process links [[Link]]
             parts = MarkdownUtils.LINK_PATTERN.split(line)
             for part in parts:
                 if part.startswith("[[") and part.endswith("]]"):
                     link_text = part[2:-2]
-                    # Link einfügen
+                    # Insert link
                     text_widget.insert(tk.END, link_text, ("link",))
                 else:
-                    # Normaler Text (hier könnte man noch **bold** parsen)
-                    # Einfaches Bold Parsing
+                    # Normal text (could also parse **bold** here)
+                    # Simple bold parsing
                     bold_parts = MarkdownUtils.BOLD_PATTERN.split(part)
                     for b_part in bold_parts:
                         if b_part.startswith("**") and b_part.endswith("**"):
@@ -64,12 +65,12 @@ class MarkdownUtils:
 
     @staticmethod
     def parse_stats_from_markdown(content: str) -> Dict[str, Any]:
-        """Parst die Statistiken aus dem Markdown-Inhalt."""
+        """Parses statistics from Markdown content."""
         lines = content.split("\n")
         stats = {}
 
-        # Einfache Parsing-Logik: Wir gehen davon aus, dass die Stats in einer bestimmten Reihenfolge kommen
-        # und durch Doppelpunkte getrennt sind. Z.B. "LP: 10", "RP: 5", etc.
+        # Simple parsing logic: Assume stats are in a specific order
+        # and separated by colons. E.g., "LP: 10", "RP: 5", etc.
         for line in lines:
             if ":" in line:
                 try:
@@ -77,24 +78,24 @@ class MarkdownUtils:
                     key = key.strip().lower()
                     value = value.strip()
 
-                    # Versuchen, den Wert in eine Zahl zu konvertieren
+                    # Try to convert the value to a number
                     if value.isdigit():
                         value = int(value)
-                    elif MarkdownUtils.STAT_PAIR_PATTERN.match(value):  # Für Werte wie 10/5 (LP/RP)
+                    elif MarkdownUtils.STAT_PAIR_PATTERN.match(value):  # For values like 10/5 (LP/RP)
                         lp, rp = value.split("/")
                         value = {"lp": int(lp), "rp": int(rp)}
                     else:
-                        continue  # Unbekanntes Format, überspringen
+                        continue  # Unknown format, skip
 
                     stats[key] = value
                 except Exception as e:
-                    logger.warning(f"Fehler beim Parsen der Zeile '{line}': {e}")
+                    logger.warning(f"Error parsing line '{line}': {e}")
 
         return stats
 
     @staticmethod
     def display_folder_toc(folder_path: str, text_widget: tk.Text, colors: Dict[str, str]):
-        """Zeigt ein Inhaltsverzeichnis für einen Ordner an."""
+        """Displays a table of contents for a folder."""
         if text_widget is None:
             return
 
@@ -105,14 +106,14 @@ class MarkdownUtils:
 
         # Manually insert header since we are outside the class context for tag config if we didn't pass it
         # But tags are configured on the widget.
-        text_widget.insert(tk.END, f"# Inhalt von {folder_name}\n\n", ("h1",))
+        text_widget.insert(tk.END, f"# {translate('markdown.contents_of')} {folder_name}\n\n", ("h1",))
 
         # List subfolders
         try:
             subfolders = [d for d in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, d))]
             subfolders.sort()
             if subfolders:
-                text_widget.insert(tk.END, "## Ordner\n", ("h2",))
+                text_widget.insert(tk.END, f"## {translate('markdown.folders')}\n", ("h2",))
                 for sub in subfolders:
                     text_widget.insert(tk.END, f"- [[{sub}]]\n", ("link",))
                 text_widget.insert(tk.END, "\n")
@@ -121,14 +122,13 @@ class MarkdownUtils:
             files = [f for f in os.listdir(folder_path) if f.endswith(".md") and os.path.isfile(os.path.join(folder_path, f))]
             files.sort()
             if files:
-                text_widget.insert(tk.END, "## Dateien\n", ("h2",))
+                text_widget.insert(tk.END, f"## {translate('markdown.files')}\n", ("h2",))
                 for f in files:
                     name = os.path.splitext(f)[0]
                     if name != "Start":
                         text_widget.insert(tk.END, f"- [[{name}]]\n", ("link",))
         except OSError as e:
-            logger.error(f"Fehler beim Lesen des Ordners {folder_path}: {e}")
-            text_widget.insert(tk.END, "Fehler beim Lesen des Ordners.", ("error",))
+            logger.error(f"Error reading folder {folder_path}: {e}")
+            text_widget.insert(tk.END, translate("messages.error_reading_folder"), ("error",))
 
         text_widget.config(state=tk.DISABLED)
-

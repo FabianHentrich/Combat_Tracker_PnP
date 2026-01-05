@@ -3,21 +3,25 @@ import os
 import platform
 from typing import Dict, Tuple, Any
 from src.utils.logger import setup_logging
-from src.models.enums import DamageType, StatusEffectType
+from src.models.enums import DamageType, StatusEffectType, Language
 from .defaults import THEMES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS, LIBRARY_TABS
-from .rule_manager import get_rules
+from .rule_manager import get_rules, rule_manager
+from src.utils.localization import localization_manager
 
 logger = setup_logging()
 
-# Wähle hier das aktive Theme: "Neutral Dark", "Gruvbox Dark", "Nord Dark", "Monokai Dark", "Neutral Light", "Solarized Light"
+# --- LANGUAGE ---
+AVAILABLE_LANGUAGES = [lang.value for lang in Language]
+
+# Choose the active theme here: "Neutral Dark", "Gruvbox Dark", "Nord Dark", "Monokai Dark", "Neutral Light", "Solarized Light"
 ACTIVE_THEME = "Nord Dark"
 
 COLORS: Dict[str, str] = THEMES[ACTIVE_THEME]
 
-# --- KONFIGURATION ---
+# --- CONFIGURATION ---
 APP_TITLE = "PnP Combat Tracker v2.1 - Beta"
 
-# Plattform-abhängige Schriftarten
+# Platform-dependent fonts
 system = platform.system()
 if system == "Windows":
     MAIN_FONT = "Segoe UI"
@@ -25,8 +29,8 @@ if system == "Windows":
 elif system == "Darwin":  # macOS
     MAIN_FONT = "Helvetica Neue"
     MONO_FONT = "Menlo"
-else:  # Linux und andere
-    MAIN_FONT = "DejaVu Sans" # Oft verfügbar, sonst Fallback
+else:  # Linux and others
+    MAIN_FONT = "DejaVu Sans" # Often available, otherwise fallback
     MONO_FONT = "DejaVu Sans Mono"
 
 FONTS = {
@@ -52,8 +56,14 @@ os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(SAVES_DIR, exist_ok=True)
 os.makedirs(LOGS_DIR, exist_ok=True)
 
+# Construct the path to the rules file based on language
+language_code = localization_manager.language_code
+rules_file = os.path.join(DATA_DIR, "i18n", f"{language_code}_rules.json")
+if not os.path.exists(rules_file):
+    rules_file = os.path.join(DATA_DIR, "i18n", f"{Language.ENGLISH.value}_rules.json") # Fallback to English
+
 FILES = {
-    "rules": os.path.join(DATA_DIR, "rules.json"),
+    "rules": rules_file,
     "hotkeys": os.path.join(DATA_DIR, "hotkeys.json"),
     "enemies": os.path.join(DATA_DIR, "enemies.json"),
     "autosave": os.path.join(SAVES_DIR, "autosave.json"),
@@ -70,12 +80,6 @@ WINDOW_SIZE = {
     "small_dialog": "300x120"
 }
 
-def load_descriptions_from_rules(rules_data: Dict[str, Any]) -> Tuple[Dict[str, str], Dict[str, str]]:
-    """Extrahiert Beschreibungen aus den Regeldaten."""
-    dmg_desc = {k: v.get("description", "") for k, v in rules_data.get("damage_types", {}).items()}
-    status_desc = {k: v.get("description", "") for k, v in rules_data.get("status_effects", {}).items()}
-    return dmg_desc, status_desc
-
 def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
     if not os.path.exists(filepath):
         return DEFAULT_HOTKEYS
@@ -84,23 +88,24 @@ def load_hotkeys(filepath: str = FILES["hotkeys"]) -> Dict[str, str]:
         with open(filepath, 'r', encoding='utf-8') as f:
             loaded_hotkeys = json.load(f)
 
-            # Warnung bei fehlenden Keys
+            # Warning for missing keys
             missing = [k for k in DEFAULT_HOTKEYS if k not in loaded_hotkeys]
             if missing:
-                logger.warning(f"Hotkeys unvollständig. Nutze Standards für: {', '.join(missing)}")
+                logger.warning(f"Hotkeys incomplete. Using defaults for: {', '.join(missing)}")
 
             # Merge with defaults to ensure all keys exist
             merged_hotkeys = DEFAULT_HOTKEYS.copy()
             merged_hotkeys.update(loaded_hotkeys)
-            logger.info(f"Hotkeys geladen: {filepath}")
+            logger.info(f"Hotkeys loaded: {filepath}")
             return merged_hotkeys
     except Exception as e:
-        logger.error(f"Fehler beim Laden der Hotkeys: {e}")
+        logger.error(f"Error loading hotkeys: {e}")
         return DEFAULT_HOTKEYS
 
-# Lade die Regeln und extrahiere die Beschreibungen
+# Load the rules and extract the descriptions
 RULES = get_rules()
-DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS = load_descriptions_from_rules(RULES)
+# The old static dictionaries are removed.
+# Descriptions are now accessed dynamically via rule_manager properties.
 HOTKEYS = load_hotkeys()
 
 # --- HISTORY ---

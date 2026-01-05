@@ -1,10 +1,16 @@
-﻿
-**Rolle:** VerbÃ¼ndeter der Natur und ihrer Kreaturen  
+﻿**Rolle:** Verbündeter der Natur und ihrer Kreaturen  
 
-**Beschreibung:** Tiermagier verschmelzen mit der wilden Welt. Sie rufen Tiere zu Hilfe, nehmen selbst tierische Eigenschaften an oder kommunizieren mit der Fauna. Ihre Magie ist nicht nur nÃ¼tzlich im Kampf, sondern auch essenziell in Wildnis, Verfolgung und sozialem Umgang mit Tieren oder Naturgeistern. Viele Tiermagier verstehen sich als HÃ¼ter des natÃ¼rlichen Gleichgewichts.
+**Beschreibung:**  
+Tiermagier verschmelzen mit der wilden Welt. Sie rufen Tiere zu Hilfe, nehmen selbst tierische Eigenschaften an oder kommunizieren mit der Fauna. Ihre Magie ist nicht nur nützlich im Kampf, sondern auch essenziell in Wildnis, Verfolgung und sozialem Umgang mit Tieren oder Naturgeistern. Viele Tiermagier verstehen sich als Hüter des natürlichen Gleichgewichts.
 
-- **StÃ¤rken:** UnterstÃ¼tzung durch tierische GefÃ¤hrten, VerstÃ¤rkung kÃ¶rperlicher FÃ¤higkeiten, Ãœberlebensvorteile in der Natur  
-- **Kampfstil:** UnterstÃ¼tzend oder wild â€“ zwischen tierischer VerstÃ¤rkung und kontrollierter Rudeltaktik
+- **Stärken:** Unterstützung durch tierische Gefährten, Verstärkung körperlicher Fähigkeiten, Überlebensvorteile in der Natur  
+- **Schwäche:** Stark abhängig von der Anwesenheit und Gesundheit ihrer tierischen Begleiter; in urbaner Umgebung oder ohne Tiere eingeschränkt.
+
+---
+
+## Spielstil
+
+Der **Tiermagier** nutzt tierische Gefährten und Naturmagie, um flexibel auf Herausforderungen zu reagieren, Verbündete zu unterstützen und in der Wildnis zu überleben.
 
 ### Typische Zauber:
 
@@ -12,8 +18,7 @@
 - [[Tiersprache]]
 - [[Tierverwandlung]]
 - [[Pflanzenwachstum]]
-- [[Schwarm beschwÃ¶ren]]
+- [[Schwarm beschwören]]
 - [[Ruf des Tieres]]
----
-#Tiermagie 
 
+***

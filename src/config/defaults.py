@@ -1,4 +1,7 @@
-from src.models.enums import DamageType, StatusEffectType
+from src.models.enums import DamageType, StatusEffectType, Language
+
+# --- LANGUAGE ---
+DEFAULT_LANGUAGE = Language.ENGLISH.value
 
 # --- THEMES ---
 THEMES = {

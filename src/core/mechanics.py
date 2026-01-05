@@ -2,8 +2,9 @@ import random
 from typing import Tuple, List, Dict, Any, TYPE_CHECKING
 from src.config.defaults import GEW_TO_DICE
 from src.config.rule_manager import get_rules
-from src.models.enums import DamageType, StatusEffectType
+from src.models.enums import DamageType, StatusEffectType, RuleKey
 from src.models.combat_results import DamageResult
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.models.character import Character
@@ -54,29 +55,17 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
 
     # Logik basierend auf Schadenstyp aus Regeln laden
     rules = get_rules()
-    damage_rules = rules.get("damage_types", {})
+    damage_rules = rules.get(RuleKey.DAMAGE_TYPES, {})
     
     if damage_type in damage_rules:
         rule = damage_rules[damage_type]
-        result.ignores_shield = rule.get("ignores_shield", False)
-        result.ignores_armor = rule.get("ignores_armor", False)
-        result.secondary_effect = rule.get("secondary_effect")
+        result.ignores_shield = rule.get(RuleKey.IGNORES_SHIELD, False)
+        result.ignores_armor = rule.get(RuleKey.IGNORES_ARMOR, False)
+        result.secondary_effect = rule.get(RuleKey.SECONDARY_EFFECT)
     else:
-        # Fallback für unbekannte Typen
-        if damage_type == DamageType.PIERCING:
-            result.ignores_armor = True
-        elif damage_type == DamageType.DIRECT:
-            result.ignores_shield = True
-            result.ignores_armor = True
-        elif damage_type in [DamageType.DECAY, DamageType.POISON, DamageType.FIRE, DamageType.LIGHTNING, DamageType.COLD]:
-             mapping = {
-                 DamageType.DECAY: StatusEffectType.EROSION,
-                 DamageType.POISON: StatusEffectType.POISON,
-                 DamageType.FIRE: StatusEffectType.BURN,
-                 DamageType.LIGHTNING: StatusEffectType.STUN,
-                 DamageType.COLD: StatusEffectType.FREEZE
-             }
-             result.secondary_effect = mapping.get(damage_type)
+        # Fallback für unbekannte Typen (sollte idealerweise nicht passieren, wenn Regeln korrekt geladen sind)
+        # Wir loggen hier nichts, um die Performance nicht zu beeinträchtigen, aber wir setzen Standardwerte.
+        pass
 
     current_dmg = dmg
 
@@ -106,33 +95,36 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
 
     return result
 
-def format_damage_log(character: 'Character', result: DamageResult) -> str:
+def format_damage_log(character: 'Character', result: DamageResult, has_details: bool = False) -> str:
     """
     Erstellt einen lesbaren Log-String aus einem DamageResult.
     """
-    log = f"{character.name} erleidet {result.original_damage} ({result.damage_type}) Schaden!\n"
+    if has_details:
+        log = translate("messages.damage.receives_damage", name=character.name, damage=result.original_damage) + "\n"
+    else:
+        log = translate("messages.damage.receives_typed_damage", name=character.name, damage=result.original_damage, type=result.damage_type) + "\n"
 
     if result.ignores_armor and result.ignores_shield:
-        log += f"→ {result.damage_type} Schaden ignoriert Schild und Rüstung.\n"
+        log += f"→ {translate('messages.damage.ignores_both', type=result.damage_type)}\n"
     elif result.ignores_armor:
-        log += f"→ {result.damage_type} Schaden ignoriert Rüstung.\n"
+        log += f"→ {translate('messages.damage.ignores_armor', type=result.damage_type)}\n"
     elif result.ignores_shield:
-        log += f"→ {result.damage_type} Schaden ignoriert Schild.\n"
+        log += f"→ {translate('messages.damage.ignores_shield', type=result.damage_type)}\n"
 
     if result.secondary_effect:
-        log += f"❓ Chance auf {result.secondary_effect} (Rang {result.rank})!\n"
+        log += f"❓ {translate('messages.damage.secondary_effect_chance', effect=result.secondary_effect, rank=result.rank)}\n"
 
     if result.absorbed_by_shield > 0:
-        log += f"→ {result.absorbed_by_shield} Schaden vom Schild absorbiert.\n"
+        log += f"→ {translate('messages.damage.absorbed_by_shield', amount=result.absorbed_by_shield)}\n"
 
     if result.absorbed_by_armor > 0:
-        log += f"→ {result.absorbed_by_armor} Schaden durch Rüstung abgefangen ({result.armor_loss} RP verloren).\n"
+        log += f"→ {translate('messages.damage.absorbed_by_armor', amount=result.absorbed_by_armor, loss=result.armor_loss)}\n"
 
     if result.final_damage_hp > 0:
-        log += f"→ {result.final_damage_hp} Schaden auf Lebenspunkte!\n"
+        log += f"→ {translate('messages.damage.final_damage', amount=result.final_damage_hp)}\n"
 
     if result.is_dead:
-        log += f"⚔️ {character.name} ist kampfunfähig!\n"
+        log += f"⚔️ {translate('messages.damage.is_down', name=character.name)}\n"
         
     for msg in result.messages:
         log += f"{msg}\n"

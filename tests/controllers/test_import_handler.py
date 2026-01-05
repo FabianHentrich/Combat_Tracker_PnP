@@ -4,134 +4,122 @@ from src.controllers.import_handler import ImportHandler
 from src.models.character import Character
 
 @pytest.fixture
-def mock_dependencies():
-    """Erstellt gemockte Abhängigkeiten für den ImportHandler."""
-    engine = MagicMock()
-    history = MagicMock()
-    root = MagicMock()
-    colors = {}
-    return engine, history, root, colors
+def handler():
+    """Fixture to create an ImportHandler instance with mocked dependencies."""
+    mock_engine = MagicMock(spec=["insert_character", "log"])
+    mock_history = MagicMock(spec=["save_snapshot"])
+    mock_root = MagicMock()
+    mock_colors = {}
+    return ImportHandler(mock_engine, mock_history, mock_root, mock_colors)
 
 @pytest.fixture
 def mock_workbook():
-    """Erstellt ein gemocktes openpyxl Workbook."""
+    """Creates a mocked openpyxl Workbook with standard data."""
     mock_sheet = MagicMock()
-    # Header-Zeile
-    header = [MagicMock(value="Name"), MagicMock(value="HP"), MagicMock(value="Ruestung"), MagicMock(value="Schild"), MagicMock(value="Gewandtheit")]
-    # Daten-Zeilen
-    row1 = [MagicMock(value="Goblin"), MagicMock(value=10), MagicMock(value=2), MagicMock(value=0), MagicMock(value=2)]
-    row2 = [MagicMock(value="Orc"), MagicMock(value=25), MagicMock(value=5), MagicMock(value=0), MagicMock(value=1)]
+    header = [MagicMock(value=h) for h in ["Name", "HP", "Ruestung", "Schild", "Gewandtheit"]]
     
-    # Konfiguriere das Verhalten des Sheets
-    # iter_rows(values_only=True) wird im Code verwendet
     mock_sheet.iter_rows.return_value = [
         ("Goblin", 10, 2, 0, 2),
         ("Orc", 25, 5, 0, 1)
     ]
-    # __getitem__ wird für den Header verwendet
     mock_sheet.__getitem__.return_value = header
 
     mock_wb = MagicMock()
     mock_wb.active = mock_sheet
     return mock_wb
 
-def test_load_from_excel_success(mock_dependencies, mock_workbook):
-    """
-    Testet den erfolgreichen Ladevorgang bis zum Aufruf des Preview-Dialogs.
-    """
-    engine, history, root, colors = mock_dependencies
-    handler = ImportHandler(engine, history, root, colors)
+# --- load_from_excel Tests ---
 
-    # Korrekte Patch-Ziele: Dort, wo die Funktion aufgerufen wird.
-    with patch('src.controllers.import_handler.openpyxl.load_workbook', return_value=mock_workbook) as mock_load_wb, \
-         patch('src.controllers.import_handler.filedialog.askopenfilename', return_value="dummy.xlsx") as mock_file_dialog, \
-         patch('src.controllers.import_handler.ImportPreviewDialog') as MockPreviewDialog:
-        
+def test_load_from_excel_user_cancel(handler):
+    """Tests that the function exits gracefully if the user cancels the file dialog."""
+    with patch('src.controllers.import_handler.filedialog.askopenfilename', return_value="") as mock_file_dialog:
         handler.load_from_excel()
-
-        # Prüfen, ob der Dateidialog aufgerufen wurde
         mock_file_dialog.assert_called_once()
-        
-        # Prüfen, ob die Datei geladen wurde
-        mock_load_wb.assert_called_once_with("dummy.xlsx", data_only=True)
-        
-        # Prüfen, ob der History-Manager aufgerufen wurde
-        history.save_snapshot.assert_called_once()
+        # Ensure no further processing happens
+        handler.history_manager.save_snapshot.assert_called_once() # Snapshot is saved before dialog
+        handler.engine.insert_character.assert_not_called()
 
-        # Prüfen, ob der Preview-Dialog mit den korrekten Daten aufgerufen wurde
-        expected_data = [
-            {'Name': 'Goblin', 'HP': 10, 'Ruestung': 2, 'Schild': 0, 'Gewandtheit': 2},
-            {'Name': 'Orc', 'HP': 25, 'Ruestung': 5, 'Schild': 0, 'Gewandtheit': 1}
-        ]
-        MockPreviewDialog.assert_called_once_with(root, expected_data, colors, ANY)
+@patch('src.controllers.import_handler.ImportPreviewDialog')
+@patch('src.controllers.import_handler.filedialog.askopenfilename', return_value="dummy.xlsx")
+@patch('src.controllers.import_handler.openpyxl.load_workbook')
+def test_load_from_excel_skips_empty_rows(mock_load_wb, mock_file_dialog, MockPreviewDialog, handler, mock_workbook):
+    """Tests that rows with no name are skipped."""
+    # Add an empty row to the mock data
+    mock_sheet = mock_workbook.active
+    mock_sheet.iter_rows.return_value = [
+        ("Goblin", 10, 2, 0, 2),
+        (None, 50, 5, 5, 5), # This row should be skipped
+        ("Orc", 25, 5, 0, 1)
+    ]
+    mock_load_wb.return_value = mock_workbook
 
-def test_load_from_excel_missing_columns(mock_dependencies):
-    """
-    Testet, ob ein Fehler ausgelöst wird, wenn wichtige Spalten fehlen.
-    """
-    engine, history, root, colors = mock_dependencies
-    handler = ImportHandler(engine, history, root, colors)
+    handler.load_from_excel()
 
-    # Erstelle ein Workbook, dem die "HP"-Spalte fehlt
+    # The data passed to the preview dialog should not contain the empty row
+    expected_data = [
+        {'Name': 'Goblin', 'HP': 10, 'Ruestung': 2, 'Schild': 0, 'Gewandtheit': 2},
+        {'Name': 'Orc', 'HP': 25, 'Ruestung': 5, 'Schild': 0, 'Gewandtheit': 1}
+    ]
+    MockPreviewDialog.assert_called_once_with(handler.root, expected_data, handler.colors, ANY)
+
+def test_load_from_excel_missing_columns(handler):
+    """Tests that an error is shown if required columns are missing."""
     mock_sheet = MagicMock()
-    header = [MagicMock(value="Name"), MagicMock(value="Ruestung")]
+    header = [MagicMock(value="Name"), MagicMock(value="Ruestung")] # HP is missing
     mock_sheet.__getitem__.return_value = header
     mock_wb = MagicMock()
     mock_wb.active = mock_sheet
 
-    # Korrekte Patch-Ziele
     with patch('src.controllers.import_handler.openpyxl.load_workbook', return_value=mock_wb), \
          patch('src.controllers.import_handler.filedialog.askopenfilename', return_value="bad.xlsx"), \
          patch('src.controllers.import_handler.messagebox.showerror') as mock_showerror:
         
         handler.load_from_excel()
         
-        # Prüfen, ob eine Fehlermeldung angezeigt wurde
         mock_showerror.assert_called_once()
-        # Prüfen, ob der Fehler die fehlenden Spalten erwähnt
-        call_args, _ = mock_showerror.call_args
-        assert "missing columns" in call_args[1]
-        assert "HP" in call_args[1]
+        assert "missing columns" in mock_showerror.call_args[0][1]
 
-def test_on_details_confirmed_imports_characters(mock_dependencies):
-    """
-    Testet den finalen Schritt: Werden aus den Dialog-Daten Charaktere erstellt?
-    """
-    engine, history, root, colors = mock_dependencies
-    handler = ImportHandler(engine, history, root, colors)
+# --- Callback and Finalization Tests ---
 
-    # Simulierte Daten, die vom Detail-Dialog zurückkommen
+@patch('src.controllers.import_handler.ImportDetailDialog')
+def test_on_preview_confirmed_empty_data(MockDetailDialog, handler):
+    """Tests that the detail dialog is not opened if preview data is empty."""
+    handler.on_preview_confirmed([])
+    MockDetailDialog.assert_not_called()
+
+def test_on_details_confirmed_imports_characters(handler):
+    """Tests the successful import of characters from final data."""
     final_data = [
         {'name': 'Goblin', 'type': 'Gegner', 'lp': 10, 'rp': 2, 'sp': 0, 'gew': 2, 'level': 1},
         {'name': 'Orc', 'type': 'Gegner', 'lp': 25, 'rp': 5, 'sp': 0, 'gew': 1, 'level': 3}
     ]
 
-    # Mock für wuerfle_initiative, damit wir einen festen Wert haben
     with patch('src.controllers.import_handler.wuerfle_initiative', return_value=15):
         handler.on_details_confirmed(final_data)
 
-    # Prüfen, ob die Charaktere korrekt an die Engine übergeben wurden
-    assert engine.insert_character.call_count == 2
+    assert handler.engine.insert_character.call_count == 2
+    handler.engine.log.assert_called_with("2 characters imported successfully.")
+
+@patch('src.controllers.import_handler.MAX_GEW', 5)
+def test_on_details_confirmed_caps_gew(handler):
+    """Tests that Gewandtheit is capped at MAX_GEW during import."""
+    final_data = [{'name': 'Speedy', 'type': 'Gegner', 'lp': 10, 'rp': 0, 'sp': 0, 'gew': 8, 'level': 1}]
     
-    # Erster Charakter
-    call_args1, _ = engine.insert_character.call_args_list[0]
-    char1 = call_args1[0]
-    assert isinstance(char1, Character)
-    assert char1.name == "Goblin"
-    assert char1.max_lp == 10
-    assert char1.gew == 2
-    assert char1.level == 1
-    assert char1.init == 15 # Gemockter Wert
+    with patch('src.controllers.import_handler.wuerfle_initiative'):
+        handler.on_details_confirmed(final_data)
+    
+    handler.engine.insert_character.assert_called_once()
+    inserted_char = handler.engine.insert_character.call_args[0][0]
+    assert inserted_char.gew == 5 # Should be capped to 5
 
-    # Zweiter Charakter
-    call_args2, _ = engine.insert_character.call_args_list[1]
-    char2 = call_args2[0]
-    assert isinstance(char2, Character)
-    assert char2.name == "Orc"
-    assert char2.max_lp == 25
-    assert char2.gew == 1
-    assert char2.level == 3
-    assert char2.init == 15 # Gemockter Wert
-
-    # Prüfen, ob eine Erfolgsmeldung geloggt wurde
-    engine.log.assert_called_with("2 Charaktere erfolgreich importiert.")
+@patch('src.controllers.import_handler.messagebox.showerror')
+def test_on_details_confirmed_handles_key_error(mock_showerror, handler):
+    """Tests that an error is shown if the final data is missing a required key."""
+    # Data is missing the 'lp' key
+    final_data = [{'name': 'Incomplete', 'type': 'Gegner', 'rp': 0, 'sp': 0, 'gew': 1, 'level': 1}]
+    
+    handler.on_details_confirmed(final_data)
+    
+    mock_showerror.assert_called_once()
+    assert "Error during import" in mock_showerror.call_args[0][1]
+    handler.engine.insert_character.assert_not_called()

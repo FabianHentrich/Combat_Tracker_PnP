@@ -1,6 +1,7 @@
 from typing import Dict, List, Callable, Any
 from src.models.enums import EventType
 from src.utils.logger import setup_logging
+from src.utils.localization import translate
 
 logger = setup_logging()
 
@@ -30,5 +31,4 @@ class EventManager:
                 try:
                     callback(*args, **kwargs)
                 except Exception as e:
-                    logger.error(f"Fehler beim Ausführen des Listeners für {event_type}: {e}")
-
+                    logger.error(translate("messages.error_executing_listener", event_type=event_type, error=e))

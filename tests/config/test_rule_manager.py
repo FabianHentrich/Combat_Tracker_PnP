@@ -3,7 +3,7 @@ from unittest.mock import patch, mock_open
 import json
 from src.config.rule_manager import RuleManager
 
-# Beispiel-JSON-Daten für die Tests
+# Example JSON data for the tests
 MOCK_RULES_JSON = json.dumps({
     "damage_types": {
         "TestDmg": {"description": "Test", "ignores_armor": True}
@@ -16,64 +16,70 @@ MOCK_RULES_JSON = json.dumps({
 @pytest.fixture(autouse=True)
 def reset_rule_manager_singleton():
     """
-    Setzt die Singleton-Instanz des RuleManagers vor jedem Test in dieser Datei zurück.
-    Dies ist entscheidend, um sicherzustellen, dass jeder Test mit einer sauberen,
-    neuen Instanz beginnt und nicht durch den globalen Zustand beeinflusst wird.
+    Resets the RuleManager singleton instance before each test in this file.
+    This is crucial to ensure that each test starts with a clean,
+    new instance and is not affected by global state.
     """
     RuleManager._instance = None
     yield
     RuleManager._instance = None
 
-
 def test_load_rules_success():
     """
-    Testet das erfolgreiche Laden von Regeln aus einer gültigen JSON-Datei.
+    Tests the successful loading of rules from a valid JSON file.
     """
-    with patch("os.path.exists", return_value=True):
-        with patch("builtins.open", mock_open(read_data=MOCK_RULES_JSON)):
-            # Durch das Fixture wird hier eine NEUE Instanz erstellt
-            manager = RuleManager(rules_path="dummy.json")
-            rules = manager.get_rules()
-            
-            assert "TestDmg" in rules["damage_types"]
-            assert rules["damage_types"]["TestDmg"]["ignores_armor"] is True
-            assert "TestStatus" in rules["status_effects"]
+    with patch("os.path.exists", return_value=True), \
+         patch("builtins.open", mock_open(read_data=MOCK_RULES_JSON)), \
+         patch("src.config.rule_manager.localization_manager.language_code", "en"):
+        
+        # A NEW instance is created here due to the fixture
+        manager = RuleManager()
+        rules = manager.get_rules()
+        
+        assert "TestDmg" in rules["damage_types"]
+        assert rules["damage_types"]["TestDmg"]["ignores_armor"] is True
+        assert "TestStatus" in rules["status_effects"]
 
 def test_load_rules_file_not_found():
     """
-    Testet das Verhalten, wenn die Regel-Datei nicht existiert.
-    Es sollten leere, aber gültige Regel-Strukturen zurückgegeben werden.
+    Tests the behavior when the rule file does not exist.
+    It should return empty but valid rule structures.
     """
-    with patch("os.path.exists", return_value=False):
-        manager = RuleManager(rules_path="nonexistent.json")
+    with patch("os.path.exists", return_value=False), \
+         patch("src.config.rule_manager.localization_manager.language_code", "en"):
+        
+        manager = RuleManager()
         rules = manager.get_rules()
         
         assert "damage_types" in rules
         assert "status_effects" in rules
-        assert not rules["damage_types"]  # Dictionary sollte leer sein
-        assert not rules["status_effects"] # Dictionary sollte leer sein
+        assert not rules["damage_types"]  # Dictionary should be empty
+        assert not rules["status_effects"] # Dictionary should be empty
 
 def test_load_rules_json_error():
     """
-    Testet das Verhalten bei einer fehlerhaften JSON-Datei.
-    Sollte ebenfalls auf eine leere, sichere Struktur zurückfallen.
+    Tests the behavior with a faulty JSON file.
+    Should also fall back to an empty, safe structure.
     """
-    with patch("os.path.exists", return_value=True):
-        with patch("builtins.open", mock_open(read_data="invalid json")):
-            manager = RuleManager(rules_path="bad.json")
-            rules = manager.get_rules()
+    with patch("os.path.exists", return_value=True), \
+         patch("builtins.open", mock_open(read_data="invalid json")), \
+         patch("src.config.rule_manager.localization_manager.language_code", "en"):
+        
+        manager = RuleManager()
+        rules = manager.get_rules()
 
-            assert "damage_types" in rules
-            assert "status_effects" in rules
-            assert not rules["damage_types"]
-            assert not rules["status_effects"]
+        assert "damage_types" in rules
+        assert "status_effects" in rules
+        assert not rules["damage_types"]
+        assert not rules["status_effects"]
 
 def test_singleton_behavior():
     """
-    Stellt sicher, dass der RuleManager ein Singleton ist.
+    Ensures that the RuleManager is a singleton.
     """
-    # Dieser Test funktioniert jetzt zuverlässig, da die Instanz vorher zurückgesetzt wurde.
-    manager1 = RuleManager()
-    manager2 = RuleManager()
+    # This test now works reliably because the instance was reset beforehand.
+    with patch("src.config.rule_manager.localization_manager.language_code", "en"):
+        manager1 = RuleManager()
+        manager2 = RuleManager()
     
     assert manager1 is manager2

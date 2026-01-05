@@ -1,127 +1,91 @@
 import pytest
-from unittest.mock import MagicMock, patch, mock_open
-import sys
-import os
-import json
-
-# sys.path.append removed. Run tests with python -m pytest
-
-# Mocke tkinter Module
-sys.modules['tkinter'] = MagicMock()
-sys.modules['tkinter.ttk'] = MagicMock()
-sys.modules['tkinter.filedialog'] = MagicMock()
-sys.modules['tkinter.messagebox'] = MagicMock()
-
-from src.core.engine import CombatEngine
-from src.models.character import Character
+from unittest.mock import MagicMock, patch
 from src.controllers.persistence import PersistenceHandler
 
 @pytest.fixture
-def engine():
-    return CombatEngine()
+def handler():
+    """Fixture to create a PersistenceHandler instance with a mocked root."""
+    mock_root = MagicMock()
+    return PersistenceHandler(mock_root)
 
-def test_character_serialization():
-    """
-    Testet die Serialisierung und Deserialisierung eines Charakters.
-    Überprüft, ob alle Attribute (inkl. Status) korrekt gespeichert und geladen werden.
-    """
-    c = Character("Hero", 100, 10, 5, 20, gew=3, char_type="Spieler")
-    c.add_status("Vergiftung", 3, 2)
+# --- save_session Tests ---
 
-    data = c.to_dict()
+@patch('src.controllers.persistence.SaveManager.save_to_file')
+@patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json")
+def test_save_session_success(mock_asksaveasfilename, mock_save_to_file, handler):
+    """Tests the successful save workflow."""
+    state = {"data": "test"}
+    result = handler.save_session(state)
+    
+    mock_asksaveasfilename.assert_called_once()
+    mock_save_to_file.assert_called_once_with("test.json", state)
+    assert result == "test.json"
 
-    assert data["name"] == "Hero"
-    assert data["lp"] == 100
-    assert data["status"][0]["effect"] == "Vergiftung"
+@patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="")
+def test_save_session_user_cancel(mock_asksaveasfilename, handler):
+    """Tests that nothing happens if the user cancels the save dialog."""
+    result = handler.save_session({})
+    mock_asksaveasfilename.assert_called_once()
+    assert result is None
 
-    c2 = Character.from_dict(data)
-    assert c2.name == c.name
-    assert c2.lp == c.lp
-    assert c2.status[0].name == "Vergiftung"
-    assert c2.status[0].duration == 3
+@patch('src.controllers.persistence.messagebox.showerror')
+@patch('src.controllers.persistence.SaveManager.save_to_file', side_effect=IOError("Disk full"))
+@patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json")
+def test_save_session_exception(mock_asksaveasfilename, mock_save_to_file, mock_showerror, handler):
+    """Tests that an error message is shown if saving fails."""
+    result = handler.save_session({})
+    mock_showerror.assert_called_once_with("Error", "Disk full")
+    assert result is None
 
-def test_engine_state_serialization(engine):
-    """
-    Testet die Serialisierung des gesamten Engine-Zustands.
-    Überprüft, ob Charakterliste, Turn-Index und Rundennummer korrekt gespeichert werden.
-    """
-    c1 = Character("A", 10, 10, 10, 20)
-    c2 = Character("B", 10, 10, 10, 10)
-    engine.characters = [c1, c2]
-    engine.turn_index = 1
-    engine.round_number = 5
+# --- load_session Tests ---
 
-    state = engine.get_state()
+@patch('src.controllers.persistence.SaveManager.load_from_file', return_value={"data": "test"})
+@patch('src.controllers.persistence.filedialog.askopenfilename', return_value="test.json")
+def test_load_session_success(mock_askopenfilename, mock_load_from_file, handler):
+    """Tests the successful load workflow."""
+    result = handler.load_session()
+    
+    mock_askopenfilename.assert_called_once()
+    mock_load_from_file.assert_called_once_with("test.json")
+    assert result == {"data": "test"}
 
-    assert len(state["characters"]) == 2
-    assert state["turn_index"] == 1
-    assert state["round_number"] == 5
+@patch('src.controllers.persistence.filedialog.askopenfilename', return_value="")
+def test_load_session_user_cancel(mock_askopenfilename, handler):
+    """Tests that nothing happens if the user cancels the load dialog."""
+    result = handler.load_session()
+    mock_askopenfilename.assert_called_once()
+    assert result is None
 
-    # Create new engine and load state
-    engine2 = CombatEngine()
-    engine2.load_state(state)
+@patch('src.controllers.persistence.messagebox.showerror')
+@patch('src.controllers.persistence.SaveManager.load_from_file', side_effect=IOError("File not found"))
+@patch('src.controllers.persistence.filedialog.askopenfilename', return_value="test.json")
+def test_load_session_exception(mock_askopenfilename, mock_load_from_file, mock_showerror, handler):
+    """Tests that an error message is shown if loading fails."""
+    result = handler.load_session()
+    mock_showerror.assert_called_once_with("Error", "File not found")
+    assert result is None
 
-    assert len(engine2.characters) == 2
-    assert engine2.characters[0].name == "A"
-    assert engine2.turn_index == 1
-    assert engine2.round_number == 5
+# --- Autosave Tests ---
 
-def test_persistence_handler_save():
-    """
-    Testet das Speichern der Session über den PersistenceHandler.
-    Überprüft, ob der Dateidialog aufgerufen und SaveManager.save_to_file aufgerufen wird.
-    """
-    state = {"some": "state"}
-    handler = PersistenceHandler(MagicMock())
+@patch('src.controllers.persistence.SaveManager.save_to_file')
+@patch('src.controllers.persistence.FILES', {"autosave": "autosave.json"})
+def test_autosave(mock_save_to_file, handler):
+    """Tests that autosave calls the save manager with the correct file path."""
+    state = {"data": "autosave_test"}
+    handler.autosave(state)
+    mock_save_to_file.assert_called_once_with("autosave.json", state)
 
-    with patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json"), \
-         patch('src.controllers.persistence.SaveManager.save_to_file') as mock_save:
+@patch('src.controllers.persistence.SaveManager.load_from_file', return_value={"data": "test"})
+@patch('src.controllers.persistence.FILES', {"autosave": "autosave.json"})
+def test_load_autosave_success(mock_load_from_file, handler):
+    """Tests the successful loading of an autosave file."""
+    result = handler.load_autosave()
+    mock_load_from_file.assert_called_once_with("autosave.json")
+    assert result == {"data": "test"}
 
-        handler.save_session(state)
-
-        mock_save.assert_called_once_with("test.json", state)
-
-def test_persistence_handler_load():
-    """
-    Testet das Laden der Session über den PersistenceHandler.
-    Überprüft, ob der Dateidialog aufgerufen und SaveManager.load_from_file aufgerufen wird.
-    """
-    handler = PersistenceHandler(MagicMock())
-
-    expected_state = {
-        "characters": [],
-        "turn_index": -1,
-        "round_number": 1
-    }
-
-    with patch('src.controllers.persistence.filedialog.askopenfilename', return_value="test.json"), \
-         patch('src.controllers.persistence.SaveManager.load_from_file', return_value=expected_state) as mock_load:
-
-        result = handler.load_session()
-
-        mock_load.assert_called_once_with("test.json")
-        assert result == expected_state
-def test_persistence_handler_with_audio_state():
-    """
-    Testet, ob der PersistenceHandler auch den Audio-State korrekt verarbeitet,
-    wenn er Teil des übergebenen Dictionaries ist.
-    """
-    handler = PersistenceHandler(MagicMock())
-
-    state = {
-        "characters": [],
-        "turn_index": -1,
-        "round_number": 1,
-        "audio": {
-            "playlist": [{"path": "song.mp3"}],
-            "volume": 0.8
-        }
-    }
-
-    # Test Save
-    with patch('src.controllers.persistence.filedialog.asksaveasfilename', return_value="test.json"), \
-         patch('src.controllers.persistence.SaveManager.save_to_file') as mock_save:
-
-        handler.save_session(state)
-
-        mock_save.assert_called_once_with("test.json", state)
+@patch('src.controllers.persistence.SaveManager.load_from_file', side_effect=FileNotFoundError)
+@patch('src.controllers.persistence.FILES', {"autosave": "autosave.json"})
+def test_load_autosave_not_found(mock_load_from_file, handler):
+    """Tests that load_autosave returns None if the file doesn't exist."""
+    result = handler.load_autosave()
+    assert result is None

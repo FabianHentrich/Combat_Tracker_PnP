@@ -1,35 +1,34 @@
-﻿## Krieger *(FrontkÃ¤mpfer / Verteidiger)*
+﻿## Krieger *(Frontkämpfer / Verteidiger)*
 
-**Rolle:** Tank / NahkÃ¤mpfer  
+**Rolle:** Tank / Nahkämpfer  
 **Beschreibung:**  
-Der Krieger oder Ritter ist ein Meister des Nahkampfs und der Verteidigung. Mit schwerer RÃ¼stung und einer Vielzahl von Waffen schÃ¼tzt er seine VerbÃ¼ndeten und teilt massiven Schaden aus. Er kann Gegner provozieren oder blockieren, um die Aufmerksamkeit auf sich zu ziehen.
+Der Krieger oder Ritter ist ein Meister des Nahkampfs und der Verteidigung. Mit schwerer Rüstung und einer Vielzahl von Waffen schützt er seine Verbündeten und teilt massiven Schaden aus. Er kann Gegner provozieren oder blockieren, um die Aufmerksamkeit auf sich zu ziehen.
 
-**StÃ¤rken:**  
+**Stärken:**  
 - Hohe Lebenspunkte  
 - Starke Verteidigung  
 - Vielseitige Waffenwahl  
-
-**Kampfstil:**  
-Direkt und offensiv â€“ ideal fÃ¼r Spieler, die in vorderster Reihe kÃ¤mpfen mÃ¶chten.
+**Schwäche:**  
+- Eingeschränkte Magieresistenz und geringe Flexibilität im Fernkampf; auf direkte Konfrontation angewiesen.
 
 ---
 
 ## Spielstil
 
-Der **Krieger / Ritter** eignet sich perfekt als Tank und BeschÃ¼tzer:
+Der **Krieger / Ritter** eignet sich perfekt als Tank und Beschützer:
 
-- Absorbiert viel Schaden durch **RÃ¼stung** und defensive Skills wie _Schildwall_  
-- Ãœbt hohen Druck auf Gegner aus mit offensiven FÃ¤higkeiten wie _Wuchtschlag_ oder _Klingenwirbel_
+- Absorbiert viel Schaden durch **Rüstung** und defensive Skills wie _Schildwall_  
+- Übt hohen Druck auf Gegner aus mit offensiven Fähigkeiten wie _Wuchtschlag_ oder _Klingenwirbel_
 
 ---
 
-## BasisausrÃ¼stung
+## Basisausrüstung
 
 | Gegenstand                   | Wert und Eigenschaften                                                                                                  |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| **Schwere RÃ¼stung (normal)** | 4 [[RÃ¼stung (RP)]] (normal), **â€“1 auf [[GEWANDTHEIT]]**                                                                      |
-| **[[Schilde]] (normal)**      | 2 [[RÃ¼stung (RP)]]                                                                                                           |
-| **Waffe nach Wahl**          | [[Kurzschwert]] *([[STÃ„RKE]] + 2 Schaden)*  **oder**  [[Streitaxt]] *([[STÃ„RKE]] + 3 [[Schaden]], â€“1 auf Angriffswurf)* |
+| **Schwere Rüstung (normal)** | 4 [[Rüstung (RP)]] (normal), **–1 auf [[GEWANDTHEIT]]**                                                                      |
+| **[[Schilde]] (normal)**      | 2 [[Rüstung (RP)]]                                                                                                           |
+| **Waffe nach Wahl**          | [[Kurzschwert]] *([[STÄRKE]] + 2 Schaden)*  **oder**  [[Streitaxt]] *([[STÄRKE]] + 3 [[Schaden]], –1 auf Angriffswurf)* |
 
 ---
 
@@ -40,8 +39,5 @@ Der **Krieger / Ritter** eignet sich perfekt als Tank und BeschÃ¼tzer:
 - [[Provozieren]]  
 - [[Standhaftigkeit]]  
 - [[Klingenwirbel]]  
+
 ***
-#Krieger
-
-
-

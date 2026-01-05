@@ -11,6 +11,8 @@ from src.ui.components.combat.character_list import CharacterList
 from src.ui.styles import StyleManager
 from src.ui.components.main_menu import MainMenu
 from src.ui.components.combat.bottom_panel import BottomPanel
+from src.utils.localization import translate
+from src.models.enums import ScopeType
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -117,7 +119,7 @@ class MainView(ICombatView):
     def get_status_input(self) -> Dict[str, Any]:
         return self.action_panel.get_status_input()
 
-    def get_management_target(self) -> str:
+    def get_management_target(self) -> ScopeType:
         return self.action_panel.get_management_target()
 
     def focus_damage_input(self) -> None:
@@ -133,7 +135,7 @@ class MainView(ICombatView):
 
     def update_round_label(self, round_number: int) -> None:
         if self.bottom_panel and self.bottom_panel.round_label:
-            self.bottom_panel.round_label.config(text=f"Runde: {round_number}")
+            self.bottom_panel.round_label.config(text=f"{translate('main_view.round')}: {round_number}")
 
     def fill_input_fields(self, data: Dict[str, Any]) -> None:
         self.quick_add_panel.fill_fields(data)

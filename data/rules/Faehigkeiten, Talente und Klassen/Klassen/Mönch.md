@@ -1,44 +1,44 @@
-﻿## MÃ¶nch *(Agiler NahkÃ¤mpfer mit spirituellem Fokus)*
+﻿## Mönch *(Agiler Nahkämpfer mit spirituellem Fokus)*
 
-**Rolle:** Beweglicher KÃ¤mpfer / Spiritueller UnterstÃ¼tzer  
+**Rolle:** Beweglicher Kämpfer / Spiritueller Unterstützer  
 **Beschreibung:**  
-Der MÃ¶nch ist ein disziplinierter Krieger, der KÃ¶rper und Geist durch strenge spirituelle Praxis perfektioniert hat.  
-Er folgt einem tiefen Glauben â€“ sei es an eine Gottheit, kosmische Ordnung oder innere Kraft â€“ und zieht daraus StÃ¤rke.  
-Sein Kampfstil verbindet akrobatische Bewegungen mit prÃ¤zisen SchlÃ¤gen und spirituellen FÃ¤higkeiten.
+Der Mönch ist ein disziplinierter Krieger, der Körper und Geist durch strenge spirituelle Praxis perfektioniert hat.  
+Er folgt einem tiefen Glauben – sei es an eine Gottheit, kosmische Ordnung oder innere Kraft – und zieht daraus Stärke.  
+Sein Kampfstil verbindet akrobatische Bewegungen mit präzisen Schlägen und spirituellen Fähigkeiten.
 
-**StÃ¤rken:**
+**Stärken:**
 - Schnelle Nahkampfangriffe, hohe GEWANDTHEIT
-- Spirituelle KrÃ¤fte fÃ¼r Schutz, Heilung oder Kontrolle
-- Effektiv ohne schwere RÃ¼stung oder Waffen
+- Spirituelle Kräfte für Schutz, Heilung oder Kontrolle
+- Effektiv ohne schwere Rüstung oder Waffen
 
-**Kampfstil:**
-PrÃ¤zise SchlÃ¤ge gepaart mit AusweichmanÃ¶vern â€“ ideal fÃ¼r Spieler, die AgilitÃ¤t und SpiritualitÃ¤t kombinieren mÃ¶chten.
+**Schwäche:**  
+- Geringe Rüstung und begrenzte Durchschlagskraft gegen stark gepanzerte Gegner.
 
 ---
 
 ## Spielstil
 
-### Spirituelle UnterstÃ¼tzerrolle
+### Spirituelle Unterstützerrolle
 
-- StÃ¤rkt Defensive mit _Meditation des Schutzes_  
+- Stärkt Defensive mit _Meditation des Schutzes_  
 - Kontrolliert Feinde mit _Aura der Ruhe_  
 - Heilt gezielt mit _Reinigende Hand_
 
-### Vielseitiger NahkÃ¤mpfer
+### Vielseitiger Nahkämpfer
 
-- GlÃ¤nzt durch schnelle Angriffe (_Schlagserie_)  
+- Glänzt durch schnelle Angriffe (_Schlagserie_)  
 - Kontrolliert Gegner mit gezielten Techniken 
-- Nutzt FlÃ¤chenangriffe wie _Wirbeltritt_ gegen Gruppen  
-- Ist durch _Meditation zur Heilung_ unabhÃ¤ngig von anderen Heilern
+- Nutzt Flächenangriffe wie _Wirbeltritt_ gegen Gruppen  
+- Ist durch _Meditation zur Heilung_ unabhängig von anderen Heilern
 
 ---
 
-## BasisausrÃ¼stung
+## Basisausrüstung
 
 | Gegenstand            | Wert und Eigenschaften                               |
 | --------------------- | ---------------------------------------------------- |
-| [[MÃ¶nchskutte]]       | +1 [[Bonus]] auf **[[GEWANDTHEIT]]-[[WURFZAHL]]**    |
-| [[Kampfhandschuhe]]   | +1 [[Bonus]] auf **[[STÃ„RKE]]-[[WURFZAHL]]**         |
+| [[Mönchskutte]]       | +1 [[Bonus]] auf **[[GEWANDTHEIT]]-[[WURFZAHL]]**    |
+| [[Kampfhandschuhe]]   | +1 [[Bonus]] auf **[[STÄRKE]]-[[WURFZAHL]]**         |
 | [[Meditationsperlen]] | +2 **[[Manapunkte (MP)]]** nach 5 Minuten Meditation |
 
 ---
@@ -58,5 +58,3 @@ PrÃ¤zise SchlÃ¤ge gepaart mit AusweichmanÃ¶vern â€“ ideal fÃ¼r Spie
 - [[Erleuchteter Schlag]]  
 
 ***
-#MÃ¶nch
-

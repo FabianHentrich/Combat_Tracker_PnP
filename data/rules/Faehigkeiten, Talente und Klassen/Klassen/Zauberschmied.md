@@ -1,10 +1,16 @@
-﻿
-**Rolle:** Runenmeister und Magiehandwerker  
+﻿**Rolle:** Runenmeister und Magiehandwerker  
 
-**Beschreibung:** Der Zauberschmied verbindet arkane Macht mit handwerklicher Meisterschaft. Er erschafft, verzaubert und verÃ¤ndert Waffen, RÃ¼stungen und magische GegenstÃ¤nde. Ob im Kampf durch selbstgeschmiedete Artefakte oder im Hintergrund durch mÃ¤chtige Vorbereitungen â€“ der Zauberschmied ist ein taktischer Magier, der seine Macht nicht aus der flÃ¼chtigen Geste, sondern aus dem geschmiedeten Werk zieht.
+**Beschreibung:**  
+Der Zauberschmied verbindet arkane Macht mit handwerklicher Meisterschaft. Er erschafft, verzaubert und verändert Waffen, Rüstungen und magische Gegenstände. Ob im Kampf durch selbstgeschmiedete Artefakte oder im Hintergrund durch mächtige Vorbereitungen – der Zauberschmied ist ein taktischer Magier, der seine Macht nicht aus der flüchtigen Geste, sondern aus dem geschmiedeten Werk zieht.
 
-- **StÃ¤rken:** Anpassbare AusrÃ¼stung, Verzauberungen fÃ¼r sich und andere, starke VorbereitungsmÃ¶glichkeiten  
-- **Kampfstil:** Reaktiv und unterstÃ¼tzend â€“ optimiert Waffen und RÃ¼stung fÃ¼r die jeweilige Situation, kann aber auch im Nahkampf bestehen
+- **Stärken:** Anpassbare Ausrüstung, Verzauberungen für sich und andere, starke Vorbereitungsmöglichkeiten  
+- **Schwäche:** Benötigt Zeit und Ressourcen für Vorbereitungen; im spontanen Kampf oft weniger effektiv.
+
+---
+
+## Spielstil
+
+Der **Zauberschmied** bereitet sich und seine Gruppe durch magische Verbesserungen und Artefakte optimal auf verschiedene Situationen vor und kann im Kampf flexibel reagieren.
 
 ### Typische Zauber:
 
@@ -12,7 +18,6 @@
 - [[Verzauberung]]
 - [[Zauberspeicher]]
 - [[Energieschild]]
-- [[Arkaner SpÃ¼rsinn]]
-***
-#Zauberschmied 
+- [[Arkaner Spürsinn]]
 
+***

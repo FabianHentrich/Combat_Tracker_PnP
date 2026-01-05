@@ -6,6 +6,7 @@ from typing import Dict, Callable, Optional
 from src.config import FONTS
 from src.utils.logger import setup_logging
 from src.utils.markdown_utils import MarkdownUtils
+from src.utils.localization import translate
 
 logger = setup_logging()
 
@@ -58,7 +59,7 @@ class MarkdownBrowser(ttk.Frame):
         self.tree.bind("<<TreeviewSelect>>", self._on_select)
 
         # Button zum Ordner wählen
-        ttk.Button(parent, text="Ordner wählen...", command=self._select_folder).pack(fill=tk.X, padx=5, pady=5)
+        ttk.Button(parent, text=translate("library.select_folder"), command=self._select_folder).pack(fill=tk.X, padx=5, pady=5)
 
     def _create_content_area(self, parent):
         # Text Widget für Markdown-Anzeige
@@ -111,7 +112,7 @@ class MarkdownBrowser(ttk.Frame):
             self.display_content(start_file)
 
     def _select_folder(self):
-        folder = filedialog.askdirectory(initialdir=self.root_dir, title=f"Ordner wählen")
+        folder = filedialog.askdirectory(initialdir=self.root_dir, title=translate("dialog.file.select_folder_title"))
         if folder:
             self.root_dir = folder
             self.load_tree()
@@ -185,7 +186,7 @@ class MarkdownBrowser(ttk.Frame):
                 self.on_navigate(filepath)
 
         except Exception as e:
-            logger.error(f"Fehler beim Lesen der Datei {filepath}: {e}")
+            logger.error(f"Error reading file {filepath}: {e}")
 
     def _on_link_click(self, event, text_widget):
         index = text_widget.index(f"@{event.x},{event.y}")

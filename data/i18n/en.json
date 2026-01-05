@@ -1,0 +1,305 @@
+{
+  "app": {
+    "title": "Combat Tracker PnP"
+  },
+  "character_attributes": {
+    "name": "Name",
+    "lp": "LP",
+    "rp": "RP",
+    "sp": "SP",
+    "init": "INIT",
+    "gew": "GEW",
+    "level": "Level",
+    "type": "Type",
+    "status": "Status"
+  },
+  "character_types": {
+    "PLAYER": "Player",
+    "ENEMY": "Enemy",
+    "NPC": "NPC"
+  },
+  "damage_types": {
+    "NORMAL": "Normal",
+    "PIERCING": "Piercing",
+    "DIRECT": "Direct",
+    "DECAY": "Decay",
+    "POISON": "Poison",
+    "FIRE": "Fire",
+    "LIGHTNING": "Lightning",
+    "COLD": "Cold"
+  },
+  "status_effects": {
+    "POISON": "Poison",
+    "BURN": "Burn",
+    "BLEED": "Bleed",
+    "FREEZE": "Freeze",
+    "EXHAUSTION": "Exhaustion",
+    "STUN": "Stun",
+    "EROSION": "Erosion",
+    "CONFUSION": "Confusion",
+    "BLIND": "Blind"
+  },
+  "main_view": {
+    "round": "Round",
+    "add_character": "Add New Character",
+    "open_library": "📚 Open Library...",
+    "excel_import": "Excel Import"
+  },
+  "quick_add": {
+    "act_immediately": "Act Immediately"
+  },
+  "action_panel": {
+    "title": "Interaction",
+    "damage_healing_label": "Damage / Healing:",
+    "total": "Total",
+    "deal_damage_btn": "⚔️ Damage",
+    "heal_btn": "💚 Heal",
+    "add_shield_btn": "🛡️ Shield +",
+    "add_armor_btn": "👕 Armor +",
+    "status_effect_label": "Status Effect:",
+    "rank": "Rank",
+    "duration": "Duration",
+    "add_status_btn": "Add Status",
+    "management_label": "Management:"
+  },
+  "management_targets": {
+    "selected": "Selected Character",
+    "all_enemies": "All Enemies",
+    "all_players": "All Players",
+    "all_npcs": "All NPCs",
+    "all_characters": "All Characters"
+  },
+  "bottom_panel": {
+    "roll_initiative_btn": "🎲 Roll & Sort Initiative",
+    "next_turn_btn": "⏭ Next Turn",
+    "reset_initiative_btn": "🔄 Reset Initiative",
+    "reset_options": {
+      "all": "All",
+      "enemies": "Only Enemies",
+      "players": "Only Players",
+      "npcs": "Only NPCs"
+    },
+    "undo_btn": "↩ Undo",
+    "redo_btn": "↪ Redo",
+    "combat_log_label": "Combat Log"
+  },
+  "dice_roller": {
+    "title": "Dice Roller",
+    "ready": "Ready",
+    "rolling": "Rolling d{sides}...",
+    "result_exploded": "d{sides}: {roll_str} = {total} (Exploded!)",
+    "result_normal": "d{sides}: {roll_str}"
+  },
+  "character_list": {
+    "order": "#",
+    "lp_bar": "LP (Bar)",
+    "status": "Status"
+  },
+  "menu": {
+    "file": "File",
+    "exit": "Exit",
+    "save_combat": "Save Combat...",
+    "load_combat": "Load Combat...",
+    "open_library": "Open Library",
+    "import_excel": "Import Enemies (Excel)...",
+    "settings": "Settings...",
+    "music_settings": "Music Settings...",
+    "theme": "Theme",
+    "language": "Language"
+  },
+  "dialog": {
+    "confirm": {
+      "title": "Confirmation"
+    },
+    "error": {
+      "title": "Error"
+    },
+    "info": {
+      "title": "Info"
+    },
+    "add_damage": {
+      "title": "Add Damage",
+      "add_type": "+ Add Type"
+    },
+    "edit_character": {
+      "title": "Edit",
+      "current": "Current",
+      "max": "Max",
+      "status_label": "Status (Effect | Rank | Duration)"
+    },
+    "hotkey_settings": {
+      "title": "Hotkey Settings",
+      "instruction": "Click a button and press a key",
+      "press_key": "Press key..."
+    },
+    "import_preview": {
+      "title": "Import Preview & Selection",
+      "header": "Select and customize",
+      "count": "Count",
+      "next_btn": "Next to Detail Adjustment"
+    },
+    "import_detail": {
+      "title": "Import - Detail Adjustment",
+      "header": "Adjust Details",
+      "subheader": "Here individual characters can be finally edited.",
+      "import_all_btn": "Import All"
+    },
+    "file": {
+      "json": "JSON files",
+      "all": "All files",
+      "excel": "Excel Files",
+      "audio": "Audio Files",
+      "save_combat_title": "Save Combat",
+      "load_combat_title": "Load Combat",
+      "load_enemy_data_title": "Load Enemy Data",
+      "select_folder_title": "Select Folder"
+    }
+  },
+  "hotkeys": {
+    "next_turn": "Next Turn",
+    "undo": "Undo",
+    "redo": "Redo",
+    "delete_char": "Delete Character",
+    "focus_damage": "Focus on Damage",
+    "audio_play_pause": "Music: Play/Pause",
+    "audio_next": "Music: Next Track",
+    "audio_prev": "Music: Previous Track",
+    "audio_vol_up": "Music: Volume Up",
+    "audio_vol_down": "Music: Volume Down",
+    "audio_mute": "Music: Mute"
+  },
+  "library": {
+    "title": "Library & Rulebook",
+    "global_search": "🔍 Global Search:",
+    "enemies_tab": "Enemies (Import)",
+    "available_enemies": "Available Enemies",
+    "category_header": "Category / Name",
+    "add_btn": "Add ->",
+    "staging_area": "Selected Enemies (Adjust Count & Values)",
+    "act_immediately": "Act Immediately",
+    "add_all_to_combat": "Add All to Combat",
+    "select_folder": "Select Folder..."
+  },
+  "audio_player": {
+    "title": "Music Player",
+    "no_track": "No Track",
+    "loop_track": "Loop Track",
+    "loop_all": "Loop All"
+  },
+  "audio_settings": {
+    "title": "Music Player Settings",
+    "add_file": "Add File...",
+    "add_folder": "Add Folder...",
+    "add_file_tooltip": "Add individual audio files (mp3, wav, ogg) to the playlist.",
+    "add_folder_tooltip": "Add all audio files from a folder (and subfolders).",
+    "open_tta_tooltip": "Opens tabletopaudio.com in the browser for high-quality ambience sounds.",
+    "playlist_label": "Playlist (Drag & Drop to sort)"
+  },
+  "markdown": {
+    "contents_of": "Contents of",
+    "folders": "Folders",
+    "files": "Files"
+  },
+  "messages": {
+    "no_info": "No info",
+    "no_enemies_selected": "No enemies selected.",
+    "use_valid_numbers": "Please use valid numerical values.",
+    "name_not_empty": "Name cannot be empty.",
+    "invalid_input": "Invalid input",
+    "hotkeys_saved": "Hotkeys saved and applied!",
+    "save_failed": "Save failed",
+    "enter_damage_value": "Please enter a damage value > 0.",
+    "enter_or_select_status": "Please enter or select a status.",
+    "max_rank_adjusted": "Max rank for '{status}' is {max_rank}. Rank has been adjusted.",
+    "enter_valid_numbers_duration_rank": "Please enter valid numbers for duration and rank.",
+    "enter_healing_value": "Please enter a healing value > 0 in the 'Value' field.",
+    "no_character_selected": "No character selected.",
+    "select_character_first": "First, select a character.",
+    "character_not_found": "Character not found (Internal Error).",
+    "bulk_editing_not_available": "Bulk editing is not currently available.",
+    "really_delete_all_characters": "Really delete ALL characters?",
+    "really_delete_all": "Really delete all {char_type}?",
+    "excel_missing_columns": "Excel file is missing columns",
+    "error_loading_file": "Error loading file",
+    "error_during_import": "Error during import",
+    "error_reading_folder": "Error reading folder.",
+    "error_executing_listener": "Error executing listener for {event_type}: {error}",
+    "agility_set_to_max": "Agility has been set to the maximum of {max_gew}.",
+    "unknown_error": "Unknown Error",
+    "audio_disabled": "The audio system could not be initialized.",
+    "reason": "Reason",
+    "audio_functions_disabled": "Audio functions are disabled.",
+    "crash_detected": "The program was not closed properly. Load the last autosave?",
+    "theme_changed": "Theme changed to: {theme_name}",
+    "combat_saved": "Combat saved: {file_path}",
+    "combat_loaded": "Combat loaded.",
+    "autosave_loaded": "Autosave loaded.",
+    "characters_imported": "{count} characters imported successfully.",
+    "characters_added_from_library": "{count} characters added from library.",
+    "character_added_to_combat": "{name} was added to the combat.",
+    "combat_reset": "Combat reset.",
+    "combat_status_loaded": "Combat status loaded.",
+    "character_receives_shield": "{name} receives {amount} shield.",
+    "character_receives_armor": "{name} receives {amount} armor.",
+    "character_receives_status": "{name} receives status '{effect_name}' (Rank {rank}) for {duration} rounds.",
+    "character_edited": "✏ Character '{name}' has been edited.",
+    "damage_applied_to_targets": "Damage applied to {count} targets.",
+    "status_applied_to_targets": "Status '{status}' applied to {count} targets.",
+    "undo_executed": "↩ Undo executed.",
+    "redo_executed": "↪ Redo executed.",
+    "character_healed": "{name} is healed for {amount} HP! Current HP: {lp}",
+    "initiative_sorted": "Initiative sorted.",
+    "all_initiatives_rerolled": "All initiatives rerolled.",
+    "initiative_rolled": "Initiative rolled! Order created.",
+    "round_begins": "--- Round {round_number} begins ---",
+    "initiative_reset": "Initiative of {type_text} has been reset ({count} affected).",
+    "character_skips_turn": "{name} skips their turn.",
+    "is_incapacitated": "is incapacitated.",
+    "is_on_turn": "'s turn!",
+    "character_added": "{name} was added.",
+    "character_jumps_in": "⚠ {name} surprisingly jumps into the fight!",
+    "character_sorted_in": "{name} was sorted in.",
+    "character_removed": "{name} was removed.",
+    "all_characters_of_type_deleted": "All {type} were deleted.",
+    "all_characters_deleted": "All characters have been deleted.",
+    "damage": {
+      "receives_damage": "{name} suffers {damage} damage!",
+      "receives_typed_damage": "{name} suffers {damage} ({type}) damage!",
+      "ignores_both": "{type} damage ignores shield and armor.",
+      "ignores_armor": "{type} damage ignores armor.",
+      "ignores_shield": "{type} damage ignores shield.",
+      "secondary_effect_chance": "Chance of {effect} (Rank {rank})!",
+      "absorbed_by_shield": "{amount} damage absorbed by shield.",
+      "absorbed_by_armor": "{amount} damage absorbed by armor ({loss} RP lost).",
+      "final_damage": "{amount} damage to hit points!",
+      "is_down": "{name} is down!"
+    },
+    "status": {
+      "poison": "(Poison Rank {rank}, Round {round})",
+      "burn": "(Burn Rank {rank}, Round {round})",
+      "bleed": "(Bleed Rank {rank}, Round {round})",
+      "erosion": "(Erosion Rank {rank} - {dmg} Max HP permanently lost)",
+      "freeze": "ℹ️ {name} loses bonus action (Freeze Rank {rank}).\n",
+      "stun": "🛑 {name} is stunned and loses all actions!\n",
+      "exhaustion": "ℹ️ {name} has -2 penalty on AGILITY (Exhaustion).\n",
+      "confusion": "ℹ️ {name} has -1 penalty on COMBAT roll (Confusion).\n",
+      "blind_rank1": "ℹ️ {name} is blinded: -1 on attack roll (Rank 1).\n",
+      "blind_rank2": "ℹ️ {name} is blinded: -2 on attack roll (Rank 2).\n",
+      "blind_rank3": "ℹ️ {name} is blinded: -2 on all actions (Rank 3).\n",
+      "blind_rank4": "ℹ️ {name} is blinded: -2 on all actions (Rank 4).\n",
+      "blind_rank5": "ℹ️ {name} is blinded: -3 on all actions (Rank 5).\n",
+      "blind_generic": "ℹ️ {name} is blinded (Rank {rank}).\n"
+    }
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "bar": "Bar",
+    "details": "Details",
+    "rounds": "rds."
+  }
+}

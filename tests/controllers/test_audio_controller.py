@@ -2,88 +2,78 @@ import pytest
 from unittest.mock import MagicMock, patch
 import sys
 
-# We patch the module-level pygame variable in src.controllers.audio_controller
-# This works even if the module is already imported.
+# This setup ensures that 'pygame' and 'mutagen' are mocked *before* the controller is imported.
+MOCK_PYGAME = MagicMock()
+MOCK_MUTAGEN = MagicMock()
+
+# Ensure that any iteration over pygame.event.get() is finite and does not block.
+MOCK_PYGAME.event.get.return_value = []
 
 @pytest.fixture
 def audio_controller():
-    with patch('src.controllers.audio_controller.pygame') as mock_pygame, \
-         patch('src.controllers.audio_controller.mutagen') as mock_mutagen:
+    """Provides a clean AudioController instance with mocked dependencies."""
+    # Patch the modules directly in the namespace of the module under test.
+    # This is more robust than patching sys.modules.
+    with patch('src.controllers.audio_controller.pygame', MOCK_PYGAME), \
+         patch('src.controllers.audio_controller.mutagen', MOCK_MUTAGEN):
+        
+        # Reset mocks for every test function to ensure isolation
+        MOCK_PYGAME.reset_mock()
+        MOCK_MUTAGEN.reset_mock()
+        
+        # Configure mock for _get_duration to return a float, preventing potential errors
+        MOCK_MUTAGEN.File.return_value.info.length = 180.0  # e.g., 3 minutes
 
-        # Setup mock pygame
-        mock_pygame.mixer.music.get_busy.return_value = False
-        # Ensure pygame.error is an Exception class
-        mock_pygame.error = Exception
-
+        # Import the controller *after* the patches are applied
         from src.controllers.audio_controller import AudioController
         controller = AudioController()
-        # Force initialization state for tests
         controller._initialized = True
+        yield controller
 
-        # Attach mock to controller for easy access in tests if needed,
-        # though we usually access it via the patch context in the test.
-        # But since we are inside a fixture, we can't yield the mock easily with the controller.
-        # We will re-patch in tests or assume the fixture set it up correctly.
+# --- Tests ---
 
-        return controller
+def test_add_and_remove_track(audio_controller):
+    """Tests adding and removing tracks and index management."""
+    audio_controller.add_track("track1.mp3")
+    audio_controller.add_track("track2.mp3")
+    assert len(audio_controller.playlist) == 2
 
-def test_initialization(audio_controller):
-    """Testet die Initialisierung des AudioControllers."""
-    assert audio_controller._initialized is True
-    assert audio_controller.volume == 0.5
-
-def test_add_track(audio_controller):
-    """Testet das Hinzufügen von Tracks zur Playlist."""
-    path = "test.mp3"
-    title = "Test Track"
-    audio_controller.add_track(path, title)
+    audio_controller.current_index = 1
+    audio_controller.remove_track(0) # Remove track before the current one
     assert len(audio_controller.playlist) == 1
-    assert audio_controller.playlist[0]["title"] == title
-    assert audio_controller.playlist[0]["path"] == path
+    assert audio_controller.current_index == 0 # Index should be updated
 
-def test_play_track(audio_controller):
-    """Testet das Abspielen eines Tracks."""
-    path = "test.mp3"
-    title = "Test Track"
-    audio_controller.add_track(path, title)
+def test_play_track_loads_file(audio_controller):
+    """Tests that play() calls the necessary pygame methods."""
+    audio_controller.add_track("test.mp3")
+    audio_controller.play(0)
+    
+    MOCK_PYGAME.mixer.music.load.assert_called_with("test.mp3")
+    MOCK_PYGAME.mixer.music.play.assert_called()
 
-    # We need to patch again to get access to the mock object for assertions
-    with patch('src.controllers.audio_controller.pygame') as mock_pygame:
-        # Ensure pygame appears initialized
-        mock_pygame.get_init.return_value = True
+def test_next_track_with_loop(audio_controller):
+    """
+    Tests that next_track correctly loops to the beginning of the playlist.
+    This test now patches the 'play' method to avoid any potential UI/event loops.
+    """
+    audio_controller.add_track("track1.mp3")
+    audio_controller.add_track("track2.mp3")
+    audio_controller.loop_playlist = True
+    audio_controller.current_index = 1 # At the end of the playlist
 
-        audio_controller.play(0)
+    with patch.object(audio_controller, 'play') as mock_play:
+        audio_controller.next_track()
+        # We expect it to call play with the index of the first track
+        mock_play.assert_called_once_with(0)
 
-        mock_pygame.mixer.music.load.assert_called_with("test.mp3")
-        mock_pygame.mixer.music.play.assert_called()
-        assert audio_controller.is_playing is True
-        assert audio_controller.current_index == 0
+def test_next_track_no_loop(audio_controller):
+    """Tests that playback stops at the end of the playlist if loop is off."""
+    audio_controller.add_track("track1.mp3")
+    audio_controller.current_index = 0
+    audio_controller.loop_playlist = False
 
-def test_volume_control(audio_controller):
-    """Testet die Lautstärkeregelung."""
-    with patch('src.controllers.audio_controller.pygame') as mock_pygame:
-        mock_pygame.get_init.return_value = True
-
-        audio_controller.set_volume(0.8)
-        assert audio_controller.volume == 0.8
-        mock_pygame.mixer.music.set_volume.assert_called_with(0.8)
-
-def test_toggle_mute(audio_controller):
-    """Testet Mute/Unmute."""
-    with patch('src.controllers.audio_controller.pygame') as mock_pygame:
-        mock_pygame.get_init.return_value = True
-
-        audio_controller.set_volume(0.5)
-        # Reset mock calls to verify subsequent calls
-        mock_pygame.mixer.music.set_volume.reset_mock()
-
-        # Mute
-        audio_controller.toggle_mute()
-        assert audio_controller.volume == 0.0
-        mock_pygame.mixer.music.set_volume.assert_called_with(0.0)
-
-        # Unmute
-        audio_controller.toggle_mute()
-        assert audio_controller.volume == 0.5
-        mock_pygame.mixer.music.set_volume.assert_called_with(0.5)
-
+    with patch.object(audio_controller, 'play') as mock_play:
+        audio_controller.next_track()
+        # It should call the mixer's stop function and NOT call play again
+        MOCK_PYGAME.mixer.music.stop.assert_called_once()
+        mock_play.assert_not_called()

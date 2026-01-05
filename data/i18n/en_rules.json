@@ -1,0 +1,96 @@
+{
+    "damage_types": {
+        "NORMAL": {
+            "description": "Weapon damage.\\nShield (SP) and Armor (RP) reduce the damage.",
+            "ignores_armor": false,
+            "ignores_shield": false
+        },
+        "PIERCING": {
+            "description": "Ignores Armor (RP).\\nShield (SP) still reduces the damage.",
+            "ignores_armor": true,
+            "ignores_shield": false
+        },
+        "DIRECT": {
+            "description": "Ignores Armor (RP) and Shield (SP).\\nGoes directly to Hit Points (LP).",
+            "ignores_armor": true,
+            "ignores_shield": true
+        },
+        "DECAY": {
+            "description": "Causes damage and the 'Erosion' status.",
+            "ignores_armor": false,
+            "ignores_shield": false,
+            "secondary_effect": "EROSION"
+        },
+        "POISON": {
+            "description": "Can cause Poison (chance depends on rank).",
+            "ignores_armor": false,
+            "ignores_shield": false,
+            "secondary_effect": "POISON"
+        },
+        "FIRE": {
+            "description": "Can cause Burn (chance depends on rank).",
+            "ignores_armor": false,
+            "ignores_shield": false,
+            "secondary_effect": "BURN"
+        },
+        "LIGHTNING": {
+            "description": "Can cause Stun (chance depends on rank).",
+            "ignores_armor": false,
+            "ignores_shield": false,
+            "secondary_effect": "STUN"
+        },
+        "COLD": {
+            "description": "Can cause Freeze (chance depends on rank).",
+            "ignores_armor": false,
+            "ignores_shield": false,
+            "secondary_effect": "FREEZE"
+        }
+    },
+    "status_effects": {
+        "POISON": {
+            "description": "Direct damage (Rank) per round.",
+            "max_rank": 5,
+            "stackable": true
+        },
+        "BURN": {
+            "description": "Damage (Rank) per round.",
+            "max_rank": 5,
+            "stackable": true
+        },
+        "BLEED": {
+            "description": "Damage (Rank/2) per round.\\nDamage increases by +1 each round.",
+            "max_rank": 5,
+            "stackable": true
+        },
+        "FREEZE": {
+            "description": "Loss of bonus action for (Rank) rounds.",
+            "max_rank": 5,
+            "stackable": false
+        },
+        "EXHAUSTION": {
+            "description": "-2 penalty on AGILITY for 1 round.",
+            "max_rank": 1,
+            "stackable": false
+        },
+        "STUN": {
+            "description": "Target loses all actions for one round.",
+            "max_rank": 1,
+            "stackable": false
+        },
+        "EROSION": {
+            "description": "Permanent loss of RANK * 1d4 Hit Points (LP).",
+            "max_rank": 5,
+            "stackable": true
+        },
+        "CONFUSION": {
+            "description": "-1 penalty on COMBAT roll.",
+            "max_rank": 1,
+            "stackable": false
+        },
+        "BLIND": {
+            "description": "Penalty on actions/attacks depending on rank (1-5).",
+            "max_rank": 5,
+            "stackable": false
+        }
+    }
+}

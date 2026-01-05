@@ -1,17 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
 from typing import Dict, Any, TYPE_CHECKING, Callable, List
-from src.models.enums import DamageType, StatusEffectType
-from src.config import FONTS, DAMAGE_DESCRIPTIONS, STATUS_DESCRIPTIONS
-from src.config.rule_manager import get_rules
+from src.models.enums import DamageType, StatusEffectType, ScopeType
+from src.config.rule_manager import rule_manager
 from src.utils.utils import ToolTip
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
 
 class ActionPanel(ttk.LabelFrame):
     def __init__(self, parent: tk.Widget, controller: 'CombatTracker', colors: Dict[str, str]):
-        super().__init__(parent, text="Interaktion", padding="15", style="Card.TLabelframe")
+        super().__init__(parent, text=translate("action_panel.title"), padding="15", style="Card.TLabelframe")
         self.controller = controller
         self.colors = colors
 
@@ -25,94 +25,102 @@ class ActionPanel(ttk.LabelFrame):
         self.management_target_var = None
         self.btn_edit = None
         
-        # Schadenstypen aus den geladenen Regeln laden
-        rules = get_rules()
-        self.damage_types = list(rules.get("damage_types", {}).keys())
+        # Prepare translated values
+        self.translated_damage_types = {translate(f"damage_types.{dt.name}"): dt.value for dt in DamageType}
+        self.translated_status_effects = {translate(f"status_effects.{se.name}"): se.value for se in StatusEffectType}
+        self.translated_scopes = {
+            translate("management_targets.selected"): ScopeType.SELECTED,
+            translate("management_targets.all_enemies"): ScopeType.ALL_ENEMIES,
+            translate("management_targets.all_players"): ScopeType.ALL_PLAYERS,
+            translate("management_targets.all_npcs"): ScopeType.ALL_NPCS,
+            translate("management_targets.all_characters"): ScopeType.ALL
+        }
 
         self._setup_ui()
 
     def _setup_ui(self):
-        # --- Schaden Sektion (Dynamisch) ---
-        ttk.Label(self, text="Schaden / Heilung:").pack(anchor="w")
+        # --- Damage Section (Dynamic) ---
+        ttk.Label(self, text=translate("action_panel.damage_healing_label")).pack(anchor="w")
         
-        # Container für die dynamischen Zeilen
+        # Container for dynamic rows
         self.rows_frame = ttk.Frame(self)
         self.rows_frame.pack(fill="x", pady=(0, 5))
         
-        # Erste Zeile initial hinzufügen
+        # Add the first row initially
         self.add_damage_row()
         
-        # Buttons für Zeilen-Management
+        # Buttons for row management
         row_btn_frame = ttk.Frame(self)
         row_btn_frame.pack(fill="x", pady=(0, 5))
         ttk.Button(row_btn_frame, text="+", width=3, command=self.add_damage_row).pack(side="left")
         
-        # Summen-Anzeige
-        self.lbl_total = ttk.Label(row_btn_frame, text="Gesamt: 0", font=("Arial", 9, "bold"))
+        # Total display
+        self.lbl_total = ttk.Label(row_btn_frame, text=f"{translate('action_panel.total')}: 0", font=("Arial", 9, "bold"))
         self.lbl_total.pack(side="right", padx=5)
 
-        # Aktions-Buttons Grid
+        # Action buttons grid
         btn_grid = ttk.Frame(self, style="Card.TFrame")
         btn_grid.pack(fill=tk.X, pady=(5, 0))
 
-        ttk.Button(btn_grid, text="⚔️ Schaden", command=self.controller.combat_handler.deal_damage).grid(row=0, column=0, padx=2, pady=2, sticky="ew")
-        ttk.Button(btn_grid, text="💚 Heilen", command=self.controller.combat_handler.apply_healing).grid(row=0, column=1, padx=2, pady=2, sticky="ew")
-        ttk.Button(btn_grid, text="🛡️ Schild +", command=self.controller.combat_handler.apply_shield).grid(row=1, column=0, padx=2, pady=2, sticky="ew")
-        ttk.Button(btn_grid, text="👕 Rüstung +", command=self.controller.combat_handler.apply_armor).grid(row=1, column=1, padx=2, pady=2, sticky="ew")
+        ttk.Button(btn_grid, text=translate("action_panel.deal_damage_btn"), command=self.controller.combat_handler.deal_damage).grid(row=0, column=0, padx=2, pady=2, sticky="ew")
+        ttk.Button(btn_grid, text=translate("action_panel.heal_btn"), command=self.controller.combat_handler.apply_healing).grid(row=0, column=1, padx=2, pady=2, sticky="ew")
+        ttk.Button(btn_grid, text=translate("action_panel.add_shield_btn"), command=self.controller.combat_handler.apply_shield).grid(row=1, column=0, padx=2, pady=2, sticky="ew")
+        ttk.Button(btn_grid, text=translate("action_panel.add_armor_btn"), command=self.controller.combat_handler.apply_armor).grid(row=1, column=1, padx=2, pady=2, sticky="ew")
 
         btn_grid.columnconfigure(0, weight=1)
         btn_grid.columnconfigure(1, weight=1)
 
         ttk.Separator(self, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
-        # --- Status Sektion (Inline) ---
-        ttk.Label(self, text="Status Effekt:").pack(anchor="w")
+        # --- Status Section (Inline) ---
+        ttk.Label(self, text=translate("action_panel.status_effect_label")).pack(anchor="w")
 
         status_frame = ttk.Frame(self, style="Card.TFrame")
         status_frame.pack(fill=tk.X, pady=(0, 5))
 
-        self.status_combobox = ttk.Combobox(status_frame, values=[t.value for t in StatusEffectType], state="readonly")
+        self.status_combobox = ttk.Combobox(status_frame, values=list(self.translated_status_effects.keys()), state="readonly")
         self.status_combobox.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 5))
-        self.status_combobox.set(StatusEffectType.POISON.value)
+        if self.translated_status_effects:
+            self.status_combobox.set(list(self.translated_status_effects.keys())[0])
 
-        self.create_tooltip(self.status_combobox, lambda: f"{self.status_combobox.get()}:\n{STATUS_DESCRIPTIONS.get(self.status_combobox.get(), 'Keine Info')}")
+        self.create_tooltip(self.status_combobox, lambda: f"{self.status_combobox.get()}:\n{rule_manager.status_effect_descriptions.get(self.translated_status_effects.get(self.status_combobox.get()), translate('messages.no_info'))}")
 
         rank_duration_frame = ttk.Frame(self, style="Card.TFrame")
         rank_duration_frame.pack(fill=tk.X, pady=(0, 10))
 
-        ttk.Label(rank_duration_frame, text="Rang:").pack(side=tk.LEFT)
+        ttk.Label(rank_duration_frame, text=f"{translate('action_panel.rank')}:").pack(side=tk.LEFT)
         self.status_rank = ttk.Entry(rank_duration_frame, width=5)
         self.status_rank.pack(side=tk.LEFT, padx=(5, 15))
         self.status_rank.insert(0, "1")
 
-        ttk.Label(rank_duration_frame, text="Dauer:").pack(side=tk.LEFT)
+        ttk.Label(rank_duration_frame, text=f"{translate('action_panel.duration')}:").pack(side=tk.LEFT)
         self.status_duration = ttk.Entry(rank_duration_frame, width=5)
         self.status_duration.pack(side=tk.LEFT, padx=(5, 0))
         self.status_duration.insert(0, "3")
 
-        ttk.Button(self, text="Status hinzufügen", command=self.controller.combat_handler.add_status_to_character).pack(fill=tk.X, pady=2)
+        ttk.Button(self, text=translate("action_panel.add_status_btn"), command=self.controller.combat_handler.add_status_to_character).pack(fill=tk.X, pady=2)
 
         ttk.Separator(self, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
         # Management Section
-        ttk.Label(self, text="Verwaltung:").pack(anchor="w")
+        ttk.Label(self, text=translate("action_panel.management_label")).pack(anchor="w")
 
-        self.management_target_var = tk.StringVar(value="Ausgewählter Charakter")
+        self.management_target_var = tk.StringVar(value=translate("management_targets.selected"))
         target_cb = ttk.Combobox(self, textvariable=self.management_target_var,
-                                 values=["Ausgewählter Charakter", "Alle Gegner", "Alle Spieler", "Alle NPCs", "Alle Charaktere"],
+                                 values=list(self.translated_scopes.keys()),
                                  state="readonly")
         target_cb.pack(fill=tk.X, pady=(0, 5))
 
         btn_frame = ttk.Frame(self, style="Card.TFrame")
         btn_frame.pack(fill=tk.X)
 
-        self.btn_edit = ttk.Button(btn_frame, text="Bearbeiten", command=self.controller.character_handler.manage_edit)
+        self.btn_edit = ttk.Button(btn_frame, text=translate("common.edit"), command=self.controller.character_handler.manage_edit)
         self.btn_edit.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 2))
 
-        ttk.Button(btn_frame, text="Löschen", command=self.controller.character_handler.manage_delete).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(2, 0))
+        ttk.Button(btn_frame, text=translate("common.delete"), command=self.controller.character_handler.manage_delete).pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(2, 0))
 
         def update_edit_state(event):
-            if self.management_target_var.get() == "Ausgewählter Charakter":
+            if self.management_target_var.get() == translate("management_targets.selected"):
                 self.btn_edit.state(["!disabled"])
             else:
                 self.btn_edit.state(["disabled"])
@@ -123,18 +131,19 @@ class ActionPanel(ttk.LabelFrame):
         row_frame = ttk.Frame(self.rows_frame)
         row_frame.pack(fill="x", pady=2)
         
-        # Eingabefeld für Menge
+        # Input field for amount
         amount_var = tk.StringVar(value="0")
         amount_var.trace_add("write", self.calculate_total)
-        entry = ttk.Entry(row_frame, textvariable=amount_var, width=6, font=FONTS["large"], justify="center")
+        entry = ttk.Entry(row_frame, textvariable=amount_var, width=6, font=("Arial", 12, "bold"), justify="center")
         entry.pack(side="left", padx=(0, 5))
         
-        # Dropdown für Typ
-        type_var = tk.StringVar(value=self.damage_types[0] if self.damage_types else "")
-        combo = ttk.Combobox(row_frame, textvariable=type_var, values=self.damage_types, state="readonly")
+        # Dropdown for type
+        type_var = tk.StringVar(value=list(self.translated_damage_types.keys())[0] if self.translated_damage_types else "")
+        combo = ttk.Combobox(row_frame, textvariable=type_var, values=list(self.translated_damage_types.keys()), state="readonly")
+        self.create_tooltip(combo, lambda: f"{type_var.get()}:\n{rule_manager.damage_type_descriptions.get(self.translated_damage_types.get(type_var.get()), translate('messages.no_info'))}")
         combo.pack(side="left", fill="x", expand=True, padx=(0, 5))
         
-        # Löschen Button (nur wenn nicht die erste Zeile)
+        # Delete button (only if not the first row)
         if len(self.damage_rows) > 0:
             btn_del = ttk.Button(row_frame, text="x", width=2, command=lambda: self.remove_damage_row(row_frame))
             btn_del.pack(side="left")
@@ -146,10 +155,6 @@ class ActionPanel(ttk.LabelFrame):
             "entry": entry
         })
         
-        # Fokus auf das neue Feld setzen (optional, aber praktisch)
-        # entry.focus_set()
-        # entry.select_range(0, tk.END)
-
     def remove_damage_row(self, frame):
         self.damage_rows = [r for r in self.damage_rows if r["frame"] != frame]
         frame.destroy()
@@ -164,7 +169,7 @@ class ActionPanel(ttk.LabelFrame):
             except ValueError:
                 pass
         if self.lbl_total:
-            self.lbl_total.config(text=f"Gesamt: {total}")
+            self.lbl_total.config(text=f"{translate('action_panel.total')}: {total}")
         return total
 
     def create_tooltip(self, widget: tk.Widget, text_func: Callable[[], str]) -> None:
@@ -177,7 +182,7 @@ class ActionPanel(ttk.LabelFrame):
             self.damage_rows[0]["entry"].focus_set()
 
     def get_damage_data(self) -> tuple[int, str]:
-        """Gibt (Gesamtschaden, Detail-String) zurück."""
+        """Returns (total_damage, detail_string)."""
         total = self.calculate_total()
         details = []
         
@@ -193,14 +198,13 @@ class ActionPanel(ttk.LabelFrame):
         detail_str = ", ".join(details) if details else "0 Normal"
         return total, detail_str
 
-    # Kompatibilitäts-Methoden für bestehenden Code (falls nötig)
     def get_value(self) -> int:
         return self.calculate_total()
 
     def get_type(self) -> str:
-        # Gibt den Typ der ersten Zeile zurück oder "Normal"
         if self.damage_rows:
-            return self.damage_rows[0]["type"].get()
+            display_name = self.damage_rows[0]["type"].get()
+            return self.translated_damage_types.get(display_name, DamageType.NORMAL.value)
         return DamageType.NORMAL.value
 
     def get_status_input(self) -> Dict[str, Any]:
@@ -214,14 +218,18 @@ class ActionPanel(ttk.LabelFrame):
         except ValueError:
             duration = 3
 
+        display_name = self.status_combobox.get()
+        status_value = self.translated_status_effects.get(display_name, StatusEffectType.POISON.value)
+
         return {
-            "status": self.status_combobox.get(),
+            "status": status_value,
             "rank": rank,
             "duration": duration
         }
 
-    def get_management_target(self) -> str:
-        return self.management_target_var.get()
+    def get_management_target(self) -> ScopeType:
+        display_value = self.management_target_var.get()
+        return self.translated_scopes.get(display_value, ScopeType.SELECTED)
 
     def update_colors(self, colors: Dict[str, str]):
         self.colors = colors

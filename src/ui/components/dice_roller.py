@@ -2,9 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 import random
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, List
 from src.config import COLORS, FONTS, DICE_TYPES
 from src.core.mechanics import roll_exploding_dice
+from src.utils.localization import translate
 
 logger = logging.getLogger("CombatTracker")
 
@@ -13,10 +14,10 @@ class DiceRoller(ttk.LabelFrame):
     ANIMATION_STEPS = 15
 
     def __init__(self, parent: tk.Widget, colors: Dict[str, str] = None, **kwargs: Any):
-        super().__init__(parent, text="Würfel-Simulator", style="Card.TLabelframe", padding="10", **kwargs)
+        super().__init__(parent, text=translate("dice_roller.title"), style="Card.TLabelframe", padding="10", **kwargs)
         self.colors: Dict[str, str] = colors if colors else COLORS
 
-        self.result_var: tk.StringVar = tk.StringVar(value="Ready")
+        self.result_var: tk.StringVar = tk.StringVar(value=translate("dice_roller.ready"))
         self.history_var: tk.StringVar = tk.StringVar(value="")
         self.is_rolling: bool = False
 
@@ -45,7 +46,7 @@ class DiceRoller(ttk.LabelFrame):
 
         # Grid layout for buttons (2 rows)
         for i, sides in enumerate(dice_types):
-            btn = ttk.Button(btn_frame, text=f"W{sides}",
+            btn = ttk.Button(btn_frame, text=f"d{sides}",
                              command=lambda s=sides: self.roll_dice(s))
             btn.grid(row=i // 4, column=i % 4, padx=2, pady=2, sticky="ew")
 
@@ -58,7 +59,7 @@ class DiceRoller(ttk.LabelFrame):
             return
 
         self.is_rolling = True
-        self.history_var.set(f"Würfle W{sides}...")
+        self.history_var.set(translate("dice_roller.rolling", sides=sides))
 
         # Animation parameters
         interval = self.ANIMATION_DURATION // self.ANIMATION_STEPS
@@ -75,16 +76,20 @@ class DiceRoller(ttk.LabelFrame):
             # Final roll calculation
             self._finalize_roll(sides)
 
-    def _finalize_roll(self, sides: int) -> None:
-        total, rolls = roll_exploding_dice(sides)
-
-        self.result_var.set(str(total))
-
+    @staticmethod
+    def _get_roll_message(sides: int, total: int, rolls: List[int]) -> str:
+        """Generates the log message for a dice roll. Pure logic, no UI."""
         roll_str = " + ".join(map(str, rolls))
         if len(rolls) > 1:
-            msg = f"W{sides}: {roll_str} = {total} (Explodiert!)"
+            return translate("dice_roller.result_exploded", sides=sides, roll_str=roll_str, total=total)
         else:
-            msg = f"W{sides}: {roll_str}"
+            return translate("dice_roller.result_normal", sides=sides, roll_str=roll_str)
+
+    def _finalize_roll(self, sides: int) -> None:
+        total, rolls = roll_exploding_dice(sides)
+        self.result_var.set(str(total))
+
+        msg = DiceRoller._get_roll_message(sides, total, rolls)
 
         self.history_var.set(msg)
         logger.info(f"DiceRoller: {msg}")

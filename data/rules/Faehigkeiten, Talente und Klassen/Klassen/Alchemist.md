@@ -1,51 +1,53 @@
-﻿## Alchemist / Handwerker *(UnterstÃ¼tzer / Taktiker)*
+﻿## Alchemist / Handwerker *(Unterstützer / Taktiker)*
 
-**Rolle:** UnterstÃ¼tzer durch TrÃ¤nke, Gifte und Gadgets  
+**Rolle:** Unterstützer durch Tränke, Gifte und Gadgets  
+
 **Beschreibung:**  
-Der Alchemist ist ein Meister der TrÃ¤nkebraukunst und chemischen Experimente.  
-Er heilt, verstÃ¤rkt oder schwÃ¤cht gezielt â€“ und kann durch improvisierte Konstruktionen und Fallen das Schlachtfeld taktisch beeinflussen.
+Der Alchemist ist ein Meister der Tränkebraukunst und chemischen Experimente.  
+Er heilt, verstärkt oder schwächt gezielt – und kann durch improvisierte Konstruktionen und Fallen das Schlachtfeld taktisch beeinflussen.
 
-**StÃ¤rken:**
-- Heilung und Buffs fÃ¼r VerbÃ¼ndete  
-- Gifte, Fallen und FlÃ¤schchen gegen Feinde  
+**Stärken:**
+- Heilung und Buffs für Verbündete  
+- Gifte, Fallen und Fläschchen gegen Feinde  
 - Improvisation & Ressourcenmanagement  
-
-**Kampfstil:**
-Indirekt unterstÃ¼tzend oder taktisch kontrollierend â€“ ideal fÃ¼r kreative Spielercharaktere mit Planungslust.
+**Schwäche:**  
+- Stark abhängig von Vorräten und Vorbereitung; im direkten Nahkampf meist unterlegen.
 
 ---
 
 ## Spielstil
 
-Der **Alchemist/Handwerker** ist ein taktischer UnterstÃ¼tzer:
+Der **Alchemist/Handwerker** ist ein taktischer Unterstützer:
 
-- **Flexibel:** UnterstÃ¼tzt mit Heil- und BufftrÃ¤nken (_TrÃ¤nke herstellen_)  
+- **Flexibel:** Unterstützt mit Heil- und Bufftränken (_Tränke herstellen_)  
 - **Kontrollierend:** Nutzt Gifte, Explosionen und Fallen zur Gegnerkontrolle  
-- Perfekt fÃ¼r Spieler mit strategischem Denken
+- Perfekt für Spieler mit strategischem Denken
 
 ---
 
-## BasisausrÃ¼stung
+## Basisausrüstung
 
-| Gegenstand                                                    | Wert und Eigenschaften |
-| ------------------------------------------------------------- | ---------------------- |
-| Leichte RÃ¼stung (normal)                                      | 2 [[RÃ¼stung (RP)]]     |
-| [[Hammer]]                                                    | [[STÃ„RKE]] + 1 Schaden |
-| [[Rundschild]] (normal)                                       | 2 [[RÃ¼stung (RP)]]     |
-| [[Heiltrank]] + 1x [[Gifttrank]] oder 1x [[Explosiver Trank]] | siehe [[TrÃ¤nke]]       |
-| AlchemieausrÃ¼stung                                            | 10 [[Materialien]]     |
+| Gegenstand                                                    | Wert und Eigenschaften      |
+| ------------------------------------------------------------- | -------------------------- |
+| Leichte Rüstung (normal)                                      | 2 [[Rüstung (RP)]]         |
+| [[Hammer]]                                                    | [[STÄRKE]] + 1 Schaden     |
+| [[Rundschild]] (normal)                                       | 2 [[Rüstung (RP)]]         |
+| [[Heiltrank]] + 1x [[Gifttrank]] oder 1x [[Explosiver Trank]] | siehe [[Tränke]]           |
+| Alchemieausrüstung                                            | 10 [[Materialien]]         |
 
 ---
+
 ## Ressourcen: Alchemistische [[Materialien]]
 
 **Materialkosten:**
 
 - Stufe-1-Trank: **1 Material**  
 - Stufe-2-Trank: **2 Materialien**  
-- AusrÃ¼stungsverbesserung: **2 Materialien**  
+- Ausrüstungsverbesserung: **2 Materialien**  
 - Falle platzieren: **2 Materialien**
 
 ---
+
 ## Skills
 
 - [[Trank herstellen]]  
@@ -53,6 +55,5 @@ Der **Alchemist/Handwerker** ist ein taktischer UnterstÃ¼tzer:
 - [[Falle platzieren]]  
 - [[Alchemistische Verbesserung]]  
 - [[Materialien sammeln]]  
-***
-#Alchemist
 
+***

@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, Dict, Type
 import random
 from src.models.enums import StatusEffectType, DamageType
 from src.core.mechanics import calculate_damage, format_damage_log
+from src.utils.localization import translate
 
 if TYPE_CHECKING:
     from src.models.character import Character
@@ -15,7 +16,7 @@ class StatusEffect(ABC):
         self.active_rounds = 0
 
     def apply_round_effect(self, character: 'Character') -> str:
-        """Wird am Anfang der Runde aufgerufen. Standardmäßig passiert nichts."""
+        """Called at the beginning of the round. By default, nothing happens."""
         return ""
 
     def to_dict(self) -> Dict:
@@ -53,7 +54,7 @@ class PoisonEffect(StatusEffect):
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank
         result = calculate_damage(character, dmg, DamageType.DIRECT)
-        result.messages.append(f"(Vergiftung Rang {self.rank}, Runde {self.active_rounds})")
+        result.messages.append(translate("messages.status.poison", rank=self.rank, round=self.active_rounds))
         return format_damage_log(character, result)
 
 class BurnEffect(StatusEffect):
@@ -63,7 +64,7 @@ class BurnEffect(StatusEffect):
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank
         result = calculate_damage(character, dmg, DamageType.NORMAL)
-        result.messages.append(f"(Verbrennung Rang {self.rank}, Runde {self.active_rounds})")
+        result.messages.append(translate("messages.status.burn", rank=self.rank, round=self.active_rounds))
         return format_damage_log(character, result)
 
 class BleedEffect(StatusEffect):
@@ -71,11 +72,11 @@ class BleedEffect(StatusEffect):
         super().__init__(StatusEffectType.BLEED, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        # Schaden = Rang/2 + (Runde - 1)
+        # Damage = Rank/2 + (Round - 1)
         dmg = int((self.rank / 2) + (self.active_rounds - 1))
         if dmg < 1: dmg = 1
         result = calculate_damage(character, dmg, DamageType.NORMAL)
-        result.messages.append(f"(Blutung Rang {self.rank}, Runde {self.active_rounds})")
+        result.messages.append(translate("messages.status.bleed", rank=self.rank, round=self.active_rounds))
         return format_damage_log(character, result)
 
 class ErosionEffect(StatusEffect):
@@ -87,7 +88,7 @@ class ErosionEffect(StatusEffect):
         character.max_lp -= dmg
         if character.max_lp < 0: character.max_lp = 0
         result = calculate_damage(character, dmg, DamageType.DIRECT)
-        result.messages.append(f"(Erosion Rang {self.rank} - {dmg} Max LP dauerhaft verloren)")
+        result.messages.append(translate("messages.status.erosion", rank=self.rank, dmg=dmg))
         return format_damage_log(character, result)
 
 class FreezeEffect(StatusEffect):
@@ -95,7 +96,7 @@ class FreezeEffect(StatusEffect):
         super().__init__(StatusEffectType.FREEZE, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        return f"ℹ️ {character.name} verliert Bonusaktion (Unterkühlung Rang {self.rank}).\n"
+        return translate("messages.status.freeze", name=character.name, rank=self.rank)
 
 class StunEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -103,21 +104,21 @@ class StunEffect(StatusEffect):
 
     def apply_round_effect(self, character: 'Character') -> str:
         character.skip_turns = 1
-        return f"🛑 {character.name} ist betäubt und verliert alle Aktionen!\n"
+        return translate("messages.status.stun", name=character.name)
 
 class ExhaustionEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
         super().__init__(StatusEffectType.EXHAUSTION, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        return f"ℹ️ {character.name} hat -2 Malus auf GEWANDTHEIT (Erschöpfung).\n"
+        return translate("messages.status.exhaustion", name=character.name)
 
 class ConfusionEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
         super().__init__(StatusEffectType.CONFUSION, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        return f"ℹ️ {character.name} hat -1 Malus auf KAMPF-Probe (Verwirrung).\n"
+        return translate("messages.status.confusion", name=character.name)
 
 class BlindEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -125,27 +126,26 @@ class BlindEffect(StatusEffect):
 
     def apply_round_effect(self, character: 'Character') -> str:
         if self.rank == 1:
-            return f"ℹ️ {character.name} ist geblendet: -1 auf Angriffsprobe (Rang 1).\n"
+            return translate("messages.status.blind_rank1", name=character.name)
         elif self.rank == 2:
-            return f"ℹ️ {character.name} ist geblendet: -2 auf Angriffsprobe (Rang 2).\n"
+            return translate("messages.status.blind_rank2", name=character.name)
         elif self.rank == 3:
-            return f"ℹ️ {character.name} ist geblendet: -2 auf alle Aktionen (Rang 3).\n"
+            return translate("messages.status.blind_rank3", name=character.name)
         elif self.rank == 4:
-            return f"ℹ️ {character.name} ist geblendet: -2 auf alle Aktionen (Rang 4).\n"
+            return translate("messages.status.blind_rank4", name=character.name)
         elif self.rank == 5:
-            return f"ℹ️ {character.name} ist geblendet: -3 auf alle Aktionen (Rang 5).\n"
+            return translate("messages.status.blind_rank5", name=character.name)
         else:
-            return f"ℹ️ {character.name} ist geblendet (Rang {self.rank}).\n"
+            return translate("messages.status.blind_generic", name=character.name, rank=self.rank)
 
 EFFECT_CLASSES: Dict[str, Type[StatusEffect]] = {
-    StatusEffectType.POISON: PoisonEffect,
-    StatusEffectType.BURN: BurnEffect,
-    StatusEffectType.BLEED: BleedEffect,
-    StatusEffectType.EROSION: ErosionEffect,
-    StatusEffectType.FREEZE: FreezeEffect,
-    StatusEffectType.STUN: StunEffect,
-    StatusEffectType.EXHAUSTION: ExhaustionEffect,
-    StatusEffectType.CONFUSION: ConfusionEffect,
-    StatusEffectType.BLIND: BlindEffect
+    StatusEffectType.POISON.value: PoisonEffect,
+    StatusEffectType.BURN.value: BurnEffect,
+    StatusEffectType.BLEED.value: BleedEffect,
+    StatusEffectType.EROSION.value: ErosionEffect,
+    StatusEffectType.FREEZE.value: FreezeEffect,
+    StatusEffectType.STUN.value: StunEffect,
+    StatusEffectType.EXHAUSTION.value: ExhaustionEffect,
+    StatusEffectType.CONFUSION.value: ConfusionEffect,
+    StatusEffectType.BLIND.value: BlindEffect
 }
-

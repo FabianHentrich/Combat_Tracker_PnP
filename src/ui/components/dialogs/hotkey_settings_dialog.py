@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Dict, Callable, Optional
 from src.config import WINDOW_SIZE, FONTS
+from src.utils.localization import translate
 
 class HotkeySettingsDialog:
     """
@@ -15,7 +16,7 @@ class HotkeySettingsDialog:
         self.hotkey_buttons: Dict[str, ttk.Button] = {}
 
         self.window = tk.Toplevel(parent)
-        self.window.title("Tastaturkürzel Einstellungen")
+        self.window.title(translate("dialog.hotkey_settings.title"))
         self.window.geometry(WINDOW_SIZE["hotkeys"])
         self.window.configure(bg=self.colors["bg"])
 
@@ -31,29 +32,29 @@ class HotkeySettingsDialog:
         return self.window.winfo_exists()
 
     def _setup_ui(self):
-        ttk.Label(self.window, text="Klicke auf einen Button und drücke eine Taste", font=FONTS["bold"]).pack(pady=10)
+        ttk.Label(self.window, text=translate("dialog.hotkey_settings.instruction"), font=FONTS["bold"]).pack(pady=10)
 
         frame = ttk.Frame(self.window, style="Card.TFrame")
         frame.pack(fill="both", expand=True, padx=10, pady=10)
 
         labels = {
-            "next_turn": "Nächster Zug",
-            "undo": "Undo",
-            "redo": "Redo",
-            "delete_char": "Charakter löschen",
-            "focus_damage": "Fokus auf Schaden",
-            "audio_play_pause": "Musik: Play/Pause",
-            "audio_next": "Musik: Nächster Titel",
-            "audio_prev": "Musik: Vorheriger Titel",
-            "audio_vol_up": "Musik: Lauter",
-            "audio_vol_down": "Musik: Leiser",
-            "audio_mute": "Musik: Mute"
+            "next_turn": translate("hotkeys.next_turn"),
+            "undo": translate("hotkeys.undo"),
+            "redo": translate("hotkeys.redo"),
+            "delete_char": translate("hotkeys.delete_char"),
+            "focus_damage": translate("hotkeys.focus_damage"),
+            "audio_play_pause": translate("hotkeys.audio_play_pause"),
+            "audio_next": translate("hotkeys.audio_next"),
+            "audio_prev": translate("hotkeys.audio_prev"),
+            "audio_vol_up": translate("hotkeys.audio_vol_up"),
+            "audio_vol_down": translate("hotkeys.audio_vol_down"),
+            "audio_mute": translate("hotkeys.audio_mute")
         }
 
         for key, label_text in labels.items():
             self._create_hotkey_row(frame, key, label_text)
 
-        ttk.Button(self.window, text="Speichern & Schließen", command=self._on_save).pack(pady=10)
+        ttk.Button(self.window, text=translate("common.save"), command=self._on_save).pack(pady=10)
 
     def _create_hotkey_row(self, parent, key, label_text):
         row_frame = ttk.Frame(parent, style="Card.TFrame")
@@ -70,7 +71,7 @@ class HotkeySettingsDialog:
 
     def _start_listening(self, key_name: str, button: ttk.Button) -> None:
         """Wartet auf Tastendruck für neuen Hotkey."""
-        button.configure(text="Drücke Taste...")
+        button.configure(text=translate("dialog.hotkey_settings.press_key"))
 
         def on_key(event: tk.Event) -> None:
             new_hotkey = self._get_hotkey_string_from_event(event)
@@ -108,4 +109,3 @@ class HotkeySettingsDialog:
     def _on_save(self):
         self.on_save(self.hotkeys)
         self.window.destroy()
-

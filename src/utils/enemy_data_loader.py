@@ -8,8 +8,8 @@ logger = setup_logging()
 
 class EnemyDataLoader:
     """
-    Lädt und verwaltet Gegner-Presets aus JSON-Dateien.
-    Singleton-ähnliches Verhalten empfohlen, um mehrfaches Laden zu vermeiden.
+    Loads and manages enemy presets from JSON files.
+    Singleton-like behavior is recommended to avoid multiple loads.
     """
     _instance = None
 
@@ -28,10 +28,10 @@ class EnemyDataLoader:
         self.load_presets()
 
     def load_presets(self, filepath: str = FILES["enemies"]) -> None:
-        """Lädt Gegner-Presets aus einer JSON-Datei."""
+        """Loads enemy presets from a JSON file."""
 
         if not os.path.exists(filepath):
-            logger.warning(f"Bibliotheks-Datei nicht gefunden: {filepath}")
+            logger.warning(f"Library file not found: {filepath}")
             return
 
         try:
@@ -39,9 +39,9 @@ class EnemyDataLoader:
                 self.enemy_presets = json.load(f)
                 self.flat_presets = {}
                 self._flatten_presets(self.enemy_presets)
-                logger.info(f"Bibliothek geladen: {len(self.flat_presets)} Presets.")
+                logger.info(f"Library loaded: {len(self.flat_presets)} presets.")
         except Exception as e:
-            logger.error(f"Fehler beim Laden der Bibliothek: {e}")
+            logger.error(f"Error loading library: {e}")
 
     def _flatten_presets(self, data: Dict[str, Any]) -> None:
         for key, value in data.items():
@@ -51,10 +51,9 @@ class EnemyDataLoader:
                 self._flatten_presets(value)
 
     def get_preset(self, name: str) -> Optional[Dict[str, Any]]:
-        """Gibt die Daten eines Presets zurück."""
+        """Returns the data of a preset."""
         return self.flat_presets.get(name)
 
     def get_all_presets(self) -> Dict[str, Any]:
-        """Gibt die hierarchischen Presets zurück."""
+        """Returns the hierarchical presets."""
         return self.enemy_presets
-

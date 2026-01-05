@@ -6,21 +6,22 @@ from src.utils.logger import setup_logging
 from src.models.enums import EventType
 from src.core.event_manager import EventManager
 from src.core.turn_manager import TurnManager
+from src.utils.localization import translate
 
 logger = setup_logging()
 
 class CombatEngine:
     """
-    Kern-Logik des Combat Trackers.
-    Verwaltet die Liste der Charaktere und delegiert Turn-Management.
+    Core logic of the Combat Tracker.
+    Manages the list of characters and delegates turn management.
     """
     def __init__(self):
         self.characters: List[Character] = []
         self.event_manager = EventManager()
         self.turn_manager = TurnManager(self)
-        logger.info("CombatEngine initialisiert.")
+        logger.info("CombatEngine initialized.")
 
-    # --- Properties delegieren ---
+    # --- Delegate properties ---
     @property
     def turn_index(self) -> int:
         return self.turn_manager.turn_index
@@ -59,7 +60,7 @@ class CombatEngine:
     # --- Character Management ---
     def add_character(self, character: Character) -> None:
         self.characters.append(character)
-        self.log(f"{character.name} wurde dem Kampf hinzugefügt.")
+        self.log(translate("messages.character_added_to_combat", name=character.name))
         self.notify(EventType.UPDATE)
 
     def remove_character(self, index: int) -> None:
@@ -97,12 +98,12 @@ class CombatEngine:
 
     def reset_combat(self) -> None:
         self.turn_manager.reset_combat()
-        self.log("Kampf zurückgesetzt.")
+        self.log(translate("messages.combat_reset"))
         self.notify(EventType.UPDATE)
 
     def insert_character(self, char: Character, surprise: bool = False) -> None:
         """
-        Fügt einen Charakter in die Liste ein.
+        Inserts a character into the list.
         """
         self.turn_manager.insert_character(char, surprise)
 
@@ -118,13 +119,14 @@ class CombatEngine:
         self.characters = [Character.from_dict(c_data) for c_data in state.get("characters", [])]
         self.turn_index = state.get("turn_index", -1)
         self.round_number = state.get("round_number", 1)
-        self.log("Kampfstatus geladen.")
+        self.log(translate("messages.combat_status_loaded"))
         self.notify(EventType.UPDATE)
 
     # --- Combat Actions ---
-    def apply_damage(self, char: Character, amount: int, damage_type: str, rank: int) -> str:
+    def apply_damage(self, char: Character, amount: int, damage_type: str, rank: int, damage_details: Optional[str] = None) -> str:
         result = char.apply_damage(amount, damage_type, rank)
-        log = format_damage_log(char, result)
+        has_details = damage_details is not None and "," in damage_details
+        log = format_damage_log(char, result, has_details=has_details)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log
@@ -137,21 +139,21 @@ class CombatEngine:
 
     def apply_shield(self, char: Character, amount: int) -> str:
         char.sp += amount
-        log = f"{char.name} erhält {amount} Schild."
+        log = translate("messages.character_receives_shield", name=char.name, amount=amount)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log
 
     def apply_armor(self, char: Character, amount: int) -> str:
         char.rp += amount
-        log = f"{char.name} erhält {amount} Rüstung."
+        log = translate("messages.character_receives_armor", name=char.name, amount=amount)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log
 
     def add_status_effect(self, char: Character, effect_name: str, duration: int, rank: int) -> str:
         char.add_status(effect_name, duration, rank)
-        log = f"{char.name} erhält Status '{effect_name}' (Rang {rank}) für {duration} Runden."
+        log = translate("messages.character_receives_status", name=char.name, effect_name=effect_name, rank=rank, duration=duration)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log
@@ -164,5 +166,5 @@ class CombatEngine:
 
     def update_character(self, char: Character, data: dict) -> None:
         char.update(data)
-        self.log(f"✏ Charakter '{char.name}' wurde bearbeitet.")
+        self.log(translate("messages.character_edited", name=char.name))
         self.notify(EventType.UPDATE)

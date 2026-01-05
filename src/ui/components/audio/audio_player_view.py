@@ -2,12 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 from src.controllers.audio_controller import AudioController
 from src.config import FONTS
-
+from src.utils.localization import translate
 from src.utils.utils import format_time
 
 class AudioPlayerWidget(ttk.LabelFrame):
     def __init__(self, parent, controller: AudioController, open_settings_callback):
-        super().__init__(parent, text="Musik-Player", style="Card.TLabelframe", padding=5)
+        super().__init__(parent, text=translate("audio_player.title"), style="Card.TLabelframe", padding=5)
         self.controller = controller
         self.open_settings_callback = open_settings_callback
 
@@ -33,7 +33,7 @@ class AudioPlayerWidget(ttk.LabelFrame):
         top_frame = ttk.Frame(self, style="Card.TFrame")
         top_frame.pack(fill=tk.X)
 
-        self.lbl_title = ttk.Label(top_frame, text="Kein Titel", font=FONTS["main"], width=15, anchor="w", style="Card.TLabel")
+        self.lbl_title = ttk.Label(top_frame, text=translate("audio_player.no_track"), font=FONTS["main"], width=15, anchor="w", style="Card.TLabel")
         self.lbl_title.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
         ttk.Button(top_frame, text="⚙", width=3, command=self.open_settings_callback).pack(side=tk.RIGHT)
@@ -63,7 +63,7 @@ class AudioPlayerWidget(ttk.LabelFrame):
 
         # Loop Track (Single/Count)
         self.var_loop_active = tk.BooleanVar(value=init_loop_active)
-        cb_loop = ttk.Checkbutton(loop_frame, text="Loop Track", variable=self.var_loop_active, command=self.update_loop_state, style="Card.TCheckbutton")
+        cb_loop = ttk.Checkbutton(loop_frame, text=translate("audio_player.loop_track"), variable=self.var_loop_active, command=self.update_loop_state, style="Card.TCheckbutton")
         cb_loop.pack(side=tk.LEFT, padx=2)
 
         ttk.Label(loop_frame, text="x", style="Card.TLabel").pack(side=tk.LEFT)
@@ -76,7 +76,7 @@ class AudioPlayerWidget(ttk.LabelFrame):
 
         # Loop Playlist (All)
         self.var_loop_all = tk.BooleanVar(value=self.controller.loop_playlist)
-        cb_loop_all = ttk.Checkbutton(loop_frame, text="Loop All", variable=self.var_loop_all, command=self.update_loop_all_state, style="Card.TCheckbutton")
+        cb_loop_all = ttk.Checkbutton(loop_frame, text=translate("audio_player.loop_all"), variable=self.var_loop_all, command=self.update_loop_all_state, style="Card.TCheckbutton")
         cb_loop_all.pack(side=tk.LEFT, padx=10)
 
     def _create_volume_controls(self):
@@ -145,7 +145,7 @@ class AudioPlayerWidget(ttk.LabelFrame):
     def update_ui_loop(self):
         # Update time and title
         track = self.controller.get_current_track_info()
-        new_title = "Kein Titel"
+        new_title = translate("audio_player.no_track")
         if track:
             idx = self.controller.current_index + 1
             new_title = f"{idx}. {track['title']}"
@@ -199,4 +199,3 @@ class AudioPlayerWidget(ttk.LabelFrame):
                 self.is_muted = False
 
         self.after(100, self.update_ui_loop)
-
