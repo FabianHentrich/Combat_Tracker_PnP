@@ -1,15 +1,14 @@
 ﻿### **Knockdown-Schlag (6 [[Aktionspunkte (AP)]], [[Aktion]])**
 **Beschreibung:**  
-Ein Angriff, der den Gegner betÃ¤uben kann. 
+Ein Angriff, der den Gegner betäuben kann. 
 
 **Wirkung:**  
 Verursacht **[[Waffenschaden]] + [[RANG]]**.  
-1W6 Chance, das Gegner fÃ¼r **1 Runde [[BetÃ¤ubung]]** erhÃ¤lt.
+1W6 Chance, dass der Gegner für **1 Runde [[Betäubung]]** erhält.
 
 ---
-### LegendÃ¤re Effekte:
+### Legendäre Effekte:
 
-Chance auf [[BetÃ¤ubung]] erhÃ¶ht sich auf 1W20.
+Chance auf [[Betäubung]] erhöht sich auf 1W20.
 
 ---
-

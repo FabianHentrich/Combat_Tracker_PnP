@@ -1,2 +1,3 @@
-﻿Zauber, die alle Zauberer erlernen kÃ¶nnen. 
+﻿Zauber, die alle Zauberer erlernen kÃ¶nnen.
+
 

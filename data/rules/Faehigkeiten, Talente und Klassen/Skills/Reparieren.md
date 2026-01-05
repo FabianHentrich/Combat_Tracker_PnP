@@ -1,14 +1,13 @@
 ﻿### **Reparieren (5 [[Aktionspunkte (AP)]] - [[RANG]]/2, [[Aktion]])**
 **Beschreibung:**  
-BehelfsmÃ¤ÃŸige Reparaturen an beschÃ¤digtem Equipment oder RÃ¼stung.  
+Behelfsmäßige Reparaturen an beschädigtem Equipment oder Rüstung.  
 **Wirkung:**  
-Repariert [[0. GegenstÃ¤nde|GegenstÃ¤nde]] **auÃŸerhalb des Kampfes** (nur bis 80â€¯% des Gesamtwerts).  
-**[[Magische GegenstÃ¤nde]]** kÃ¶nnen nicht repariert werden.
+Repariert [[0. Gegenstände|Gegenstände]] **außerhalb des Kampfes** (nur bis 80 % des Gesamtwerts).  
+**[[Magische Gegenstände]]** können nicht repariert werden.
 
 ---
-### LegendÃ¤re Effekte:
+### Legendäre Effekte:
 
-1W4 Chance die QualitÃ¤t einer [[RÃ¼stung (RP)]] zu erhÃ¶hen.
+1W4 Chance die Qualität einer [[Rüstung (RP)]] zu erhöhen.
 
 ---
-

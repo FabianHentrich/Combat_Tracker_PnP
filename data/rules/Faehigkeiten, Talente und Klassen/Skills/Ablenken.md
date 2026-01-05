@@ -1,15 +1,12 @@
 ﻿# Ablenken (4 [[Aktionspunkte (AP)]], [[Bonusaktion]])
 
-Beschreibung:
-Der Charakter zieht die Aufmerksamkeit des Gegners auf sich oder lenkt ihn von einem
-VerbÃ¼ndeten ab.
+**Beschreibung:**
+Der Charakter zieht die Aufmerksamkeit des Gegners auf sich oder lenkt ihn von einem Verbündeten ab.
 
-Wirkung:
-Das Ziel hat einen [[Malus]] von [[RANG]] auf die nÃ¤chste [[Parade]].
+**Wirkung:**
+Das Ziel hat einen [[Malus]] von [[RANG]] auf die nächste [[Parade]].
 
 ---
-## LegendÃ¤re Effekte:
+## Legendäre Effekte:
 
 Effekt des Malus weitet sich auf [[Ausweichen]] aus.
-
-

@@ -1,6 +1,6 @@
 ﻿### **Klingenwirbel** **(8 [[Aktionspunkte (AP)]], [[Aktion]])**
 
-Ein weitreichender Rundumschlag gegen mehrere Gegner â€“ kombiniert FlÃ¤chenschaden mit Kontrolle.
+Ein weitreichender Rundumschlag gegen mehrere Gegner – kombiniert Flächenschaden mit Kontrolle.
 
 | [[RANG]] | Anzahl der Ziele   | [[Schaden]] |
 | -------- | ------------------ | ----------- |
@@ -11,9 +11,8 @@ Ein weitreichender Rundumschlag gegen mehrere Gegner â€“ kombiniert FlÃ¤c
 | 5        | alle in Reichweite | 3 + 1W10    |
 
 ---
-### LegendÃ¤re Effekte:
+### Legendäre Effekte:
 Der Schaden wird zu [[Durchschlagsschaden]].
 
 ***
 #Krieger
-

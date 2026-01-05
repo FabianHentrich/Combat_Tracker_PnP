@@ -1,13 +1,10 @@
 ﻿### **Analyse des Gegners (5 [[Aktionspunkte (AP)]], [[Aktion]])**
 **Beschreibung:**  
-Der Charakter analysiert die KampfstÃ¤rke des Gegners und leitet daraus Vorteile ab.  
+Der Charakter analysiert die Kampfstärke des Gegners und leitet daraus Vorteile ab.  
 **Wirkung:**  
-Das **gesamte Team** erhÃ¤lt fÃ¼r **[[RANG]] Runden** einen **+2 [[Bonus]] auf jede [[Angriffsprobe]]**.
+Das **gesamte Team** erhält für **[[RANG]] Runden** einen **+2 [[Bonus]] auf jede [[Angriffsprobe]]**.
 
 ---
-
-### LegendÃ¤re Effekte:
+### Legendäre Effekte:
 Erkenne die aktuellen [[Lebenspunkte (LP)]] des Ziels. 
-
 ---
-

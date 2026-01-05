@@ -1,13 +1,12 @@
 ﻿### Manipulation **(3 [[Aktionspunkte (AP)]], [[Aktion]])**
 
-Der Schurke ist geÃ¼bt in der Beeinflussung von Wachen, HÃ¤ndlern und anderen Personen der einfachen BevÃ¶lkerung.
+Der Schurke ist geübt in der Beeinflussung von Wachen, Händlern und anderen Personen der einfachen Bevölkerung.
 
 - **Effekt:**  
-  Wenn die **[[WAHRNEHMUNG]]-[[Probe]] des Ziels** gegen die **[[WURFZAHL]] des Schurken** **misslingt**, darf der Schurke eine **Manipulation** durchfÃ¼hren (z.â€¯B. eine Wache Ã¼berreden, die ZellentÃ¼r zu Ã¶oeoeffnen).
+  Wenn die **[[WAHRNEHMUNG]]-[[Probe]] des Ziels** gegen die **[[WURFZAHL]] des Schurken** **misslingt**, darf der Schurke eine **Manipulation** durchführen (z. B. eine Wache überreden, die Zellentür zu öffnen).
 ---
-### LegendÃ¤re Effekte: 
-Gib 1 [[Marke]] aus, um die Schwachstelle des GegenÃ¼bers zu erfahren. Ausnutzen dieser sorgt fÃ¼r einen +3 [[Bonus]] auf die Manipulation. 
+### Legendäre Effekte: 
+Gib 1 [[Marke]] aus, um die Schwachstelle des Gegenübers zu erfahren. Ausnutzen dieser sorgt für einen +3 [[Bonus]] auf die Manipulation. 
 
 ***
 #Schurke
-

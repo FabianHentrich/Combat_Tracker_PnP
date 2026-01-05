@@ -1,14 +1,13 @@
 ﻿### Materialien sammeln *(2 [[Aktionspunkte (AP)]], [[Aktion]])*
 
-Der Alchemist nutzt sein Wissen Ã¼ber Natur und Materialien, um nÃ¼tzliche Ressourcen aus der Umgebung zu gewinnen.  
-Diese kÃ¶nnen fÃ¼r TrÃ¤nke, Verbesserungen und andere alchemistische FÃ¤higkeiten eingesetzt werden.
+Der Alchemist nutzt sein Wissen über Natur und Materialien, um nützliche Ressourcen aus der Umgebung zu gewinnen.  
+Diese können für Tränke, Verbesserungen und andere alchemistische Fähigkeiten eingesetzt werden.
 
 - **Effekt:**  
-  Sammelt **2 Ã— [[RANG]] [[Materialien]]** aus der Umgebung
+  Sammelt **2 × [[RANG]] [[Materialien]]** aus der Umgebung
 ---
-### LegendÃ¤re Effekte:
-Es kÃ¶nnen GegenstÃ¤nde verwertet werden und in [[Materialien]] umgewandelt werden. (SL entscheidet wie viel realistisch ist)
+### Legendäre Effekte:
+Es können Gegenstände verwertet werden und in [[Materialien]] umgewandelt werden. (SL entscheidet wie viel realistisch ist)
 
 ***
 #Alchemist
-

@@ -28662,3 +28662,1811 @@ AttributeError: 'CombatTracker' object has no attribute 'library_handler'
 2026-01-05 22:08:43,244 - INFO - engine - CombatEngine initialized.
 2026-01-05 22:08:43,672 - INFO - main_window - Application started: Combat Tracker PnP
 2026-01-05 22:08:57,685 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 22:12:29,767 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 22:12:29,767 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 22:12:29,768 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 22:12:30,052 - INFO - engine - CombatEngine initialized.
+2026-01-05 22:12:30,335 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 22:12:32,413 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 22:12:43,563 - DEBUG - history - Snapshot saved. Undo stack size: 1
+2026-01-05 22:12:43,564 - INFO - engine - Game Log: Chaoskreatur was added.
+2026-01-05 22:12:43,564 - INFO - persistence - Autosave running. Characters: 1
+2026-01-05 22:12:43,575 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,575 - INFO - persistence - Autosave running. Characters: 1
+2026-01-05 22:12:43,576 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,576 - INFO - engine - Game Log: Chaoskrieger was added.
+2026-01-05 22:12:43,577 - INFO - persistence - Autosave running. Characters: 2
+2026-01-05 22:12:43,578 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,578 - INFO - persistence - Autosave running. Characters: 2
+2026-01-05 22:12:43,578 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,579 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) was added.
+2026-01-05 22:12:43,579 - INFO - persistence - Autosave running. Characters: 3
+2026-01-05 22:12:43,580 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,580 - INFO - persistence - Autosave running. Characters: 3
+2026-01-05 22:12:43,580 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,581 - INFO - engine - Game Log: Chaosritter (Boss) was added.
+2026-01-05 22:12:43,581 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:12:43,582 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,582 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:12:43,583 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:12:43,583 - INFO - engine - Game Log: 4 characters added from library.
+2026-01-05 22:13:23,720 - DEBUG - history - Snapshot saved. Undo stack size: 2
+2026-01-05 22:13:23,720 - INFO - engine - Game Log: Chaoskreatur suffers 30 damage!
+→ 30 damage to hit points!
+⚔️ Chaoskreatur is down!
+
+2026-01-05 22:13:23,740 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,741 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,741 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,742 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,742 - INFO - engine - Game Log: Chaoskrieger suffers 30 damage!
+→ 4 damage absorbed by armor (2 RP lost).
+→ 26 damage to hit points!
+
+2026-01-05 22:13:23,743 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,744 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,744 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,745 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,745 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) suffers 30 damage!
+→ 6 damage absorbed by armor (3 RP lost).
+→ 24 damage to hit points!
+
+2026-01-05 22:13:23,746 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,747 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,747 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,748 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,748 - INFO - engine - Game Log: Chaosritter (Boss) suffers 30 damage!
+→ 8 damage absorbed by armor (4 RP lost).
+→ 22 damage to hit points!
+
+2026-01-05 22:13:23,749 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,750 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,750 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:23,751 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:23,751 - INFO - engine - Game Log: Details: 10 Normal, 20 Normal
+2026-01-05 22:13:23,751 - INFO - engine - Game Log: Damage applied to 4 targets.
+2026-01-05 22:13:48,002 - INFO - dice_roller - DiceRoller: d100: 79
+2026-01-05 22:13:49,366 - INFO - dice_roller - DiceRoller: d20: 6
+2026-01-05 22:13:50,511 - INFO - dice_roller - DiceRoller: d6: 1
+2026-01-05 22:13:51,627 - INFO - dice_roller - DiceRoller: d4: 4 + 3 = 7 (Exploded!)
+2026-01-05 22:13:58,664 - INFO - engine - CombatEngine initialized.
+2026-01-05 22:13:58,698 - WARNING - main_window - Crash detected. Attempting to load autosave.
+2026-01-05 22:13:59,890 - INFO - save_manager - Data loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:59,890 - INFO - engine - Game Log: Kampfstatus geladen.
+2026-01-05 22:13:59,891 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:59,892 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:59,892 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:59,893 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:59,893 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:13:59,894 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:13:59,894 - INFO - main_window - Application started: PnP Combat Tracker
+2026-01-05 22:13:59,894 - INFO - main_window - Language changed to de.
+2026-01-05 22:14:21,313 - DEBUG - history - Snapshot saved. Undo stack size: 1
+2026-01-05 22:14:21,313 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erhält 10 Rüstung.
+2026-01-05 22:14:21,313 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:21,314 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:21,314 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:21,315 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:22,140 - DEBUG - history - Snapshot saved. Undo stack size: 2
+2026-01-05 22:14:22,140 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erhält 10 Rüstung.
+2026-01-05 22:14:22,140 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:22,141 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:22,141 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:22,142 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,194 - DEBUG - history - Snapshot saved. Undo stack size: 3
+2026-01-05 22:14:24,195 - INFO - engine - Game Log: Chaosritter (Boss) erhält 10 Schild.
+2026-01-05 22:14:24,195 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,196 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,196 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,197 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,627 - DEBUG - history - Snapshot saved. Undo stack size: 4
+2026-01-05 22:14:24,627 - INFO - engine - Game Log: Chaosritter (Boss) erhält 10 Schild.
+2026-01-05 22:14:24,627 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,628 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,629 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,629 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,853 - DEBUG - history - Snapshot saved. Undo stack size: 5
+2026-01-05 22:14:24,854 - INFO - engine - Game Log: Chaosritter (Boss) erhält 10 Schild.
+2026-01-05 22:14:24,854 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,856 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:24,856 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:24,857 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:28,838 - DEBUG - history - Snapshot saved. Undo stack size: 6
+2026-01-05 22:14:28,838 - INFO - engine - Game Log: Chaoskrieger wird um 10 LP geheilt! Aktuelle LP: 14
+2026-01-05 22:14:28,839 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:28,840 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:28,840 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:28,841 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:29,458 - DEBUG - history - Snapshot saved. Undo stack size: 7
+2026-01-05 22:14:29,459 - INFO - engine - Game Log: Chaoskrieger wird um 10 LP geheilt! Aktuelle LP: 24
+2026-01-05 22:14:29,459 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:29,460 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:29,460 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:29,461 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,883 - DEBUG - history - Snapshot saved. Undo stack size: 8
+2026-01-05 22:14:39,883 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-05 22:14:39,884 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,885 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,885 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,886 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,886 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden durch Rüstung abgefangen (5 RP verloren).
+
+2026-01-05 22:14:39,888 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,889 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,889 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,890 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,890 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden vom Schild absorbiert.
+
+2026-01-05 22:14:39,890 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,891 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,891 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:39,892 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:39,892 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:14:40,267 - DEBUG - history - Snapshot saved. Undo stack size: 9
+2026-01-05 22:14:40,268 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-05 22:14:40,269 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,270 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,270 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,271 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,271 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden durch Rüstung abgefangen (5 RP verloren).
+
+2026-01-05 22:14:40,272 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,272 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,272 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,273 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,273 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden vom Schild absorbiert.
+
+2026-01-05 22:14:40,274 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,275 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,275 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,276 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,276 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:14:40,631 - DEBUG - history - Snapshot saved. Undo stack size: 10
+2026-01-05 22:14:40,631 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaoskrieger ist kampfunfähig!
+
+2026-01-05 22:14:40,635 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,636 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,636 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,637 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,637 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden durch Rüstung abgefangen (5 RP verloren).
+
+2026-01-05 22:14:40,638 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,639 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,639 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,640 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,640 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden vom Schild absorbiert.
+
+2026-01-05 22:14:40,641 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,641 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,641 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:40,642 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:40,642 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:14:41,403 - DEBUG - history - Snapshot saved. Undo stack size: 11
+2026-01-05 22:14:41,403 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaoskrieger ist kampfunfähig!
+
+2026-01-05 22:14:41,405 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,406 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,406 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,407 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,407 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden durch Rüstung abgefangen (5 RP verloren).
+
+2026-01-05 22:14:41,408 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,409 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,409 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,410 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,410 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-05 22:14:41,411 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,412 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,412 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,413 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,413 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:14:41,789 - DEBUG - history - Snapshot saved. Undo stack size: 12
+2026-01-05 22:14:41,789 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaoskrieger ist kampfunfähig!
+
+2026-01-05 22:14:41,790 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,791 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,791 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,792 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,792 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-05 22:14:41,793 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,794 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,794 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,795 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,795 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+
+2026-01-05 22:14:41,796 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,797 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,797 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:41,798 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:41,798 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:14:42,284 - DEBUG - history - Snapshot saved. Undo stack size: 13
+2026-01-05 22:14:42,284 - INFO - engine - Game Log: Chaoskrieger erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaoskrieger ist kampfunfähig!
+
+2026-01-05 22:14:42,286 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,287 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,287 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,288 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,288 - INFO - engine - Game Log: Chaosbestie (Mini-Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaosbestie (Mini-Boss) ist kampfunfähig!
+
+2026-01-05 22:14:42,289 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,290 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,290 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,291 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,291 - INFO - engine - Game Log: Chaosritter (Boss) erleidet 10 (Normal) Schaden!
+→ 10 Schaden auf Lebenspunkte!
+⚔️ Chaosritter (Boss) ist kampfunfähig!
+
+2026-01-05 22:14:42,292 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,293 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,293 - INFO - persistence - Autosave running. Characters: 4
+2026-01-05 22:14:42,294 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:14:42,294 - INFO - engine - Game Log: Schaden auf 3 Ziele angewendet.
+2026-01-05 22:16:01,949 - DEBUG - history - Snapshot saved. Undo stack size: 14
+2026-01-05 22:16:06,487 - INFO - import_handler - Excel file loaded successfully: C:/Users/iQ_3_/OneDrive/GitHub/Combat_Tracker_PnP/gegnerliste.xlsx (1 rows)
+2026-01-05 22:16:13,557 - INFO - engine - Game Log: Ork 1 wurde hinzugefügt.
+2026-01-05 22:16:13,559 - INFO - persistence - Autosave running. Characters: 5
+2026-01-05 22:16:13,560 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,560 - INFO - persistence - Autosave running. Characters: 5
+2026-01-05 22:16:13,561 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,561 - INFO - engine - Game Log: Ork 2 wurde hinzugefügt.
+2026-01-05 22:16:13,562 - INFO - persistence - Autosave running. Characters: 6
+2026-01-05 22:16:13,563 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,563 - INFO - persistence - Autosave running. Characters: 6
+2026-01-05 22:16:13,564 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,564 - INFO - engine - Game Log: Ork 3 wurde hinzugefügt.
+2026-01-05 22:16:13,565 - INFO - persistence - Autosave running. Characters: 7
+2026-01-05 22:16:13,567 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,567 - INFO - persistence - Autosave running. Characters: 7
+2026-01-05 22:16:13,568 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,568 - INFO - engine - Game Log: Ork 4 wurde hinzugefügt.
+2026-01-05 22:16:13,569 - INFO - persistence - Autosave running. Characters: 8
+2026-01-05 22:16:13,570 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,571 - INFO - persistence - Autosave running. Characters: 8
+2026-01-05 22:16:13,571 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,572 - INFO - engine - Game Log: Ork 5 wurde hinzugefügt.
+2026-01-05 22:16:13,573 - INFO - persistence - Autosave running. Characters: 9
+2026-01-05 22:16:13,574 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,574 - INFO - persistence - Autosave running. Characters: 9
+2026-01-05 22:16:13,575 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,575 - INFO - engine - Game Log: Ork 6 wurde hinzugefügt.
+2026-01-05 22:16:13,576 - INFO - persistence - Autosave running. Characters: 10
+2026-01-05 22:16:13,577 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,577 - INFO - persistence - Autosave running. Characters: 10
+2026-01-05 22:16:13,578 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,578 - INFO - engine - Game Log: Ork 7 wurde hinzugefügt.
+2026-01-05 22:16:13,579 - INFO - persistence - Autosave running. Characters: 11
+2026-01-05 22:16:13,580 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,580 - INFO - persistence - Autosave running. Characters: 11
+2026-01-05 22:16:13,581 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,581 - INFO - engine - Game Log: Ork 8 wurde hinzugefügt.
+2026-01-05 22:16:13,582 - INFO - persistence - Autosave running. Characters: 12
+2026-01-05 22:16:13,583 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,584 - INFO - persistence - Autosave running. Characters: 12
+2026-01-05 22:16:13,585 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,585 - INFO - engine - Game Log: Ork 9 wurde hinzugefügt.
+2026-01-05 22:16:13,586 - INFO - persistence - Autosave running. Characters: 13
+2026-01-05 22:16:13,587 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,587 - INFO - persistence - Autosave running. Characters: 13
+2026-01-05 22:16:13,588 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,588 - INFO - engine - Game Log: Ork 10 wurde hinzugefügt.
+2026-01-05 22:16:13,589 - INFO - persistence - Autosave running. Characters: 14
+2026-01-05 22:16:13,590 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,590 - INFO - persistence - Autosave running. Characters: 14
+2026-01-05 22:16:13,591 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,591 - INFO - engine - Game Log: Ork 11 wurde hinzugefügt.
+2026-01-05 22:16:13,592 - INFO - persistence - Autosave running. Characters: 15
+2026-01-05 22:16:13,593 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,593 - INFO - persistence - Autosave running. Characters: 15
+2026-01-05 22:16:13,594 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,594 - INFO - engine - Game Log: Ork 12 wurde hinzugefügt.
+2026-01-05 22:16:13,595 - INFO - persistence - Autosave running. Characters: 16
+2026-01-05 22:16:13,596 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,596 - INFO - persistence - Autosave running. Characters: 16
+2026-01-05 22:16:13,597 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,598 - INFO - engine - Game Log: Ork 13 wurde hinzugefügt.
+2026-01-05 22:16:13,599 - INFO - persistence - Autosave running. Characters: 17
+2026-01-05 22:16:13,600 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,600 - INFO - persistence - Autosave running. Characters: 17
+2026-01-05 22:16:13,601 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,601 - INFO - engine - Game Log: Ork 14 wurde hinzugefügt.
+2026-01-05 22:16:13,602 - INFO - persistence - Autosave running. Characters: 18
+2026-01-05 22:16:13,603 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,603 - INFO - persistence - Autosave running. Characters: 18
+2026-01-05 22:16:13,604 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,604 - INFO - engine - Game Log: Ork 15 wurde hinzugefügt.
+2026-01-05 22:16:13,606 - INFO - persistence - Autosave running. Characters: 19
+2026-01-05 22:16:13,607 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,607 - INFO - persistence - Autosave running. Characters: 19
+2026-01-05 22:16:13,608 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,608 - INFO - engine - Game Log: Ork 16 wurde hinzugefügt.
+2026-01-05 22:16:13,609 - INFO - persistence - Autosave running. Characters: 20
+2026-01-05 22:16:13,610 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,610 - INFO - persistence - Autosave running. Characters: 20
+2026-01-05 22:16:13,611 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,611 - INFO - engine - Game Log: Ork 17 wurde hinzugefügt.
+2026-01-05 22:16:13,613 - INFO - persistence - Autosave running. Characters: 21
+2026-01-05 22:16:13,614 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,614 - INFO - persistence - Autosave running. Characters: 21
+2026-01-05 22:16:13,615 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,615 - INFO - engine - Game Log: Ork 18 wurde hinzugefügt.
+2026-01-05 22:16:13,616 - INFO - persistence - Autosave running. Characters: 22
+2026-01-05 22:16:13,617 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,617 - INFO - persistence - Autosave running. Characters: 22
+2026-01-05 22:16:13,618 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,619 - INFO - engine - Game Log: Ork 19 wurde hinzugefügt.
+2026-01-05 22:16:13,620 - INFO - persistence - Autosave running. Characters: 23
+2026-01-05 22:16:13,621 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,621 - INFO - persistence - Autosave running. Characters: 23
+2026-01-05 22:16:13,622 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,622 - INFO - engine - Game Log: Ork 20 wurde hinzugefügt.
+2026-01-05 22:16:13,624 - INFO - persistence - Autosave running. Characters: 24
+2026-01-05 22:16:13,625 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,625 - INFO - persistence - Autosave running. Characters: 24
+2026-01-05 22:16:13,626 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,626 - INFO - engine - Game Log: Ork 21 wurde hinzugefügt.
+2026-01-05 22:16:13,627 - INFO - persistence - Autosave running. Characters: 25
+2026-01-05 22:16:13,628 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,629 - INFO - persistence - Autosave running. Characters: 25
+2026-01-05 22:16:13,630 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,630 - INFO - engine - Game Log: Ork 22 wurde hinzugefügt.
+2026-01-05 22:16:13,631 - INFO - persistence - Autosave running. Characters: 26
+2026-01-05 22:16:13,632 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,632 - INFO - persistence - Autosave running. Characters: 26
+2026-01-05 22:16:13,633 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,634 - INFO - engine - Game Log: Ork 23 wurde hinzugefügt.
+2026-01-05 22:16:13,635 - INFO - persistence - Autosave running. Characters: 27
+2026-01-05 22:16:13,636 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,636 - INFO - persistence - Autosave running. Characters: 27
+2026-01-05 22:16:13,637 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,637 - INFO - engine - Game Log: Ork 24 wurde hinzugefügt.
+2026-01-05 22:16:13,638 - INFO - persistence - Autosave running. Characters: 28
+2026-01-05 22:16:13,640 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,640 - INFO - persistence - Autosave running. Characters: 28
+2026-01-05 22:16:13,641 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,641 - INFO - engine - Game Log: Ork 25 wurde hinzugefügt.
+2026-01-05 22:16:13,642 - INFO - persistence - Autosave running. Characters: 29
+2026-01-05 22:16:13,643 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,644 - INFO - persistence - Autosave running. Characters: 29
+2026-01-05 22:16:13,645 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,645 - INFO - engine - Game Log: Ork 26 wurde hinzugefügt.
+2026-01-05 22:16:13,646 - INFO - persistence - Autosave running. Characters: 30
+2026-01-05 22:16:13,648 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,648 - INFO - persistence - Autosave running. Characters: 30
+2026-01-05 22:16:13,649 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,649 - INFO - engine - Game Log: Ork 27 wurde hinzugefügt.
+2026-01-05 22:16:13,650 - INFO - persistence - Autosave running. Characters: 31
+2026-01-05 22:16:13,651 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,652 - INFO - persistence - Autosave running. Characters: 31
+2026-01-05 22:16:13,653 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,653 - INFO - engine - Game Log: Ork 28 wurde hinzugefügt.
+2026-01-05 22:16:13,654 - INFO - persistence - Autosave running. Characters: 32
+2026-01-05 22:16:13,656 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,656 - INFO - persistence - Autosave running. Characters: 32
+2026-01-05 22:16:13,657 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,657 - INFO - engine - Game Log: Ork 29 wurde hinzugefügt.
+2026-01-05 22:16:13,658 - INFO - persistence - Autosave running. Characters: 33
+2026-01-05 22:16:13,660 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,660 - INFO - persistence - Autosave running. Characters: 33
+2026-01-05 22:16:13,661 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,661 - INFO - engine - Game Log: Ork 30 wurde hinzugefügt.
+2026-01-05 22:16:13,663 - INFO - persistence - Autosave running. Characters: 34
+2026-01-05 22:16:13,664 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,664 - INFO - persistence - Autosave running. Characters: 34
+2026-01-05 22:16:13,665 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,665 - INFO - engine - Game Log: Ork 31 wurde hinzugefügt.
+2026-01-05 22:16:13,667 - INFO - persistence - Autosave running. Characters: 35
+2026-01-05 22:16:13,668 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,668 - INFO - persistence - Autosave running. Characters: 35
+2026-01-05 22:16:13,670 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,670 - INFO - engine - Game Log: Ork 32 wurde hinzugefügt.
+2026-01-05 22:16:13,671 - INFO - persistence - Autosave running. Characters: 36
+2026-01-05 22:16:13,672 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,672 - INFO - persistence - Autosave running. Characters: 36
+2026-01-05 22:16:13,673 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,674 - INFO - engine - Game Log: Ork 33 wurde hinzugefügt.
+2026-01-05 22:16:13,675 - INFO - persistence - Autosave running. Characters: 37
+2026-01-05 22:16:13,677 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,677 - INFO - persistence - Autosave running. Characters: 37
+2026-01-05 22:16:13,678 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,678 - INFO - engine - Game Log: Ork 34 wurde hinzugefügt.
+2026-01-05 22:16:13,679 - INFO - persistence - Autosave running. Characters: 38
+2026-01-05 22:16:13,681 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,681 - INFO - persistence - Autosave running. Characters: 38
+2026-01-05 22:16:13,682 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,682 - INFO - engine - Game Log: Ork 35 wurde hinzugefügt.
+2026-01-05 22:16:13,683 - INFO - persistence - Autosave running. Characters: 39
+2026-01-05 22:16:13,685 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,685 - INFO - persistence - Autosave running. Characters: 39
+2026-01-05 22:16:13,686 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,686 - INFO - engine - Game Log: Ork 36 wurde hinzugefügt.
+2026-01-05 22:16:13,687 - INFO - persistence - Autosave running. Characters: 40
+2026-01-05 22:16:13,689 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,689 - INFO - persistence - Autosave running. Characters: 40
+2026-01-05 22:16:13,690 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,690 - INFO - engine - Game Log: Ork 37 wurde hinzugefügt.
+2026-01-05 22:16:13,692 - INFO - persistence - Autosave running. Characters: 41
+2026-01-05 22:16:13,693 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,693 - INFO - persistence - Autosave running. Characters: 41
+2026-01-05 22:16:13,694 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,695 - INFO - engine - Game Log: Ork 38 wurde hinzugefügt.
+2026-01-05 22:16:13,696 - INFO - persistence - Autosave running. Characters: 42
+2026-01-05 22:16:13,698 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,698 - INFO - persistence - Autosave running. Characters: 42
+2026-01-05 22:16:13,699 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,699 - INFO - engine - Game Log: Ork 39 wurde hinzugefügt.
+2026-01-05 22:16:13,700 - INFO - persistence - Autosave running. Characters: 43
+2026-01-05 22:16:13,702 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,702 - INFO - persistence - Autosave running. Characters: 43
+2026-01-05 22:16:13,704 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,704 - INFO - engine - Game Log: Ork 40 wurde hinzugefügt.
+2026-01-05 22:16:13,705 - INFO - persistence - Autosave running. Characters: 44
+2026-01-05 22:16:13,707 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,707 - INFO - persistence - Autosave running. Characters: 44
+2026-01-05 22:16:13,708 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,708 - INFO - engine - Game Log: Ork 41 wurde hinzugefügt.
+2026-01-05 22:16:13,710 - INFO - persistence - Autosave running. Characters: 45
+2026-01-05 22:16:13,711 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,711 - INFO - persistence - Autosave running. Characters: 45
+2026-01-05 22:16:13,712 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,712 - INFO - engine - Game Log: Ork 42 wurde hinzugefügt.
+2026-01-05 22:16:13,714 - INFO - persistence - Autosave running. Characters: 46
+2026-01-05 22:16:13,715 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,715 - INFO - persistence - Autosave running. Characters: 46
+2026-01-05 22:16:13,717 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,717 - INFO - engine - Game Log: Ork 43 wurde hinzugefügt.
+2026-01-05 22:16:13,718 - INFO - persistence - Autosave running. Characters: 47
+2026-01-05 22:16:13,720 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,720 - INFO - persistence - Autosave running. Characters: 47
+2026-01-05 22:16:13,721 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,721 - INFO - engine - Game Log: Ork 44 wurde hinzugefügt.
+2026-01-05 22:16:13,723 - INFO - persistence - Autosave running. Characters: 48
+2026-01-05 22:16:13,724 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,724 - INFO - persistence - Autosave running. Characters: 48
+2026-01-05 22:16:13,725 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,726 - INFO - engine - Game Log: Ork 45 wurde hinzugefügt.
+2026-01-05 22:16:13,727 - INFO - persistence - Autosave running. Characters: 49
+2026-01-05 22:16:13,728 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,728 - INFO - persistence - Autosave running. Characters: 49
+2026-01-05 22:16:13,730 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,730 - INFO - engine - Game Log: Ork 46 wurde hinzugefügt.
+2026-01-05 22:16:13,731 - INFO - persistence - Autosave running. Characters: 50
+2026-01-05 22:16:13,733 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,733 - INFO - persistence - Autosave running. Characters: 50
+2026-01-05 22:16:13,734 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,735 - INFO - engine - Game Log: Ork 47 wurde hinzugefügt.
+2026-01-05 22:16:13,736 - INFO - persistence - Autosave running. Characters: 51
+2026-01-05 22:16:13,738 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,738 - INFO - persistence - Autosave running. Characters: 51
+2026-01-05 22:16:13,739 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,739 - INFO - engine - Game Log: Ork 48 wurde hinzugefügt.
+2026-01-05 22:16:13,741 - INFO - persistence - Autosave running. Characters: 52
+2026-01-05 22:16:13,742 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,742 - INFO - persistence - Autosave running. Characters: 52
+2026-01-05 22:16:13,744 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,744 - INFO - engine - Game Log: Ork 49 wurde hinzugefügt.
+2026-01-05 22:16:13,746 - INFO - persistence - Autosave running. Characters: 53
+2026-01-05 22:16:13,747 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,747 - INFO - persistence - Autosave running. Characters: 53
+2026-01-05 22:16:13,749 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,749 - INFO - engine - Game Log: Ork 50 wurde hinzugefügt.
+2026-01-05 22:16:13,750 - INFO - persistence - Autosave running. Characters: 54
+2026-01-05 22:16:13,752 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,752 - INFO - persistence - Autosave running. Characters: 54
+2026-01-05 22:16:13,754 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,754 - INFO - engine - Game Log: Ork 51 wurde hinzugefügt.
+2026-01-05 22:16:13,755 - INFO - persistence - Autosave running. Characters: 55
+2026-01-05 22:16:13,757 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,757 - INFO - persistence - Autosave running. Characters: 55
+2026-01-05 22:16:13,758 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,759 - INFO - engine - Game Log: Ork 52 wurde hinzugefügt.
+2026-01-05 22:16:13,760 - INFO - persistence - Autosave running. Characters: 56
+2026-01-05 22:16:13,762 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,762 - INFO - persistence - Autosave running. Characters: 56
+2026-01-05 22:16:13,763 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,763 - INFO - engine - Game Log: Ork 53 wurde hinzugefügt.
+2026-01-05 22:16:13,765 - INFO - persistence - Autosave running. Characters: 57
+2026-01-05 22:16:13,766 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,766 - INFO - persistence - Autosave running. Characters: 57
+2026-01-05 22:16:13,768 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,768 - INFO - engine - Game Log: Ork 54 wurde hinzugefügt.
+2026-01-05 22:16:13,770 - INFO - persistence - Autosave running. Characters: 58
+2026-01-05 22:16:13,772 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,772 - INFO - persistence - Autosave running. Characters: 58
+2026-01-05 22:16:13,773 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,773 - INFO - engine - Game Log: Ork 55 wurde hinzugefügt.
+2026-01-05 22:16:13,775 - INFO - persistence - Autosave running. Characters: 59
+2026-01-05 22:16:13,777 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,777 - INFO - persistence - Autosave running. Characters: 59
+2026-01-05 22:16:13,778 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,778 - INFO - engine - Game Log: Ork 56 wurde hinzugefügt.
+2026-01-05 22:16:13,780 - INFO - persistence - Autosave running. Characters: 60
+2026-01-05 22:16:13,782 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,783 - INFO - persistence - Autosave running. Characters: 60
+2026-01-05 22:16:13,784 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,785 - INFO - engine - Game Log: Ork 57 wurde hinzugefügt.
+2026-01-05 22:16:13,787 - INFO - persistence - Autosave running. Characters: 61
+2026-01-05 22:16:13,789 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,789 - INFO - persistence - Autosave running. Characters: 61
+2026-01-05 22:16:13,791 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,791 - INFO - engine - Game Log: Ork 58 wurde hinzugefügt.
+2026-01-05 22:16:13,793 - INFO - persistence - Autosave running. Characters: 62
+2026-01-05 22:16:13,795 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,795 - INFO - persistence - Autosave running. Characters: 62
+2026-01-05 22:16:13,796 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,796 - INFO - engine - Game Log: Ork 59 wurde hinzugefügt.
+2026-01-05 22:16:13,798 - INFO - persistence - Autosave running. Characters: 63
+2026-01-05 22:16:13,800 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,800 - INFO - persistence - Autosave running. Characters: 63
+2026-01-05 22:16:13,802 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,802 - INFO - engine - Game Log: Ork 60 wurde hinzugefügt.
+2026-01-05 22:16:13,804 - INFO - persistence - Autosave running. Characters: 64
+2026-01-05 22:16:13,806 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,806 - INFO - persistence - Autosave running. Characters: 64
+2026-01-05 22:16:13,809 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,809 - INFO - engine - Game Log: Ork 61 wurde hinzugefügt.
+2026-01-05 22:16:13,811 - INFO - persistence - Autosave running. Characters: 65
+2026-01-05 22:16:13,813 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,813 - INFO - persistence - Autosave running. Characters: 65
+2026-01-05 22:16:13,815 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,815 - INFO - engine - Game Log: Ork 62 wurde hinzugefügt.
+2026-01-05 22:16:13,817 - INFO - persistence - Autosave running. Characters: 66
+2026-01-05 22:16:13,818 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,819 - INFO - persistence - Autosave running. Characters: 66
+2026-01-05 22:16:13,821 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,821 - INFO - engine - Game Log: Ork 63 wurde hinzugefügt.
+2026-01-05 22:16:13,823 - INFO - persistence - Autosave running. Characters: 67
+2026-01-05 22:16:13,824 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,825 - INFO - persistence - Autosave running. Characters: 67
+2026-01-05 22:16:13,827 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,827 - INFO - engine - Game Log: Ork 64 wurde hinzugefügt.
+2026-01-05 22:16:13,829 - INFO - persistence - Autosave running. Characters: 68
+2026-01-05 22:16:13,831 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,831 - INFO - persistence - Autosave running. Characters: 68
+2026-01-05 22:16:13,833 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,833 - INFO - engine - Game Log: Ork 65 wurde hinzugefügt.
+2026-01-05 22:16:13,835 - INFO - persistence - Autosave running. Characters: 69
+2026-01-05 22:16:13,837 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,837 - INFO - persistence - Autosave running. Characters: 69
+2026-01-05 22:16:13,838 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,839 - INFO - engine - Game Log: Ork 66 wurde hinzugefügt.
+2026-01-05 22:16:13,840 - INFO - persistence - Autosave running. Characters: 70
+2026-01-05 22:16:13,842 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,842 - INFO - persistence - Autosave running. Characters: 70
+2026-01-05 22:16:13,844 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,844 - INFO - engine - Game Log: Ork 67 wurde hinzugefügt.
+2026-01-05 22:16:13,846 - INFO - persistence - Autosave running. Characters: 71
+2026-01-05 22:16:13,848 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,848 - INFO - persistence - Autosave running. Characters: 71
+2026-01-05 22:16:13,850 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,850 - INFO - engine - Game Log: Ork 68 wurde hinzugefügt.
+2026-01-05 22:16:13,852 - INFO - persistence - Autosave running. Characters: 72
+2026-01-05 22:16:13,854 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,854 - INFO - persistence - Autosave running. Characters: 72
+2026-01-05 22:16:13,856 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,856 - INFO - engine - Game Log: Ork 69 wurde hinzugefügt.
+2026-01-05 22:16:13,858 - INFO - persistence - Autosave running. Characters: 73
+2026-01-05 22:16:13,860 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,860 - INFO - persistence - Autosave running. Characters: 73
+2026-01-05 22:16:13,862 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,862 - INFO - engine - Game Log: Ork 70 wurde hinzugefügt.
+2026-01-05 22:16:13,865 - INFO - persistence - Autosave running. Characters: 74
+2026-01-05 22:16:13,867 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,867 - INFO - persistence - Autosave running. Characters: 74
+2026-01-05 22:16:13,870 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,871 - INFO - engine - Game Log: Ork 71 wurde hinzugefügt.
+2026-01-05 22:16:13,873 - INFO - persistence - Autosave running. Characters: 75
+2026-01-05 22:16:13,875 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,875 - INFO - persistence - Autosave running. Characters: 75
+2026-01-05 22:16:13,877 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,877 - INFO - engine - Game Log: Ork 72 wurde hinzugefügt.
+2026-01-05 22:16:13,879 - INFO - persistence - Autosave running. Characters: 76
+2026-01-05 22:16:13,880 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,881 - INFO - persistence - Autosave running. Characters: 76
+2026-01-05 22:16:13,882 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,883 - INFO - engine - Game Log: Ork 73 wurde hinzugefügt.
+2026-01-05 22:16:13,884 - INFO - persistence - Autosave running. Characters: 77
+2026-01-05 22:16:13,886 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,886 - INFO - persistence - Autosave running. Characters: 77
+2026-01-05 22:16:13,888 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,888 - INFO - engine - Game Log: Ork 74 wurde hinzugefügt.
+2026-01-05 22:16:13,890 - INFO - persistence - Autosave running. Characters: 78
+2026-01-05 22:16:13,892 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,892 - INFO - persistence - Autosave running. Characters: 78
+2026-01-05 22:16:13,894 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,894 - INFO - engine - Game Log: Ork 75 wurde hinzugefügt.
+2026-01-05 22:16:13,896 - INFO - persistence - Autosave running. Characters: 79
+2026-01-05 22:16:13,898 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,898 - INFO - persistence - Autosave running. Characters: 79
+2026-01-05 22:16:13,900 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,900 - INFO - engine - Game Log: Ork 76 wurde hinzugefügt.
+2026-01-05 22:16:13,902 - INFO - persistence - Autosave running. Characters: 80
+2026-01-05 22:16:13,904 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,904 - INFO - persistence - Autosave running. Characters: 80
+2026-01-05 22:16:13,906 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,906 - INFO - engine - Game Log: Ork 77 wurde hinzugefügt.
+2026-01-05 22:16:13,908 - INFO - persistence - Autosave running. Characters: 81
+2026-01-05 22:16:13,910 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,910 - INFO - persistence - Autosave running. Characters: 81
+2026-01-05 22:16:13,912 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,912 - INFO - engine - Game Log: Ork 78 wurde hinzugefügt.
+2026-01-05 22:16:13,914 - INFO - persistence - Autosave running. Characters: 82
+2026-01-05 22:16:13,916 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,916 - INFO - persistence - Autosave running. Characters: 82
+2026-01-05 22:16:13,918 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,918 - INFO - engine - Game Log: Ork 79 wurde hinzugefügt.
+2026-01-05 22:16:13,920 - INFO - persistence - Autosave running. Characters: 83
+2026-01-05 22:16:13,921 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,922 - INFO - persistence - Autosave running. Characters: 83
+2026-01-05 22:16:13,924 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,924 - INFO - engine - Game Log: Ork 80 wurde hinzugefügt.
+2026-01-05 22:16:13,925 - INFO - persistence - Autosave running. Characters: 84
+2026-01-05 22:16:13,927 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,927 - INFO - persistence - Autosave running. Characters: 84
+2026-01-05 22:16:13,929 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,929 - INFO - engine - Game Log: Ork 81 wurde hinzugefügt.
+2026-01-05 22:16:13,931 - INFO - persistence - Autosave running. Characters: 85
+2026-01-05 22:16:13,933 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,933 - INFO - persistence - Autosave running. Characters: 85
+2026-01-05 22:16:13,938 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,938 - INFO - engine - Game Log: Ork 82 wurde hinzugefügt.
+2026-01-05 22:16:13,940 - INFO - persistence - Autosave running. Characters: 86
+2026-01-05 22:16:13,943 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,943 - INFO - persistence - Autosave running. Characters: 86
+2026-01-05 22:16:13,945 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,945 - INFO - engine - Game Log: Ork 83 wurde hinzugefügt.
+2026-01-05 22:16:13,947 - INFO - persistence - Autosave running. Characters: 87
+2026-01-05 22:16:13,949 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,949 - INFO - persistence - Autosave running. Characters: 87
+2026-01-05 22:16:13,951 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,951 - INFO - engine - Game Log: Ork 84 wurde hinzugefügt.
+2026-01-05 22:16:13,953 - INFO - persistence - Autosave running. Characters: 88
+2026-01-05 22:16:13,955 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,955 - INFO - persistence - Autosave running. Characters: 88
+2026-01-05 22:16:13,957 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,957 - INFO - engine - Game Log: Ork 85 wurde hinzugefügt.
+2026-01-05 22:16:13,959 - INFO - persistence - Autosave running. Characters: 89
+2026-01-05 22:16:13,961 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,961 - INFO - persistence - Autosave running. Characters: 89
+2026-01-05 22:16:13,963 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,963 - INFO - engine - Game Log: Ork 86 wurde hinzugefügt.
+2026-01-05 22:16:13,965 - INFO - persistence - Autosave running. Characters: 90
+2026-01-05 22:16:13,967 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,967 - INFO - persistence - Autosave running. Characters: 90
+2026-01-05 22:16:13,969 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,969 - INFO - engine - Game Log: Ork 87 wurde hinzugefügt.
+2026-01-05 22:16:13,971 - INFO - persistence - Autosave running. Characters: 91
+2026-01-05 22:16:13,973 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,973 - INFO - persistence - Autosave running. Characters: 91
+2026-01-05 22:16:13,975 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,975 - INFO - engine - Game Log: Ork 88 wurde hinzugefügt.
+2026-01-05 22:16:13,977 - INFO - persistence - Autosave running. Characters: 92
+2026-01-05 22:16:13,979 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,980 - INFO - persistence - Autosave running. Characters: 92
+2026-01-05 22:16:13,982 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,982 - INFO - engine - Game Log: Ork 89 wurde hinzugefügt.
+2026-01-05 22:16:13,984 - INFO - persistence - Autosave running. Characters: 93
+2026-01-05 22:16:13,986 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,986 - INFO - persistence - Autosave running. Characters: 93
+2026-01-05 22:16:13,988 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,988 - INFO - engine - Game Log: Ork 90 wurde hinzugefügt.
+2026-01-05 22:16:13,991 - INFO - persistence - Autosave running. Characters: 94
+2026-01-05 22:16:13,993 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,993 - INFO - persistence - Autosave running. Characters: 94
+2026-01-05 22:16:13,995 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:13,995 - INFO - engine - Game Log: Ork 91 wurde hinzugefügt.
+2026-01-05 22:16:13,998 - INFO - persistence - Autosave running. Characters: 95
+2026-01-05 22:16:14,000 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,000 - INFO - persistence - Autosave running. Characters: 95
+2026-01-05 22:16:14,002 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,002 - INFO - engine - Game Log: Ork 92 wurde hinzugefügt.
+2026-01-05 22:16:14,005 - INFO - persistence - Autosave running. Characters: 96
+2026-01-05 22:16:14,007 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,007 - INFO - persistence - Autosave running. Characters: 96
+2026-01-05 22:16:14,009 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,009 - INFO - engine - Game Log: Ork 93 wurde hinzugefügt.
+2026-01-05 22:16:14,012 - INFO - persistence - Autosave running. Characters: 97
+2026-01-05 22:16:14,014 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,014 - INFO - persistence - Autosave running. Characters: 97
+2026-01-05 22:16:14,016 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,017 - INFO - engine - Game Log: Ork 94 wurde hinzugefügt.
+2026-01-05 22:16:14,019 - INFO - persistence - Autosave running. Characters: 98
+2026-01-05 22:16:14,021 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,021 - INFO - persistence - Autosave running. Characters: 98
+2026-01-05 22:16:14,023 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,023 - INFO - engine - Game Log: Ork 95 wurde hinzugefügt.
+2026-01-05 22:16:14,026 - INFO - persistence - Autosave running. Characters: 99
+2026-01-05 22:16:14,028 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,028 - INFO - persistence - Autosave running. Characters: 99
+2026-01-05 22:16:14,031 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,031 - INFO - engine - Game Log: Ork 96 wurde hinzugefügt.
+2026-01-05 22:16:14,033 - INFO - persistence - Autosave running. Characters: 100
+2026-01-05 22:16:14,036 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,036 - INFO - persistence - Autosave running. Characters: 100
+2026-01-05 22:16:14,038 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,038 - INFO - engine - Game Log: Ork 97 wurde hinzugefügt.
+2026-01-05 22:16:14,041 - INFO - persistence - Autosave running. Characters: 101
+2026-01-05 22:16:14,043 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,043 - INFO - persistence - Autosave running. Characters: 101
+2026-01-05 22:16:14,045 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,046 - INFO - engine - Game Log: Ork 98 wurde hinzugefügt.
+2026-01-05 22:16:14,048 - INFO - persistence - Autosave running. Characters: 102
+2026-01-05 22:16:14,050 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,050 - INFO - persistence - Autosave running. Characters: 102
+2026-01-05 22:16:14,053 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,053 - INFO - engine - Game Log: Ork 99 wurde hinzugefügt.
+2026-01-05 22:16:14,055 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:14,059 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,059 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:14,063 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:14,063 - INFO - engine - Game Log: 99 Charaktere erfolgreich importiert.
+2026-01-05 22:16:17,419 - DEBUG - history - Snapshot saved. Undo stack size: 15
+2026-01-05 22:16:17,419 - INFO - engine - Game Log: Initiative sortiert.
+2026-01-05 22:16:17,422 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:17,425 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:17,425 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:17,427 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:17,428 - INFO - engine - Game Log: Initiative gewürfelt! Reihenfolge erstellt.
+2026-01-05 22:16:17,428 - INFO - engine - Game Log: --- Runde 1 beginnt ---
+2026-01-05 22:16:17,431 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:17,433 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:17,434 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:17,437 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,297 - DEBUG - history - Snapshot saved. Undo stack size: 16
+2026-01-05 22:16:38,297 - INFO - engine - Game Log: ▶ Ork 83 ist am Zug!
+2026-01-05 22:16:38,299 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,301 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,302 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,304 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,613 - DEBUG - history - Snapshot saved. Undo stack size: 17
+2026-01-05 22:16:38,614 - INFO - engine - Game Log: ▶ Ork 69 ist am Zug!
+2026-01-05 22:16:38,616 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,618 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,618 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,621 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,885 - DEBUG - history - Snapshot saved. Undo stack size: 18
+2026-01-05 22:16:38,885 - INFO - engine - Game Log: ▶ Ork 22 ist am Zug!
+2026-01-05 22:16:38,887 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,890 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:38,890 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:38,892 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,145 - DEBUG - history - Snapshot saved. Undo stack size: 19
+2026-01-05 22:16:39,145 - INFO - engine - Game Log: ▶ Ork 92 ist am Zug!
+2026-01-05 22:16:39,148 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,150 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,150 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,152 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,384 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:39,384 - INFO - engine - Game Log: ▶ Ork 93 ist am Zug!
+2026-01-05 22:16:39,387 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,389 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,389 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,392 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,622 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:39,622 - INFO - engine - Game Log: ▶ Ork 32 ist am Zug!
+2026-01-05 22:16:39,624 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,627 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,627 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,629 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,844 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:39,844 - INFO - engine - Game Log: ▶ Ork 5 ist am Zug!
+2026-01-05 22:16:39,846 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,849 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:39,849 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:39,851 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,070 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,070 - INFO - engine - Game Log: ▶ Ork 91 ist am Zug!
+2026-01-05 22:16:40,072 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,075 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,075 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,077 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,575 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,575 - INFO - engine - Game Log: ▶ Ork 95 ist am Zug!
+2026-01-05 22:16:40,577 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,580 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,580 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,582 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,614 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,614 - INFO - engine - Game Log: ▶ Ork 15 ist am Zug!
+2026-01-05 22:16:40,616 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,619 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,619 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,621 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,655 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,655 - INFO - engine - Game Log: ▶ Ork 55 ist am Zug!
+2026-01-05 22:16:40,657 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,660 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,661 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,663 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,697 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,697 - INFO - engine - Game Log: ▶ Ork 37 ist am Zug!
+2026-01-05 22:16:40,700 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,702 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,702 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,704 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,738 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,738 - INFO - engine - Game Log: ▶ Ork 54 ist am Zug!
+2026-01-05 22:16:40,740 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,742 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,742 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,744 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,777 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,778 - INFO - engine - Game Log: ▶ Ork 57 ist am Zug!
+2026-01-05 22:16:40,780 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,782 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,783 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,785 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,786 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,786 - INFO - engine - Game Log: ▶ Ork 60 ist am Zug!
+2026-01-05 22:16:40,788 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,791 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,791 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,793 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,830 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,830 - INFO - engine - Game Log: ▶ Ork 82 ist am Zug!
+2026-01-05 22:16:40,833 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,835 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,835 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,837 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,874 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,874 - INFO - engine - Game Log: ▶ Ork 8 ist am Zug!
+2026-01-05 22:16:40,876 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,879 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,879 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,881 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,915 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,915 - INFO - engine - Game Log: 💀 Chaoskreatur ist kampfunfähig.
+2026-01-05 22:16:40,928 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,931 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,931 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,933 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,967 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:40,967 - INFO - engine - Game Log: ▶ Ork 3 ist am Zug!
+2026-01-05 22:16:40,969 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,972 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:40,972 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:40,974 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,010 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,011 - INFO - engine - Game Log: ▶ Ork 13 ist am Zug!
+2026-01-05 22:16:41,014 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,016 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,016 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,019 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,056 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,056 - INFO - engine - Game Log: ▶ Ork 20 ist am Zug!
+2026-01-05 22:16:41,058 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,061 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,061 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,063 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,098 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,099 - INFO - engine - Game Log: ▶ Ork 24 ist am Zug!
+2026-01-05 22:16:41,101 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,104 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,104 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,106 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,140 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,140 - INFO - engine - Game Log: ▶ Ork 31 ist am Zug!
+2026-01-05 22:16:41,142 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,145 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,145 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,147 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,148 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,148 - INFO - engine - Game Log: ▶ Ork 46 ist am Zug!
+2026-01-05 22:16:41,151 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,153 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,154 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,156 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,189 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,189 - INFO - engine - Game Log: ▶ Ork 65 ist am Zug!
+2026-01-05 22:16:41,192 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,194 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,194 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,196 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,232 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,232 - INFO - engine - Game Log: ▶ Ork 77 ist am Zug!
+2026-01-05 22:16:41,234 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,237 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,237 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,239 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,277 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,277 - INFO - engine - Game Log: ▶ Ork 85 ist am Zug!
+2026-01-05 22:16:41,279 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,282 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,282 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,284 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,320 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,320 - INFO - engine - Game Log: ▶ Ork 88 ist am Zug!
+2026-01-05 22:16:41,323 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,325 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,325 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,327 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,361 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,361 - INFO - engine - Game Log: ▶ Ork 4 ist am Zug!
+2026-01-05 22:16:41,363 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,366 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,366 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,368 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,401 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,401 - INFO - engine - Game Log: ▶ Ork 14 ist am Zug!
+2026-01-05 22:16:41,403 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,406 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,406 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,408 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,409 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,410 - INFO - engine - Game Log: ▶ Ork 19 ist am Zug!
+2026-01-05 22:16:41,412 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,414 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,414 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,416 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,450 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,450 - INFO - engine - Game Log: ▶ Ork 34 ist am Zug!
+2026-01-05 22:16:41,452 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,455 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,455 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,457 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,494 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,494 - INFO - engine - Game Log: ▶ Ork 36 ist am Zug!
+2026-01-05 22:16:41,496 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,499 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,499 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,501 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,538 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,538 - INFO - engine - Game Log: ▶ Ork 47 ist am Zug!
+2026-01-05 22:16:41,541 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,545 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,545 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,548 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,582 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,582 - INFO - engine - Game Log: ▶ Ork 68 ist am Zug!
+2026-01-05 22:16:41,584 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,587 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,587 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,589 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,590 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,590 - INFO - engine - Game Log: ▶ Ork 97 ist am Zug!
+2026-01-05 22:16:41,592 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,594 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,595 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,597 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,632 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,632 - INFO - engine - Game Log: 💀 Chaosritter (Boss) ist kampfunfähig.
+2026-01-05 22:16:41,635 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,639 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,639 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,642 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,643 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,643 - INFO - engine - Game Log: ▶ Ork 1 ist am Zug!
+2026-01-05 22:16:41,645 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,648 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,648 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,650 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,688 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,688 - INFO - engine - Game Log: ▶ Ork 10 ist am Zug!
+2026-01-05 22:16:41,690 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,694 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,694 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,696 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,734 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,734 - INFO - engine - Game Log: ▶ Ork 26 ist am Zug!
+2026-01-05 22:16:41,737 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,739 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,740 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,742 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,743 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,743 - INFO - engine - Game Log: ▶ Ork 30 ist am Zug!
+2026-01-05 22:16:41,746 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,748 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,748 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,751 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,790 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,790 - INFO - engine - Game Log: ▶ Ork 39 ist am Zug!
+2026-01-05 22:16:41,792 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,795 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,795 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,797 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,831 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,831 - INFO - engine - Game Log: ▶ Ork 45 ist am Zug!
+2026-01-05 22:16:41,834 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,836 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,836 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,839 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,872 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,872 - INFO - engine - Game Log: ▶ Ork 50 ist am Zug!
+2026-01-05 22:16:41,875 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,877 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,877 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,879 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,880 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,880 - INFO - engine - Game Log: ▶ Ork 51 ist am Zug!
+2026-01-05 22:16:41,883 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,885 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,885 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,887 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,924 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,924 - INFO - engine - Game Log: ▶ Ork 59 ist am Zug!
+2026-01-05 22:16:41,926 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,929 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,929 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,932 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,969 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,970 - INFO - engine - Game Log: ▶ Ork 62 ist am Zug!
+2026-01-05 22:16:41,972 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,975 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,975 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,978 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,979 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:41,979 - INFO - engine - Game Log: ▶ Ork 74 ist am Zug!
+2026-01-05 22:16:41,981 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,985 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:41,985 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:41,988 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,023 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,023 - INFO - engine - Game Log: ▶ Ork 79 ist am Zug!
+2026-01-05 22:16:42,026 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,028 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,028 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,030 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,065 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,065 - INFO - engine - Game Log: ▶ Ork 87 ist am Zug!
+2026-01-05 22:16:42,068 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,070 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,070 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,073 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,106 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,106 - INFO - engine - Game Log: 💀 Chaoskrieger ist kampfunfähig.
+2026-01-05 22:16:42,109 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,111 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,112 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,114 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,115 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,115 - INFO - engine - Game Log: ▶ Ork 6 ist am Zug!
+2026-01-05 22:16:42,117 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,119 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,120 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,122 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,160 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,161 - INFO - engine - Game Log: ▶ Ork 17 ist am Zug!
+2026-01-05 22:16:42,163 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,166 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,166 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,168 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,207 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,207 - INFO - engine - Game Log: ▶ Ork 21 ist am Zug!
+2026-01-05 22:16:42,209 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,212 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,212 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,215 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,217 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,217 - INFO - engine - Game Log: ▶ Ork 33 ist am Zug!
+2026-01-05 22:16:42,219 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,222 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,222 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,224 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,226 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,226 - INFO - engine - Game Log: ▶ Ork 35 ist am Zug!
+2026-01-05 22:16:42,228 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,231 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,231 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,233 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,267 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,267 - INFO - engine - Game Log: ▶ Ork 48 ist am Zug!
+2026-01-05 22:16:42,270 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,272 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,272 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,274 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,308 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,308 - INFO - engine - Game Log: ▶ Ork 52 ist am Zug!
+2026-01-05 22:16:42,311 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,313 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,313 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,315 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,350 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,350 - INFO - engine - Game Log: ▶ Ork 64 ist am Zug!
+2026-01-05 22:16:42,353 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,355 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,355 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,358 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,395 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,396 - INFO - engine - Game Log: ▶ Ork 67 ist am Zug!
+2026-01-05 22:16:42,398 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,401 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,402 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,404 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,444 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,444 - INFO - engine - Game Log: ▶ Ork 99 ist am Zug!
+2026-01-05 22:16:42,446 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,449 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,449 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,451 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,487 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,487 - INFO - engine - Game Log: 💀 Chaosbestie (Mini-Boss) ist kampfunfähig.
+2026-01-05 22:16:42,490 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,492 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,492 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,494 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,528 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,528 - INFO - engine - Game Log: ▶ Ork 2 ist am Zug!
+2026-01-05 22:16:42,531 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,533 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,534 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,536 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,537 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,537 - INFO - engine - Game Log: ▶ Ork 7 ist am Zug!
+2026-01-05 22:16:42,539 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,541 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,541 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,543 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,577 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,577 - INFO - engine - Game Log: ▶ Ork 16 ist am Zug!
+2026-01-05 22:16:42,580 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,582 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,583 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,585 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,621 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,621 - INFO - engine - Game Log: ▶ Ork 23 ist am Zug!
+2026-01-05 22:16:42,624 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,626 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,626 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,628 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,668 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,668 - INFO - engine - Game Log: ▶ Ork 27 ist am Zug!
+2026-01-05 22:16:42,671 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,674 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,674 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,676 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,677 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,677 - INFO - engine - Game Log: ▶ Ork 29 ist am Zug!
+2026-01-05 22:16:42,680 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,683 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,683 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,685 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,721 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,721 - INFO - engine - Game Log: ▶ Ork 43 ist am Zug!
+2026-01-05 22:16:42,723 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,726 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,726 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,728 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,763 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,764 - INFO - engine - Game Log: ▶ Ork 44 ist am Zug!
+2026-01-05 22:16:42,766 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,769 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,769 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,771 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,772 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,772 - INFO - engine - Game Log: ▶ Ork 61 ist am Zug!
+2026-01-05 22:16:42,775 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,777 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,777 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,782 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,817 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,817 - INFO - engine - Game Log: ▶ Ork 66 ist am Zug!
+2026-01-05 22:16:42,819 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,822 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,822 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,824 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,862 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,862 - INFO - engine - Game Log: ▶ Ork 76 ist am Zug!
+2026-01-05 22:16:42,864 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,867 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,867 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,869 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,907 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,907 - INFO - engine - Game Log: ▶ Ork 78 ist am Zug!
+2026-01-05 22:16:42,910 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,913 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,913 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,915 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,953 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:42,953 - INFO - engine - Game Log: ▶ Ork 81 ist am Zug!
+2026-01-05 22:16:42,956 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,958 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:42,958 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:42,961 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,000 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,000 - INFO - engine - Game Log: ▶ Ork 98 ist am Zug!
+2026-01-05 22:16:43,003 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,006 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,006 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,009 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,010 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,010 - INFO - engine - Game Log: ▶ Ork 9 ist am Zug!
+2026-01-05 22:16:43,013 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,016 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,016 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,019 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,021 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,021 - INFO - engine - Game Log: ▶ Ork 18 ist am Zug!
+2026-01-05 22:16:43,023 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,027 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,027 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,029 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,069 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,069 - INFO - engine - Game Log: ▶ Ork 25 ist am Zug!
+2026-01-05 22:16:43,071 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,074 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,074 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,077 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,124 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,124 - INFO - engine - Game Log: ▶ Ork 40 ist am Zug!
+2026-01-05 22:16:43,127 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,129 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,129 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,132 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,167 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,168 - INFO - engine - Game Log: ▶ Ork 42 ist am Zug!
+2026-01-05 22:16:43,170 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,172 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,173 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,175 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,176 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,176 - INFO - engine - Game Log: ▶ Ork 49 ist am Zug!
+2026-01-05 22:16:43,178 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,181 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,181 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,183 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,217 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,218 - INFO - engine - Game Log: ▶ Ork 58 ist am Zug!
+2026-01-05 22:16:43,220 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,226 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,226 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,229 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,267 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,267 - INFO - engine - Game Log: ▶ Ork 63 ist am Zug!
+2026-01-05 22:16:43,270 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,273 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,273 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,277 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,278 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,278 - INFO - engine - Game Log: ▶ Ork 70 ist am Zug!
+2026-01-05 22:16:43,281 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,285 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,285 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,288 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,289 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,289 - INFO - engine - Game Log: ▶ Ork 72 ist am Zug!
+2026-01-05 22:16:43,292 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,294 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,294 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,296 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,333 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,333 - INFO - engine - Game Log: ▶ Ork 73 ist am Zug!
+2026-01-05 22:16:43,336 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,339 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,339 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,341 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,375 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,375 - INFO - engine - Game Log: ▶ Ork 80 ist am Zug!
+2026-01-05 22:16:43,377 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,380 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,380 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,382 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,421 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,421 - INFO - engine - Game Log: ▶ Ork 94 ist am Zug!
+2026-01-05 22:16:43,424 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,426 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,426 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,429 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,461 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,461 - INFO - engine - Game Log: ▶ Ork 96 ist am Zug!
+2026-01-05 22:16:43,464 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,466 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,466 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,468 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,506 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,506 - INFO - engine - Game Log: ▶ Ork 11 ist am Zug!
+2026-01-05 22:16:43,508 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,510 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,510 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,513 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,551 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,552 - INFO - engine - Game Log: ▶ Ork 12 ist am Zug!
+2026-01-05 22:16:43,554 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,557 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,557 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,559 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,597 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,597 - INFO - engine - Game Log: ▶ Ork 28 ist am Zug!
+2026-01-05 22:16:43,599 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,602 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,602 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,605 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,640 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,640 - INFO - engine - Game Log: ▶ Ork 38 ist am Zug!
+2026-01-05 22:16:43,642 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,645 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,645 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,647 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,686 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,686 - INFO - engine - Game Log: ▶ Ork 41 ist am Zug!
+2026-01-05 22:16:43,689 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,691 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,691 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,694 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,728 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,728 - INFO - engine - Game Log: ▶ Ork 53 ist am Zug!
+2026-01-05 22:16:43,730 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,733 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,733 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,735 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,773 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,773 - INFO - engine - Game Log: ▶ Ork 56 ist am Zug!
+2026-01-05 22:16:43,775 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,778 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,779 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,781 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,817 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,818 - INFO - engine - Game Log: ▶ Ork 71 ist am Zug!
+2026-01-05 22:16:43,820 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,822 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,823 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,825 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,826 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,826 - INFO - engine - Game Log: ▶ Ork 75 ist am Zug!
+2026-01-05 22:16:43,828 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,830 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,830 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,833 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,868 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,868 - INFO - engine - Game Log: ▶ Ork 84 ist am Zug!
+2026-01-05 22:16:43,870 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,873 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,873 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,875 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,909 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,909 - INFO - engine - Game Log: ▶ Ork 86 ist am Zug!
+2026-01-05 22:16:43,912 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,914 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,914 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,916 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,918 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,918 - INFO - engine - Game Log: ▶ Ork 89 ist am Zug!
+2026-01-05 22:16:43,920 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,923 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,923 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,925 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,962 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:43,962 - INFO - engine - Game Log: --- Runde 2 beginnt ---
+2026-01-05 22:16:43,962 - INFO - engine - Game Log: ▶ Ork 90 ist am Zug!
+2026-01-05 22:16:43,965 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,968 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:43,968 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:43,970 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,008 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,008 - INFO - engine - Game Log: ▶ Ork 83 ist am Zug!
+2026-01-05 22:16:44,010 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,013 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,013 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,015 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,051 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,051 - INFO - engine - Game Log: ▶ Ork 69 ist am Zug!
+2026-01-05 22:16:44,053 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,056 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,056 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,058 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,059 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,059 - INFO - engine - Game Log: ▶ Ork 22 ist am Zug!
+2026-01-05 22:16:44,062 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,065 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,065 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,067 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,100 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,100 - INFO - engine - Game Log: ▶ Ork 92 ist am Zug!
+2026-01-05 22:16:44,103 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,105 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,106 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,108 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,141 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,142 - INFO - engine - Game Log: ▶ Ork 93 ist am Zug!
+2026-01-05 22:16:44,144 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,146 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,146 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,148 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,150 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,150 - INFO - engine - Game Log: ▶ Ork 32 ist am Zug!
+2026-01-05 22:16:44,152 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,154 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,154 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,156 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,194 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,194 - INFO - engine - Game Log: ▶ Ork 5 ist am Zug!
+2026-01-05 22:16:44,197 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,200 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,200 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,204 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,245 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,245 - INFO - engine - Game Log: ▶ Ork 91 ist am Zug!
+2026-01-05 22:16:44,247 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,250 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,250 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,252 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,287 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,287 - INFO - engine - Game Log: ▶ Ork 95 ist am Zug!
+2026-01-05 22:16:44,289 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,292 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,292 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,294 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,296 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,296 - INFO - engine - Game Log: ▶ Ork 15 ist am Zug!
+2026-01-05 22:16:44,298 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,300 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,300 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,302 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,336 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,336 - INFO - engine - Game Log: ▶ Ork 55 ist am Zug!
+2026-01-05 22:16:44,338 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,341 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,341 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,343 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,378 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,378 - INFO - engine - Game Log: ▶ Ork 37 ist am Zug!
+2026-01-05 22:16:44,380 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,383 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,383 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,385 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,386 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,386 - INFO - engine - Game Log: ▶ Ork 54 ist am Zug!
+2026-01-05 22:16:44,389 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,391 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,391 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,393 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,429 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,429 - INFO - engine - Game Log: ▶ Ork 57 ist am Zug!
+2026-01-05 22:16:44,432 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,434 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,435 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,437 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,474 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,474 - INFO - engine - Game Log: ▶ Ork 60 ist am Zug!
+2026-01-05 22:16:44,476 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,479 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,480 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,482 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,483 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,483 - INFO - engine - Game Log: ▶ Ork 82 ist am Zug!
+2026-01-05 22:16:44,486 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,489 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,489 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,491 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,527 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,527 - INFO - engine - Game Log: ▶ Ork 8 ist am Zug!
+2026-01-05 22:16:44,529 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,532 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,532 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,534 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,568 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,568 - INFO - engine - Game Log: 💀 Chaoskreatur ist kampfunfähig.
+2026-01-05 22:16:44,571 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,573 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,573 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,576 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,609 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,609 - INFO - engine - Game Log: ▶ Ork 3 ist am Zug!
+2026-01-05 22:16:44,612 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,614 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,614 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,617 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,618 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,618 - INFO - engine - Game Log: ▶ Ork 13 ist am Zug!
+2026-01-05 22:16:44,620 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,623 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,623 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,625 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,661 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,661 - INFO - engine - Game Log: ▶ Ork 20 ist am Zug!
+2026-01-05 22:16:44,664 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,666 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,667 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,669 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,706 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,706 - INFO - engine - Game Log: ▶ Ork 24 ist am Zug!
+2026-01-05 22:16:44,709 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,711 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,711 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,714 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,715 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,715 - INFO - engine - Game Log: ▶ Ork 31 ist am Zug!
+2026-01-05 22:16:44,717 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,720 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,720 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,722 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,758 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,758 - INFO - engine - Game Log: ▶ Ork 46 ist am Zug!
+2026-01-05 22:16:44,761 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,763 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,763 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,766 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,799 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,799 - INFO - engine - Game Log: ▶ Ork 65 ist am Zug!
+2026-01-05 22:16:44,801 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,803 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,804 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,806 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,838 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,838 - INFO - engine - Game Log: ▶ Ork 77 ist am Zug!
+2026-01-05 22:16:44,841 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,843 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,843 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,845 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,847 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,847 - INFO - engine - Game Log: ▶ Ork 85 ist am Zug!
+2026-01-05 22:16:44,849 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,851 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,851 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,853 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,889 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,889 - INFO - engine - Game Log: ▶ Ork 88 ist am Zug!
+2026-01-05 22:16:44,892 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,895 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,895 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,897 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,935 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,935 - INFO - engine - Game Log: ▶ Ork 4 ist am Zug!
+2026-01-05 22:16:44,938 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,940 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,941 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,943 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,980 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:44,980 - INFO - engine - Game Log: ▶ Ork 14 ist am Zug!
+2026-01-05 22:16:44,983 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,986 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:44,986 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:44,988 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,022 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,022 - INFO - engine - Game Log: ▶ Ork 19 ist am Zug!
+2026-01-05 22:16:45,025 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,028 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,028 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,030 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,064 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,064 - INFO - engine - Game Log: ▶ Ork 34 ist am Zug!
+2026-01-05 22:16:45,066 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,069 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,069 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,071 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,106 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,106 - INFO - engine - Game Log: ▶ Ork 36 ist am Zug!
+2026-01-05 22:16:45,108 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,111 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,111 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,114 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,115 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,115 - INFO - engine - Game Log: ▶ Ork 47 ist am Zug!
+2026-01-05 22:16:45,117 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,120 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,120 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,122 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,160 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,160 - INFO - engine - Game Log: ▶ Ork 68 ist am Zug!
+2026-01-05 22:16:45,163 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,165 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,166 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,168 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,207 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,207 - INFO - engine - Game Log: ▶ Ork 97 ist am Zug!
+2026-01-05 22:16:45,210 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,212 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,212 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,214 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,215 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,215 - INFO - engine - Game Log: 💀 Chaosritter (Boss) ist kampfunfähig.
+2026-01-05 22:16:45,218 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,220 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,220 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,222 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,255 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,255 - INFO - engine - Game Log: ▶ Ork 1 ist am Zug!
+2026-01-05 22:16:45,258 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,260 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,261 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,264 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,298 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,298 - INFO - engine - Game Log: ▶ Ork 10 ist am Zug!
+2026-01-05 22:16:45,300 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,303 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,303 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,305 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,306 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,306 - INFO - engine - Game Log: ▶ Ork 26 ist am Zug!
+2026-01-05 22:16:45,308 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,311 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,311 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,314 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,351 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,351 - INFO - engine - Game Log: ▶ Ork 30 ist am Zug!
+2026-01-05 22:16:45,354 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,356 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,357 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,359 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,396 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,396 - INFO - engine - Game Log: ▶ Ork 39 ist am Zug!
+2026-01-05 22:16:45,399 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,402 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,403 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,407 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,441 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,441 - INFO - engine - Game Log: ▶ Ork 45 ist am Zug!
+2026-01-05 22:16:45,444 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,447 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,447 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,449 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,450 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,450 - INFO - engine - Game Log: ▶ Ork 50 ist am Zug!
+2026-01-05 22:16:45,453 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,455 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,455 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,457 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,493 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,493 - INFO - engine - Game Log: ▶ Ork 51 ist am Zug!
+2026-01-05 22:16:45,495 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,498 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,498 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,501 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,539 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,539 - INFO - engine - Game Log: ▶ Ork 59 ist am Zug!
+2026-01-05 22:16:45,542 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,544 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,545 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,547 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,584 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,584 - INFO - engine - Game Log: ▶ Ork 62 ist am Zug!
+2026-01-05 22:16:45,587 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,589 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,589 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,592 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,628 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,628 - INFO - engine - Game Log: ▶ Ork 74 ist am Zug!
+2026-01-05 22:16:45,631 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,633 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,633 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,635 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,669 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,669 - INFO - engine - Game Log: ▶ Ork 79 ist am Zug!
+2026-01-05 22:16:45,672 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,674 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,674 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,677 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,678 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,678 - INFO - engine - Game Log: ▶ Ork 87 ist am Zug!
+2026-01-05 22:16:45,680 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,682 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,683 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,685 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,720 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,720 - INFO - engine - Game Log: 💀 Chaoskrieger ist kampfunfähig.
+2026-01-05 22:16:45,723 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,725 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,725 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,727 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,765 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,765 - INFO - engine - Game Log: ▶ Ork 6 ist am Zug!
+2026-01-05 22:16:45,767 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,770 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,770 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,773 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,774 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,774 - INFO - engine - Game Log: ▶ Ork 17 ist am Zug!
+2026-01-05 22:16:45,777 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,780 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,780 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,783 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,841 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,842 - INFO - engine - Game Log: ▶ Ork 21 ist am Zug!
+2026-01-05 22:16:45,844 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,847 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,848 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,850 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,893 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,893 - INFO - engine - Game Log: ▶ Ork 33 ist am Zug!
+2026-01-05 22:16:45,896 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,898 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,899 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,902 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,943 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,943 - INFO - engine - Game Log: ▶ Ork 35 ist am Zug!
+2026-01-05 22:16:45,946 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,949 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,949 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,952 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,954 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,954 - INFO - engine - Game Log: ▶ Ork 48 ist am Zug!
+2026-01-05 22:16:45,957 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,960 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,960 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,963 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,964 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:45,964 - INFO - engine - Game Log: ▶ Ork 52 ist am Zug!
+2026-01-05 22:16:45,967 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,969 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:45,969 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:45,971 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,009 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,009 - INFO - engine - Game Log: ▶ Ork 64 ist am Zug!
+2026-01-05 22:16:46,011 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,014 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,014 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,016 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,054 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,054 - INFO - engine - Game Log: ▶ Ork 67 ist am Zug!
+2026-01-05 22:16:46,057 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,059 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,059 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,062 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,099 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,099 - INFO - engine - Game Log: ▶ Ork 99 ist am Zug!
+2026-01-05 22:16:46,101 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,104 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,104 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,107 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,141 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,142 - INFO - engine - Game Log: 💀 Chaosbestie (Mini-Boss) ist kampfunfähig.
+2026-01-05 22:16:46,144 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,147 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,147 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,149 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,187 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,187 - INFO - engine - Game Log: ▶ Ork 2 ist am Zug!
+2026-01-05 22:16:46,190 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,193 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,193 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,196 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,233 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,234 - INFO - engine - Game Log: ▶ Ork 7 ist am Zug!
+2026-01-05 22:16:46,237 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,240 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,240 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,242 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,244 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,244 - INFO - engine - Game Log: ▶ Ork 16 ist am Zug!
+2026-01-05 22:16:46,246 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,248 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,248 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,251 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,252 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,252 - INFO - engine - Game Log: ▶ Ork 23 ist am Zug!
+2026-01-05 22:16:46,255 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,257 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,257 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,260 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,295 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,295 - INFO - engine - Game Log: ▶ Ork 27 ist am Zug!
+2026-01-05 22:16:46,297 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,300 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,300 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,302 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,336 - DEBUG - history - Snapshot saved. Undo stack size: 20
+2026-01-05 22:16:46,336 - INFO - engine - Game Log: ▶ Ork 29 ist am Zug!
+2026-01-05 22:16:46,339 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,341 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:16:46,341 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 22:16:46,343 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 22:49:42,494 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 22:49:42,495 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 22:49:42,496 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 22:49:42,843 - INFO - engine - CombatEngine initialized.
+2026-01-05 22:49:43,307 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 22:49:45,487 - INFO - enemy_data_loader - Library loaded: 40 presets.

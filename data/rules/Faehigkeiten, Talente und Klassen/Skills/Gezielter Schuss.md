@@ -1,13 +1,12 @@
 ﻿### Gezielter Schuss **(6 [[Aktionspunkte (AP)]], [[Aktion]])**
 
-Ein prÃ¤ziser Angriff mit einem Bogen oder einer Armbrust â€“ besonders effektiv gegen schwer erreichbare oder gepanzerte Ziele.
+Ein präziser Angriff mit einem Bogen oder einer Armbrust – besonders effektiv gegen schwer erreichbare oder gepanzerte Ziele.
 
 - **Effekt:**  
-  Verursacht **[[WURFZAHL]]** zusÃ¤tzlichen [[Durchschlagsschaden]] zum [[Waffenschaden]]
+  Verursacht **[[WURFZAHL]]** zusätzlichen [[Durchschlagsschaden]] zum [[Waffenschaden]]
 ---
-### LegendÃ¤re Effekte: 
-Mit Aufgabe der [[Bonusaktion]] in dieser Runde kann ein [[Zusatzeffekt]] hinzugefÃ¼gt werden. 
+### Legendäre Effekte: 
+Mit Aufgabe der [[Bonusaktion]] in dieser Runde kann ein [[Zusatzeffekt]] hinzugefügt werden. 
 
 ***
-#WaldlÃ¤ufer
-
+#Waldläufer

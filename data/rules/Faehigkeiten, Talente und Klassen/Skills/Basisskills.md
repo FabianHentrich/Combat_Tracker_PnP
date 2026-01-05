@@ -1,2 +1,2 @@
-﻿Skills die alle Charaktere erlernen kÃ¶nnen. 
+﻿Skills, die alle Charaktere erlernen können.
 

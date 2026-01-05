@@ -1,16 +1,15 @@
-﻿### NatÃ¼rlicher Schutz **(4 [[Aktionspunkte (AP)]], [[Bonusaktion]])**
+﻿### Natürlicher Schutz **(4 [[Aktionspunkte (AP)]], [[Bonusaktion]])**
 
-Der WaldlÃ¤ufer nutzt Deckung, Terrain oder natÃ¼rliche Gegebenheiten, um sich selbst oder VerbÃ¼ndete besser zu schÃ¼tzen.
+Der Waldläufer nutzt Deckung, Terrain oder natürliche Gegebenheiten, um sich selbst oder Verbündete besser zu schützen.
 
 - **Effekt:**  
-  ErhÃ¶ht die **[[Verteidigungsprobe]]** ([[Ausweichen]] oder [[Parade]]) um **+2**  
-  â†’ Wirkung hÃ¤lt **2 Runden** an  
-  â†’ Umgebung muss **nutzbare Deckung** bieten (Ermessenssache des Spielleiters)
+  Erhöht die **[[Verteidigungsprobe]]** ([[Ausweichen]] oder [[Parade]]) um **+2**  
+  → Wirkung hält **2 Runden** an  
+  → Umgebung muss **nutzbare Deckung** bieten (Ermessenssache des Spielleiters)
 
 ---
-### LegendÃ¤re Effekte: 
-Du kannst [[Materialien]] nutzen um eine Deckung zu bauen. 
+### Legendäre Effekte: 
+Du kannst [[Materialien]] nutzen, um eine Deckung zu bauen.
 
 ***
-#WaldlÃ¤ufer
 

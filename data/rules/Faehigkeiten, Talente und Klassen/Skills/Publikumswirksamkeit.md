@@ -1,18 +1,17 @@
 ﻿### Publikumswirksamkeit **(2 [[Aktionspunkte (AP)]], [[Bonusaktion]])**
 
-Der Gladiator fÃ¼hrt eine beeindruckende Aktion aus, die seine VerbÃ¼ndeten motiviert und Gegner einschÃ¼chtert.
+Der Gladiator führt eine beeindruckende Aktion aus, die seine Verbündeten motiviert und Gegner einschüchtert.
 
 - **Effekt:**
-  - VerbÃ¼ndete im Umkreis von **[[RANG]] Metern** erhalten **[[RANG]] / 2** (aufgerundet) **[[Bonus]] auf ihre nÃ¤chste [[Angriffsprobe]]**
+  - Verbündete im Umkreis von **[[RANG]] Metern** erhalten **[[RANG]] / 2** (aufgerundet) **[[Bonus]] auf ihre nächste [[Angriffsprobe]]**
   - **Ab [[RANG]] 3:**  
-    Gegner im selben Radius mÃ¼ssen eine **[[STÃ„RKE]]-[[Probe]]** ablegen  
-    â†’ Bei Misserfolg: **â€“1 [[Malus]] auf ihre nÃ¤chste [[Angriffsprobe]]
+    Gegner im selben Radius müssen eine **[[STÄRKE]]-[[Probe]]** ablegen  
+    → Bei Misserfolg: **–1 [[Malus]] auf ihre nächste [[Angriffsprobe]]**
 
 ---
-### LegendÃ¤re Effekte:
-Gegner erhalten **zusÃ¤tzlich [[Verwirrung]] fÃ¼r 1 Runde**. 
-VerbÃ¼ndete erhalten **1 zusÃ¤tzliche [[Bonusaktion]]**.
+### Legendäre Effekte:
+Gegner erhalten **zusätzlich [[Verwirrung]] für 1 Runde**.  
+Verbündete erhalten **1 zusätzliche [[Bonusaktion]]**.
 
 ***
-#Gladiator
 

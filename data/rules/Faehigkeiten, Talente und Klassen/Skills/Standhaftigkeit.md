@@ -7,15 +7,14 @@ Disziplinierter Kampfmodus, der dem Krieger **bis zum Ende des Kampfes** defensi
 
 #### Effekte:
 
-**Solange [[Lebenspunkte (LP)]] â‰¥ 50â€¯%:**  
+**Solange [[Lebenspunkte (LP)]] ≥ 50 %:**  
 - **+[[RANG]] / 2** (aufgerundet) [[Bonus]] auf [[Verteidigungsprobe]]  
 
-**Solange [[Lebenspunkte (LP)]] < 50â€¯%:**  
+**Solange [[Lebenspunkte (LP)]] < 50 %:**  
 - **+[[RANG]]** [[Bonus]] auf [[Verteidigungsprobe]]
 ---
-### LegendÃ¤re Effekte:
-SÃ¤mtliche [[Schadenstypen]] gelten als normaler [[Schaden]].
+### Legendäre Effekte:
+Sämtliche [[Schadenstypen]] gelten als normaler [[Schaden]].
 
 ***
 #Krieger
-

@@ -1,21 +1,20 @@
-﻿### Inspirierendes BrÃ¼llen *(4 [[Aktionspunkte (AP)]], [[Aktion]])*
+﻿### Inspirierendes Brüllen *(4 [[Aktionspunkte (AP)]], [[Aktion]])*
 
-Der Gladiator stÃ¶ÃŸt einen kraftvollen Kampfschrei aus, der seine VerbÃ¼ndeten motiviert und ihnen Mut verleiht.  
+Der Gladiator stößt einen kraftvollen Kampfschrei aus, der seine Verbündeten motiviert und ihnen Mut verleiht.  
 Kann **einmal pro Kampf** eingesetzt werden.
 
 - **Effekt:**
 
-| [[RANG]] | Effekt                                                                                                     |
-| -------- | ---------------------------------------------------------------------------------------------------------- |
-| 1        | Alle VerbÃ¼ndeten im Umkreis von 3â€¯m erhalten einen **+1 [[Bonus]] auf [[KAMPF]]** fÃ¼r 1 Runden             |
-| 2        | Alle VerbÃ¼ndeten im Umkreis von 5â€¯m erhalten einen **+1 [[Bonus]] auf [[KAMPF]]** fÃ¼r 2 Runden             |
-| 3        | Alle VerbÃ¼ndeten erhalten einen **+1 [[Bonus]] auf [[KAMPF]] fÃ¼r diesen Kampf**                            |
-| 4        | Alle VerbÃ¼ndeten erhalten einen **+1 [[Bonus]] auf [[KAMPF]] und [[STÃ„RKE]]** fÃ¼r diesen Kampf             |
-| 5        | Alle VerbÃ¼ndeten **und der Gladiator selbst** erhalten einen **+2 [[Bonus]] auf [[KAMPF]] und [[STÃ„RKE]]** |
+| [[RANG]] | Effekt                                                                                                   |
+| -------- | -------------------------------------------------------------------------------------------------------- |
+| 1        | Alle Verbündeten im Umkreis von 3m erhalten einen **+1 [[Bonus]] auf [[KAMPF]]** für 1 Runden            |
+| 2        | Alle Verbündeten im Umkreis von 5m erhalten einen **+1 [[Bonus]] auf [[KAMPF]]** für 2 Runden            |
+| 3        | Alle Verbündeten erhalten einen **+1 [[Bonus]] auf [[KAMPF]] für diesen Kampf**                          |
+| 4        | Alle Verbündeten erhalten einen **+1 [[Bonus]] auf [[KAMPF]] und [[STÄRKE]]** für diesen Kampf           |
+| 5        | Alle Verbündeten **und der Gladiator selbst** erhalten einen **+2 [[Bonus]] auf [[KAMPF]] und [[STÄRKE]]** |
 
 ---
-### LegendÃ¤re Effekte:
-Gib 2 [[Marke]] aus, um einen [[Zusatzeffekt]] auszuwÃ¤hlen und alle VerbÃ¼ndeten von diesem zu befreien. 
+### Legendäre Effekte:
+Gib 2 [[Marke]] aus, um einen [[Zusatzeffekt]] auszuwählen und alle Verbündeten von diesem zu befreien. 
 ***
 #Gladiator
-

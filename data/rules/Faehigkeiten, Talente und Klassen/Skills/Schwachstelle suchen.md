@@ -10,4 +10,3 @@ Der Charakter untersucht einen Gegner und identifiziert eine Schwachstelle.
 Gib 1 [[Marke]] aus um den nÃ¤chsten Angriff [[Durchschlagsschaden]] verursachen zu lassen. 
 
 ---
-

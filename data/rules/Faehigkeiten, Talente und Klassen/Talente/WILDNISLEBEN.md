@@ -1,4 +1,4 @@
-﻿Beeinflusst Ãœberleben und Kenntnisse der Natur.
+﻿Beeinflusst Überleben und Kenntnisse der Natur.
 
 ---
 #Talente

@@ -1,15 +1,13 @@
-﻿
-### **Schnelle Ausweichbewegung (2 [[Aktionspunkte (AP)]], [[Bonusaktion]])**
+﻿### **Schnelle Ausweichbewegung (2 [[Aktionspunkte (AP)]], [[Bonusaktion]])**
 **Beschreibung:**  
-Eine schnelle Ausweichbewegung, die es dem Charakter ermÃ¶glicht, Angriffen auszuweichen.  
+Eine schnelle Ausweichbewegung, die es dem Charakter ermöglicht, Angriffen auszuweichen.  
 **Wirkung:**  
-GewÃ¤hrt **[[RANG]]/2 [[Bonus]] (aufgerundet)** auf das nÃ¤chste [[Ausweichen]].  
+Gewährt **[[RANG]]/2 [[Bonus]] (aufgerundet)** auf das nächste [[Ausweichen]].  
 Nach erfolgreichem [[Ausweichen]] darf sich der Charakter **[[RANG]] Meter** bewegen.
 
 ---
-### LegendÃ¤re Effekte:
+### Legendäre Effekte:
 
-Nach erfolgreichem [[Ausweichen]] darf direkt eine [[Bonusaktion]] durchgefÃ¼hrt werden. 
+Nach erfolgreichem [[Ausweichen]] darf direkt eine [[Bonusaktion]] durchgeführt werden. 
 
 ---
-
