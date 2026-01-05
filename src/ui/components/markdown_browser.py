@@ -178,7 +178,7 @@ class MarkdownBrowser(ttk.Frame):
 
             self.text_widget.config(state=tk.NORMAL)
             self.text_widget.delete("1.0", tk.END)
-            MarkdownUtils.parse_markdown(content, self.text_widget)
+            MarkdownUtils.parse_markdown(content, self.text_widget, base_path=os.path.dirname(filepath))
             self.text_widget.config(state=tk.DISABLED)
 
             self.current_file = filepath

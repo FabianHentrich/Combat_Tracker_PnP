@@ -30470,3 +30470,63 @@ AttributeError: 'CombatTracker' object has no attribute 'library_handler'
 2026-01-05 22:49:42,843 - INFO - engine - CombatEngine initialized.
 2026-01-05 22:49:43,307 - INFO - main_window - Application started: Combat Tracker PnP
 2026-01-05 22:49:45,487 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:14:13,083 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:14:13,084 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:14:13,085 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:14:13,362 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:14:13,634 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:14:15,378 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:39:30,985 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:39:30,985 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:39:30,986 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:39:31,264 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:39:31,539 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:39:33,053 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:42:04,586 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:42:04,586 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:42:04,587 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:42:04,856 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:42:05,124 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:42:06,232 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:43:40,224 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:43:40,224 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:43:40,225 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:43:40,493 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:43:40,779 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:43:42,052 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:46:09,326 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:46:09,326 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:46:09,327 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:46:09,600 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:46:09,887 - WARNING - main_window - Crash detected. Attempting to load autosave.
+2026-01-05 23:46:11,205 - INFO - save_manager - Data loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:46:11,207 - INFO - engine - Game Log: Combat status loaded.
+2026-01-05 23:46:11,209 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:46:11,212 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:46:11,212 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:46:11,214 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:46:11,216 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:46:11,218 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:46:11,218 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:46:15,417 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:47:53,812 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:47:53,813 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:47:53,814 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:47:54,098 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:47:54,372 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:47:55,595 - INFO - enemy_data_loader - Library loaded: 40 presets.
+2026-01-05 23:50:18,417 - INFO - logger - Logging initialized. Log file: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\logs\combat_tracker.log
+2026-01-05 23:50:18,418 - INFO - rule_manager - Rules successfully loaded from C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\src\..\data\i18n\en_rules.json.
+2026-01-05 23:50:18,419 - INFO - __init__ - Hotkeys loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\data\hotkeys.json
+2026-01-05 23:50:18,719 - INFO - engine - CombatEngine initialized.
+2026-01-05 23:50:19,011 - WARNING - main_window - Crash detected. Attempting to load autosave.
+2026-01-05 23:50:20,565 - INFO - save_manager - Data loaded: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:50:20,566 - INFO - engine - Game Log: Combat status loaded.
+2026-01-05 23:50:20,570 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:50:20,576 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:50:20,576 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:50:20,579 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:50:20,581 - INFO - persistence - Autosave running. Characters: 103
+2026-01-05 23:50:20,583 - INFO - save_manager - Data saved: C:\Users\iQ_3_\OneDrive\GitHub\Combat_Tracker_PnP\saves\autosave.json
+2026-01-05 23:50:20,583 - INFO - main_window - Application started: Combat Tracker PnP
+2026-01-05 23:50:21,355 - INFO - enemy_data_loader - Library loaded: 40 presets.

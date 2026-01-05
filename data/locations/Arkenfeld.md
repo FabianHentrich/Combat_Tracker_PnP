@@ -1,4 +1,4 @@
-![[Orte/arkenfeld.png]]
+![](arkenfeld.png)
 
 Gotteslicht-Viertel:
 
