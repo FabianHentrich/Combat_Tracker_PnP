@@ -31,10 +31,8 @@ class QuickAddPanel(ttk.LabelFrame):
         self._setup_ui()
 
     def _setup_ui(self):
-        # Use the handlers obtained from the controller
-        ttk.Button(self, text=translate("main_view.open_library"), command=self.library_handler.open_library_window).grid(row=0, column=0, columnspan=2, padx=5, sticky="ew")
-        ttk.Button(self, text=translate("main_view.excel_import"), command=lambda: self.import_handler.load_from_excel(None)).grid(row=0, column=2, columnspan=2, padx=5, sticky="ew")
-
+        # Entferne den Bibliotheks-Button, lasse nur Excel-Import und die Eingabefelder
+        ttk.Button(self, text=translate("main_view.excel_import"), command=lambda: self.import_handler.load_from_excel(None)).grid(row=0, column=0, columnspan=2, padx=5, sticky="ew")
         col = 0
         self.entry_name = self._create_entry(f"{translate('character_attributes.name')}:", col, width=20)
         col += 2

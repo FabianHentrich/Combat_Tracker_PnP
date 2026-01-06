@@ -13,6 +13,7 @@ from src.ui.components.main_menu import MainMenu
 from src.ui.components.combat.bottom_panel import BottomPanel
 from src.utils.localization import translate
 from src.models.enums import ScopeType
+from src.ui.components.dm_notes_panel import DMNotesPanel
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -31,18 +32,37 @@ class MainView(ICombatView):
         self.action_panel: Optional[ActionPanel] = None
         self.bottom_panel: Optional[BottomPanel] = None
         self.audio_player: Optional[AudioPlayerWidget] = None
+        self.dm_notes_panel: Optional[ttk.Frame] = None  # Panel für DM-Notizen
 
     def setup_ui(self) -> None:
         # Menübar erstellen
         self.main_menu = MainMenu(self.root, self.controller)
 
-        # Hauptcontainer
-        main_frame = ttk.Frame(self.root, padding="15")
-        main_frame.pack(fill=tk.BOTH, expand=True)
+        # Hauptcontainer mit Splitter (PanedWindow)
+        paned_window = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
+        paned_window.pack(fill=tk.BOTH, expand=True)
 
-        # --- OBERER BEREICH: Schnelleingabe ---
-        self.quick_add_panel = QuickAddPanel(main_frame, self.controller)
-        self.quick_add_panel.pack(fill=tk.X, pady=(0, 15))
+        # Linkes Panel: DM-Notizen (DMNotesPanel)
+        self.dm_notes_panel = DMNotesPanel(paned_window, root_dir="data/dm_notes/", colors=self.colors, link_callback=self._open_library_link)
+        paned_window.add(self.dm_notes_panel, weight=1)
+
+        # Rechtes Panel: Bisherige Hauptinhalte
+        main_frame = ttk.Frame(paned_window, padding="15")
+        paned_window.add(main_frame, weight=4)
+
+        # --- OBERER BEREICH: QuickAddPanel (mit Open Library Button) und Musikplayer nebeneinander ---
+        top_row = ttk.Frame(main_frame)
+        top_row.pack(fill="x", pady=(0, 15))
+        # QuickAddPanel mit Bibliotheks-Button oben links
+        quickadd_frame = ttk.Frame(top_row)
+        quickadd_frame.pack(side="left", fill="both", expand=True)
+        btn_library = ttk.Button(quickadd_frame, text=translate("main_view.open_library"), command=self.controller.library_handler.open_library_window)
+        btn_library.pack(side="top", anchor="nw", pady=(0, 4))
+        self.quick_add_panel = QuickAddPanel(quickadd_frame, self.controller)
+        self.quick_add_panel.pack(fill="both", expand=True)
+        # Musikplayer dynamisch
+        self.audio_player = AudioPlayerWidget(top_row, self.controller.audio_controller, self.controller.open_audio_settings)
+        self.audio_player.pack(side="left", fill="both", expand=True, padx=(15, 0))
 
         # --- MITTLERER BEREICH: Tabelle und Aktionen ---
         content_frame = ttk.Frame(main_frame)
@@ -55,10 +75,6 @@ class MainView(ICombatView):
         # Rechte Seite: Container für Player und Aktionen
         right_frame = ttk.Frame(content_frame)
         right_frame.pack(side=tk.RIGHT, fill=tk.Y, padx=(15, 0))
-
-        # Player
-        self.audio_player = AudioPlayerWidget(right_frame, self.controller.audio_controller, self.controller.open_audio_settings)
-        self.audio_player.pack(fill=tk.X, pady=(0, 15))
 
         # Aktions-Panel
         self.action_panel = ActionPanel(right_frame, self.controller, self.colors)
@@ -153,3 +169,10 @@ class MainView(ICombatView):
             self.action_panel.update_colors(colors)
         if self.bottom_panel:
             self.bottom_panel.update_colors(colors)
+
+    def _open_library_link(self, link: str):
+        # Öffnet einen Link im Bibliotheks-Markdown-Browser
+        try:
+            self.controller.library_handler.open_library_window_with_file(link)
+        except Exception as e:
+            messagebox.showerror(translate("main_view.error_title"), f"Bibliotheks-Link konnte nicht geöffnet werden: {e}")

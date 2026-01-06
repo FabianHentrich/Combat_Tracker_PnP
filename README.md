@@ -1,5 +1,8 @@
 # ⚔️ PnP Combat Tracker
 
+> ⚠️ **Spoiler-Warnung:**
+> In den mitgelieferten Daten befinden sich vollständige Kampagnen, One-Shots und Abenteuer. Wer als Spieler an einer der enthaltenen Kampagnen teilnehmen möchte, sollte die DM-Notizen und die Bibliothek mit Vorsicht genießen! Die Bibliothek lässt sich öffnen ohne das man zwangläufig gespoilert wird. Trotzdem ist es zu empfehlen sich als Spieler nur das Tab _Regelwerk_ anzuschauen.
+
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-Beta-orange)
@@ -22,7 +25,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 - [Benutzung](#-benutzung)
 - [Musik-Player](#-musik-player)
 - [Programmlogik & Mechaniken](#-programmlogik--mechaniken)
-  - [Attribute](#attribute)
+  - [Attribute & Initiative](#attribute--initiative)
   - [Schadensberechnung](#schadensberechnung)
   - [Status-Effekte](#status-effekte)
 - [Konfiguration & Anpassung](#-konfiguration--anpassung)
@@ -34,6 +37,13 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 
 ## ✨ Features
 
+*   **DM-Notizen & Pläne:** Eigenes Panel für DM-Notizen und Kampagnenplanung (Markdown, Dateibaum, Versionierung, Undo/Redo, Autosave, Drag & Drop, Umbenennen/Löschen, Schnellzugriff auf zuletzt geöffnete Notizen).
+*   **Markdown-Volltextsuche:** Volltextsuche – sowohl in der Bibliothek als auch im DM-Notizen-Panel.
+*   **Theme-Anpassung:** Alle Panels, Markdown-Viewer und Such-Highlights passen sich dynamisch an das gewählte Farbschema an.
+*   **Verlinkung:** Markdown-Links in DM-Notizen und Bibliothek öffnen direkt die verlinkte Seite im Bibliotheks-Panel.
+*   **Versionierung:** Änderungen an Notizen werden automatisch versioniert (Rückgängig bis zu 10 Versionen, Wert anpassbar).
+*   **Drag & Drop:** Markdown-Dateien können direkt ins DM-Notizen-Panel gezogen und hinzugefügt werden.
+*   **Schnellzugriff:** Die zuletzt geöffneten Notizen sind als eigene Liste im DM-Notizen-Panel verfügbar.
 *   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
 *   **Erweitertes Schadenssystem:** Unterscheidung zwischen Lebenspunkten (LP), Rüstungspunkten (RP) und Schildpunkten (SP).
 *   **Dynamische Schadenseingabe:** Kombiniere mehrere Schadensarten in einer Aktion (z.B. "10 Feuer + 5 Kälte").
@@ -74,7 +84,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
     ```
 4.  Starte das Programm:
     ```bash
-    python main.py
+    python Combat_Tracker.py
     ```
 
 ---
@@ -212,13 +222,20 @@ Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisie
 ### Projektstruktur
 Der Code ist nun sauber in Module unterteilt (`src/`):
 *   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
-*   **`src.models/`**: Datenmodelle (Character, StatusEffects, Enums).
+*   **`src/models/`**: Datenmodelle (Character, StatusEffects, Enums).
 *   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
-*   **`src.ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
+*   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
 *   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
 *   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
 *   **`saves/`**: Speicherort für Spielstände und Autosaves.
+*   **`logs/`**: Protokolle aller Ereignisse und Fehler (z.B. combat_tracker.log).
 *   **`tests/`**: Unit- und Integrationstests mit `pytest`.
+
+### Tests ausführen
+Um die Tests auszuführen, verwende:
+```bash
+pytest
+```
 
 ### Architektur-Highlights
 *   **Service Locator:** Ein zentraler `services`-Registrar stellt Abhängigkeiten (Engine, Handler, etc.) bereit, um die Kopplung zwischen Modulen zu reduzieren.

@@ -301,5 +301,31 @@
     "bar": "Bar",
     "details": "Details",
     "rounds": "rds."
+  },
+  "dm_notes": {
+    "recent": "Recently opened:",
+    "edit_mode": "Edit",
+    "delete": "Delete",
+    "rename": "Rename",
+    "save": "Save",
+    "undo": "Undo",
+    "redo": "Redo",
+    "no_selection_title": "No selection",
+    "no_selection": "No note selected.",
+    "delete_confirm_title": "Confirm deletion",
+    "delete_confirm": "Do you really want to delete this note?\n{file}",
+    "deleted_title": "Deleted",
+    "deleted": "Note has been deleted.",
+    "error_title": "Error",
+    "delete_error": "Error while deleting",
+    "rename_title": "Rename",
+    "rename_prompt": "New name for the note (without .md):",
+    "rename_exists": "A note with this name already exists.",
+    "renamed_title": "Renamed",
+    "renamed": "Note has been renamed.",
+    "rename_error": "Error while renaming",
+    "saved_title": "Saved",
+    "saved": "Note has been saved.",
+    "save_error": "Error while saving the note."
   }
 }

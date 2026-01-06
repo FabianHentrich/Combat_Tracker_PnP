@@ -301,5 +301,31 @@
     "bar": "Balken",
     "details": "Details",
     "rounds": "Rdn."
+  },
+  "dm_notes": {
+    "recent": "Zuletzt geöffnet:",
+    "edit_mode": "Bearbeiten",
+    "delete": "Löschen",
+    "rename": "Umbenennen",
+    "save": "Speichern",
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "no_selection_title": "Keine Auswahl",
+    "no_selection": "Keine Notiz ausgewählt.",
+    "delete_confirm_title": "Löschen bestätigen",
+    "delete_confirm": "Soll die Notiz wirklich gelöscht werden?\n{file}",
+    "deleted_title": "Gelöscht",
+    "deleted": "Notiz wurde gelöscht.",
+    "error_title": "Fehler",
+    "delete_error": "Fehler beim Löschen",
+    "rename_title": "Umbenennen",
+    "rename_prompt": "Neuer Name für die Notiz (ohne .md):",
+    "rename_exists": "Eine Notiz mit diesem Namen existiert bereits.",
+    "renamed_title": "Umbenannt",
+    "renamed": "Notiz wurde umbenannt.",
+    "rename_error": "Fehler beim Umbenennen",
+    "saved_title": "Gespeichert",
+    "saved": "Notiz wurde gespeichert.",
+    "save_error": "Fehler beim Speichern der Notiz."
   }
 }

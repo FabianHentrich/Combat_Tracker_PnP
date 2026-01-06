@@ -194,3 +194,8 @@ class LibraryHandler:
         for tab in self.markdown_tabs.values():
             if hasattr(tab.browser, 'update_colors'):
                 tab.browser.update_colors(colors)
+
+    def open_library_window_with_file(self, filename: str) -> None:
+        """Öffnet die Bibliothek und zeigt die gewünschte Datei direkt an."""
+        self.open_library_window()
+        self.search_and_open(filename)

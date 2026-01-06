@@ -5,6 +5,7 @@ from typing import Dict, Any, Callable
 from src.utils.logger import setup_logging
 from src.utils.localization import translate
 from PIL import Image, ImageTk  # Pillow für Bildverarbeitung
+import functools
 
 logger = setup_logging()
 
@@ -30,7 +31,7 @@ class MarkdownUtils:
         text_widget.tag_config("table_cell", font=("Segoe UI", 10), foreground=colors["fg"])
 
         # Bindings need to know which widget triggered them
-        text_widget.tag_bind("link", "<Button-1>", link_callback)
+        text_widget.tag_bind("link", "<Button-1>", functools.partial(link_callback, text_widget))
         text_widget.tag_bind("link", "<Enter>", lambda e: text_widget.configure(cursor="hand2"))
         text_widget.tag_bind("link", "<Leave>", lambda e: text_widget.configure(cursor=""))
 

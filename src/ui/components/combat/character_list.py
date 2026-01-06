@@ -24,16 +24,16 @@ class CharacterList(ttk.Frame):
 
         # Spalten-Definitionen
         col_defs = [
-            ("Order", translate("character_list.order"), 30, "center", False),
+            ("Order", translate("character_list.order"), 25, "center", False),
             ("Name", translate("character_attributes.name"), 200, "w", True),
-            ("Typ", translate("character_attributes.type"), 80, "center", False),
-            ("Level", translate("character_attributes.level"), 50, "center", False),
-            ("LP", translate("character_list.lp_bar"), 200, "center", False),
-            ("RP", translate("character_attributes.rp"), 60, "center", False),
-            ("SP", translate("character_attributes.sp"), 60, "center", False),
-            ("GEW", translate("character_attributes.gew"), 60, "center", False),
-            ("INIT", translate("character_attributes.init"), 60, "center", False),
-            ("Status", translate("character_list.status"), 700, "w", False)
+            ("Typ", translate("character_attributes.type"), 60, "center", False),
+            ("Level", translate("character_attributes.level"), 45, "center", False),
+            ("LP", translate("character_list.lp_bar"), 180, "center", False),
+            ("RP", translate("character_attributes.rp"), 45, "center", False),
+            ("SP", translate("character_attributes.sp"), 45, "center", False),
+            ("GEW", translate("character_attributes.gew"), 45, "center", False),
+            ("INIT", translate("character_attributes.init"), 45, "center", False),
+            ("Status", translate("character_list.status"), 450, "w", False)
         ]
 
         for col_id, text, width, anchor, stretch in col_defs:

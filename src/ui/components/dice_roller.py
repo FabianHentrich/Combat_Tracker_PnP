@@ -26,32 +26,32 @@ class DiceRoller(ttk.LabelFrame):
     def _create_ui(self) -> None:
         # Top: Result Display
         display_frame = ttk.Frame(self)
-        display_frame.pack(fill=tk.X, pady=(0, 10))
+        display_frame.pack(fill="x", pady=(0, 10))
 
         self.result_label = ttk.Label(display_frame, textvariable=self.result_var,
                                       font=FONTS["huge"], anchor="center",
                                       foreground=self.colors["accent"])
-        self.result_label.pack(fill=tk.X)
+        self.result_label.pack(fill="x")
 
         self.history_label = ttk.Label(display_frame, textvariable=self.history_var,
                                        font=FONTS["small"], anchor="center",
                                        foreground=self.colors["fg"])
-        self.history_label.pack(fill=tk.X)
+        self.history_label.pack(fill="x")
 
         # Middle: Dice Buttons
         btn_frame = ttk.Frame(self)
-        btn_frame.pack(fill=tk.BOTH, expand=True)
+        btn_frame.pack(fill="both", expand=True)
 
         dice_types = DICE_TYPES
 
-        # Grid layout for buttons (2 rows)
+        # Grid layout for buttons (3 Spalten)
         for i, sides in enumerate(dice_types):
             btn = ttk.Button(btn_frame, text=f"d{sides}",
                              command=lambda s=sides: self.roll_dice(s))
-            btn.grid(row=i // 4, column=i % 4, padx=2, pady=2, sticky="ew")
+            btn.grid(row=i // 3, column=i % 3, padx=2, pady=2, sticky="ew")
 
         # Configure grid weights
-        for i in range(4):
+        for i in range(3):
             btn_frame.columnconfigure(i, weight=1)
 
     def roll_dice(self, sides: int) -> None:

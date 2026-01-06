@@ -25,6 +25,9 @@ class MarkdownBrowser(ttk.Frame):
         self.text_widget: Optional[tk.Text] = None
         self.search_var = tk.StringVar()
         self.current_file: Optional[str] = None
+        self.scroll_positions = {}  # Merkt sich die Scroll-Positionen pro Datei
+        self.search_matches = []
+        self.current_match_idx = -1
 
         self._setup_ui()
         self.load_tree()
@@ -42,6 +45,9 @@ class MarkdownBrowser(ttk.Frame):
         right_frame = ttk.Frame(paned, style="Card.TFrame")
         paned.add(right_frame, weight=3)
         self._create_content_area(right_frame)
+
+        # Drag & Drop für das gesamte Panel aktivieren
+        self._enable_drag_and_drop(self)
 
     def _create_sidebar(self, parent):
         # Suchfeld
@@ -63,7 +69,7 @@ class MarkdownBrowser(ttk.Frame):
 
     def _create_content_area(self, parent):
         # Text Widget für Markdown-Anzeige
-        self.text_widget = tk.Text(parent, wrap=tk.WORD, font=FONTS["text"], bg=self.colors["panel"], fg=self.colors["fg"], padx=10, pady=10)
+        self.text_widget = tk.Text(parent, wrap=tk.WORD, font=FONTS["text"], bg=self.colors["panel"], fg=self.colors["fg"], padx=10, pady=10, undo=True, maxundo=20)
         scrollbar = ttk.Scrollbar(parent, orient="vertical", command=self.text_widget.yview)
         self.text_widget.configure(yscrollcommand=scrollbar.set)
 
@@ -172,6 +178,9 @@ class MarkdownBrowser(ttk.Frame):
                 self.tree.insert("", "end", text=display_name, values=(filepath,))
 
     def display_content(self, filepath):
+        # Vor dem Laden: aktuelle Scroll-Position speichern
+        if self.current_file and self.text_widget:
+            self.scroll_positions[self.current_file] = self.text_widget.yview()
         try:
             with open(filepath, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -182,27 +191,100 @@ class MarkdownBrowser(ttk.Frame):
             self.text_widget.config(state=tk.DISABLED)
 
             self.current_file = filepath
+            # Nach dem Laden: Scroll-Position wiederherstellen
+            if filepath in self.scroll_positions:
+                self.text_widget.yview_moveto(self.scroll_positions[filepath][0])
             if self.on_navigate:
                 self.on_navigate(filepath)
 
         except Exception as e:
             logger.error(f"Error reading file {filepath}: {e}")
 
-    def _on_link_click(self, event, text_widget):
-        index = text_widget.index(f"@{event.x},{event.y}")
-        tags = text_widget.tag_names(index)
+    def search_and_highlight(self, query: str):
+        """Hebt alle Treffer im Textfeld hervor und speichert die Trefferpositionen."""
+        if not self.text_widget or not query:
+            return 0
+        self.text_widget.tag_remove('search_match', '1.0', tk.END)
+        self.search_matches = []
+        self.current_match_idx = -1
+        start = '1.0'
+        while True:
+            pos = self.text_widget.search(query, start, stopindex=tk.END, nocase=True)
+            if not pos:
+                break
+            end = f"{pos}+{len(query)}c"
+            self.text_widget.tag_add('search_match', pos, end)
+            self.search_matches.append((pos, end))
+            start = end
+        # Highlight-Tag anpassen (Theme)
+        self.text_widget.tag_config('search_match', background=self.colors.get('highlight', '#FFD700'), foreground=self.colors.get('fg', '#000'))
+        if self.search_matches:
+            self.current_match_idx = 0
+            self._show_current_match()
+        return len(self.search_matches)
 
-        if "link" in tags:
-            start = text_widget.tag_prevrange("link", index + "+1c")
-            if start:
-                link_text = text_widget.get(start[0], start[1])
-                self.link_callback(link_text)
+    def next_match(self):
+        if self.search_matches:
+            self.current_match_idx = (self.current_match_idx + 1) % len(self.search_matches)
+            self._show_current_match()
+
+    def prev_match(self):
+        if self.search_matches:
+            self.current_match_idx = (self.current_match_idx - 1) % len(self.search_matches)
+            self._show_current_match()
+
+    def _show_current_match(self):
+        if self.search_matches and 0 <= self.current_match_idx < len(self.search_matches):
+            pos, end = self.search_matches[self.current_match_idx]
+            self.text_widget.tag_remove('current_search', '1.0', tk.END)
+            self.text_widget.tag_add('current_search', pos, end)
+            self.text_widget.see(pos)
+            self.text_widget.tag_config('current_search', background=self.colors.get('accent', '#FFA500'), foreground=self.colors.get('fg', '#000'))
+
+    def clear_search_highlight(self):
+        if self.text_widget:
+            self.text_widget.tag_remove('search_match', '1.0', tk.END)
+            self.text_widget.tag_remove('current_search', '1.0', tk.END)
+        self.search_matches = []
+        self.current_match_idx = -1
+
+    def _on_link_click(self, *args):
+        # Robust: args kann (event, text_widget) oder (text_widget, event) sein
+        event, text_widget = None, None
+        for arg in args:
+            if hasattr(arg, 'x') and hasattr(arg, 'y'):
+                event = arg
+            elif isinstance(arg, tk.Text):
+                text_widget = arg
+        if text_widget is None:
+            text_widget = self.text_widget
+        if event is None or not hasattr(event, 'x') or not hasattr(event, 'y'):
+            logger.warning("_on_link_click: Kein gültiges Event-Objekt mit x/y übergeben.")
+            return
+        if not isinstance(text_widget, tk.Text):
+            logger.warning("_on_link_click: Kein gültiges Text-Widget übergeben.")
+            return
+        try:
+            index = text_widget.index(f"@{event.x},{event.y}")
+            tags = text_widget.tag_names(index)
+            if "link" in tags:
+                start = text_widget.tag_prevrange("link", index + "+1c")
+                if start:
+                    link_text = text_widget.get(start[0], start[1])
+                    self.link_callback(link_text)
+        except Exception as e:
+            logger.error(f"_on_link_click Exception: {e}")
+            return
 
     def select_file(self, filepath: str):
         """Wählt eine Datei im Treeview aus und zeigt sie an."""
         item_id = self._find_item_by_value("", filepath)
         if item_id:
             self.select_item(item_id)
+
+    def open_file(self, filepath: str):
+        """Öffnet eine Datei im Treeview und zeigt sie an."""
+        self.select_file(filepath)
 
     def _find_item_by_value(self, parent, value):
         for item in self.tree.get_children(parent):
@@ -231,3 +313,53 @@ class MarkdownBrowser(ttk.Frame):
         if self.text_widget and self.text_widget.winfo_exists():
             self.text_widget.configure(bg=self.colors["panel"], fg=self.colors["fg"])
             MarkdownUtils.configure_text_tags(self.text_widget, self._on_link_click, self.colors)
+
+    def set_edit_mode(self, editable: bool):
+        """Schaltet das Textfeld zwischen Nur-Lesen und Editierbar um."""
+        if self.text_widget:
+            if editable:
+                self.text_widget.config(state=tk.NORMAL)
+            else:
+                self.text_widget.config(state=tk.DISABLED)
+
+    def save_current_file(self):
+        """Speichert den aktuellen Inhalt des Textfelds in die aktuelle Datei (nur im Editiermodus) und merkt die Scroll-Position."""
+        if self.current_file and self.text_widget:
+            content = self.text_widget.get("1.0", tk.END)
+            try:
+                with open(self.current_file, "w", encoding="utf-8") as f:
+                    f.write(content)
+                # Scroll-Position speichern
+                self.scroll_positions[self.current_file] = self.text_widget.yview()
+                return True
+            except Exception as e:
+                logger.error(f"Fehler beim Speichern von {self.current_file}: {e}")
+        return False
+
+    def _enable_drag_and_drop(self, widget):
+        # Windows-spezifisch: nutze das native tkdnd falls verfügbar
+        try:
+            import tkinterdnd2 as tkdnd
+            dnd = tkdnd.TkinterDnD.Tk()
+            widget.drop_target_register(tkdnd.DND_FILES)
+            widget.dnd_bind('<<Drop>>', self._on_drop)
+        except ImportError:
+            # Fallback: Kein Drag & Drop verfügbar
+            pass
+
+    def _on_drop(self, event):
+        import shutil
+        files = self._parse_drop_files(event.data)
+        for file_path in files:
+            if file_path.lower().endswith('.md'):
+                import os
+                dest = os.path.join(self.root_dir, os.path.basename(file_path))
+                if not os.path.exists(dest):
+                    shutil.copy2(file_path, dest)
+                    self.load_tree()
+                    self.open_file(dest)
+
+    def _parse_drop_files(self, data):
+        # Entfernt geschweifte Klammern und trennt mehrere Dateien
+        files = data.strip().split()
+        return [f.strip('{}') for f in files]
