@@ -159,3 +159,10 @@ class DMNotesPanel(ttk.Frame):
 
 
     # TODO: Methoden für Undo/Redo, Autosave, Scroll-Position, Volltextsuche, Drag & Drop, Highlighting
+
+    def update_colors(self, colors: Dict[str, str]):
+        """Aktualisiert die Farben des Panels und seiner Unterkomponenten."""
+        self.colors = colors
+        if hasattr(self, 'markdown_browser'):
+            self.markdown_browser.update_colors(colors)
+

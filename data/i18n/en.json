@@ -37,7 +37,9 @@
     "STUN": "Stun",
     "EROSION": "Erosion",
     "CONFUSION": "Confusion",
-    "BLIND": "Blind"
+    "BLIND": "Blind",
+    "DISARMED": "Disarmed",
+    "REGENERATION": "Regeneration"
   },
   "main_view": {
     "round": "Round",
@@ -247,7 +249,7 @@
     "status_applied_to_targets": "Status '{status}' applied to {count} targets.",
     "undo_executed": "↩ Undo executed.",
     "redo_executed": "↪ Redo executed.",
-    "character_healed": "{name} is healed for {amount} HP! Current HP: {lp}",
+    "character_healed": "💚 {name} receives {amount} healing. (Current {lp} HP)\n",
     "initiative_sorted": "Initiative sorted.",
     "all_initiatives_rerolled": "All initiatives rerolled.",
     "initiative_rolled": "Initiative rolled! Order created.",
@@ -288,7 +290,8 @@
       "blind_rank3": "ℹ️ {name} is blinded: -2 on all actions (Rank 3).\n",
       "blind_rank4": "ℹ️ {name} is blinded: -2 on all actions (Rank 4).\n",
       "blind_rank5": "ℹ️ {name} is blinded: -3 on all actions (Rank 5).\n",
-      "blind_generic": "ℹ️ {name} is blinded (Rank {rank}).\n"
+      "blind_generic": "ℹ️ {name} is blinded (Rank {rank}).\n",
+      "disarmed": "⚠ {name} is disarmed! Weapon cannot be used.\n"
     }
   },
   "common": {

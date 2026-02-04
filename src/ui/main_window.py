@@ -138,6 +138,7 @@ class CombatTracker:
     def save_session(self) -> None:
         state = self.engine.get_state()
         state["audio"] = self.audio_controller.get_state()
+        state["log"] = self.view.get_log_content()
         file_path = self.persistence_handler.save_session(state)
         if file_path:
             self.log_message(translate("messages.combat_saved", file_path=file_path))
@@ -148,6 +149,8 @@ class CombatTracker:
             if "audio" in state:
                 self.audio_controller.load_state(state["audio"])
             self.engine.load_state(state)
+            if "log" in state:
+                self.view.set_log_content(state["log"])
             self.engine.initiative_rolled = (self.engine.turn_index != -1)
             self.view.update_listbox()
             self.log_message(translate("messages.combat_loaded"))
@@ -155,6 +158,7 @@ class CombatTracker:
     def autosave(self) -> None:
         state = self.engine.get_state()
         state["audio"] = self.audio_controller.get_state()
+        state["log"] = self.view.get_log_content()
         self.persistence_handler.autosave(state)
 
     def load_autosave(self) -> None:
@@ -163,6 +167,8 @@ class CombatTracker:
             if "audio" in state:
                 self.audio_controller.load_state(state["audio"])
             self.engine.load_state(state)
+            if "log" in state:
+                self.view.set_log_content(state["log"])
             self.engine.initiative_rolled = (self.engine.turn_index != -1)
             self.view.update_listbox()
             self.log_message(translate("messages.autosave_loaded"))
@@ -188,16 +194,48 @@ class CombatTracker:
 
     def change_language(self, lang_code: str):
         """Changes the application language and redraws the UI."""
+        from src.config import AVAILABLE_LANGUAGES
         if lang_code not in AVAILABLE_LANGUAGES:
             logger.warning(f"Language '{lang_code}' not available.")
             return
 
         localization_manager.set_language(lang_code)
-        
+
+        # 1. Capture State before destroying UI
+        engine_state = self.engine.get_state()
+        audio_state = self.audio_controller.get_state()
+
+        log_content = ""
+        try:
+             if hasattr(self.view, 'bottom_panel') and self.view.bottom_panel and self.view.bottom_panel.log:
+                  # Get text from start to end
+                  log_content = self.view.bottom_panel.log.get("1.0", "end-1c")
+        except Exception as e:
+            logger.error(f"Failed to capture log content: {e}")
+
         for widget in self.root.winfo_children():
             widget.destroy()
         
         self.__init__(self.root)
         
+        # 2. Restore State
+        try:
+            self.engine.load_state(engine_state)
+            self.engine.initiative_rolled = (self.engine.turn_index != -1)
+
+            # Restore Audio
+            self.audio_controller.load_state(audio_state)
+
+            # Restore Log
+            if log_content and hasattr(self.view, 'bottom_panel') and self.view.bottom_panel and self.view.bottom_panel.log:
+                self.view.bottom_panel.log.config(state="normal")
+                self.view.bottom_panel.log.delete("1.0", tk.END)
+                self.view.bottom_panel.log.insert(tk.END, log_content)
+                self.view.bottom_panel.log.see(tk.END)
+                self.view.bottom_panel.log.config(state="disabled")
+
+            self.view.update_listbox()
+        except Exception as e:
+            logger.error(f"Failed to restore state after language change: {e}")
+
         logger.info(f"Language changed to {lang_code}.")
-        self.log_message(f"Language changed to {lang_code}.")

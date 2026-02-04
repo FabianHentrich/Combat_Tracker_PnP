@@ -138,6 +138,23 @@ class BlindEffect(StatusEffect):
         else:
             return translate("messages.status.blind_generic", name=character.name, rank=self.rank)
 
+class DisarmedEffect(StatusEffect):
+    def __init__(self, duration: int, rank: int = 1):
+        super().__init__(StatusEffectType.DISARMED, duration, rank)
+
+    def apply_round_effect(self, character: 'Character') -> str:
+        return translate("messages.status.disarmed", name=character.name)
+
+class RegenerationEffect(StatusEffect):
+    def __init__(self, duration: int, rank: int = 1):
+        super().__init__(StatusEffectType.REGENERATION, duration, rank)
+
+    def apply_round_effect(self, character: 'Character') -> str:
+        # Amount not strictly defined in text, assuming Rank for now or consistent with Damage scaling
+        heal_amount = self.rank
+        msg = character.heal(heal_amount)
+        return msg
+
 EFFECT_CLASSES: Dict[str, Type[StatusEffect]] = {
     StatusEffectType.POISON.value: PoisonEffect,
     StatusEffectType.BURN.value: BurnEffect,
@@ -147,5 +164,7 @@ EFFECT_CLASSES: Dict[str, Type[StatusEffect]] = {
     StatusEffectType.STUN.value: StunEffect,
     StatusEffectType.EXHAUSTION.value: ExhaustionEffect,
     StatusEffectType.CONFUSION.value: ConfusionEffect,
-    StatusEffectType.BLIND.value: BlindEffect
+    StatusEffectType.BLIND.value: BlindEffect,
+    StatusEffectType.DISARMED.value: DisarmedEffect,
+    StatusEffectType.REGENERATION.value: RegenerationEffect
 }

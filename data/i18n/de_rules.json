@@ -91,6 +91,16 @@
             "description": "Malus auf Aktionen/Angriffe je nach Rang (1-5).",
             "max_rank": 5,
             "stackable": false
+        },
+        "DISARMED": {
+            "description": "Die aktuell geführte Waffe kann nicht eingesetzt werden.",
+            "max_rank": 1,
+            "stackable": false
+        },
+        "REGENERATION": {
+            "description": "Stellt Lebenspunkte wieder her.",
+            "max_rank": 5,
+            "stackable": true
         }
     }
 }

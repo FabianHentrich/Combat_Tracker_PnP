@@ -25,7 +25,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 - [Benutzung](#-benutzung)
 - [Musik-Player](#-musik-player)
 - [Programmlogik & Mechaniken](#-programmlogik--mechaniken)
-  - [Attribute & Initiative](#attribute--initiative)
+  - [Attribute & Initiative](#runter-attribute--initiative)
   - [Schadensberechnung](#schadensberechnung)
   - [Status-Effekte](#status-effekte)
 - [Konfiguration & Anpassung](#-konfiguration--anpassung)
@@ -38,9 +38,12 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 ## ✨ Features
 
 *   **DM-Notizen & Pläne:** Eigenes Panel für DM-Notizen und Kampagnenplanung (Markdown, Dateibaum, Versionierung, Undo/Redo, Autosave, Drag & Drop, Umbenennen/Löschen, Schnellzugriff auf zuletzt geöffnete Notizen).
-*   **Markdown-Volltextsuche:** Volltextsuche – sowohl in der Bibliothek als auch im DM-Notizen-Panel.
-*   **Theme-Anpassung:** Alle Panels, Markdown-Viewer und Such-Highlights passen sich dynamisch an das gewählte Farbschema an.
-*   **Verlinkung:** Markdown-Links in DM-Notizen und Bibliothek öffnen direkt die verlinkte Seite im Bibliotheks-Panel.
+*   **Markdown & PDF Bibliothek:** Verwalte dein Wissen in Markdown-Dateien oder zeige PDFs (z.B. Regelwerke) direkt im Tool an.
+*   **Volltextsuche:** Durchsuche Markdown-Dateien und PDFs global innerhalb der Anwendung.
+*   **Theme-Anpassung:** Alle Panels, Markdown-Viewer, PDF-Viewer und Such-Highlights passen sich dynamisch an das gewählte Farbschema an.
+*   **Intelligente Verlinkung:**
+    *   Markdown-Links (`[[Link]]`) öffnen direkt die entsprechende Datei.
+    *   PDF-Links (`[[rules:123]]`) springen direkt zur angegebenen Seite im Regelwerks-PDF.
 *   **Versionierung:** Änderungen an Notizen werden automatisch versioniert (Rückgängig bis zu 10 Versionen, Wert anpassbar).
 *   **Drag & Drop:** Markdown-Dateien können direkt ins DM-Notizen-Panel gezogen und hinzugefügt werden.
 *   **Schnellzugriff:** Die zuletzt geöffneten Notizen sind als eigene Liste im DM-Notizen-Panel verfügbar.
@@ -122,7 +125,7 @@ Der integrierte Musik-Player ermöglicht es, die passende Atmosphäre für jede 
 
 Das Herzstück des Trackers ist die automatische Berechnung von Kampfereignissen. Hier wird detailliert erklärt, wie das Programm "denkt" und welche Regeln angewendet werden.
 
-### Attribute & Initiative
+### <a id="runter-attribute--initiative"></a>Attribute & Initiative
 Jeder Charakter verfügt über folgende Kern-Werte:
 *   **LP (Lebenspunkte):** Die Gesundheit des Charakters. Sinkt diese auf 0, gilt der Charakter als kampfunfähig.
 *   **RP (Rüstungspunkte):** Physische Rüstung. Kann Schaden absorbieren, nutzt sich dabei aber ab.
@@ -144,7 +147,7 @@ Die Initiative wird basierend auf dem GEW-Wert gewürfelt. Dabei kommt ein **"Ex
 ### Schadensberechnung
 Wenn ein Charakter Schaden erleidet, prüft das System den **Schadenstyp** und wendet folgende Prioritätenkette an:
 
-1.  **Normaler Schaden (Normal, Feuer, Kälte, Blitz, Verwesung):**
+1.  **Normaler Schaden (Waffenschaden, Feuer, Kälte, Blitz, Verwesung, Gift):**
     *   **Phase 1 - Schild:** Der Schaden trifft zuerst den Schild (SP). Solange SP > 0 sind, wird Schaden 1:1 absorbiert.
     *   **Phase 2 - Rüstung:** Verbleibender Schaden trifft die Rüstung (RP).
         *   Die Rüstung absorbiert Schaden bis zur Höhe von `RP * 2`.
@@ -153,28 +156,40 @@ Wenn ein Charakter Schaden erleidet, prüft das System den **Schadenstyp** und w
             *   *Formel:* `Verlorene RP = (Absorbierter Schaden + 1) / 2` (Ganzzahl-Division)
     *   **Phase 3 - Leben:** Alles, was Schild und Rüstung nicht abfangen konnten, wird von den Lebenspunkten (LP) abgezogen.
 
-2.  **Durchdringend:**
+2.  **Durchdringend (Durchschlagsschaden):**
     *   Ignoriert die **Rüstung (RP)** komplett.
     *   Wird aber noch vom **Schild (SP)** reduziert.
     *   Ideal gegen schwer gepanzerte Ziele ohne Energieschild.
 
-3.  **Direkt (Direkt, Gift, Erosion):**
+3.  **Direkt (Direktschaden):**
     *   Ignoriert **Schild (SP)** UND **Rüstung (RP)**.
     *   Geht direkt auf die Lebenspunkte (LP).
     *   Sehr gefährlich, da keine passive Verteidigung hilft.
 
+**Zusatzeffekte:**
+Bestimmte Schadenstypen (Elementarschaden) haben eine Chance, Statuseffekte auszulösen (abhängig vom Rang der Fähigkeit):
+*   **Feuer:** Kann *Verbrennung* auslösen.
+*   **Blitz:** Kann *Betäubung* auslösen.
+*   **Kälte:** Kann *Unterkühlung* auslösen.
+*   **Gift:** Kann *Vergiftung* auslösen.
+*   **Verwesung:** Kann *Erosion* auslösen.
+
 ### Status-Effekte
 Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines Charakters aus. Jeder Effekt hat eine **Dauer** (in Runden) und einen **Rang** (Stärke 1-6).
 
-*   **☠️ Vergiftung (Poison):** Verursacht pro Runde `Rang` Punkte **Direktschaden** (ignoriert Rüstung/Schild).
-*   **🔥 Verbrennung (Burn):** Verursacht pro Runde `Rang` Punkte **Normalen Schaden** (wird von Rüstung/Schild reduziert).
-*   **🩸 Blutung (Bleed):** Verursacht **Normalen Schaden**, der mit der Zeit schlimmer wird.
-    *   Formel: `Schaden = (Rang / 2) + (Runden aktiv - 1)`.
-*   **🧪 Erosion:** Zersetzt den Körper dauerhaft.
-    *   Verursacht `Rang * W4` Schaden an den **Maximalen LP**. Dieser Schaden ist im Kampf nicht rückgängig zu machen.
+*   **☠️ Vergiftung (Poison):** Verursacht pro Runde `Rang` Punkte **Direktschaden**.
+*   **🔥 Verbrennung (Burn):** Verursacht pro Runde `Rang` Punkte **Normalen Schaden**.
+*   **🩸 Blutung (Bleed):** Verursacht **Normalen Schaden**, der mit der Zeit schlimmer wird (`Rang / 2 + Runden - 1`).
+*   **🧪 Erosion:**
+    *   Verursacht dauerhaften Verlust von `Rang * W4` **Maximalen LP**.
     *   Verursacht zusätzlich den gleichen Betrag als **Direktschaden**.
-*   **❄️ Unterkühlung (Freeze):** Der Charakter verliert seine Bonusaktion (wird im Log angezeigt).
-*   **⚡ Betäubung (Stun):** Der Charakter verliert seine Aktion.
+*   **❄️ Unterkühlung (Freeze):** Der Charakter verliert seine **Bonusaktion** für `Rang` Runden.
+*   **⚡ Betäubung (Stun):** Der Charakter verliert **alle Aktionen** für 1 Runde.
+*   **🥵 Erschöpfung (Exhaustion):** Malus von **-2 auf GEWANDTHEIT** für 1 Runde.
+*   **🤪 Verwirrung (Confusion):** Malus von **-1 auf Kampf-Proben** für 1 Runde.
+*   **🙈 Blendung (Blind):** Malus auf Aktionen/Angriffe (abhängig vom Rang, z.B. -1 bis -3).
+*   **⚔️ Entwaffnet (Disarmed):** Die aktuell geführte Waffe kann nicht eingesetzt werden.
+*   **💚 Heilung (Regeneration):** Stellt zu Beginn des Zuges Lebenspunkte wieder her (Höhe entspricht Rang).
 
 *Hinweis: Wenn ein Charakter bereits einen Effekt hat und denselben Effekt erneut erhält, wird oft die Dauer verlängert oder der Rang erhöht (je nach Konfiguration).*
 

@@ -28,6 +28,8 @@ class StatusEffectType(str, Enum):
     EROSION = "EROSION"
     CONFUSION = "CONFUSION"
     BLIND = "BLIND"
+    DISARMED = "DISARMED"
+    REGENERATION = "REGENERATION"
 
 
 class EventType(str, Enum):

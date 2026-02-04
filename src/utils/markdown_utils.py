@@ -57,18 +57,59 @@ class MarkdownUtils:
                 line = line[4:]
 
             # Bild einfügen, falls vorhanden
+            # Pattern matches: ![alt](path) and !path
             img_match = MarkdownUtils.IMAGE_PATTERN.search(line)
+            # Support for Obsidian style embed: ![[Image.png]]
+            embed_match = re.search(r'!\[\[(.*?)\]\]', line)
+
+            img_filename = None
             if img_match:
                 img_filename = img_match.group(1)
+            elif embed_match:
+                img_filename = embed_match.group(1)
+            # Fallback for simple !path/to/image if user types that (non-standard but mentioned)
+            elif line.startswith('!') and (line.endswith('.png') or line.endswith('.jpg') or line.endswith('.jpeg')):
+                 img_filename = line[1:].strip()
+
+            if img_filename:
+                # Handle relative paths properly
+                # If path starts with 'Orte/' and we are in 'data/locations', we might need to adjust
+                # Assuming base_path is the directory of the MD file.
+
+                # Try finding image in multiple locations
+                candidates = []
                 if base_path:
-                    img_path = os.path.join(base_path, img_filename)
-                else:
-                    img_path = img_filename
-                if os.path.exists(img_path):
+                    candidates.append(os.path.join(base_path, img_filename))
+                    # Try looking in parent dirs if using folder navigation syntax
+                    # e.g. !Orte/arkenfeld.png while inside data/locations (Orte translation?)
+                    # If users use "Orte" for "locations", we might need mapping if not physically named Orte.
+                    # But assuming physical path match first
+                    candidates.append(os.path.join(os.path.dirname(base_path), img_filename))
+
+                # Check absolute-ish path from data dir?
+                # If we have a reference to DATA_DIR, we could check there.
+                # Hardcoded fallback for common folders if absolute path within project
+                if "data" in os.getcwd(): # heuristic
+                     candidates.append(os.path.abspath(img_filename))
+
+                # Try to locate the file
+                img_path = None
+                for cand in candidates:
+                    if os.path.exists(cand):
+                        img_path = cand
+                        break
+
+                # If not found, try to resolve from project root/data if possible
+                if not img_path:
+                     # This is a library util function, might not know DATA_DIR directly without import
+                     # But we can try to walk up.
+                     pass
+
+                if img_path and os.path.exists(img_path):
                     try:
-                        # Dynamische Skalierung auf max. 60% der Widget-Breite
+                        # Dynamische Skalierung auf max. 95% der Widget-Breite
                         widget_width = text_widget.winfo_width() or 400
-                        max_width = int(widget_width * 0.6)
+                        max_width = int(widget_width * 0.95)
                         img = Image.open(img_path)
                         ratio = min(1.0, max_width / img.width)
                         new_size = (int(img.width * ratio), int(img.height * ratio))

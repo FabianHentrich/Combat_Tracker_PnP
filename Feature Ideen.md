@@ -1,6 +1,7 @@
 # Feature Roadmap
+- check TODO:
 - Autosave/Save auf dm_notes ausweiten
-- Autosave/Save soll die letzen 3 Runde oder bestimmte anzahl von einträgen im Kampfprotokoll wiederherstellen.
+- [x] Autosave/Save soll die letzen 3 Runde oder bestimmte anzahl von einträgen im Kampfprotokoll wiederherstellen.
 - Suche nochmal testen/optimieren
   - Navigation zwischen treffern 
   - Versionierung prüfen
@@ -10,8 +11,6 @@ Diese Features erweitern die Möglichkeiten des Tools und bieten mehr Komfort f�
 
 - **Zufällige Gegnerauswahl (Encounter Generator)**
     - *Warum:* Großes Feature für Spielleiter-Komfort bei spontanen Kämpfen. Filterbar nach Kategorie, Schwierigkeit und Level.
-- **Regelwerk Markdowns Format optimieren**
-    - *Warum:* Bessere Lesbarkeit und Strukturierung der integrierten Regeln.
 
 ## Phase 3: Polish & "Juice" (Atmosphäre)
 Features, die das Tool "lebendiger" machen und die User Experience abrunden.

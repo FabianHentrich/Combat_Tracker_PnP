@@ -1,5 +1,5 @@
  
-![[Orte/arkenfeld.png]]
+![[arkenfeld.png]]
 
 > **Zusammenfassung:** Nach einer überstürzten Wiederbelebung kehren die Helden nach **Arkenfeld** zurück – Tempel schweigen, ein fanatischer Kult kontrolliert die Stadt. Ein*e SC trägt einen **Schattenfluch**: Ein Wesen aus der Zwischenwelt versucht, seine/ihre **Seele zurückzureißen**. Ziel ist es, Verbündete zu finden, den **vergessenen Tempel Veylanas** zu erreichen und dort ein **Ritual der Seelenbindung** zu vollziehen. 
 

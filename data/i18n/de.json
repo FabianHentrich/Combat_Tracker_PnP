@@ -37,7 +37,9 @@
     "STUN": "Betäubung",
     "EROSION": "Erosion",
     "CONFUSION": "Verwirrung",
-    "BLIND": "Blendung"
+    "BLIND": "Blendung",
+    "DISARMED": "Entwaffnet",
+    "REGENERATION": "Regeneration"
   },
   "main_view": {
     "round": "Runde",
@@ -247,7 +249,7 @@
     "status_applied_to_targets": "Status '{status}' auf {count} Ziele angewendet.",
     "undo_executed": "↩ Rückgängig ausgeführt.",
     "redo_executed": "↪ Wiederholen ausgeführt.",
-    "character_healed": "{name} wird um {amount} LP geheilt! Aktuelle LP: {lp}",
+    "character_healed": "💚 {name} erhält {amount} Heilung. (Aktuell {lp} LP)\n",
     "initiative_sorted": "Initiative sortiert.",
     "all_initiatives_rerolled": "Alle Initiativen neu gewürfelt.",
     "initiative_rolled": "Initiative gewürfelt! Reihenfolge erstellt.",
@@ -288,7 +290,8 @@
       "blind_rank3": "ℹ️ {name} ist geblendet: -2 auf alle Aktionen (Rang 3).\n",
       "blind_rank4": "ℹ️ {name} ist geblendet: -2 auf alle Aktionen (Rang 4).\n",
       "blind_rank5": "ℹ️ {name} ist geblendet: -3 auf alle Aktionen (Rang 5).\n",
-      "blind_generic": "ℹ️ {name} ist geblendet (Rang {rank}).\n"
+      "blind_generic": "ℹ️ {name} ist geblendet (Rang {rank}).\n",
+      "disarmed": "⚠ {name} ist entwaffnet! Waffe nicht nutzbar.\n"
     }
   },
   "common": {

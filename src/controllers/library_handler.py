@@ -8,6 +8,7 @@ from src.utils.library_data_manager import LibraryDataManager
 from src.utils.navigation_manager import NavigationManager
 from src.controllers.library_import_tab import LibraryImportTab
 from src.controllers.library_markdown_tab import LibraryMarkdownTab
+from src.controllers.library_pdf_tab import LibraryPDFTab
 from src.utils.enemy_data_loader import EnemyDataLoader
 from src.utils.localization import translate
 
@@ -84,11 +85,23 @@ class LibraryHandler:
 
         self.markdown_tabs = {}
         for tab_config in LIBRARY_TABS:
-            tab_id, title, dir_name = tab_config["id"], tab_config["title"], tab_config["dir"]
-            if dir_name in self.dirs:
-                self._create_markdown_tab(tab_id, title, self.dirs[dir_name])
-            else:
-                logger.warning(f"Directory for tab '{title}' ({dir_name}) not found.")
+            try:
+                tab_id, title, dir_name = tab_config["id"], tab_config["title"], tab_config["dir"]
+                if dir_name in self.dirs:
+                    if tab_id == "rules":
+                        self._create_pdf_tab(tab_id, title, self.dirs[dir_name])
+                    else:
+                        self._create_markdown_tab(tab_id, title, self.dirs[dir_name])
+                else:
+                    logger.warning(f"Directory for tab '{title}' ({dir_name}) not found.")
+            except Exception as e:
+                logger.error(f"Error initializing tab '{tab_config.get('title', 'Unknown')}': {e}", exc_info=True)
+
+    def _create_pdf_tab(self, tab_id, title, root_dir):
+        tab = LibraryPDFTab(self.notebook, tab_id, title, root_dir, self.colors)
+        # Store in same dict or new one? Storing in markdown_tabs for now to keep track,
+        # though name is misleading.
+        self.markdown_tabs[tab_id] = tab
 
     def _create_markdown_tab(self, tab_id, title, root_dir):
         tab = LibraryMarkdownTab(self.notebook, tab_id, title, root_dir, self.colors, self.search_and_open, self.on_navigation_event)
@@ -108,7 +121,41 @@ class LibraryHandler:
         self._ignore_search_trace = False
 
         for tab in self.markdown_tabs.values():
-            tab.search_var.set("")
+            if hasattr(tab, 'search_var'):
+                tab.search_var.set("")
+
+        # Check for PDF link pattern: pdf:123 or rules:123 or regelwerk:123
+        lower_name = name.lower().strip()
+        if lower_name.startswith(("pdf:", "rules:", "regelwerk:")):
+            try:
+                parts = lower_name.split(":", 1)
+                page_str = parts[1].strip()
+                # Split anchor if present (e.g. 123#Section) - not handled yet but strip it to be safe
+                page_str = page_str.split("#")[0].strip()
+
+                if page_str.isdigit():
+                    page_num = int(page_str)
+
+                    # Assuming there is a "rules" tab which holds the PDF
+                    # or find the first PDF tab
+                    target_tab = None
+                    if "rules" in self.markdown_tabs and isinstance(self.markdown_tabs["rules"], LibraryPDFTab):
+                        target_tab = self.markdown_tabs["rules"]
+
+                    if target_tab:
+                        # Switch to tab
+                        for i, child in enumerate(self.notebook.tabs()):
+                            if self.notebook.nametowidget(child) == target_tab.frame:
+                                self.notebook.select(i)
+                                break
+
+                        # Jump (User input is 1-based)
+                        if hasattr(target_tab, 'jump_to_page'):
+                            target_tab.jump_to_page(page_num - 1)
+                        return
+            except Exception as e:
+                logger.error(f"Error parsing PDF link '{name}': {e}")
+
 
         result = self.data_manager.search_file(name)
         if result:
@@ -192,8 +239,8 @@ class LibraryHandler:
             self.lib_window.configure(bg=colors["bg"])
         if self.import_tab: self.import_tab.update_colors(colors)
         for tab in self.markdown_tabs.values():
-            if hasattr(tab.browser, 'update_colors'):
-                tab.browser.update_colors(colors)
+            if hasattr(tab, 'update_colors'):
+                tab.update_colors(colors)
 
     def open_library_window_with_file(self, filename: str) -> None:
         """Öffnet die Bibliothek und zeigt die gewünschte Datei direkt an."""

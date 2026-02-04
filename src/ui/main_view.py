@@ -105,6 +105,21 @@ class MainView(ICombatView):
             self.bottom_panel.log.see(tk.END)
             self.bottom_panel.log.config(state="disabled")
 
+    def get_log_content(self) -> str:
+        """Gibt den Inhalt des Kampfprotokolls zurück."""
+        if self.bottom_panel and self.bottom_panel.log:
+             return self.bottom_panel.log.get("1.0", "end-1c")
+        return ""
+
+    def set_log_content(self, content: str) -> None:
+        """Setzt den Inhalt des Kampfprotokolls."""
+        if self.bottom_panel and self.bottom_panel.log:
+            self.bottom_panel.log.config(state="normal")
+            self.bottom_panel.log.delete("1.0", tk.END)
+            self.bottom_panel.log.insert(tk.END, content)
+            self.bottom_panel.log.see(tk.END)
+            self.bottom_panel.log.config(state="disabled")
+
     def get_quick_add_data(self) -> Dict[str, Any]:
         return self.quick_add_panel.get_data()
 
@@ -169,6 +184,8 @@ class MainView(ICombatView):
             self.action_panel.update_colors(colors)
         if self.bottom_panel:
             self.bottom_panel.update_colors(colors)
+        if self.dm_notes_panel and hasattr(self.dm_notes_panel, "update_colors"):
+            self.dm_notes_panel.update_colors(colors)
 
     def _open_library_link(self, link: str):
         # Öffnet einen Link im Bibliotheks-Markdown-Browser
