@@ -171,7 +171,7 @@ class MarkdownBrowser(ttk.Frame):
                         content = f.read().lower()
                         if query in content:
                             match = True
-                except:
+                except Exception:
                     pass
 
             if match:

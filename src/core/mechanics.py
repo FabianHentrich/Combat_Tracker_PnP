@@ -62,10 +62,6 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
         result.ignores_shield = rule.get(RuleKey.IGNORES_SHIELD, False)
         result.ignores_armor = rule.get(RuleKey.IGNORES_ARMOR, False)
         result.secondary_effect = rule.get(RuleKey.SECONDARY_EFFECT)
-    else:
-        # Fallback für unbekannte Typen (sollte idealerweise nicht passieren, wenn Regeln korrekt geladen sind)
-        # Wir loggen hier nichts, um die Performance nicht zu beeinträchtigen, aber wir setzen Standardwerte.
-        pass
 
     current_dmg = dmg
 

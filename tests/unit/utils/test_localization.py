@@ -52,21 +52,32 @@ def test_load_translations_success(mock_exists):
         manager = Localization(Language.GERMAN.value)
         assert manager.translations == mock_data
 
-@patch('os.path.exists', side_effect=[False, True]) # Fails for 'de', succeeds for 'en'
-def test_load_translations_fallback_to_english(mock_exists):
+def test_load_translations_fallback_to_english():
     """Tests that it falls back to English if the language file is not found."""
     mock_data_en = {"greeting": "Hello"}
     mock_json_en = json.dumps(mock_data_en)
-    
-    with patch('builtins.open', mock_open(read_data=mock_json_en)) as mock_file:
+
+    english_mock = mock_open(read_data=mock_json_en)
+
+    # First call raises FileNotFoundError (German file missing), second returns English data
+    def open_side_effect(*args, **kwargs):
+        if open_side_effect.call_count == 1:
+            raise FileNotFoundError()
+        return english_mock.return_value
+    open_side_effect.call_count = 0
+
+    def counting_open(*args, **kwargs):
+        counting_open.call_count += 1
+        open_side_effect.call_count = counting_open.call_count
+        return open_side_effect(*args, **kwargs)
+    counting_open.call_count = 0
+
+    with patch('builtins.open', side_effect=counting_open) as mock_file:
         manager = Localization(Language.GERMAN.value)
-        
-        # It should have tried to open the German file first, then the English one
+
         assert mock_file.call_count == 2
         assert 'de.json' in mock_file.call_args_list[0][0][0]
         assert 'en.json' in mock_file.call_args_list[1][0][0]
-        
-        # The final translations should be the English ones
         assert manager.language_code == Language.ENGLISH.value
         assert manager.translations == mock_data_en
 
@@ -85,3 +96,20 @@ def test_set_language_reloads_translations(manager):
         manager.set_language(Language.GERMAN.value)
         assert manager.language_code == Language.GERMAN.value
         mock_load.assert_called_once()
+
+
+def test_load_translations_english_fallback_also_missing_sets_empty(manager):
+    """When the English fallback file is also missing, translations is set to {}."""
+    # Force language to English so the else-branch (line 30) is taken
+    manager.language_code = Language.ENGLISH.value
+    with patch('builtins.open', side_effect=FileNotFoundError):
+        manager.load_translations()
+    assert manager.translations == {}
+
+def test_get_returns_template_when_placeholder_key_missing(manager):
+    """When kwargs are provided but a placeholder is absent from the template,
+    the unformatted template string is returned (lines 55-57)."""
+    manager.translations = {"msg": "Hello, {name}!"}
+    # Pass a kwarg with the WRONG key — triggers KeyError in template.format(**kwargs)
+    result = manager.get("msg", wrong_key="World")
+    assert result == "Hello, {name}!"

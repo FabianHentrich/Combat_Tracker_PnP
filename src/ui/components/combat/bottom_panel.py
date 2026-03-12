@@ -26,10 +26,15 @@ class BottomPanel(ttk.Frame):
         self._setup_ui()
 
     def _setup_ui(self):
-        self.pack(fill=tk.BOTH, expand=True, pady=5)
+        # Don't pack yet - will be gridded from parent
+
+        # Configure grid for this panel
+        self.rowconfigure(0, weight=0)  # Control buttons
+        self.rowconfigure(1, weight=1)  # Log and dice roller
+        self.columnconfigure(0, weight=1)
 
         control_frame = ttk.Frame(self)
-        control_frame.pack(side=tk.TOP, fill=tk.X, pady=5)
+        control_frame.grid(row=0, column=0, sticky="ew", pady=(5, 5))
 
         ttk.Button(control_frame, text=translate("bottom_panel.roll_initiative_btn"), command=self.controller.combat_handler.roll_initiative_all).pack(side=tk.LEFT, padx=5)
         ttk.Button(control_frame, text=translate("bottom_panel.next_turn_btn"), command=self.controller.combat_handler.next_turn).pack(side=tk.LEFT, padx=5)
@@ -50,20 +55,30 @@ class BottomPanel(ttk.Frame):
         self.round_label.pack(side=tk.RIGHT, padx=20)
 
         bottom_content = ttk.Frame(self)
-        bottom_content.pack(fill=tk.BOTH, expand=True)
+        bottom_content.grid(row=1, column=0, sticky="nsew")
 
+        # Configure grid for bottom content
+        bottom_content.rowconfigure(0, weight=1)
+        bottom_content.columnconfigure(0, weight=3)  # Log gets more space
+        bottom_content.columnconfigure(1, weight=0)  # Dice roller fixed width
+
+        # Log frame
         log_frame = ttk.LabelFrame(bottom_content, text=translate("bottom_panel.combat_log_label"), style="Card.TLabelframe")
-        log_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 10))
+        log_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
 
-        self.log = tk.Text(log_frame, height=8, state="disabled", bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], font=FONTS["log"])
-        self.log.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        log_frame.rowconfigure(0, weight=1)
+        log_frame.columnconfigure(0, weight=1)
+
+        self.log = tk.Text(log_frame, height=8, state="disabled", bg=self.colors["entry_bg"], fg=self.colors["fg"], insertbackground=self.colors["fg"], font=FONTS["log"], wrap=tk.WORD)
+        self.log.grid(row=0, column=0, sticky="nsew")
 
         scrollbar = ttk.Scrollbar(log_frame, orient="vertical", command=self.log.yview)
-        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        scrollbar.grid(row=0, column=1, sticky="ns")
         self.log.configure(yscrollcommand=scrollbar.set)
 
+        # Dice roller
         self.dice_roller = DiceRoller(bottom_content, self.colors)
-        self.dice_roller.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 0))
+        self.dice_roller.grid(row=0, column=1, sticky="ns")
 
     def update_colors(self, colors: Dict[str, str]):
         self.colors = colors

@@ -65,7 +65,73 @@ def test_apply_healing(engine):
     
     with patch.object(char, 'heal') as mock_heal:
         engine.apply_healing(char, 5)
-        mock_heal.assert_called_once_with(5)
+        mock_heal.assert_called_once_with(5, allow_overheal=False)
+
+def test_apply_healing_with_overheal(engine):
+    """Tests that apply_healing passes allow_overheal=True when requested."""
+    char = Character("Test", 10, 0, 0, 0)
+    char.max_lp = 10
+    engine.characters = [char]
+    with patch.object(char, 'heal') as mock_heal:
+        engine.apply_healing(char, 20, allow_overheal=True)
+        mock_heal.assert_called_once_with(20, allow_overheal=True)
+
+def test_apply_shield(engine):
+    """Tests that apply_shield increases SP and fires an event."""
+    char = Character("Test", 10, 0, 5, 0)
+    engine.characters = [char]
+    with patch.object(engine, 'notify') as mock_notify:
+        engine.apply_shield(char, 10)
+    assert char.sp == 15
+    mock_notify.assert_called()
+
+def test_apply_armor(engine):
+    """Tests that apply_armor increases RP and fires an event."""
+    char = Character("Test", 10, 3, 0, 0)
+    engine.characters = [char]
+    with patch.object(engine, 'notify') as mock_notify:
+        engine.apply_armor(char, 7)
+    assert char.rp == 10
+    mock_notify.assert_called()
+
+def test_add_status_effect(engine):
+    """Tests that add_status_effect adds the effect to the character."""
+    char = Character("Test", 10, 0, 0, 0)
+    engine.characters = [char]
+    with patch.object(char, 'add_status') as mock_add:
+        engine.add_status_effect(char, "POISON", 3, 2)
+        mock_add.assert_called_once_with("POISON", 3, 2)
+
+def test_update_character(engine):
+    """Tests that update_character calls char.update and fires an event."""
+    char = Character("Old", 10, 0, 0, 0)
+    engine.characters = [char]
+    with patch.object(engine, 'notify') as mock_notify:
+        engine.update_character(char, {"name": "New"})
+    assert char.name == "New"
+    mock_notify.assert_called()
+
+def test_remove_characters_by_type(engine):
+    """Tests delegation to turn_manager.remove_characters_by_type."""
+    with patch.object(engine.turn_manager, 'remove_characters_by_type') as mock_remove:
+        engine.remove_characters_by_type("enemy")
+        mock_remove.assert_called_once_with("enemy")
+
+def test_clear_all_characters(engine):
+    """Tests delegation to turn_manager.clear_all_characters."""
+    with patch.object(engine.turn_manager, 'clear_all_characters') as mock_clear:
+        engine.clear_all_characters()
+        mock_clear.assert_called_once()
+
+def test_reset_combat(engine):
+    """Tests that reset_combat resets turn state and fires an update."""
+    engine.turn_manager.turn_index = 5
+    engine.turn_manager.round_number = 3
+    with patch.object(engine, 'notify') as mock_notify:
+        engine.reset_combat()
+    assert engine.turn_index == -1
+    assert engine.round_number == 1
+    mock_notify.assert_called()
 
 def test_state_serialization(engine):
     """Tests the get_state and load_state methods."""

@@ -26,7 +26,10 @@ def data_manager():
 def test_dynamic_directory_scanning():
     """Testet, ob neue Ordner dynamisch erkannt werden."""
     LibraryDataManager._instance = None
-    mock_entry = MagicMock(is_dir=lambda: True, name="custom", path="/mock/custom")
+    mock_entry = MagicMock()
+    mock_entry.is_dir.return_value = True
+    mock_entry.name = "custom"
+    mock_entry.path = "/mock/custom"
     with patch('os.path.exists', return_value=True), \
          patch('os.makedirs'), \
          patch('os.scandir', return_value=iter([mock_entry])):

@@ -37,7 +37,27 @@ class CombatTracker:
     def __init__(self, root: tk.Tk):
         self.root = root
         self.root.title(translate("app.title"))
-        self.root.geometry(WINDOW_SIZE["main"])
+
+        # Calculate dynamic font sizes based on screen resolution
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        # Update FONTS globally with calculated sizes
+        from src.config import calculate_font_sizes, FONTS
+        calculated_fonts = calculate_font_sizes(screen_width, screen_height)
+        FONTS.update(calculated_fonts)
+
+        # Set minimum window size
+        if WINDOW_SIZE.get("main_min"):
+            min_width, min_height = WINDOW_SIZE["main_min"]
+            self.root.minsize(min_width, min_height)
+
+        # Set initial geometry only if specified, otherwise let it maximize
+        if WINDOW_SIZE.get("main"):
+            self.root.geometry(WINDOW_SIZE["main"])
+
+        # Maximize window on startup
+        self._maximize_window()
 
         self.colors: Dict[str, str] = COLORS
 
@@ -56,6 +76,9 @@ class CombatTracker:
         self.import_handler = ImportHandler(self.engine, self.history_manager, self.root, self.colors)
         self.character_handler = CharacterManagementHandler(self.engine, self.history_manager, self.library_handler, self.root, self.view, self.colors)
         self.combat_handler = CombatActionHandler(self.engine, self.history_manager, self.view)
+
+        # Components that need color updates when the theme changes
+        self._color_observers = [self.hotkey_handler, self.view, self.import_handler, self.character_handler, self.library_handler]
 
         # --- UI Setup (now that all handlers exist) ---
         self.view.setup_ui()
@@ -143,19 +166,30 @@ class CombatTracker:
         if file_path:
             self.log_message(translate("messages.combat_saved", file_path=file_path))
 
+    def _apply_loaded_state(self, state: dict, success_message: str = None) -> None:
+        """Restores engine, audio, and log from a combined state dict."""
+        if "audio" in state:
+            self.audio_controller.load_state(state["audio"])
+        self.engine.load_state(state)
+        if "log" in state:
+            self.view.set_log_content(state["log"])
+        self.engine.initiative_rolled = (self.engine.turn_index != -1)
+        self.view.update_listbox()
+        if success_message:
+            self.log_message(success_message)
+
     def load_session(self) -> None:
         state = self.persistence_handler.load_session()
         if state:
-            if "audio" in state:
-                self.audio_controller.load_state(state["audio"])
-            self.engine.load_state(state)
-            if "log" in state:
-                self.view.set_log_content(state["log"])
-            self.engine.initiative_rolled = (self.engine.turn_index != -1)
-            self.view.update_listbox()
-            self.log_message(translate("messages.combat_loaded"))
+            self._apply_loaded_state(state, translate("messages.combat_loaded"))
 
     def autosave(self) -> None:
+        if hasattr(self, '_autosave_timer') and self._autosave_timer:
+            self.root.after_cancel(self._autosave_timer)
+        self._autosave_timer = self.root.after(500, self._do_autosave)
+
+    def _do_autosave(self) -> None:
+        self._autosave_timer = None
         state = self.engine.get_state()
         state["audio"] = self.audio_controller.get_state()
         state["log"] = self.view.get_log_content()
@@ -164,14 +198,7 @@ class CombatTracker:
     def load_autosave(self) -> None:
         state = self.persistence_handler.load_autosave()
         if state:
-            if "audio" in state:
-                self.audio_controller.load_state(state["audio"])
-            self.engine.load_state(state)
-            if "log" in state:
-                self.view.set_log_content(state["log"])
-            self.engine.initiative_rolled = (self.engine.turn_index != -1)
-            self.view.update_listbox()
-            self.log_message(translate("messages.autosave_loaded"))
+            self._apply_loaded_state(state, translate("messages.autosave_loaded"))
 
     def log_message(self, msg: str) -> None:
         self.view.log_message(msg)
@@ -180,15 +207,9 @@ class CombatTracker:
         from src.config import THEMES
         if theme_name not in THEMES: return
 
-        new_colors = THEMES[theme_name]
-        self.colors = new_colors
-        
-        # Manually update colors on all relevant components
-        self.hotkey_handler.update_colors(new_colors)
-        self.view.update_colors(new_colors)
-        self.import_handler.update_colors(new_colors)
-        self.character_handler.update_colors(new_colors)
-        self.library_handler.update_colors(new_colors)
+        self.colors = THEMES[theme_name]
+        for observer in self._color_observers:
+            observer.update_colors(self.colors)
 
         self.log_message(translate("messages.theme_changed", theme_name=theme_name))
 
@@ -201,41 +222,62 @@ class CombatTracker:
 
         localization_manager.set_language(lang_code)
 
-        # 1. Capture State before destroying UI
+        # 1. Capture state before destroying UI
         engine_state = self.engine.get_state()
         audio_state = self.audio_controller.get_state()
+        log_content = self.view.get_log_content()
 
-        log_content = ""
-        try:
-             if hasattr(self.view, 'bottom_panel') and self.view.bottom_panel and self.view.bottom_panel.log:
-                  # Get text from start to end
-                  log_content = self.view.bottom_panel.log.get("1.0", "end-1c")
-        except Exception as e:
-            logger.error(f"Failed to capture log content: {e}")
-
+        # 2. Destroy all UI widgets
         for widget in self.root.winfo_children():
             widget.destroy()
-        
-        self.__init__(self.root)
-        
-        # 2. Restore State
+
+        # 3. Rebuild core and UI components.
+        #    audio_controller is intentionally reused to avoid re-initializing pygame.
+        self.engine = CombatEngine()
+        self.history_manager = HistoryManager(self.engine)
+        self.view = MainView(self, self.root)
+        self.persistence_handler = PersistenceHandler(self.root)
+        self.hotkey_handler = HotkeyHandler(self.root, self.colors)
+        self.library_handler = LibraryHandler(self.root, self.engine, self.history_manager, self.colors)
+        self.import_handler = ImportHandler(self.engine, self.history_manager, self.root, self.colors)
+        self.character_handler = CharacterManagementHandler(self.engine, self.history_manager, self.library_handler, self.root, self.view, self.colors)
+        self.combat_handler = CombatActionHandler(self.engine, self.history_manager, self.view)
+
+        self._color_observers = [self.hotkey_handler, self.view, self.import_handler, self.character_handler, self.library_handler]
+
+        self.view.setup_ui()
+        self.audio_settings_window = None
+
+        self.engine.subscribe(EventType.UPDATE, self.view.update_listbox)
+        self.engine.subscribe(EventType.UPDATE, self.autosave)
+        self.engine.subscribe(EventType.LOG, self.log_message)
+
+        self.root.configure(bg=self.colors["bg"])
+        self.view.update_colors(self.colors)
+        self._setup_hotkeys()
+
+        # 4. Restore state
+        engine_state["audio"] = audio_state
+        if log_content:
+            engine_state["log"] = log_content
         try:
-            self.engine.load_state(engine_state)
-            self.engine.initiative_rolled = (self.engine.turn_index != -1)
-
-            # Restore Audio
-            self.audio_controller.load_state(audio_state)
-
-            # Restore Log
-            if log_content and hasattr(self.view, 'bottom_panel') and self.view.bottom_panel and self.view.bottom_panel.log:
-                self.view.bottom_panel.log.config(state="normal")
-                self.view.bottom_panel.log.delete("1.0", tk.END)
-                self.view.bottom_panel.log.insert(tk.END, log_content)
-                self.view.bottom_panel.log.see(tk.END)
-                self.view.bottom_panel.log.config(state="disabled")
-
-            self.view.update_listbox()
+            self._apply_loaded_state(engine_state)
         except Exception as e:
             logger.error(f"Failed to restore state after language change: {e}")
 
         logger.info(f"Language changed to {lang_code}.")
+
+    def _maximize_window(self):
+        """Maximizes the window in a cross-platform manner."""
+        methods = [
+            lambda: self.root.state('zoomed'),                                                                          # Windows
+            lambda: self.root.attributes('-zoomed', True),                                                              # Unix/Linux
+            lambda: self.root.geometry(f"{self.root.winfo_screenwidth()}x{self.root.winfo_screenheight()}+0+0"),        # Fallback
+        ]
+        for method in methods:
+            try:
+                method()
+                return
+            except Exception:
+                continue
+        logger.warning("Could not maximize window.")

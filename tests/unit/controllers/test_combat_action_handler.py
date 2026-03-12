@@ -128,6 +128,43 @@ def test_positive_value_actions(handler, sample_character, method_name):
     engine_method = getattr(handler.engine, method_name)
     engine_method.assert_called_once_with(sample_character, 5)
 
+def test_apply_healing_with_overheal(handler, sample_character):
+    """Tests that apply_healing passes allow_overheal=True to the engine when the view returns True."""
+    handler.view.get_selected_char_ids.return_value = ["char1"]
+    handler.engine.get_character_by_id.return_value = sample_character
+    handler.view.get_action_value.return_value = 30
+    handler.view.get_overheal.return_value = True
+
+    handler.apply_healing()
+
+    handler.engine.apply_healing.assert_called_once_with(sample_character, 30, allow_overheal=True)
+
+def test_apply_healing_to_multiple_characters(handler, sample_character):
+    """Tests that healing is applied to every selected character."""
+    char2 = Character(name="Second", lp=30, rp=0, sp=0, init=10)
+    char2.id = "char2"
+    handler.view.get_selected_char_ids.return_value = ["char1", "char2"]
+    handler.engine.get_character_by_id.side_effect = lambda cid: sample_character if cid == "char1" else char2
+    handler.view.get_action_value.return_value = 10
+    handler.view.get_overheal.return_value = False
+
+    handler.apply_healing()
+
+    assert handler.engine.apply_healing.call_count == 2
+
+def test_deal_damage_to_multiple_characters(handler, sample_character):
+    """Tests that damage is applied to every selected character."""
+    char2 = Character(name="Second", lp=30, rp=0, sp=0, init=10)
+    char2.id = "char2"
+    handler.view.get_selected_char_ids.return_value = ["char1", "char2"]
+    handler.engine.get_character_by_id.side_effect = lambda cid: sample_character if cid == "char1" else char2
+    handler.view.get_damage_data.return_value = (5, "5 Normal")
+    handler.view.get_status_input.return_value = {"rank": "1"}
+
+    handler.deal_damage()
+
+    assert handler.engine.apply_damage.call_count == 2
+
 @pytest.mark.parametrize("method_name", ["apply_shield", "apply_armor"])
 def test_zero_value_actions_no_effect(handler, method_name):
     """Tests that shield/armor actions have no effect with zero value."""

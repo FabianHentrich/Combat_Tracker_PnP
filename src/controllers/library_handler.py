@@ -53,6 +53,12 @@ class LibraryHandler:
         self.lib_window = tk.Toplevel(self.root)
         self.lib_window.title(translate("library.title"))
         self.lib_window.geometry(WINDOW_SIZE["library"])
+
+        # Set minimum size for better usability
+        if WINDOW_SIZE.get("library_min"):
+            min_width, min_height = WINDOW_SIZE["library_min"]
+            self.lib_window.minsize(min_width, min_height)
+
         self.lib_window.configure(bg=self.colors["bg"])
 
         top_frame = ttk.Frame(self.lib_window, style="Card.TFrame")

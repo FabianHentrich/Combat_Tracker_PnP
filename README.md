@@ -37,6 +37,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 
 ## ✨ Features
 
+*   **Responsive UI:** Das Interface passt sich automatisch an verschiedene Bildschirmgrößen und -auflösungen an. Schriftgrößen skalieren dynamisch basierend auf der Bildschirmauflösung.
 *   **DM-Notizen & Pläne:** Eigenes Panel für DM-Notizen und Kampagnenplanung (Markdown, Dateibaum, Versionierung, Undo/Redo, Autosave, Drag & Drop, Umbenennen/Löschen, Schnellzugriff auf zuletzt geöffnete Notizen).
 *   **Markdown & PDF Bibliothek:** Verwalte dein Wissen in Markdown-Dateien oder zeige PDFs (z.B. Regelwerke) direkt im Tool an.
 *   **Volltextsuche:** Durchsuche Markdown-Dateien und PDFs global innerhalb der Anwendung.
@@ -44,7 +45,7 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Intelligente Verlinkung:**
     *   Markdown-Links (`[[Link]]`) öffnen direkt die entsprechende Datei.
     *   PDF-Links (`[[rules:123]]`) springen direkt zur angegebenen Seite im Regelwerks-PDF.
-*   **Versionierung:** Änderungen an Notizen werden automatisch versioniert (Rückgängig bis zu 10 Versionen, Wert anpassbar).
+*   **Versionierung:** Änderungen an Notizen werden automatisch versioniert (Rückgängig bis zu 20 Versionen, Wert anpassbar in `src/config/__init__.py`).
 *   **Drag & Drop:** Markdown-Dateien können direkt ins DM-Notizen-Panel gezogen und hinzugefügt werden.
 *   **Schnellzugriff:** Die zuletzt geöffneten Notizen sind als eigene Liste im DM-Notizen-Panel verfügbar.
 *   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
@@ -61,6 +62,8 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 *   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.). Vollständige Unterstützung für Light- und Dark-Modes über alle UI-Elemente hinweg.
 *   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `saves/autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
 *   **Undo/Redo:** Fehler können einfach rückgängig gemacht werden.
+*   **Mehrsprachigkeit:** Die Benutzeroberfläche ist auf Deutsch und Englisch verfügbar. Die Sprache kann jederzeit über das Menü gewechselt werden, ohne den Kampfzustand zu verlieren.
+*   **Absturzerkennung:** Beim Start erkennt das Programm automatisch einen vorherigen Absturz (via Lock-File) und bietet an, den letzten Autosave wiederherzustellen.
 
 ---
 
@@ -81,11 +84,19 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
     ```bash
     cd Combat_Tracker_PnP
     ```
-3.  Installiere die Abhängigkeiten:
+3.  Erstelle und aktiviere eine virtuelle Umgebung (empfohlen):
+    ```bash
+    python -m venv .venv
+    # Windows:
+    .venv\Scripts\activate
+    # Linux/macOS:
+    source .venv/bin/activate
+    ```
+4.  Installiere die Abhängigkeiten:
     ```bash
     pip install -r requirements.txt
     ```
-4.  Starte das Programm:
+5.  Starte das Programm:
     ```bash
     python Combat_Tracker.py
     ```
@@ -95,14 +106,17 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 ## 🎮 Benutzung
 
 Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
-1.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
-2.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
-3.  **Interaktions-Panel:** Hier werden Aktionen auf die *aktuell ausgewählten* Charaktere angewendet.
+1.  **DM-Notizen (linkes Panel):** Eigenes Panel für Kampagnenplanung und Session-Vorbereitung. Unterstützt Markdown, Dateibaum, Undo/Redo und Drag & Drop.
+2.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
+    *   **Charakter bearbeiten:** Doppelklick auf einen Charakter öffnet den Bearbeitungs-Dialog (alle Werte änderbar).
+    *   **Charakter löschen:** Charakter auswählen und `Entf` drücken (oder Button im Panel).
+3.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
+4.  **Interaktions-Panel:** Hier werden Aktionen auf die *aktuell ausgewählten* Charaktere angewendet.
     *   **Mehrfachauswahl:** Halte `Strg` oder `Shift` gedrückt, um mehrere Charaktere in der Liste auszuwählen. Aktionen werden auf alle angewendet.
     *   **Dynamische Zeilen:** Füge über den `+` Button weitere Schadenskomponenten hinzu (z.B. 10 Feuer und 5 Kälte).
     *   **Status:** Wähle Status-Effekte, Rang und Dauer.
-4.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets.
-5.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
+5.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets. Enthält die Tabs: *Regelwerk, Gegenstände, Gegner (Info), NPCs, Orte, Organisationen, Götter*.
+6.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
 
 ---
 
@@ -206,11 +220,14 @@ Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
 *   **`src/config/__init__.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
 
 ### Themes
-Über das Menü oder die Config können verschiedene Themes gewählt werden, z.B.:
-*   `Nord Dark` (Standard)
-*   `Gruvbox`
-*   `Monokai`
-*   `Solarized Light`
+Über das Menü oder die Config können verschiedene Themes gewählt werden:
+
+| Dark Themes | Light Themes |
+| :--- | :--- |
+| `Neutral Dark` | `Neutral Light` |
+| `Gruvbox Dark` | `Gruvbox Light` |
+| `Nord Dark` (Standard) | `Nord Light` |
+| `Monokai Dark` | `Solarized Light` |
 
 ---
 
@@ -225,6 +242,12 @@ Für einen schnellen Workflow während des Spiels:
 | **Wiederholen (Redo)** | `Strg + Y` |
 | **Charakter löschen** | `Entf` |
 | **Fokus auf Schaden** | `Strg + D` |
+| **Musik Play/Pause** | `Strg + P` |
+| **Nächster Titel** | `Strg + →` |
+| **Vorheriger Titel** | `Strg + ←` |
+| **Lautstärke +** | `Strg + ↑` |
+| **Lautstärke -** | `Strg + ↓` |
+| **Stummschalten** | `Strg + M` |
 
 *(Hotkeys können in `data/hotkeys.json` angepasst werden)*
 
@@ -240,6 +263,7 @@ Der Code ist nun sauber in Module unterteilt (`src/`):
 *   **`src/models/`**: Datenmodelle (Character, StatusEffects, Enums).
 *   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
 *   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
+*   **`src/config/`**: Zentrale Konfiguration (Themes, Schriftarten, Konstanten).
 *   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
 *   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
 *   **`saves/`**: Speicherort für Spielstände und Autosaves.
@@ -253,7 +277,7 @@ pytest
 ```
 
 ### Architektur-Highlights
-*   **Service Locator:** Ein zentraler `services`-Registrar stellt Abhängigkeiten (Engine, Handler, etc.) bereit, um die Kopplung zwischen Modulen zu reduzieren.
+*   **Composition Root / Manuelles Dependency Injection:** `MainWindow` fungiert als Composition Root — alle Abhängigkeiten (Engine, Handler, Controller) werden dort instanziiert und manuell verdrahtet, ohne Framework.
 *   **MVC-Ansatz:** Striktere Trennung von Daten (Models), Logik (Core) und Anzeige (UI).
 *   **UUIDs:** Charaktere werden intern über eindeutige IDs identifiziert, um Namenskonflikte zu vermeiden.
 *   **Event-System:** Die UI reagiert auf Events der Engine, statt direkt Daten zu manipulieren.

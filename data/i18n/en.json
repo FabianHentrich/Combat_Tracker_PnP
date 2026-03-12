@@ -62,6 +62,7 @@
     "rank": "Rank",
     "duration": "Duration",
     "add_status_btn": "Add Status",
+    "overheal": "Allow Overheal",
     "management_label": "Management:"
   },
   "management_targets": {

@@ -21,14 +21,8 @@ if __name__ == '__main__':
     logger = setup_logging()
     try:
         root = tk.Tk()
-        # Optional: Fenstertitel und Icon hier setzen
         root.title("Combat Tracker")
 
-        # Starte im Vollbildmodus
-        try:
-            root.state('zoomed')  # Windows
-        except Exception:
-            root.attributes('-fullscreen', True)  # Fallback für andere Plattformen
 
         app = CombatTracker(root)
         root.mainloop()

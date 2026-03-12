@@ -7,7 +7,13 @@ from src.models.status_effects import (
     BurnEffect,
     BleedEffect,
     ErosionEffect,
+    FreezeEffect,
     StunEffect,
+    ExhaustionEffect,
+    ConfusionEffect,
+    BlindEffect,
+    DisarmedEffect,
+    RegenerationEffect,
     GenericStatusEffect,
     EFFECT_CLASSES
 )
@@ -128,3 +134,83 @@ def test_from_dict_all_known_effects():
         data = {"effect": name, "rounds": 1, "rank": 1}
         effect = StatusEffect.from_dict(data)
         assert isinstance(effect, effect_class), f"Failed for effect: {name}"
+
+
+# --- Missing effect apply_round_effect Tests ---
+
+def test_freeze_effect_returns_message(char):
+    """Tests that FreezeEffect returns a non-empty message string."""
+    effect = FreezeEffect(duration=2, rank=3)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+def test_freeze_effect_does_not_modify_char(char):
+    """Tests that FreezeEffect does not change character HP/SP/RP."""
+    effect = FreezeEffect(duration=2, rank=1)
+    lp_before, rp_before, sp_before = char.lp, char.rp, char.sp
+    effect.apply_round_effect(char)
+    assert char.lp == lp_before
+    assert char.rp == rp_before
+    assert char.sp == sp_before
+
+def test_exhaustion_effect_returns_message(char):
+    """Tests that ExhaustionEffect returns a non-empty message string."""
+    effect = ExhaustionEffect(duration=1, rank=1)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+def test_confusion_effect_returns_message(char):
+    """Tests that ConfusionEffect returns a non-empty message string."""
+    effect = ConfusionEffect(duration=1, rank=1)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+@pytest.mark.parametrize("rank", [1, 2, 3, 4, 5, 6])
+def test_blind_effect_all_ranks(char, rank):
+    """Tests that BlindEffect returns a non-empty message for every rank."""
+    effect = BlindEffect(duration=2, rank=rank)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+def test_blind_effect_does_not_modify_char(char):
+    """Tests that BlindEffect does not change character stats."""
+    effect = BlindEffect(duration=1, rank=2)
+    lp_before, sp_before, rp_before = char.lp, char.sp, char.rp
+    effect.apply_round_effect(char)
+    assert char.lp == lp_before
+    assert char.sp == sp_before
+    assert char.rp == rp_before
+
+def test_disarmed_effect_returns_message(char):
+    """Tests that DisarmedEffect returns a non-empty message string."""
+    effect = DisarmedEffect(duration=1, rank=1)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+def test_regeneration_effect_heals_character(char):
+    """Tests that RegenerationEffect heals the character by its rank."""
+    char.lp = 80  # Below max_lp of 100
+    effect = RegenerationEffect(duration=3, rank=5)
+    effect.apply_round_effect(char)
+    assert char.lp == 85  # Healed by rank=5
+
+def test_regeneration_effect_capped_at_max_lp(char):
+    """Tests that RegenerationEffect does not exceed max_lp by default."""
+    char.lp = 98
+    char.max_lp = 100
+    effect = RegenerationEffect(duration=1, rank=10)
+    effect.apply_round_effect(char)
+    assert char.lp == 100  # Capped at max_lp
+
+def test_regeneration_effect_returns_message(char):
+    """Tests that RegenerationEffect returns a message string."""
+    char.lp = 50
+    effect = RegenerationEffect(duration=1, rank=2)
+    result = effect.apply_round_effect(char)
+    assert isinstance(result, str)
+    assert len(result) > 0

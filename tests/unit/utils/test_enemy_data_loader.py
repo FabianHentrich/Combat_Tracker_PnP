@@ -100,6 +100,30 @@ def test_get_preset(loader):
 def test_get_all_presets(loader):
     """Tests retrieving the full hierarchical preset data."""
     loader.enemy_presets = {"Goblins": {"Goblin": {"lp": 10}}}
-    
+
     all_presets = loader.get_all_presets()
     assert all_presets == {"Goblins": {"Goblin": {"lp": 10}}}
+
+
+# --- Singleton __init__ guard ---
+
+def test_singleton_init_runs_only_once(reset_singleton):
+    """__init__ body (lines 25-28) is only executed on the first instantiation."""
+    with patch.object(EnemyDataLoader, 'load_presets') as mock_load:
+        first  = EnemyDataLoader()
+        second = EnemyDataLoader()
+
+    assert first is second                  # same instance
+    mock_load.assert_called_once()          # load_presets called exactly once
+    assert first._initialized is True
+
+def test_singleton_second_call_skips_init_body(reset_singleton):
+    """A second EnemyDataLoader() call returns the cached instance without re-initialising."""
+    with patch.object(EnemyDataLoader, 'load_presets'):
+        first = EnemyDataLoader()
+        first.enemy_presets = {"Marker": {}}   # mutate to detect re-init
+
+        second = EnemyDataLoader()
+
+    # If __init__ ran again it would reset enemy_presets to {}
+    assert second.enemy_presets == {"Marker": {}}

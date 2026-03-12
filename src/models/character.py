@@ -78,9 +78,12 @@ class Character:
 
         return " | " + translate("character_list.status") + ": " + ", ".join(status_list)
 
-    def heal(self, healing_points: int) -> str:
-        """Heals the character by a certain amount of hit points."""
+    def heal(self, healing_points: int, allow_overheal: bool = False) -> str:
+        """Heals the character by a certain amount of hit points.
+        By default caps at max_lp. Pass allow_overheal=True for effects that intentionally exceed it."""
         self.lp += healing_points
+        if not allow_overheal:
+            self.lp = min(self.lp, self.max_lp)
         return translate("messages.character_healed", name=self.name, amount=healing_points, lp=self.lp)
 
     def update(self, data: Dict[str, Any]) -> None:

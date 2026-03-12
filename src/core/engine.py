@@ -131,8 +131,8 @@ class CombatEngine:
         self.notify(EventType.UPDATE)
         return log
 
-    def apply_healing(self, char: Character, amount: int) -> str:
-        log = char.heal(amount)
+    def apply_healing(self, char: Character, amount: int, allow_overheal: bool = False) -> str:
+        log = char.heal(amount, allow_overheal=allow_overheal)
         self.log(log)
         self.notify(EventType.UPDATE)
         return log

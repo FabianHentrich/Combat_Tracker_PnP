@@ -1,2 +1,12 @@
-pillow
-pymupdf
+# Core Dependencies
+openpyxl>=3.1.2          # Excel file handling (.xlsx)
+Pillow>=12.1.1           # Image processing (PIL)
+PyMuPDF>=1.23.0          # PDF viewing (fitz)
+
+# Audio Dependencies
+pygame>=2.5.2            # Audio playback
+mutagen>=1.47.0          # Audio metadata reading
+
+# Testing Dependencies
+pytest>=8.0.0            # Testing framework
+pytest-cov>=4.1.0        # Test coverage

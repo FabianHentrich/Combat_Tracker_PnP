@@ -12,6 +12,12 @@ class BaseImportDialog:
         self.window = tk.Toplevel(parent)
         self.window.title(title)
         self.window.geometry(WINDOW_SIZE["import"])
+
+        # Set minimum size for better usability
+        if WINDOW_SIZE.get("import_min"):
+            min_width, min_height = WINDOW_SIZE["import_min"]
+            self.window.minsize(min_width, min_height)
+
         self.window.configure(bg=self.colors["bg"])
         self.scrollable_frame = None
 

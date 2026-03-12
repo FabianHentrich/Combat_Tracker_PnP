@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Runtime / app-generated
+saves/autosave.json
+saves/running.lock
+logs/
+layout_debug.txt
+paned_positions.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+#Claude
+CLAUDE.md
+
+Rules

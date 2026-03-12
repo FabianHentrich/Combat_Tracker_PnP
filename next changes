@@ -1,0 +1,6 @@
+add  Missing test coverage I can add without ambiguity:
+  1. DIRECT damage bypasses SP and RP — goes straight to LP
+  2. PIERCING bypasses RP but SP still absorbs
+  3. BleedEffect minimum floor — rank=1 round=1 gives int(0.5)=0, clamped to 1
+  4. ErosionEffect max_lp floor — can't go below 0
+ and check not only the test all so the programm implemenration

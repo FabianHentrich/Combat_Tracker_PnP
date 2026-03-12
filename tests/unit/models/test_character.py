@@ -117,6 +117,47 @@ def test_from_dict_with_missing_data():
 
 # --- Other Methods ---
 
+# --- heal() edge cases ---
+
+def test_heal_capped_at_max_lp(char):
+    """Tests that healing is capped at max_lp by default."""
+    char.lp = 90
+    char.max_lp = 100
+    char.heal(50)  # Would go to 140
+    assert char.lp == 100
+
+def test_heal_at_full_hp_no_change(char):
+    """Tests that healing a full-HP character leaves LP unchanged."""
+    char.lp = 100
+    char.max_lp = 100
+    char.heal(20)
+    assert char.lp == 100
+
+def test_heal_with_overheal_exceeds_max(char):
+    """Tests that allow_overheal=True lets LP exceed max_lp."""
+    char.lp = 90
+    char.max_lp = 100
+    char.heal(30, allow_overheal=True)
+    assert char.lp == 120
+
+def test_heal_returns_message_string(char):
+    """Tests that heal() returns a non-empty log string."""
+    char.lp = 80
+    result = char.heal(10)
+    assert isinstance(result, str)
+    assert len(result) > 0
+
+
+# --- Status effect stacking ---
+
+@patch('src.models.character.get_rules', return_value={})
+def test_add_same_status_twice_extends_duration(mock_get_rules, char):
+    """Tests that adding the same status effect twice accumulates entries."""
+    char.add_status("CustomFx", 3, 1)
+    char.add_status("CustomFx", 3, 1)
+    # Current implementation appends; both entries should be present
+    assert len(char.status) == 2
+
 def test_update_method(char):
     """Tests the update method for modifying character attributes."""
     update_data = {

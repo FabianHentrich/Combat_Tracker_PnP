@@ -9,6 +9,7 @@ class NavigationManager:
         self.history: List[Dict[str, Any]] = []
         self.index: int = -1
         self.is_navigating: bool = False
+        self.max_history: int = MAX_HISTORY
         self.on_restore = on_restore
         self.on_update_ui = on_update_ui
 
@@ -29,8 +30,8 @@ class NavigationManager:
         self.history.append(state)
         self.index += 1
 
-        # Begrenze Historie auf MAX_HISTORY
-        if len(self.history) > MAX_HISTORY:
+        # Begrenze Historie auf max_history
+        if len(self.history) > self.max_history:
             self.history.pop(0)
             self.index -= 1
 

@@ -53,9 +53,10 @@ class CombatActionHandler:
         main_type = parts[1] if len(parts) > 1 else "Normal"
 
         rules = get_rules()
+        damage_types = rules.get(RuleKey.DAMAGE_TYPES, {})
         max_rank = 6
-        if main_type in rules.get(RuleKey.DAMAGE_TYPES, {}):
-            sec_effect = rules[RuleKey.DAMAGE_TYPES][main_type].get(RuleKey.SECONDARY_EFFECT)
+        if main_type in damage_types:
+            sec_effect = damage_types[main_type].get(RuleKey.SECONDARY_EFFECT)
             if sec_effect and sec_effect in rules.get(RuleKey.STATUS_EFFECTS, {}):
                 max_rank = rules[RuleKey.STATUS_EFFECTS][sec_effect].get(RuleKey.MAX_RANK, 6)
 
@@ -125,9 +126,10 @@ class CombatActionHandler:
             self.view.show_info(translate("dialog.info.title"), translate("messages.enter_healing_value"))
             return
 
+        allow_overheal = self.view.get_overheal()
         self.history_manager.save_snapshot()
         for char in chars:
-            self.engine.apply_healing(char, val)
+            self.engine.apply_healing(char, val, allow_overheal=allow_overheal)
 
     def apply_shield(self) -> None:
         """Increases the shield value of all selected characters."""

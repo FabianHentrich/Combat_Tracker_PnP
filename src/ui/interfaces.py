@@ -72,6 +72,10 @@ class ICombatView(Protocol):
         """Gibt die Eingaben für Status-Effekte zurück (status, rank, duration)."""
         ...
 
+    def get_overheal(self) -> bool:
+        """Gibt zurück, ob Überheilung erlaubt ist."""
+        ...
+
     def get_management_target(self) -> ScopeType:
         """Gibt den ausgewählten Management-Zielbereich zurück."""
         ...

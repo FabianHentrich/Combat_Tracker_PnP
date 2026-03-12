@@ -40,7 +40,9 @@ def test_parse_markdown_image(text_widget):
     mock_img.width = 100
     mock_img.height = 100
     mock_img.resize.return_value = mock_img  # resize gibt sich selbst zurück
+    mock_tk_img = MagicMock()
     with patch("src.utils.markdown_utils.Image.open", return_value=mock_img), \
+         patch("src.utils.markdown_utils.ImageTk.PhotoImage", return_value=mock_tk_img), \
          patch.object(text_widget, "winfo_width", return_value=500), \
          patch.object(text_widget, "image_create") as mock_image_create:
         text = "![](bild.png)"

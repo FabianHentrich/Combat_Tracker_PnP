@@ -109,9 +109,8 @@ class TurnManager:
         # Process skipping turns
         if current_char.skip_turns > 0:
             self.engine.log(translate("messages.character_skips_turn", name=current_char.name))
-            current_char.skip_turns -= 1 # Is set to 0 in _update_character_status, but here in case of multiple rounds
             self.engine.notify(EventType.UPDATE)
-            return self.next_turn() # Recursively continue
+            return self.next_turn() # Recursively skip to next character
 
         # Status info for log
         status_info = current_char.get_status_string()
@@ -162,33 +161,28 @@ class TurnManager:
 
         self.engine.notify(EventType.UPDATE)
 
+    def _clamp_turn_index(self) -> None:
+        """Clamps turn_index into a valid range after characters have been removed."""
+        if self.turn_index >= len(self.engine.characters):
+            self.turn_index = 0 if self.engine.characters else -1
+
     def remove_character(self, index: int) -> None:
         """Removes a character and adjusts the turn index."""
         if 0 <= index < len(self.engine.characters):
             char = self.engine.characters.pop(index)
             self.engine.log(translate("messages.character_removed", name=char.name))
 
-            # Adjust turn index
             if index < self.turn_index:
                 self.turn_index -= 1
             elif index == self.turn_index:
-                if self.turn_index >= len(self.engine.characters):
-                    self.turn_index = 0
-                    if not self.engine.characters:
-                        self.turn_index = -1
+                self._clamp_turn_index()
 
             self.engine.notify(EventType.UPDATE)
 
     def remove_characters_by_type(self, char_type: str) -> None:
         """Removes all characters of a specific type."""
         self.engine.characters = [c for c in self.engine.characters if c.char_type != char_type]
-
-        # Correct turn index
-        if self.turn_index >= len(self.engine.characters):
-            self.turn_index = 0
-            if not self.engine.characters:
-                self.turn_index = -1
-
+        self._clamp_turn_index()
         self.engine.log(translate("messages.all_characters_of_type_deleted", type=char_type))
         self.engine.notify(EventType.UPDATE)
 

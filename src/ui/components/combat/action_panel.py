@@ -24,6 +24,7 @@ class ActionPanel(ttk.LabelFrame):
         self.status_duration = None
         self.management_target_var = None
         self.btn_edit = None
+        self.var_overheal = None
         
         # Prepare translated values
         self.translated_damage_types = {translate(f"damage_types.{dt.name}"): dt.value for dt in DamageType}
@@ -69,6 +70,9 @@ class ActionPanel(ttk.LabelFrame):
 
         btn_grid.columnconfigure(0, weight=1)
         btn_grid.columnconfigure(1, weight=1)
+
+        self.var_overheal = tk.BooleanVar(value=False)
+        ttk.Checkbutton(self, text=translate("action_panel.overheal"), variable=self.var_overheal).pack(anchor="w", pady=(2, 0))
 
         ttk.Separator(self, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
@@ -226,6 +230,9 @@ class ActionPanel(ttk.LabelFrame):
             "rank": rank,
             "duration": duration
         }
+
+    def get_overheal(self) -> bool:
+        return self.var_overheal.get() if self.var_overheal else False
 
     def get_management_target(self) -> ScopeType:
         display_value = self.management_target_var.get()

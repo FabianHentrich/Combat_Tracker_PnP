@@ -3,7 +3,7 @@ import os
 import platform
 from typing import Dict, Tuple, Any
 from src.utils.logger import setup_logging
-from src.models.enums import DamageType, StatusEffectType, Language
+from src.models.enums import Language
 from .defaults import THEMES, DICE_TYPES, GEW_TO_DICE, DEFAULT_HOTKEYS, LIBRARY_TABS
 from .rule_manager import get_rules, rule_manager
 from src.utils.localization import localization_manager
@@ -32,6 +32,52 @@ elif system == "Darwin":  # macOS
 else:  # Linux and others
     MAIN_FONT = "DejaVu Sans" # Often available, otherwise fallback
     MONO_FONT = "DejaVu Sans Mono"
+
+def calculate_font_sizes(screen_width: int = 1920, screen_height: int = 1080) -> Dict[str, Tuple]:
+    """
+    Calculates font sizes dynamically based on screen resolution.
+    Base sizes are optimized for 1920x1080 displays.
+    """
+    # Calculate scaling factor based on screen dimensions
+    # Use geometric mean for balanced scaling
+    base_width, base_height = 1920, 1080
+    width_scale = screen_width / base_width
+    height_scale = screen_height / base_height
+    scale_factor = (width_scale * height_scale) ** 0.5
+
+    # Clamp scale factor to reasonable bounds
+    scale_factor = max(0.7, min(scale_factor, 1.5))
+
+    # Base font sizes for 1920x1080
+    base_sizes = {
+        "main": 10,
+        "bold": 10,
+        "large": 12,
+        "xl": 14,
+        "huge": 24,
+        "small": 9,
+        "mono": 9,
+        "log": 9,
+        "text": 11
+    }
+
+    fonts = {}
+    for key, base_size in base_sizes.items():
+        scaled_size = max(8, int(base_size * scale_factor))
+        if key == "bold":
+            fonts[key] = (MAIN_FONT, scaled_size, "bold")
+        elif key == "large":
+            fonts[key] = (MAIN_FONT, scaled_size, "bold")
+        elif key == "xl":
+            fonts[key] = (MAIN_FONT, scaled_size, "bold")
+        elif key == "huge":
+            fonts[key] = (MAIN_FONT, scaled_size, "bold")
+        elif key in ["mono", "log"]:
+            fonts[key] = (MONO_FONT, scaled_size)
+        else:
+            fonts[key] = (MAIN_FONT, scaled_size)
+
+    return fonts
 
 FONTS = {
     "main": (MAIN_FONT, 10),
@@ -72,9 +118,12 @@ FILES = {
 }
 
 WINDOW_SIZE = {
-    "main": "1900x1200",
+    "main": None,  # No fixed size, will maximize
+    "main_min": (1200, 800),  # Minimum size for main window
     "library": "1200x900",
+    "library_min": (800, 600),
     "import": "1200x900",
+    "import_min": (800, 600),
     "edit": "450x600",
     "hotkeys": "450x600",
     "small_dialog": "300x120"
