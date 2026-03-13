@@ -1,0 +1,3115 @@
+\chapter{Fähigkeiten und Klassen}
+
+Dieses Kapitel beschreibt alle spielrelevanten \term{Fähigkeiten}{faehigkeiten} eines Charakters:
+Skills und Zauber, ihre Steigerung, Kosten, Einsatz im Spiel sowie ihre
+legendären Erweiterungen.
+
+\section{Grundlagen der Fähigkeiten}
+
+Fähigkeiten sind aktive Spieloptionen, mit denen ein Charakter gezielt
+Handlungen im Kampf, in Erkundung oder sozialen Situationen ausführt.
+Es wird zwischen \textbf{Skills} (nichtmagisch) und \textbf{Zaubern} (magisch) unterschieden.
+
+\subsection*{Skills und Zauber}
+
+\begin{itemize}
+	\item \term{Skills}{skills} sind körperliche, taktische oder handwerkliche Fähigkeiten
+	und verbrauchen in der Regel \textbf{\termref[Aktionspunkte (AP)]{aktionspunkte-ap}}.
+	\item \term{Zauber}{zauber} sind magische Fähigkeiten und verbrauchen
+	\textbf{\termref[Manapunkte (MP)]{manapunkte-mp}}.
+\end{itemize}
+
+Das Ausführen einer Fähigkeit kann neben Aktionspunkte (AP) und Manapunkte (MP) auch zusätzliche Ressourcen (z.\,B. Materialien oder Lebenspunkte (LP)) verbrauchen. Hat ein Charakter \textbf{nicht genügend \termref[Ressourcen]{ressourcen}, kann die Fähigkeit nicht eingesetzt werden}.
+
+Welche Art von Fähigkeiten ein Charakter lernen kann, hängt von seiner Klasse ab:
+\begin{itemize}
+	\item \termref[Nichtmagische Klassen]{nicht-magische-klassen} lernen Skills
+	\item \termref[Magierklassen]{magierklassen} lernen Zauber
+	\item Basis-Fähigkeiten können von allen Klassen erlernt werden
+\end{itemize}
+
+\subsection*{Fähigkeitspunkte}
+
+Fähigkeiten werden mit \term{Fähigkeitspunkten}{faehigkeitspunkte}
+(Skillpunkte oder Zauberpunkte) erlernt und gesteigert.
+
+\begin{itemize}
+	\item Eine neue Fähigkeit wird mit \textbf{1 Punkt} auf Rang 1 erlernt.
+	\item Jeder weitere Rang kostet \textbf{1 Fähigkeitspunkt pro Rang}.
+	\item Der maximale reguläre Rang beträgt \textbf{Rang 5}.
+\end{itemize}
+
+Fähigkeitspunkte sind \textbf{keine Verbrauchsressource im Spiel},
+sondern dienen ausschließlich der Charakterentwicklung.
+
+\subsection*{Rang und Skalierung}
+
+Der Rang einer Fähigkeit bestimmt:
+\begin{itemize}
+	\item die Stärke, Dauer oder Reichweite des Effekts
+	\item mögliche Zusatzwirkungen
+	\item in manchen Fällen die Kosten (z.\,B. \textit{X -- Rang} AP/MP)
+\end{itemize}
+
+Die genaue Skalierung ist bei jeder Fähigkeit einzeln angegeben.
+
+\subsection*{Kosten}
+
+\begin{rulebox}{Kosten durch Wurfzahl}
+	Die im Skill- oder Zaubereintrag angegebenen Kosten sind die \textbf{vollen Kosten}.
+	Wie viel tatsächlich bezahlt wird, hängt von der \textbf{Wurfzahl} der Ausführung ab.
+	Halbe Kosten werden \textbf{aufgerundet}.
+\end{rulebox}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Wurfzahl} & \textbf{Ergebnis und Kosten} \\
+		\midrule
+		1--3  & Misslingt, \textbf{halbe Kosten} (aufgerundet) \\
+		4--6  & Gelingt, \textbf{volle Kosten} \\
+		7--9  & Gelingt, \textbf{halbe Kosten} (aufgerundet) \\
+		10+   & Gelingt, \textbf{keine Kosten} \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+
+\subsection*{Legendäre Fähigkeiten}
+
+Fähigkeiten können einen \textbf{legendären Rang (Rang 6)} erreichen.
+Dies unterliegt den Regeln des \termref[legendären Rangs]{legendaerer-rang}.
+
+Legendäre Effekte:
+\begin{itemize}
+	\item sind fest an eine konkrete Fähigkeit gebunden
+	\item stehen nur zur Verfügung, wenn diese Fähigkeit Rang 6 erreicht hat
+	\item verbrauchen teilweise \termref[Marken]{marken}
+\end{itemize}
+
+Die legendären Effekte einer Fähigkeit sind direkt bei der jeweiligen
+Fähigkeitsbeschreibung aufgeführt.
+
+
+\section{Basis-Skills}
+
+Basis-Skills sind nichtmagische Fähigkeiten, die allen Charakteren offenstehen.
+Sie verbrauchen in der Regel \textbf{Aktionspunkte (AP)} und werden aktiv
+im Kampf oder in Handlungsszenen eingesetzt.
+
+\subsubsection*{Ablenken}
+\skillcard
+{\term{Ablenken}{ablenken}}
+{Bonusaktion}
+{4 AP}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Ziel erhält einen \textbf{Malus in Höhe des Rangs} auf seine \textbf{nächste \termref[Parade]{parade}}.
+	\end{itemize}
+}
+{
+	Der Malus gilt zusätzlich auch für \textbf{\termref[Ausweichen]{ausweichen}}.
+}
+
+
+\subsubsection*{Analyse des Gegners}
+
+\skillcard
+{\term{Analyse des Gegners}{analyse-des-gegners}}
+{Aktion}
+{5 Aktionspunkte (AP)}
+{—}
+{Rang Runden}
+{
+	\begin{itemize}
+		\item Alle Verbündeten erhalten einen \textbf{+2 Bonus auf Angriffsproben}
+		gegen das analysierte Ziel.
+	\end{itemize}
+}
+{
+	Die \textbf{aktuellen Lebenspunkte (LP)} des Ziels werden erkannt.
+}
+
+
+\subsubsection*{Erholen}
+
+\skillcard
+{\term{Erholen}{erholen}}
+{Bonusaktion}
+{4 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Stellt \textbf{2 × Rang} Lebenspunkte (LP), Manapunkte (MP)
+		\textbf{oder} Aktionspunkte (AP) wieder her.
+		\item Ab \textbf{Rang 4} können \textbf{zwei beliebige Reserven}
+		gleichzeitig wiederhergestellt werden.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um einen \textbf{zusätzlichen negativen Effekt}
+	vom Charakter zu entfernen.
+}
+
+
+\subsubsection*{Knockdown-Schlag}
+
+\skillcard
+{\term{Knockdown-Schlag}{knockdown-schlag}}
+{Aktion}
+{6 Aktionspunkte (AP)}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{Waffenschaden + Rang}.
+		\item Zusätzlich besteht eine \textbf{1W6-Chance},
+		dass das Ziel für \textbf{1 Runde betäubt} wird.
+	\end{itemize}
+}
+{
+	Die Chance auf Betäubung wird auf \textbf{1W20} erhöht.
+}
+
+
+\subsubsection*{Reparieren}
+
+\skillcard
+{\term{Reparieren}{reparieren}}
+{Aktion}
+{$5 - \text{Rang}/2$ Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Kann nur \textbf{außerhalb des Kampfes} eingesetzt werden.
+		\item Repariert \textbf{nichtmagische Gegenstände}
+		bis maximal \textbf{80 \% ihres Gesamtwerts}.
+		\item \textbf{Magische Gegenstände} können nicht repariert werden.
+	\end{itemize}
+}
+{
+	Es besteht eine \textbf{1W4-Chance}, die \textbf{Qualität einer Rüstung}
+	(dauerhafte Erhöhung der RP) zu verbessern.
+}
+
+
+\subsubsection*{Schloss knacken}
+
+\skillcard
+{\term{Schloss knacken}{schloss-knacken}}
+{Aktion}
+{2 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Ermöglicht das Öffnen eines \textbf{nichtmagischen Schlosses}
+		bis zu einer \textbf{Schlossstufe in Höhe des Rangs}.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um ein nichtmagisches Schloss
+	\textbf{Rang 5 oder niedriger} automatisch zu öffnen.
+}
+
+
+\subsubsection*{Schnelle Ausweichbewegung}
+
+\skillcard
+{\term{Schnelle Ausweichbewegung}{schnelle-ausweichbewegung}}
+{Bonusaktion}
+{2 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Gewährt einen Bonus von \textbf{Rang/2 (aufgerundet)}
+		auf das \textbf{nächste Ausweichen}.
+		\item Nach einem erfolgreichen Ausweichen darf sich der Charakter
+		\textbf{Rang Meter} bewegen.
+	\end{itemize}
+}
+{
+	Nach einem erfolgreichen Ausweichen darf der Charakter
+	\textbf{sofort eine zusätzliche Bonusaktion} durchführen.
+}
+
+
+\subsubsection*{Schnelle Reflexe}
+
+\skillcard
+{\term{Schnelle Reflexe}{schnelle-reflexe}}
+{Bonusaktion}
+{4 Aktionspunkte (AP)}
+{—}
+{2 Runden}
+{
+	\begin{itemize}
+		\item Gewährt einen Bonus von \textbf{Rang/2 (aufgerundet)}
+		auf \textbf{Ausweichen oder Parade}.
+	\end{itemize}
+}
+{
+	Der Bonus kann zusätzlich auf alle
+	\textbf{nahen Verbündeten (bis 3 m)} übertragen werden.
+}
+
+
+\subsubsection*{Schneller Ablenkungsschlag}
+
+\skillcard
+{\term{Schneller Ablenkungsschlag}{schneller-ablenkungsschlag}}
+{Bonusaktion}
+{3 Aktionspunkte (AP)}
+{Nahkampf (1--2 m)}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{Schaden in Höhe des Rangs}.
+		\item Das Ziel erhält für seine \textbf{nächste Probe}
+		einen \textbf{Malus von --1}.
+	\end{itemize}
+}
+{
+	Das Ziel \textbf{verliert seine nächste Bonusaktion}.
+}
+
+
+\subsubsection*{Schwachstelle suchen}
+
+\skillcard
+{\term{Schwachstelle suchen}{schwachstelle-suchen}}
+{Bonusaktion}
+{5 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Das Ziel legt eine \textbf{Kampfprobe} gegen deine
+		\textbf{Wurfzahl} ab.
+		\item Misslingt diese Probe, verursacht der
+		\textbf{nächste Angriff} gegen das Ziel
+		\textbf{doppelten Schaden}.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, damit der nächste Angriff
+	\textbf{Durchschlagsschaden} verursacht.
+}
+
+
+\subsubsection*{Verbände anlegen}
+
+\skillcard
+{\term{Verbände anlegen}{verbaende-anlegen}}
+{Bonusaktion}
+{4 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Heilt \textbf{1W4 + Rang} Lebenspunkte (LP).
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um einen
+	\textbf{Statuseffekt} vom Ziel zu entfernen.
+}
+
+
+\subsubsection*{Zähigkeit}
+
+\skillcard
+{\term{Zähigkeit}{zaehigkeit}}
+{Bonusaktion}
+{7 Aktionspunkte (AP)}
+{—}
+{Ende des Kampfes}
+{
+	\begin{itemize}
+		\item Erhält \textbf{2 × Rang} natürliche
+		\textbf{Rüstungspunkte (RP)}.
+		\item Kann nur \textbf{einmal pro Kampf} eingesetzt werden.
+	\end{itemize}
+}
+{
+	Einmal in diesem Kampf kann der Charakter
+	nicht auf \textbf{0 Lebenspunkte} fallen,
+	sondern verbleibt stattdessen auf \textbf{1 LP}.
+}
+
+
+\section{Basis-Zauber}
+
+Basis-Zauber sind einfache magische Fähigkeiten, die von allen
+zauberkundigen Charakteren erlernt werden können.
+Sie verbrauchen in der Regel \textbf{Manapunkte (MP)} und werden aktiv
+im Kampf oder in Handlungsszenen eingesetzt.
+
+\subsubsection*{Betören}
+
+\spellcard
+{\term{Betören}{betoeren}}
+{Bonusaktion}
+{8 Manapunkte (MP)}
+{5 Meter}
+{1W4 + Rang Minuten}
+{
+	\begin{itemize}
+		\item Das Ziel ist dem Zauberer gegenüber \textbf{freundlich}.
+		\item Das Ziel kann mit einer \textbf{Wahrnehmungsprobe gegen die Wurfzahl}
+		(mit einem Malus von \textbf{–Rang}) widerstehen.
+	\end{itemize}
+}
+{
+	Der Zustand \textbf{freundlich} wandelt sich zu \textbf{willenlos}.
+	Das Ziel führt nahezu jede Anweisung des Zauberers aus.
+}
+
+\subsubsection*{Kleiner Schutzschild}
+
+\spellcard
+{\term{Kleiner Schutzschild}{kleiner-schutzschild}}
+{Bonusaktion}
+{4 Manapunkte (MP)}
+{5 Meter}
+{Bis bis SP aufgebraucht oder max. 10 Minuten}
+{
+	\begin{itemize}
+		\item Das Ziel erhält \textbf{1 + Rang} \textbf{Magisches Schild (SP)}.
+	\end{itemize}
+}
+{
+	Der Zauber kann zusätzlich auf \textbf{einen weiteren Verbündeten}
+	angewendet werden.
+}
+
+
+\subsubsection*{Licht erzeugen}
+
+\spellcard
+{\term{Licht erzeugen}{licht-erzeugen}}
+{Bonusaktion}
+{2 Manapunkte (MP)}
+{Selbst oder 5 Meter}
+{1 Stunde}
+{
+	\begin{itemize}
+		\item Erzeugt eine Lichtkugel, die einen Bereich von
+		\textbf{10 Meter + Rang} ausleuchtet.
+	\end{itemize}
+}
+{
+	Die Lichtkugel kann in \textbf{Feuer- oder Blitzenergie}
+	umgewandelt werden und verursacht
+	\textbf{Rang + 3W6 Schaden} in einem Bereich von \textbf{10 Metern}.
+}
+
+
+\subsubsection*{Magischer Schlag}
+
+\spellcard
+{\term{Magischer Schlag}{magischer-schlag}}
+{Aktion}
+{4 Manapunkte (MP)}
+{10 Meter}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{Wurfzahl + Rang Schaden}.
+	\end{itemize}
+}
+{
+	Es können \textbf{zwei Geschosse} erzeugt werden,
+	beide mit vollem Schaden.
+}
+
+
+\subsubsection*{Magiesinn}
+
+\spellcard
+{\term{Magiesinn}{magiesinn}}
+{Bonusaktion}
+{2 Manapunkte (MP)}
+{Selbst}
+{10 Minuten}
+{
+	\begin{itemize}
+		\item Magie kann in einem Radius von \textbf{10 + Rang Metern} wahrgenommen werden.
+		\item Es wird ausschließlich das \textbf{Vorhandensein} von Magie erkannt,
+		keine Details.
+	\end{itemize}
+}
+{
+	Der Zauber erkennt zusätzlich \textbf{Art, Stärke und Quelle}
+	magischer Energien.
+}
+
+
+\subsubsection*{Magisches Schloss öffnen}
+
+\spellcard
+{\term{Magisches Schloss öffnen}{magisches-schloss-oeffnen}}
+{Bonusaktion}
+{4 Manapunkte (MP)}
+{5 Meter}
+{—}
+{
+	\begin{itemize}
+		\item Öffnet ein \textbf{nichtmagisches Schloss} oder eine vergleichbare Mechanik.
+		\item Bei \textbf{magischen Schlössern, Siegeln oder Barrieren} ist zusätzlich
+		eine erfolgreiche \textbf{Wissensprobe} erforderlich.
+	\end{itemize}
+}
+{
+	Der Zauberer erkennt automatisch das \textbf{Vorhandensein}
+	und den \textbf{Rang} eines Schlosses, einer Verriegelung
+	oder eines magischen Siegels.
+}
+
+
+\subsubsection*{Mana aufladen}
+
+\spellcard
+{\term{Mana aufladen}{mana-aufladen}}
+{Bonusaktion}
+{2 Manapunkte (MP)}
+{Selbst}
+{—}
+{
+	\begin{itemize}
+		\item Stellt \textbf{Rang + 1W8 Manapunkte (MP)} wieder her.
+		\item Kann nur \textbf{einmal pro Stunde} eingesetzt werden.
+		\item Die \textbf{Zauberdauer beträgt 5 Minuten}.
+	\end{itemize}
+}
+{
+	Die Zauberdauer entfällt, Mana wird sofort wiederhergestellt.
+	Zusätzlich kann der Zauber auf \textbf{einen Verbündeten}
+	angewandt werden.
+}
+
+
+\subsubsection*{Trickillusion}
+
+\spellcard
+{\term{Trickillusion}{trickillusion}}
+{Bonusaktion}
+{2 + Rang Manapunkte (MP)}
+{10 Meter}
+{10 Minuten}
+{
+	\begin{itemize}
+		\item Erzeugt eine visuelle oder akustische Illusion von bis zu
+		\textbf{1 + Rang Quadratmetern}.
+		\item Die Illusion ist unbeweglich.
+		\item Sie kann durch eine \textbf{Wahrnehmungsprobe} durchschaut werden.
+	\end{itemize}
+}
+{
+	Illusionen erhalten einen \textbf{physischen Körper} und können
+	kleine Aktionen durchführen.
+	Angriffe beenden die Illusion sofort.
+}
+
+
+\subsubsection*{Unsichtbare Hand}
+
+\spellcard
+{\term{Unsichtbare Hand}{unsichtbare-hand}}
+{Aktion}
+{2 Manapunkte (MP)}
+{10 Meter + Rang}
+{1 Minute}
+{
+	\begin{itemize}
+		\item Die Hand kann Objekte bis zu \textbf{5 + Rang kg} bewegen oder manipulieren.
+		\item Sie kann \textbf{keine Angriffe} ausführen.
+	\end{itemize}
+}
+{
+	Die Hand kann nun direkte Angriffe durchführen.
+	Der verursachte Schaden wird mit dem Spielleiter abgestimmt.
+}
+
+
+\subsubsection*{Unsichtbarkeit}
+
+\spellcard
+{\term{Unsichtbarkeit}{unsichtbarkeit}}
+{Bonusaktion}
+{6 Manapunkte (MP)}
+{Selbst (ab Rang 4 zusätzlich 1 Verbündeter innerhalb von 2 m)}
+{Rang Runden oder bis gebrochen}
+{
+	\begin{itemize}
+		\item Ziel wird unsichtbar.
+		\item Nichtmagische Gegner können das Ziel nur über eine
+		\textbf{Wahrnehmungsprobe gegen Wurfzahl + Rang} lokalisieren.
+		\item \textbf{Magiesinn} erkennt lediglich das Vorhandensein von Magie,
+		keine genaue Position.
+		\item Angriffe oder Schadenzauber brechen den Effekt sofort.
+		\item Während Unsichtbarkeit dürfen nur Zauber mit
+		\textbf{Manakosten $\le 5$} gewirkt werden.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um einen Angriff oder Zauber beliebiger Kosten
+	auszuführen, ohne den Effekt sofort zu brechen.
+	Der Zauber endet erst am Ende der nächsten Runde.
+}
+
+
+\subsubsection*{Vergessen}
+
+\spellcard
+{\term{Vergessen}{vergessen}}
+{Aktion}
+{8 Manapunkte (MP)}
+{5 Meter}
+{—}
+{
+	\begin{itemize}
+		\item Das Ziel vergisst bis zu \textbf{Rang $\times$ 10 Minuten}
+		vergangener Handlungen.
+		\item Widerstand über eine \textbf{Wahrnehmungsprobe gegen die Wurfzahl}.
+	\end{itemize}
+}
+{
+	Erinnerungen, Zauber, Skills oder Talente können
+	\textbf{dauerhaft} vergessen werden.
+	Jeder dauerhafte Einsatz erhöht den Widerstand gegen weiteres Vergessen
+	um \textbf{+3}.
+}
+
+
+\subsubsection*{Wunde schließen}
+
+\spellcard
+{\term{Wunde schließen}{wunde-schliessen}}
+{Aktion}
+{4 Manapunkte (MP)}
+{Berührung}
+{—}
+{
+	\begin{itemize}
+		\item Heilt \textbf{1W6 + Rang Lebenspunkte (LP)}.
+	\end{itemize}
+}
+{
+	Der Zauberer heilt sich selbst zusätzlich um
+	\textbf{Rang Lebenspunkte (LP)}.
+}
+
+
+\subsubsection*{Zaubermanipulation}
+
+\spellcard
+{\term{Zaubermanipulation}{zaubermanipulation}}
+{Bonusaktion}
+{$4 + \text{Rang}$ Manapunkte (MP)}
+{15 m (fremde Zauber), Selbst (eigene Zauber)}
+{—}
+{
+	Zaubermanipulation kann auf \textbf{eigene} oder \textbf{fremde} Zauber angewendet werden:
+	\begin{itemize}
+		\item \textbf{Eigene Zauber:} Manipulation als Bonusaktion beim Wirken
+		oder direkt im Anschluss.
+		\item \textbf{Fremde Zauber:} Manipulation erfolgt \textbf{sofort};
+		die eigene Bonusaktion der Runde wird vorgezogen.
+	\end{itemize}
+	
+	\vspace{4pt}
+	\textbf{Effekte je Rang:}
+	\begin{itemize}
+		\item \textbf{Rang 1:} Änderung des Schadenstyps für \textbf{Rang} und
+		\textbf{2 Runden} oder kleiner Parameter.
+		\item \textbf{Rang 2:} Änderung von Stärke oder Form.
+		\item \textbf{Rang 3:} Hinzufügen eines Zusatzeffekts.
+		\item \textbf{Rang 4:} Tiefgreifende Umstrukturierung (z.\,B. Umkehr).
+		\item \textbf{Rang 5:} Komplexe Umstrukturierung ohne Nebenwirkungen.
+	\end{itemize}
+}
+{
+	Es können \textbf{zwei Effekte gleichzeitig} ausgeführt werden.
+}
+
+\section{Klassen (nicht magisch)}
+
+\term{Nicht Magische Klassen}{nicht-magische-klassen} haben jeweils 1 Startausrüstung.
+
+\subsection{Krieger}
+
+\subsubsection*{Rolle}
+Tank / Nahkämpfer
+
+\subsubsection*{Kurzprofil}
+Der \term{Krieger}{klasse-krieger} ist der Frontkämpfer mit schwerer Rüstung. Der Krieger bindet Gegner, schützt
+Verbündete und übt konstanten Druck im Nahkampf aus.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Hohe Lebenspunkte
+	\item Starke defensive Fähigkeiten
+	\item Vielseitige Waffenwahl
+	\item Kontrolle über Gegner durch Provozieren und Flächeneffekte
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Direkt, offensiv, standhaft – ideal für die erste Reihe.
+
+% =========================
+% Startausrüstung
+% =========================
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Schwere Rüstung (normal) & 4 Rüstungspunkte (RP), --1 auf \textbf{Gewandtheit} \\
+		Schild (normal) & 2 Rüstungspunkte (RP) \\
+		Waffe nach Wahl &
+		Kurzschwert (\textbf{Stärke} +2 Schaden) \\
+		& oder Streitaxt (\textbf{Stärke} +3 Schaden, --1 auf Angriffswürfe) \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+% =========================
+% Klassenfähigkeiten
+% =========================
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Wuchtschlag}
+
+\skillcard
+{\term{Wuchtschlag}{wuchtschlag}}
+{Bonusaktion}
+{$2 + \text{Rang}$ AP}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{3 + Rang Durchschlagsschaden}.
+		\item Schaden ignoriert Rüstung.
+	\end{itemize}
+}
+{
+	Wähle zusätzlich \textbf{Verwirrung} oder \textbf{Erschöpfung} als Statuseffekt für das Ziel.
+}
+
+\paragraph*{Schildwall}
+\skillcard
+{\term{Schildwall}{schildwall}}
+{Aktion}
+{$4 + \text{Rang}$ AP}
+{Selbst, Radius 3 m}
+{1 Runde}
+{
+	\begin{itemize}
+		\item Der Krieger und bis zu \textbf{Rang Verbündete} erleiden
+		\textbf{Wurfzahl} weniger \textbf{normalen Schaden}.
+		\item Gilt nicht für Durchschlagsschaden.
+	\end{itemize}
+}
+{
+	Der Effekt reduziert nun auch \textbf{Durchschlagsschaden}.
+}
+
+\paragraph*{Provozieren}
+\skillcard
+{\term{Provozieren}{provozieren}}
+{Bonusaktion}
+{4 AP}
+{Bis zu 10 m}
+{1 Runde}
+{
+	\begin{itemize}
+		\item Zwingt Gegner, den Krieger anzugreifen.
+		\item Effekte skalieren mit dem Rang:
+	\end{itemize}
+	
+	\begin{center}
+		\begin{tabular}{cccc}
+			\toprule
+			\textbf{Rang} & \textbf{Ziele} & \textbf{Reichweite} & \textbf{Zusatz} \\
+			\midrule
+			1 & 1 & 4 m & Ziel greift nur den Krieger an \\
+			2 & 2 & 6 m & +1 RP gegen diese Ziele \\
+			3 & 3 & 8 m & Gegner: --1 Angriff, Krieger: +2 RP \\
+			4 & 4 & 10 m & Dornen (2 Schaden bei Nahkampf) \\
+			5 & 5 & 10 m & Verbündete: +1 auf alle Proben \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+}
+{
+	Für jeden Gegner, der den Krieger angreift, erhält er
+	\textbf{eine zusätzliche Bonusaktion} für den Rest des Kampfes.
+}
+
+\paragraph*{Standhaftigkeit}
+\skillcard
+{\term{Standhaftigkeit}{standhaftigkeit}}
+{Bonusaktion}
+{$3 + \text{Rang}$ AP}
+{Selbst}
+{Bis Kampfende}
+{
+	\begin{itemize}
+		\item Solange LP $\ge 50\,\%$: \textbf{+Rang/2} Bonus auf Verteidigungsproben.
+		\item Solange LP $< 50\,\%$: \textbf{+Rang} Bonus auf Verteidigungsproben.
+	\end{itemize}
+}
+{
+	Alle Schadenstypen zählen für den Krieger als \textbf{normaler Schaden}.
+}
+
+\paragraph*{Klingenwirbel}
+\skillcard
+{\term{Klingenwirbel}{klingenwirbel}}
+{Aktion}
+{8 AP}
+{Nahkampf (Umkreis)}
+{—}
+{
+	\begin{center}
+		\begin{tabular}{ccc}
+			\toprule
+			\textbf{Rang} & \textbf{Ziele} & \textbf{Schaden} \\
+			\midrule
+			1 & 2 & 1 + 1W4 \\
+			2 & 2 & 1 + 1W6 \\
+			3 & 3 & 2 + 1W8 \\
+			4 & 3 & 3 + 1W8 \\
+			5 & Alle & 3 + 1W10 \\
+			6 & Alle & 4 + 1W12 \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+}
+{
+	Der gesamte Schaden wird zu \textbf{Durchschlagsschaden}.
+}
+
+\paragraph*{(fehlender 6. Zauber)}
+% TODO:  6. Klassenzauber liefern
+
+\subsection{Schurke}
+
+\subsubsection*{Rolle}
+Assassine / Heimlichkeit / Kontrolle
+
+\subsubsection*{Kurzprofil}
+Der \term{Schurke}{klasse-schurke} ist ein Spezialist für Hinterhalte, Präzision und das Ausnutzen von Schwächen.
+Er arbeitet aus dem Schatten, manipuliert Situationen und entscheidet Kämpfe mit gezielten Angriffen.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Hohe Mobilität und starke Positionierung
+	\item Hoher Burst-Schaden durch Hinterhalte
+	\item Werkzeuge für Kontrolle, Täuschung und Infiltration
+	\item Gut im Umgang mit Fallen und Schlössern
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Schnell, opportunistisch, tödlich – ideal für Überraschungsangriffe und das Ausschalten einzelner Ziele.
+
+% =========================
+% Startausrüstung
+% =========================
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Umhang & +1 Bonus auf \textbf{HEIMLICHKEIT}-Wurf \\
+		Mittlere Rüstung (normal) & 3 Rüstungspunkte (RP) \\
+		Dolch & \textbf{STÄRKE} +1 Schaden \\
+		Kurzschwert & \textbf{STÄRKE} +2 Schaden \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+% =========================
+% Klassenfähigkeiten
+% =========================
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Hinterhalt}
+\skillcard
+{\term{Hinterhalt}{schurke-hinterhalt}}
+{Bonusaktion}
+{3 Aktionspunkte (AP)}
+{Nahkampf}
+{Bis zum nächsten Angriff}
+{
+	\begin{itemize}
+		\item Verdoppelt den Schaden des \textbf{nächsten Angriffs}.
+		\item Nur einsetzbar bei \textbf{unvorbereiteten Zielen}.
+		\item Kann nur verwendet werden, wenn der Gegner den Schurken
+		\textbf{nicht im Fokus} hat.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um dem Ziel \textbf{Vergiftung, Verbrennung}
+	oder \textbf{Unterkühlung} zuzufügen.
+}
+
+\paragraph*{Manipulation}
+\skillcard
+{\term{Manipulation}{schurke-manipulation}}
+{Aktion}
+{3 Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Wenn die \textbf{Wahrnehmungsprobe} des Ziels gegen die
+		\textbf{Wurfzahl} des Schurken misslingt, darf eine Manipulation
+		durchgeführt werden (z.\,B. Überreden, Ablenken, Täuschen).
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um die \textbf{Schwachstelle} des Gegenübers
+	zu erfahren. Das Ausnutzen dieser Schwachstelle gewährt
+	\textbf{+3 Bonus} auf die Manipulation.
+}
+
+\paragraph*{Feinmotorik}
+\skillcard
+{\term{Feinmotorik}{schurke-feinmotorik}}
+{Aktion}
+{$2 + \text{Rang des Ziels} - \text{Rang}$ Aktionspunkte (AP)}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item \textbf{Fallenentschärfen:} Erkennt und deaktiviert Fallen
+		automatisch bei erfolgreicher Probe.
+		\item \textbf{Taschendiebstahl:} Entwendet einen kleinen Gegenstand.
+		Misslingt die Wahrnehmungsprobe des Ziels gegen die Wurfzahl des
+		Schurken, bleibt der Diebstahl unbemerkt.
+	\end{itemize}
+}
+{
+	Erlaubt das Nutzen der Effekte auf \textbf{Distanz bis 2 m}
+	(z.\,B. Draht, Haken, Spiegel).
+}
+
+\paragraph*{Giftklinge}
+\skillcard
+{\term{Giftklinge}{schurke-giftklinge}}
+{Bonusaktion}
+{3 Aktionspunkte (AP)}
+{Selbst (Waffe)}
+{1 Treffer oder 2 Runden}
+{
+	\begin{itemize}
+		\item Die Waffe wird vergiftet.
+		\item Zusätzlich zum Waffenschaden verursacht jeder Treffer
+		\textbf{Rang 1 Giftschaden für 2 Runden}.
+		\item Ab \textbf{Rang 3}: \textbf{Rang 2 Giftschaden}.
+		\item Ab \textbf{Rang 5}: \textbf{Rang 3 Giftschaden}.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, damit der nächste Treffer zusätzlich
+	\textbf{Erosion Rang 3} verursacht.
+}
+
+\paragraph*{Mordlust}
+\skillcard
+{\term{Mordlust}{schurke-mordlust}}
+{Aktion}
+{6 Aktionspunkte (AP)}
+{2 + Rang Meter}
+{Bis Ziel besiegt oder geflohen}
+{
+	\begin{itemize}
+		\item Zusätzlich zum Waffenschaden:
+		Jeder Treffer verursacht Giftschaden:
+		\begin{itemize}
+			\item Rang 1--2: \textbf{Rang 1} für 2 Runden
+			\item Rang 3--4: \textbf{Rang 2} für 2 Runden
+			\item Rang 5: \textbf{Rang 3} für 2 Runden
+		\end{itemize}
+		\item Die \textbf{Talente des Ziels} werden für \textbf{1 Runde halbiert}.
+	\end{itemize}
+	
+	\textbf{Negativer Trade:}
+	\begin{itemize}
+		\item Verbündete müssen eine \textbf{Wahrnehmungsprobe} bestehen,
+		ansonsten verlieren sie ihre \textbf{Bonusaktion}.
+	\end{itemize}
+}
+{
+	Das Ausschalten des Ziels durch den Schurken
+	\textbf{resettet Aktion und Bonusaktion} in dieser Runde.
+}
+
+\paragraph*{Schattenschritt}
+\skillcard
+{\term{Schattenschritt}{schurke-schattenschritt}}
+{Aktion}
+{6 Aktionspunkte (AP)}
+{Sichtbarer Schattenbereich}
+{—}
+{
+	\begin{itemize}
+		\item Bewegt sich bis zu \textbf{10 Meter} in einen sichtbaren
+		schattigen Bereich.
+		\item Der nächste Angriff erhält einen \textbf{Rang Bonus}
+		auf den Angriffswurf.
+		\item Kann genutzt werden, um Hindernisse wie Mauern oder
+		feindliche Gruppen zu umgehen.
+	\end{itemize}
+}
+{
+	Nach jedem Schattenschritt ist der Schurke bis zur
+	nächsten Runde \textbf{verborgen}.
+	Greift er an, endet die Verborgenheit nach dem Angriff.
+}
+
+\subsection{Waldläufer}
+
+\subsubsection*{Rolle}
+Fernkämpfer / Überlebenskünstler
+
+\subsubsection*{Kurzprofil}
+Der \term{Waldläufer}{klasse-waldlaeufer} ist ein Fernkampf-Spezialist mit starker
+Naturverbundenheit. Er hält Gegner auf Distanz, erkennt Gefahren frühzeitig und nutzt
+Tiere sowie Gelände zu seinem Vorteil.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Effektiv im Fernkampf
+	\item Naturkenntnis (Spuren, Gefahren, Ressourcen)
+	\item Vielseitige Tierunterstützung (Schaden, Kontrolle, Buffs)
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Präzise Angriffe aus sicherer Entfernung, taktisch und umsichtig.
+
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Leichte Rüstung (normal) & 2 Rüstungspunkte (RP) \\
+		Reflexbogen & 1W6 Schaden \\
+		Kurzschwert & Stärke +2 Schaden \\
+		Heilkräuter (1×) & Heilt 1W4 Lebenspunkte (LP) \\
+		Materialien (5×) & Nutzbar als Nahrung oder kreative Einfälle \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+Der Waldläufer startet jedes Abenteuer mit 5 Materialien.
+
+
+\begin{rulebox}{Hinweis: Pfeile}
+	Pfeile zerbersten bei:
+	\begin{itemize}
+		\item \textbf{+15 Schaden} allgemein
+		\item \textbf{+13 Schaden} auf harten Oberflächen (Rüstung, Stein, Eisen)
+	\end{itemize}
+\end{rulebox}
+
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Gezielter Schuss}
+\skillcard
+{\term{Gezielter Schuss}{waldlaeufer-gezielter-schuss}}
+{Aktion}
+{6 Aktionspunkte (AP)}
+{Fernkampf}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht zusätzlich zum Waffenschaden
+		\textbf{Wurfzahl Durchschlagsschaden}.
+	\end{itemize}
+}
+{
+	Unter Aufgabe der Bonusaktion dieser Runde
+	kann ein \textbf{Zusatzeffekt} hinzugefügt werden.
+}
+
+\paragraph*{Waldkundiger Blick}
+\skillcard
+{\term{Waldkundiger Blick}{waldlaeufer-waldkundiger-blick}}
+{Bonusaktion}
+{2 Aktionspunkte (AP)}
+{Selbst}
+{Modusabhängig}
+{
+	Bei Aktivierung wird ein Modus gewählt:
+	
+	\textbf{Modus A – Spuren \& Gefahren (1 Minute):}
+	\begin{itemize}
+		\item +2 Bonus auf Wahrnehmung und Wildnisleben
+		(+3 ab Rang 3).
+		\item Deckt im Radius von \textbf{5 m × Rang} versteckte Kreaturen
+		oder Fallen auf.
+		\item Bei Wurfzahl 10+: Überraschungen gegen dich oder deine Gruppe
+		werden negiert.
+	\end{itemize}
+	
+	\textbf{Modus B – Kräuter \& Ressourcen (10 Minuten):}
+	\begin{itemize}
+		\item 4–5: 1× Heilkräuter
+		\item 6–9: 2× Heil-, Stärkungs- oder Fokuskraut
+		\item 10+: Rang Bündel (freie Mischung)
+		\item Jeder Fund kann als Materialien gewertet werden
+		(Verbrauch der Pflanze).
+	\end{itemize}
+	
+	\textbf{Modus C – Gelände-Vorteil (1 Runde):}
+	\begin{itemize}
+		\item Markiere Ziel oder Zone (2 m Radius).
+		\item +1 Bonus auf nächste Angriffsprobe
+		\item +1 Bonus auf Ausweichen in der markierten Zone.
+	\end{itemize}
+}
+{
+	Beim Betreten von Natur- oder Außengelände gibt die SL
+	einen klaren Hinweis (Route, Gefahrenzone oder Engstelle).
+}
+
+\paragraph*{Natürlicher Schutz}
+\skillcard
+{\term{Natürlicher Schutz}{waldlaeufer-natuerlicher-schutz}}
+{Bonusaktion}
+{4 Aktionspunkte (AP)}
+{Selbst oder Verbündeter}
+{2 Runden}
+{
+	\begin{itemize}
+		\item +2 Bonus auf Verteidigungsproben (Ausweichen oder Parade).
+		\item Umgebung muss nutzbare Deckung bieten
+		(Entscheidung der SL).
+	\end{itemize}
+}
+{
+	Materialien können genutzt werden,
+	um aktiv eine Deckung zu errichten.
+}
+
+\paragraph*{Mehrfachschuss}
+\skillcard
+{\term{Mehrfachschuss}{waldlaeufer-mehrfachschuss}}
+{Aktion}
+{4 Aktionspunkte (AP)}
+{Fernkampf}
+{—}
+{
+	\begin{itemize}
+		\item Feuert \textbf{Rang + 1 Pfeile} auf gewählte Ziele.
+		\item Jeder Treffer verursacht \textbf{halben Waffenschaden}.
+	\end{itemize}
+}
+{
+	Der erste Pfeil verursacht \textbf{vollen Waffenschaden},
+	alle weiteren weiterhin halben Schaden.
+}
+
+\paragraph**{Tiergefährte rufen}
+\skillcard
+{\term{Tiergefährte rufen}{tiergefaehrte-rufen}}
+{Aktion}
+{$5 - \text{Rang}$ Aktionspunkte (AP) + 1 Materialien}
+{Selbst}
+{—}
+{
+	\begin{itemize}
+		\item Kann nur \textbf{einmal pro Kampf} eingesetzt werden.
+		\item Ruft einen Tiergefährten, der den Waldläufer unterstützt.
+		\item Der Tiergefährte bleibt für \textbf{2 Runden} aktiv.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Standard-Tiergefährten (eines wählbar):}
+	
+	\begin{itemize}
+		\item \textbf{Fuchs:}
+		Greift für \textbf{2 Runden} an.  
+		Jeder Angriff verursacht \textbf{1W6 Schaden}.
+		
+		\item \textbf{Schwalbe:}
+		Fliegt für \textbf{2 Runden}.  
+		Markiert ein Ziel: Alle Verbündeten erhalten für \textbf{1 Runde}
+		\textbf{+1 Bonus auf Angriffsproben} gegen dieses Ziel.
+		
+		\item \textbf{Eichhörnchen:}
+		Stiehlt oder beschädigt Ausrüstung.  
+		Ziel erhält \textbf{–1 auf Angriffsproben} für \textbf{2 Runden}.
+		
+		\item \textbf{Dachs:}
+		Ignoriert \textbf{Rüstung (RP)}.  
+		Verursacht \textbf{1W4 Durchschlagsschaden} pro Runde für \textbf{2 Runden}.  
+		Ziel erhält \textbf{–2 auf Gewandtheitsproben}.
+	\end{itemize}
+}
+{
+	\textbf{Variante A – Geistergefährte}
+	\begin{itemize}
+		\item Der Geistergefährte bleibt für \textbf{4 Runden}.
+		\item In jeder Runde kann er sich für \textbf{eine Aktion}
+		in eines der \textbf{Standardtiere} manifestieren.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Variante B – Legendäres Tier (eines wählbar):}
+	
+	\medskip
+	\textbf{Schattenwolf}
+	\begin{itemize}
+		\item Greift für \textbf{3 Runden} an.
+		\item Jeder Angriff verursacht:
+		\begin{itemize}
+			\item \textbf{1W8 Giftschaden}
+			\item \textbf{Gift Rang 3} für \textbf{3 Runden}
+		\end{itemize}
+		\item Ziel gilt als \textbf{markiert}.
+		\item Alle Verbündeten erhalten bis zum Ende der nächsten Runde
+		\textbf{+1 Bonus auf ihre nächste Angriffsprobe}
+		gegen das markierte Ziel.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Himmelsfalke}
+	\begin{itemize}
+		\item Fliegt für \textbf{1 Runde}.
+		\item In Runde 2: \textbf{Sturzflug}.
+		\item Markiert \textbf{2 Ziele}:
+		\begin{itemize}
+			\item Diese verlieren für \textbf{2 Runden ihre Aktion}.
+			\item Ein Ziel erleidet \textbf{Blendung Rang 3}.
+		\end{itemize}
+	\end{itemize}
+	
+	\medskip
+	\textbf{Schwarzbär}
+	\begin{itemize}
+		\item Greift für \textbf{3 Runden} an.
+		\item Jeder Angriff verursacht \textbf{1W10 Durchschlagsschaden}.
+		\item Absorbiert bis zu \textbf{40 Schaden},
+		der eigentlich auf Verbündete gehen würde.
+	\end{itemize}
+}
+
+\paragraph*{(fehlender 6. Zauber)}
+% TODO:  6. Klassenzauber liefern
+
+\subsection{Gladiator}
+
+\subsubsection*{Rolle}
+Schadensausteiler mit Stil
+
+\subsubsection*{Kurzprofil}
+Der \term{Gladiator}{klasse-gladiator} ist ein charismatischer Nahkämpfer, der
+physischen Schaden mit Präsenz und Auftritt verbindet.
+Er beeinflusst Gegner wie Verbündete durch spektakuläre Angriffe und Motivation.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Hoher Nahkampfschaden
+	\item Flächeneffekte und Mobilität
+	\item Starke soziale Präsenz (Einschüchterung, Motivation)
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Stilvoll, aggressiv, publikumswirksam.
+
+% =========================
+% Startausrüstung
+% =========================
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Mittlere Rüstung (normal) & 3 Rüstungspunkte (RP) \\
+		Kurzschwert & \textbf{Stärke} +2 Schaden \\
+		Große Waffe nach Wahl &
+		Langschwert (2× \textbf{Stärke} Schaden) \\
+		& oder Kriegsaxt (2× \textbf{Stärke} +3 Schaden, zerstört 2 RP, --2 auf Verteidigungsproben) \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+% =========================
+% Klassenfähigkeiten
+% =========================
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Publikumswirksamkeit}
+
+\skillcard
+{\term{Publikumswirksamkeit}{publikumswirksamkeit}}
+{Bonusaktion}
+{2 AP}
+{Radius \textbf{Rang} m}
+{—}
+{
+	\begin{itemize}
+		\item Verbündete im Radius erhalten \textbf{Rang/2 (aufgerundet)}
+		Bonus auf ihre \textbf{nächste Angriffsprobe}.
+		\item Ab \textbf{Rang 3}: Gegner im Radius müssen eine
+		\textbf{Stärke-Probe} ablegen.
+		\item Bei Misserfolg: \textbf{--1 Malus} auf ihre nächste Angriffsprobe.
+	\end{itemize}
+}
+{
+	Gegner erhalten zusätzlich \textbf{Verwirrung (1 Runde)}.
+	Verbündete erhalten \textbf{1 zusätzliche Bonusaktion}.
+}
+
+\paragraph*{Einschüchternder Schlag}
+
+\skillcard
+{\term{Einschüchternder Schlag}{einschuechternder-schlag}}
+{Aktion}
+{4 AP}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{Waffenschaden + Rang}.
+		\item Ziel legt eine \textbf{Kampf-Probe} ab.
+		\item Bei Misserfolg: \textbf{--2 Malus auf alle Proben} für \textbf{1 Runde}.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus:
+	Beim nächsten Treffer weicht das Ziel \textbf{3 m zurück}
+	und verliert seine \textbf{Bonusaktion für 2 Runden}.
+}
+
+\paragraph*{Tanzender Kampf}
+
+\skillcard
+{\term{Tanzender Kampf}{tanzender-kampf}}
+{Aktion}
+{4 AP}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Führt einen Angriff mit \textbf{normalem Waffenschaden} aus.
+		\item Danach Bewegung um bis zu \textbf{2 + Rang Meter}.
+	\end{itemize}
+}
+{
+	Fernkampfangriffe gegen den Gladiator erhalten
+	\textbf{--3 Malus} für \textbf{2 Runden}.
+}
+
+\paragraph*{Klingensturm}
+
+\skillcard
+{\term{Klingensturm}{klingensturm-gladiator}}
+{Aktion}
+{5 AP}
+{Nahbereich (3 m)}
+{—}
+{
+	\begin{itemize}
+		\item Trifft \textbf{alle Gegner} im Nahbereich.
+		\item Jeder erleidet \textbf{3 + Rang Schaden}.
+		\item Für jeden getroffenen Gegner erhält der Gladiator
+		\textbf{+1 Bonus auf die nächste Probe}.
+	\end{itemize}
+}
+{
+	Jeder Einsatz von Klingensturm in diesem Kampf reduziert
+	die AP-Kosten zukünftiger Einsätze um \textbf{1}.
+}
+
+\paragraph*{Inspirierendes Brüllen}
+
+\skillcard
+{\term{Inspirierendes Brüllen}{inspirierendes-bruellen}}
+{Aktion}
+{4 AP}
+{—}
+{—}
+{
+	\begin{itemize}
+		\item Kann nur \textbf{einmal pro Kampf} eingesetzt werden.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Effekt nach Rang:}
+	
+	\begin{center}
+		\begin{tabular}{cl}
+			\toprule
+			\textbf{Rang} & \textbf{Effekt} \\
+			\midrule
+			1 & Verbündete im Umkreis von 3 m: +1 \textbf{Kampf} für 1 Runde \\
+			2 & Verbündete im Umkreis von 5 m: +1 \textbf{Kampf} für 2 Runden \\
+			3 & Alle Verbündeten: +1 \textbf{Kampf} für diesen Kampf \\
+			4 & Alle Verbündeten: +1 \textbf{Kampf} und \textbf{Stärke} \\
+			5 & Alle Verbündeten und der Gladiator:
+			+2 \textbf{Kampf} und \textbf{Stärke} \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+}
+{
+	Gib \textbf{2 Marken} aus:
+	Wähle einen Zusatzeffekt und befreie alle Verbündeten
+	von diesem negativen Zustand.
+}
+
+\paragraph*{(fehlender 6. Zauber)}
+% TODO:  6. Klassenzauber liefern
+
+\subsection{Mönch}
+
+\subsubsection*{Rolle}
+Beweglicher Nahkämpfer / Spiritueller Unterstützer
+
+\subsubsection*{Kurzprofil}
+Der \term{Mönch}{klasse-moenich} ist ein agiler Nahkämpfer, der Körper und Geist
+durch spirituelle Disziplin perfektioniert.
+Er verzichtet auf schwere Rüstung und Waffen und nutzt stattdessen
+Beweglichkeit, präzise Schläge und spirituelle Kräfte.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Hohe Mobilität und Ausweichfähigkeit
+	\item Effektiv ohne schwere Rüstung
+	\item Mischung aus Schaden, Kontrolle und Heilung
+	\item Teilweise unabhängig von externen Heilern
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Präzise Schläge, Ausweichmanöver und spirituelle Techniken.
+
+% =========================
+% Startausrüstung
+% =========================
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Mönchskutte & +1 Bonus auf \textbf{GEWANDTHEIT-Wurfzahl} \\
+		Kampfhandschuhe & +1 Bonus auf \textbf{STÄRKE-Wurfzahl} \\
+		Meditationsperlen & Nach 5 Minuten Meditation: +2 MP \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+% =========================
+% Klassenfähigkeiten
+% =========================
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Schlagserie}
+
+\skillcard
+{\term{Schlagserie}{schlagserie}}
+{Aktion}
+{5 AP}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Führt \textbf{zwei Angriffe} aus.
+		\item Jeder Angriff verursacht \textbf{halben Schaden}:
+		\[
+		\frac{\text{STÄRKE-Wert} + \text{Wurfzahl}}{2} \ (\text{abgerundet})
+		\]
+		\item Angriffe können auf \textbf{ein oder zwei Ziele} verteilt werden.
+	\end{itemize}
+}
+{
+	Ein zusätzlicher \textbf{dritter finaler Schlag}:
+	Schaden = \textbf{STÄRKE-Wert + Wurfzahl}.
+}
+
+\paragraph*{Konzentrierter Schlag}
+
+\skillcard
+{\term{Konzentrierter Schlag}{konzentrierter-schlag}}
+{Aktion}
+{8 AP}
+{Nahkampf}
+{2 Runden}
+{
+	\begin{itemize}
+		\item \textbf{Runde 1:} Vorbereitung —
+		\textbf{--1} auf Ausweichen oder Parade.
+		\item \textbf{Runde 2:} Angriff verursacht
+		\textbf{Rang × STÄRKE-Wert Schaden}.
+	\end{itemize}
+}
+{
+	\begin{itemize}
+		\item Schaden wird \textbf{1:1 von Rüstung (RP)} abgezogen.
+		\item Ziel erhält \textbf{Erschöpfung} oder verliert seine \textbf{Bonusaktion}.
+	\end{itemize}
+}
+
+\paragraph*{Wirbeltritt}
+
+\skillcard
+{\term{Wirbeltritt}{wirbeltritt}}
+{Aktion}
+{5 AP}
+{Nahbereich (2 m)}
+{—}
+{
+	\begin{itemize}
+		\item Trifft alle Gegner im Nahbereich.
+		\item Jeder erleidet \textbf{STÄRKE-Wert + Rang Schaden}.
+		\item Jeder Gegner legt eine \textbf{Stärke-Probe} ab.
+		\item Bei Misserfolg: \textbf{1 m Rückstoß}.
+	\end{itemize}
+}
+{
+	Der Schaden gilt als \textbf{Direktschaden}.
+}
+
+\paragraph*{Meditation zur Heilung}
+
+\skillcard
+{\term{Meditation zur Heilung}{meditation-heilung}}
+{Bonusaktion}
+{4 AP}
+{Selbst}
+{—}
+{
+	\begin{itemize}
+		\item Stellt \textbf{3 + Rang LP} wieder her.
+		\item Nur auf den Mönch selbst anwendbar.
+		\item Nur \textbf{einmal alle 3 Runden}.
+	\end{itemize}
+}
+{
+	Kann als \textbf{Aktion} genutzt werden, um zusätzlich
+	bis zu \textbf{2 Verbündete} zu heilen.
+}
+
+\paragraph*{Meditation des Schutzes}
+
+\spellcard
+{\term{Meditation des Schutzes}{meditation-schutz}}
+{Bonusaktion}
+{4 MP}
+{Selbst}
+{Bis Kampfende}
+{
+	\begin{itemize}
+		\item Erzeugt \textbf{Magisches Schild} in Höhe von \textbf{2 × Rang}.
+		\item Nur \textbf{einmal alle 3 Runden}.
+		\item Am Kampfende wird das Schild entfernt.
+	\end{itemize}
+}
+{
+	Nahe Verbündete (1 m) profitieren vom Schild,
+	erhalten jedoch \textbf{kein eigenes SP}.
+}
+
+\paragraph*{Reinigende Hand}
+
+\spellcard
+{\term{Reinigende Hand}{reinigende-hand}}
+{Aktion}
+{4 MP}
+{Berührung}
+{—}
+{
+	\begin{itemize}
+		\item Wähle \textbf{Statuseffekt oder Zusatzeffekt}.
+		\item Verursacht \textbf{2 + Anzahl vorhandener Effekte Direktschaden}.
+		\item Entfernt gleichzeitig bis zu \textbf{Rang Effekte}.
+	\end{itemize}
+}
+{
+	Entfernte Status- und Zusatzeffekte können
+	für den restlichen Kampf \textbf{nicht erneut} angewendet werden.
+}
+
+\paragraph*{Aura der Ruhe}
+
+\spellcard
+{\term{Aura der Ruhe}{aura-der-ruhe}}
+{Bonusaktion}
+{$5 - \text{Rang}$ MP}
+{Radius 3 m}
+{2 Runden}
+{
+	\textbf{Wähle einen Effekt:}
+	\begin{itemize}
+		\item \textbf{Gegner:} --1 auf Angriffs- und Verteidigungsproben
+		(KAMPF-Probe negiert Effekt).
+		\item \textbf{Verbündete:} +1 auf Angriffs- und Verteidigungsproben.
+	\end{itemize}
+}
+{
+	Gegner verlieren \textbf{5 AP/MP}
+	\textbf{oder}
+	Verbündete erhalten \textbf{5 AP/MP}.
+}
+
+\paragraph*{Erleuchteter Schlag}
+
+\spellcard
+{\term{Erleuchteter Schlag}{erleuchteter-schlag}}
+{Aktion}
+{8 MP}
+{Nahkampf}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{2 × Rang + STÄRKE-Wert Schaden}.
+		\item Tötet der Angriff das Ziel:
+		\textbf{Heilung 1W6 LP} für den Mönch.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus:
+	Der Schaden wird als \textbf{Direktschaden} behandelt.
+}
+
+\subsection{Alchemist}
+
+\subsubsection*{Rolle}
+Unterstützer / Taktiker
+
+\subsubsection*{Kurzprofil}
+Der \term{Alchemist}{klasse-alchemist} ist ein taktischer Unterstützer,
+der Tränke, Gifte, Fallen und improvisierte Konstruktionen nutzt,
+um Verbündete zu stärken und Gegner gezielt zu kontrollieren.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Heilung und Buffs über Tränke
+	\item Gifte, Explosionen und Fallen
+	\item Hohe Flexibilität durch Materialien
+	\item Starke Kontrolle ohne direkte Frontlinie
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Indirekt, taktisch, ressourcenbasiert.
+
+% =========================
+% Startausrüstung
+% =========================
+\subsubsection*{Startausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Wert und Eigenschaften} \\
+		\midrule
+		Leichte Rüstung (normal) & 2 Rüstungspunkte (RP) \\
+		Hammer & STÄRKE +1 Schaden \\
+		Rundschild (normal) & 2 Rüstungspunkte (RP) \\
+		Heiltrank & Siehe Tränke \\
+		Gifttrank oder Explosiver Trank & Spielerwahl \\
+		Alchemieausrüstung & \textbf{10 Materialien} \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+Der Alchemist startet jeden Tag mit 10 Materialien, die für die Ausführung seiner Skills
+erforderlich sind.
+
+\begin{rulebox}{Materialien}
+	Materialien sind eine spezielle Ressource für den Alchemisten.
+	Sie werden für Tränke, Fallen und Verbesserungen verbraucht.
+	Details siehe \textbf{Ressourcen-Kapitel}.
+\end{rulebox}
+
+% =========================
+% Klassenfähigkeiten
+% =========================
+\subsubsection*{Klassenfähigkeiten}
+
+\paragraph*{Giftiger Messerwurf}
+
+\skillcard
+{\term{Giftiger Messerwurf}{giftiger-messerwurf}}
+{Bonusaktion}
+{4 AP}
+{Wurfwaffe}
+{—}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{Rang Schaden}.
+		\item Ziel erleidet \textbf{Vergiftung Rang 2} für \textbf{2 Runden}.
+	\end{itemize}
+}
+{
+	Vergiftung steigt auf \textbf{Rang 5} für \textbf{3 Runden}.
+}
+
+\paragraph*{Falle platzieren}
+
+\skillcard
+{\term{Falle platzieren}{falle-platzieren}}
+{Aktion}
+{4 AP + 2 Materialien}
+{Nahbereich}
+{Bis Auslösung}
+{
+	\begin{itemize}
+		\item Platzierung dauert \textbf{2 Runden}.
+		\item Gegner müssen eine \textbf{GEWANDTHEIT-Probe – Rang} bestehen.
+		\item Die Falle bleibt bis Auslösung oder Kampfende aktiv.
+	\end{itemize}
+	
+	\textbf{Mögliche Fallenarten:}
+	\begin{itemize}
+		\item Betäubungsfalle – Betäubung (2 Runden)
+		\item Explosionsfalle – 1W8 Schaden
+		\item Ablenkungsfalle – Verwirrung (2 Runden)
+		\item Lichtfalle – Blendung Rang
+		\item Eisfalle – Unterkühlung Rang
+		\item Feuerfalle – Verbrennung Rang
+	\end{itemize}
+}
+{
+	Es können \textbf{zwei Fallen} zu einer kombiniert werden.
+}
+
+\paragraph*{Alchemistische Verbesserung}
+
+\skillcard
+{\term{Alchemistische Verbesserung}{alchemistische-verbesserung}}
+{Aktion}
+{Siehe Tabelle}
+{Berührung}
+{Siehe Tabelle}
+{
+	\begin{center}
+		\begin{tabular}{cccc}
+			\toprule
+			\textbf{Rang} & \textbf{Verbesserung} & \textbf{Dauer} & \textbf{Kosten} \\
+			\midrule
+			1 & +1 Schaden \textbf{oder} +1 RP & 1 Runde & 5 AP \\
+			2 & +2 Schaden \textbf{oder} +2 RP & 1 Runde & 5 AP \\
+			3 & +2 Schaden \textbf{und} +2 RP & 2 Runden & 5 AP \\
+			4 & +2/+2 + dauerhaft +1 & 2 Runden & 8 AP + 1 Mat. \\
+			5 & +2/+2 + dauerhaft +2 & 2 Runden & 8 AP + 1 Mat. \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+}
+{
+	Dauerhafte Verbesserungen können einmalig auf einen
+	\textbf{Elementarschaden} gepolt werden
+	(Rüstung erhält Resistenz).
+}
+
+\paragraph*{Materialien sammeln}
+
+\skillcard
+{\term{Materialien sammeln}{materialien-sammeln}}
+{Aktion}
+{2 AP}
+{Umgebung}
+{—}
+{
+	\begin{itemize}
+		\item Sammelt \textbf{2 × Rang Materialien}.
+	\end{itemize}
+}
+{
+	Gegenstände können zerlegt und in Materialien umgewandelt werden
+	(Menge nach SL-Entscheid).
+}
+
+\paragraph*{Tränke herstellen}
+
+\skillcard
+{\term{Tränke herstellen}{traenke-herstellen}}
+{Aktion}
+{3 Aktionspunkte (AP) + 1 Material}
+{Berührung}
+{Sofort (Stufe 1) / 2 Runden (Stufe 2)}
+{
+	\begin{itemize}
+		\item Stelle einen Trank her und gib ihn dir selbst oder einem Verbündeten.
+		\item \textbf{Grundkosten:} 3 AP und \textbf{1 Material}.
+		\item \textbf{Stufe 1:} Der Trank ist \textbf{sofort} hergestellt (in dieser Aktion).
+		\item \textbf{Stufe 2:}
+		\begin{itemize}
+			\item kostet \textbf{zusätzliche Ressourcen} (siehe Trankliste),
+			\item benötigt \textbf{eine weitere Runde} (insgesamt 2 Runden Herstellzeit).
+		\end{itemize}
+		\item Welche Tränke verfügbar sind, richtet sich nach dem \textbf{Rang} dieses Alchemisten-Skills
+		(siehe Tranklisten nach Rang).
+	\end{itemize}
+}
+{
+	Tränke bis \textbf{Rang 3} können als \textbf{Bonusaktion} hergestellt werden.
+}
+
+\medspace
+
+\textbf{Verfügbare Tränke nach Rang:}
+
+\begin{center}
+	\begin{tabularx}{\linewidth}{c l X X}
+		\toprule
+		\textbf{Rang} &
+		\textbf{Trank} &
+		\textbf{Stufe 1 } &
+		\textbf{Stufe 2 } \\
+		\midrule
+		1 &
+		Heiltrank &
+		Stellt \textbf{5 LP} wieder her &
+		Stellt \textbf{10 LP} wieder her \\
+		\midrule
+		2 &
+		Manatrank &
+		Stellt \textbf{10 MP} wieder her &
+		Stellt \textbf{15 MP} wieder her \\
+		2 &
+		AP-Trank &
+		Stellt \textbf{10 AP} wieder her &
+		Stellt \textbf{15 AP} wieder her \\
+		\midrule
+		3 &
+		Gifttrank &
+		\textbf{Vergiftung Rang 1} + \textbf{1W4 Schaden} (Werfen) &
+		\textbf{Vergiftung Rang 2} + \textbf{1W6 Schaden} (Werfen) \\
+		3 &
+		Explosiver Trank &
+		\textbf{1W4 Feuerschaden} (2\,m Radius) &
+		\textbf{1W6 Feuerschaden} (2\,m Radius) \\
+		\midrule
+		4 &
+		Kombitrank &
+		Stellt \textbf{je 3 LP, MP und AP} wieder her &
+		Stellt \textbf{je 6 LP, MP und AP} wieder her \\
+		4 &
+		Stärketrank &
+		\textbf{+2 Bonus auf STÄRKE} für 3 Runden &
+		— \\
+		\midrule
+		5 &
+		Rasereielixier &
+		\textbf{+2 Bonus auf Nahkampf} und \textbf{+2 Bonus auf STÄRKE} für 3 Runden &
+		— \\
+		5 &
+		Antimagisches Serum &
+		\textbf{–5 Malus auf alle Zauber} für 10 Minuten &
+		— \\
+		\bottomrule
+	\end{tabularx}
+\end{center}
+
+\paragraph*{(fehlender 6. Zauber)}
+% TODO:  6. Klassenzauber liefern
+
+\section{Klassen (magisch)}
+\subsection{Magische Basisausrüstung}
+
+\term{Magische Klassen}{magierklassen} erhalten \textbf{keine fest zugewiesene Startausrüstung}.
+Stattdessen wählen sie bei der Charaktererschaffung
+\textbf{eine der folgenden magischen Basisausrüstungen}.
+
+Diese Wahl ist unabhängig von der Klasse,
+sofern eine Klasse keine explizite Einschränkung angibt.
+
+% =========================
+% Magischer Gelehrter
+% =========================
+\subsubsection*{\term{Der magische Gelehrte}{ausruestung-magischer-gelehrter}}
+
+\begin{rulebox}{Basisausrüstung – Magischer Gelehrter}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Regelwirkung} \\
+		\midrule
+		Zauberbuch &
+		\textbf{+1 Bonus auf WISSEN-WURFZAHL} \\
+		
+		Kristallfokus &
+		\textbf{1× pro Tag: Magie identifizieren}
+		(\textbf{WISSEN}-Probe) \\
+		
+		Einfacher magischer Dolch &
+		\textbf{WISSEN + 1 Schaden} \\
+		
+		\bottomrule
+	\end{tabular}
+\end{rulebox}
+
+\textbf{Rolle:} Arkaner Wissenshüter\\  
+\textbf{Schwerpunkt:} Analyse, Identifikation, magische Aufklärung\\  
+\textbf{Spielweise:} Defensiv, unterstützend, zweite Reihe\\
+
+% =========================
+% Kampfmagier
+% =========================
+\subsubsection*{\term{Der Kampfmagier}{ausruestung-kampfmagier}}
+
+\begin{rulebox}{Basisausrüstung – Kampfmagier}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Regelwirkung} \\
+		\midrule
+		Magische leichte Kampfrüstung (normal) &
+		\textbf{2 Rüstungspunkte (RP)},
+		\textbf{4 Magisches Schild (SP)} \\
+		
+		Kurzschwert &
+		\textbf{STÄRKE + 2 Schaden} \\
+		
+		2× Manatrank (Stufe 1) &
+		Jeweils \textbf{10 Manapunkte (MP)} \\
+		
+		Notfall-Schriftrolle &
+		\textbf{Explosion:}
+		Radius 2 m, \textbf{2W6 Schaden} \\
+		
+		\bottomrule
+	\end{tabular}
+\end{rulebox}
+
+\textbf{Rolle:} Frontzauberer / Arkaner Krieger\\  
+\textbf{Schwerpunkt:} Direkter Kampf, Schadenszauber, Durchhaltefähigkeit\\  
+\textbf{Spielweise:} Aggressiv, flexibel, vordere Linie
+
+% =========================
+% Magischer Unterstützer
+% =========================
+\subsubsection*{\term{Der magische Unterstützer}{ausruestung-magischer-unterstuetzer}}
+
+\begin{rulebox}{Basisausrüstung – Magischer Unterstützer}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Regelwirkung} \\
+		\midrule
+		Einfacher magischer Dolch &
+		\textbf{WISSEN + 1 Schaden} \\
+		
+		Schwere magische Robe (normal) &
+		\textbf{Nicht-Schadenszauber kosten 1 MP weniger}, \\
+		& \textbf{6 Magisches Schild (SP)} \\
+		
+		Anhänger der Geisterfauna &
+		\textbf{1× pro Tag:}
+		Kommunikation mit einer wilden Kreatur \\
+		
+		\bottomrule
+	\end{tabular}
+\end{rulebox}
+
+\textbf{Rolle:} Spiritueller Verbündeter / Arkaner Unterstützer\\  
+\textbf{Schwerpunkt:} Buffs, Schutz, Kommunikation, Umweltinteraktion\\  
+\textbf{Spielweise:} Zurückhaltend, unterstützend, kontrollierend
+
+\subsection{Elementarmagie}
+
+\subsubsection*{Rolle}
+Magischer Manipulator der Naturgewalten
+
+\subsubsection*{Kurzprofil}
+Der \term{Elementarmagier}{klasse-elementarmagie} ist ein Meister der rohen Urkräfte.
+Er lenkt Feuer, Eis, Erde, Blitz und Wind gleichermaßen, um das Schlachtfeld zu formen,
+Gegner zu kontrollieren oder Verbündete zu unterstützen.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Sehr vielseitige Zauberauswahl
+	\item Starke Flächenkontrolle
+	\item Hoher Schaden und situative Defensive
+	\item Zugriff auf elementare Resistenz
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Flexibel und taktisch – wechselt zwischen mächtiger Offensive
+(z.\,B. Elektrische Entladung) und kontrollierenden oder defensiven Effekten
+(z.\,B. Steinwall erschaffen).
+
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+Empfohlene Startausrüstung:
+\termref[Der Kampfmagier]{ausruestung-kampfmagier}
+
+% =========================
+% Klassenzauber
+% =========================
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Flammenheilung}
+\spellcard
+{\term{Flammenheilung}{flammenheilung}}
+{Aktion}
+{4 MP + 1 MP pro weiterem Ziel}
+{5 m}
+{Sofort}
+{
+	Heilt Ziele durch kontrollierte, reinigende Flammenenergie.
+	
+	\begin{center}
+		\begin{tabular}{p{1cm}p{7cm}p{5cm}}
+			\toprule
+			\textbf{Rang} & \textbf{Heilung} & \textbf{Risiko bei Misserfolg} \\
+			\midrule
+			1 & 1W4 LP (nur Selbst) & — \\
+			2 & 1 + 2W4 LP (bis 2 Ziele) & 1W4 Feuerschaden \\
+			3 & 2 + 3W4 LP (bis 2 Ziele) & 2W4 Feuerschaden \\
+			4 & 3 + 3W4 LP (bis 3 Ziele) & 1W4 + 1W6 Feuerschaden \\
+			5 & 3 + 3W6 LP (bis 3 Ziele) & 1W4 + 2W6 Feuerschaden \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	Zusätzlich erhält der Anwender \textbf{Resistenz gegen Feuerschaden}
+	bis Kampfende oder 10 Minuten.
+}
+{
+	\begin{itemize}
+		\item \textbf{Phoenixfunke:} Alle geheilten Ziele können in diesem Kampf
+		einmalig nicht unter \textbf{1 LP} fallen.
+		\item \textbf{Hitzeheilung:} Unterkühlung und Vergiftung werden entfernt.
+	\end{itemize}
+}
+
+\paragraph*{Froststrahl}
+\spellcard
+{\term{Froststrahl}{froststrahl}}
+{Aktion}
+{4 MP}
+{15 m}
+{Sofort}
+{
+	Verursacht \textbf{Wurfzahl Kälteschaden Rang 2}.
+}
+{
+	Verursacht zusätzlich \textbf{Erosion Rang 3}.
+}
+
+\paragraph*{Steinwall erschaffen}
+\spellcard
+{\term{Steinwall erschaffen}{steinwall}}
+{Aktion}
+{8 MP}
+{20 m}
+{1 Runde pro Rang}
+{
+	\begin{itemize}
+		\item Erschafft einen \textbf{Rang × Rang Meter} großen Steinwall.
+		\item Lebenspunkte des Walls: \textbf{10 + 4 × Rang}.
+		\item Blockiert Bewegung und Sicht.
+	\end{itemize}
+}
+{
+	\begin{itemize}
+		\item Der Steinwall ist \textbf{resistent gegen \termref[Elementarschaden]{elementarschaden}}.
+		\item Die Lebenspunkte des Walls werden auf \textbf{70 LP} erhöht.
+	\end{itemize}
+}
+
+\paragraph*{Elektrische Entladung}
+\spellcard
+{\term{Elektrische Entladung}{elektrische-entladung}}
+{Aktion}
+{8 MP}
+{20 m}
+{Sofort}
+{
+	\begin{itemize}
+		\item Verursacht \textbf{WISSEN-Wert + Wurfzahl} Blitzschaden.
+		\item Ab \textbf{Wurfzahl 8}: Kettenblitz
+		\begin{itemize}
+			\item 1W6 Chance, alle weiteren Ziele im Umkreis von
+			\textbf{Rang Metern} zu treffen.
+			\item Diese erleiden \textbf{50\,\% des Schadens}.
+		\end{itemize}
+	\end{itemize}
+}
+{
+	\textbf{Kettenblitzgarantie:}
+	Jeder Treffer erzeugt automatisch einen Kettenblitz,
+	der allen getroffenen Zielen \textbf{vollen Schaden} zufügt.
+}
+
+\paragraph*{Windstoß}
+\spellcard
+{\term{Windstoß}{windstoss}}
+{Bonusaktion}
+{4 MP}
+{10 m}
+{Sofort}
+{
+	\begin{itemize}
+		\item Erzeugt eine Windböe im Umkreis von \textbf{5 Metern}.
+		\item Ziele werden um \textbf{2 × Rang Meter} zurückgestoßen.
+		\item Ab Rang 3: je \textbf{1W6 Chance} ein Ziel zu entwaffnen. Für jedes Ziel muss einzeln gewürfelt werden.
+	\end{itemize}
+}
+{
+	\textbf{Sogstoß:}
+	Erzeugt einen Sog im Umkreis von \textbf{10 Metern}.
+	Alle Ziele im Radius von \textbf{6 Metern} werden
+	zum Zentrum gezogen und entwaffnet alle Ziele . 
+}
+
+\paragraph*{Blendlicht}
+\spellcard
+{\term{Blendlicht}{blendlicht}}
+{Bonusaktion}
+{2 MP}
+{10 m}
+{1 Runde}
+{
+	\begin{itemize}
+		\item Ziel erhält \termref[Blendung]{blendung} des Rangs.
+	\end{itemize}
+}
+{
+	Ziel erhält zusätzlich \termref[Verwirrung]{verwirrung} und wird entwaffnet.
+}
+
+\subsection{Tiermagie}
+
+\subsubsection*{Rolle}
+Verbündeter der Natur und ihrer Kreaturen
+
+\subsubsection*{Kurzprofil}
+Die \term{Tiermagie}{klasse-tiermagie} verbindet den Zaubernden direkt mit der wilden Welt:
+Tiere rufen, Befehle geben, Tiergestalten annehmen und Pflanzen beschleunigt wachsen lassen.
+Im Kampf ist sie unterstützend oder kontrollierend, in der Wildnis extrem stark.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Unterstützung durch Tiere (Aufklärung, Kontrolle, Druck)
+	\item Körperliche Verstärkung durch Verwandlung
+	\item Starke Wildnis-/Erkundungsoptionen
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Unterstützend oder wild -- zwischen Rudeltaktik, Kontrolle und Tiergestalt.
+
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+Empfohlen: \termref[Der magische Unterstützer]{ausruestung-magischer-unterstuetzer}.  
+(Alternativ je nach Spielstil: \termref[Der magische Gelehrte]{ausruestung-magischer-gelehrter}.)
+
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Tierbefehl}
+\spellcard
+{\term{Tierbefehl}{tierbefehl}}
+{Aktion}
+{4 MP}
+{5 Kilometer}
+{Bis erfüllt, max. Wurfzahl Stunden}
+{
+	\begin{itemize}
+		\item Es erscheint ein Tier der gewünschten Spezies (nur wenn Tiere dieser Spezies in der Nähe existieren).
+		\item Das Tier führt \textbf{einen Befehl} aus (\textbf{kein Angriff}).
+		\item Die \textbf{Wurfzahl} bestimmt die Effektivität; Schwellen für außergewöhnliche Aufgaben legt die SL fest.
+		\item Kurze Befehle können auch als \textbf{Bonusaktion} erteilt werden.
+	\end{itemize}
+}
+{
+	\textbf{Lautlose Befehle:} Du kannst nun bis zu \textbf{2 Befehle gleichzeitig} \textbf{lautlos} erteilen.
+}
+
+\paragraph*{Tiersprache}
+\spellcard
+{\term{Tiersprache}{tiersprache}}
+{Bonusaktion}
+{2 MP}
+{1/5/25/100/1000 Meter}
+{Bis das Tier das Interesse verliert}
+{
+	\begin{itemize}
+		\item Du kannst mit einem Tier sprechen.
+		\item Je höher die \textbf{Wurfzahl}, desto hilfreicher/konkreter sind die Informationen.
+		\item Besonderheit Reichweite: Abhängig vom Rang kann ein entferntes Tier \textbf{telepathisch gerufen} werden (siehe Reichweite).
+		\item Je höher der \textbf{Rang}, desto länger bleibt das Tier am Gespräch interessiert.
+	\end{itemize}
+}
+{
+	\textbf{Empathischer Blick:} Du erkennst bei einem Tier in \textbf{5 m} sofort Emotion und Grundzustand
+	(\textit{verletzt/hungrig/ängstlich}).
+}
+
+\paragraph*{Tierverwandlung}
+\spellcard
+{\term{Tierverwandlung}{tierverwandlung}}
+{Aktion}
+{16 - Rang MP}
+{Selbst}
+{Bis beendet, spätestens nächster Tag}
+{
+	\begin{itemize}
+		\item Du verwandelst dich in ein Tier und übernimmst dessen Fähigkeiten.
+		\item In Tiergestalt kannst du \textbf{nicht zaubern}.
+		\item Du erhältst \textbf{separate LP}; beim Ende der Verwandlung werden deine LP wieder auf deine normalen LP zurückgesetzt.
+		\item Kleidung/Ausrüstung verwandeln sich mit.
+		\item Für Beispiele von Tiere nach Rang siehe Tabelle unten.
+	\end{itemize}
+	
+}
+{
+	\textbf{Hybridform:} Du kannst dich in eine Hybridgestalt aus \textbf{zwei Tieren} verwandeln.
+	Als Werte können die \textbf{Maximalwerte} der jeweiligen Würfel genommen werden (oder normal gewürfelt).
+}
+
+\textbf{Tierformen nach Rang:}
+
+\medskip
+
+\textbf{Rang 1 und 2}
+\creatureblock
+{Ameise}
+{1 LP / 0 RP / 0 SP}
+{STÄRKE 1W4, KAMPF 1W4, GEWANDTHEIT 1W12}
+{Biss: Schaden = STÄRKE-Wert / 2}
+{Winzig: Kann durch kleinste Öffnungen gelangen}
+
+\creatureblock
+{Maus}
+{3 LP / 0 RP / 0 SP}
+{STÄRKE 1W4, KAMPF 1W4, GEWANDTHEIT 1W10}
+{Biss: Schaden = STÄRKE-Wert / 2}
+{Unauffällig: Vorteil auf Heimlichkeitsproben}
+
+\textbf{Rang 3 und 4}
+\creatureblock
+{Vogel}
+{5 LP / 0 RP / 0 SP}
+{STÄRKE 1W6, KAMPF 1W6, GEWANDTHEIT 1W8}
+{Schnabel: Schaden = STÄRKE-Wert}
+{Flugfähig}
+
+\creatureblock
+{Hund}
+{15 LP / 0 RP / 0 SP}
+{STÄRKE 1W8, KAMPF 1W8, GEWANDTHEIT 1W6}
+{Biss: Schaden = STÄRKE-Wert}
+{Spürnase: Vorteil auf Wahrnehmung (Geruch)}
+
+\textbf{Rang 5}
+\creatureblock
+{Bär}
+{40 LP / 5 RP / 0 SP}
+{STÄRKE 1W10, KAMPF 1W8, GEWANDTHEIT 1W4}
+{Pranke: Schaden = 2× STÄRKE-Wert}
+{Massiv: Immun gegen Niederschlag}
+
+
+\paragraph*{Pflanzenwachstum}
+\spellcard
+{\term{Pflanzenwachstum}{pflanzenwachstum}}
+{Aktion}
+{4 MP}
+{10 Meter}
+{1 Minute pro Rang}
+{
+	\begin{itemize}
+		\item Pflanzen wachsen innerhalb weniger Sekunden extrem schnell.
+		\item Erzeugt \textbf{dichte Sträucher/Bäume/Ranken} als Hindernis oder Deckung.
+		\item Größe: Höhe und Breite = \textbf{Rang Meter}.
+	\end{itemize}
+}
+{
+	\textbf{Giftwuchs:} Die Pflanzen sind giftig und verursachen \termref[Vergiftung]{vergiftung} Rang 5 für \textbf{3 Runden}.
+}
+
+\paragraph*{Schwarm beschwören}
+\spellcard
+{\term{Schwarm beschwören}{schwarm-beschwoeren}}
+{Aktion}
+{8 MP}
+{20 Meter}
+{1 Runde}
+{
+	\begin{itemize}
+		\item Du beschwörst einen Schwarm aus Insekten oder kleinen Tieren.
+		\item Der Schwarm attackiert ein Ziel und verursacht \textbf{Rang + Wurfzahl Schaden}.
+	\end{itemize}
+}
+{
+	Das Ziel erhält zusätzlich \termref[Blendung]{blendung}, \termref[Verwirrung]{verwirrung} und \termref[Erschöpfung]{erschoepfung}.
+}
+
+\paragraph*{Ruf des Tiers}
+\spellcard
+{\term{Ruf des Tiers}{ruf-des-tiers}}
+{Aktion}
+{8 MP}
+{3 Meilen}
+{2 + Rang Runden}
+{
+	\begin{itemize}
+		\item Ein wildes Tier erscheint und unterstützt dich im Kampf.
+		\item Die \textbf{Wurfzahl} beeinflusst, ob ein stärkeres oder schwächeres Tier erscheint (SL-Entscheid).
+		\item Je höher der \textbf{Rang}, desto loyaler ist das Tier; schwächere Tiere fliehen bei hohem Schaden.
+	\end{itemize}
+}
+{
+	Zusätzlich Zugriff auf legendäre Tiere unabhängig vom Aufenthaltsort (siehe Tabelle unten)
+}
+
+\textbf{Legendäre Tiere (Rang 6):}
+
+\medskip
+
+\creatureblock
+{Schattenwolf – Jäger aus der Finsternis}
+{18 LP / 2 RP / 0 SP}
+{KAMPF 5, GEWANDTHEIT 4, WAHRNEHMUNG 4}
+{%
+	Biss: 1W8 Schaden \newline
+	Jagdheulen (3, Aktion): Ziel markieren → +1 Angriff für Verbündete \newline
+	Giftbiss (4, Aktion, 1×/Ziel/Kampf): 1W6 Giftschaden, Vergiftung Rang 3 (3 Runden)
+}
+{Schattenhaut: Nach Treffer 1 m Bewegung ohne Gelegenheitsangriffe}
+
+\medskip
+
+\creatureblock
+{Himmelsfalke – Auge von oben}
+{12 LP / 1 RP / 0 SP}
+{KAMPF 4, GEWANDTHEIT 5, WAHRNEHMUNG 5}
+{%
+	Klauenstoß: 1W6 Schaden \newline
+	Markieren (2, Bonus): Nächster Fernangriff ignoriert SP \newline
+	Sturzflug (4, Aktion): Blendung Rang 3 oder Verlust Bonusaktion
+}
+{Hochauge: 1 klarer Hinweis pro Szene durch Luftaufklärung}
+
+\medskip
+
+\creatureblock
+{Schwarzbär – Lebende Bastion}
+{30 LP / 5 RP / 0 SP}
+{KAMPF 5, STÄRKE 5, WAHRNEHMUNG 3}
+{%
+	Pranke: 1W10 Durchschlag \newline
+	Prankenstoß (4, Aktion): +1W4 Durchschlag + Niederschlag oder 1 m Schieben \newline
+	Wächterfell (3, Bonus): Fängt Treffer für Verbündeten in 1 m ab
+}
+{Panzerfell: Kein Durchschlagsschaden möglich}
+
+\subsection{Zauberschmied}
+
+\subsubsection*{Rolle}
+Runenmeister und Magiehandwerker
+
+\subsubsection*{Kurzprofil}
+Der \term{Zauberschmied}{klasse-zauberschmied} verbindet arkane Macht mit handwerklicher Meisterschaft.
+Er erschafft, verzaubert und verändert Waffen, Rüstungen und magische Gegenstände.
+Seine Macht liegt weniger in der flüchtigen Geste, sondern im geschmiedeten Werk.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Anpassbare Ausrüstung und Verzauberungen
+	\item Starke Vorbereitungsmöglichkeiten
+	\item Unterstützung für Verbündete durch Gegenstands-Magie
+	\item Kann auch im Nahkampf bestehen (über Ausrüstung)
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Reaktiv und unterstützend – optimiert Waffen und Rüstung für die jeweilige Situation.
+
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+Empfohlen: \termref[Der magische Unterstützer]{ausruestung-magischer-unterstuetzer}.  
+(Alternativ je nach Spielstil: \termref[Der magische Gelehrte]{ausruestung-magischer-gelehrter}.)
+
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Magische Reparatur}
+\spellcard
+{\term{Magische Reparatur}{zauber-magische-reparatur}}
+{Aktion}
+{5 MP}
+{5 Meter}
+{—}
+{
+	\begin{itemize}
+		\item Repariert ein beschädigtes oder zerstörtes \textbf{nichtmagisches} Objekt.
+		\item Kann auch \textbf{ \termref[Rüstung]{ruestung} (RP)} wiederherstellen.
+		\item Je größer der Schaden, desto höher die erforderliche Schwelle für die \textbf{Wurfzahl} (SL-Entscheid).
+		\item \textbf{Magische Gegenstände} können erst ab \textbf{Rang 3} repariert werden.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Zauberdauer:} 5 Minuten
+}
+{
+	\begin{itemize}
+		\item Gegenstände werden \textbf{sofort vollständig} wiederhergestellt.
+		\item Gib \textbf{1 Marke} aus, um die \textbf{Qualität einer Rüstung (RP)} für den nächsten Kampf zu erhöhen.
+		\item Dauerhafte Erhöhung kostet \textbf{doppelte Manapunkte (MP)}.
+	\end{itemize}
+}
+
+\paragraph*{Verzauberung}
+\spellcard
+{\term{Verzauberung}{zauber-verzauberung}}
+{Aktion}
+{8 MP}
+{Selbst (Objekt berühren)}
+{Langfristig}
+{
+	\begin{itemize}
+		\item Verzaubert einen Gegenstand, um \termref[Schadenstypen]{schadenstypen} oder \termref[Statuseffekte]{statuseffekte} zu erzeugen.
+		\item Ab \textbf{Rang 4} sind komplexere Verzauberungen möglich, z.\,B.:
+		\begin{itemize}
+			\item Kombination mehrerer Schadenstypen (z.\,B. Feuer + Blitz).
+			\item Verzauberungen mit \textbf{auslösenden Bedingungen}
+			(z.\,B. Effekt triggert nur bei Treffer, Parade oder kritischem Erfolg).
+			\item Verzauberungen mit \textbf{begrenzten Ladungen} oder Abklingzeiten.
+			\item Defensive Effekte mit Rückwirkung (z.\,B. Schaden bei Treffer auf den Angreifer).
+		\end{itemize}
+		\item Bestehende Verzauberungen können \textbf{nicht} überschrieben werden.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Zauberdauer:} 1--10 Stunden (je nach Rang und Komplexität)
+}
+{
+	\begin{itemize}
+		\item Einfache Änderungen (Schadenstyp oder Zusatzeffekt) können als \textbf{Bonusaktion} und ohne Zauberdauer ausgeführt werden.
+		\item Bestehende Verzauberungen können nun \textbf{überschrieben} werden.
+	\end{itemize}
+}
+
+\paragraph*{Zauberspeicher}
+\spellcard
+{\term{Zauberspeicher}{zauber-zauberspeicher}}
+{Aktion (Speichern), Bonusaktion (Aktivieren)}
+{6 MP beim Speichern; Aktivieren kostenlos}
+{Selbst (Objekt berühren)}
+{Bis Auslösung}
+{
+	\begin{itemize}
+		\item Lädt einen Gegenstand mit einem Zauber, der später ausgelöst werden kann.
+		\item Der Rang des gespeicherten Zaubers ist \textbf{immer 1 niedriger} als der Originalzauber.
+		\item Es können nur Zauber gespeichert werden, die \textbf{gleich oder niedriger} sind als der Rang von Zauberspeicher.
+		\item Wird der Gegenstand zerstört, werden gespeicherte Zauber \textbf{automatisch ausgelöst}.
+		\item Schaden, der durch \textbf{Wurfzahl} definiert wird, wird nicht gewürfelt:
+		es gilt der \textbf{Durchschnittswert} (z.\,B. bei Rang 4/1W10 ist es automatisch 5).
+	\end{itemize}
+}
+{
+	\begin{itemize}
+		\item Zauber können nun im \textbf{Originalrang} gespeichert werden.
+		\item \textbf{Verdopplung:} Gespeicherte Zauber von Rang 4 oder niedriger können
+		\textbf{zweimal aktiviert} werden oder bei einer Aktivierung \textbf{verdoppelt} werden.
+	\end{itemize}
+}
+
+\paragraph*{Energieschild}
+\spellcard
+{\term{Energieschild}{zauber-energieschild}}
+{Aktion}
+{2 MP pro Rang}
+{10 Meter}
+{Bis Kampfende oder 1 Minute pro Rang}
+{
+	\begin{itemize}
+		\item Erzeugt ein \termref[Magisches Schild (SP)]{magischer-schild} auf dem Ziel.
+		\item höhere Ränge können bestimmte Schadenstypen vollständig blockieren (keinen Schaden)
+		\item Effekte skalieren nach Rang:
+	\end{itemize}
+	
+	\begin{center}
+		\begin{tabular}{lp{10cm}}
+			\toprule
+			\textbf{Rang} & \textbf{Effekt} \\
+			\midrule
+			1 & 2 Magisches Schild (SP) \\
+			2 & 3 Magisches Schild (SP), blockiert zusätzlich \termref[Feuerschaden]{feuerschaden} \\
+			3 & 4 Magisches Schild (SP), blockiert zusätzlich  \termref[Elementarschaden]{elementarschaden} \\
+			4 & 6 Magisches Schild (SP), blockiert zusätzlich \termref[Elementarschaden]{elementarschaden};
+			\newline einmalige 1W4-Chance, dass der Schild nur auf \textbf{1 LP} fällt \\
+			5 & 8 Magisches Schild (SP), blockiert zusätzlich \termref[Elementarschaden]{elementarschaden};
+			\newline kann einmalig durch einen einzelnen Angriff nur auf \textbf{1 LP} fallen \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+}
+{
+	\textbf{Spiegelschild:} Gib \textbf{2 Marken} aus, um jeglichen eingehenden Schaden auf das Energieschild
+	in dieser Runde auf den Ursprung zurückzuleiten.
+}
+
+\paragraph*{Arkaner Spürsinn}
+\spellcard
+{\term{Arkaner Spürsinn}{zauber-arkaner-spuersinn}}
+{Bonusaktion}
+{$6 - \text{Rang}$ Manapunkte (MP)}
+{30 Meter}
+{1 Minute}
+{
+	\begin{itemize}
+		\item Erkennt magische Signaturen im Umkreis: \textbf{Gegenstände}, \textbf{Fallen} und \textbf{aktive Zauber}.
+		\item Kann \textbf{spezifische Energien} und die \textbf{Stärke} der Magie unterscheiden.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um eine automatische Erkennung aller Magie im Umkreis von \textbf{10 Metern} zu erhalten.
+}
+
+\paragraph*{(fehlender 6. Zauber)}
+% TODO:  6. Klassenzauber liefern
+
+\subsection{Golemmagie}
+
+\subsubsection*{Rolle}
+Beschwörer konstruktiver Wächter
+
+\subsubsection*{Kurzprofil}
+Der \term{Golemmagier}{klasse-golemmagie} erschafft und kontrolliert künstliche Wesen aus Stein, Erde oder anderen Materialien.
+Seine Macht liegt weniger in direkter Zerstörung, sondern im \textbf{strategischen Einsatz} langlebiger Konstrukte.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Hohe Kontrolle über Diener
+	\item Starke defensive Möglichkeiten
+	\item Gute Unterstützung durch Konstrukte
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Strategisch und indirekt – agiert über Golems, positioniert sie taktisch, bleibt selbst meist im Hintergrund.
+
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+Empfohlen: \termref[Der magische Unterstützer]{ausruestung-magischer-unterstuetzer}.  
+(Alternativ je nach Spielstil: \termref[Der Kampfmagier]{ausruestung-kampfmagier}.)
+
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Golem rufen}
+
+\spellcard
+{\term{Golem rufen}{golem-rufen}}
+{Aktion}
+{6 MP (+3 MP klein / +6 MP normal je 30 Minuten)}
+{10 m}
+{30 Minuten pro Rang}
+{
+	\begin{itemize}
+		\item Beschwört einen Golem, der einfache Befehle ausführt.
+		\item Ab \textbf{Rang 2} kann ein normalgroßer Golem erschaffen werden.
+		\item Verlängerung kostet erneut die angegebenen Manapunkte.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Kleiner Golem:}
+	\creatureblock
+	{Kleiner Golem}
+	{5 LP / 0 RP / 0 SP}
+	{STÄRKE 2, KAMPF 2, GEWANDTHEIT 4}
+	{Schlag: 1W4 Schaden}
+	{--}
+	
+	\medskip
+	\textbf{Normaler Golem:}
+	\creatureblock
+	{Normaler Golem}
+	{15 LP / 0 RP / 0 SP}
+	{STÄRKE 3, KAMPF 3, GEWANDTHEIT 3}
+	{Schlag: 1W6 Schaden}
+	{--}
+}
+{
+	\textbf{Multiplikator:}
+	Alle 30 Minuten erzeugt der Golem kostenlos eine exakte Kopie seines aktuellen Zustands
+	(Verlängerungskosten bleiben bestehen).
+}
+
+
+\paragraph*{Golemstärke}
+
+\spellcard
+{\term{Golemstärke}{golemstaerke}}
+{Bonusaktion}
+{5 MP}
+{10 m}
+{1 Runde pro Rang}
+{
+	\begin{itemize}
+		\item Der Golem verursacht \textbf{+Wurfzahl Schaden} mit allen Angriffen.
+	\end{itemize}
+}
+{
+	Der gesamte Schaden des Golems wird zu \textbf{Durchschlagsschaden}.
+}
+
+
+\paragraph*{Golemreparatur}
+
+\spellcard
+{\term{Golemreparatur}{golemreparatur}}
+{Bonusaktion}
+{4 MP}
+{5 m}
+{Sofort}
+{
+	\begin{itemize}
+		\item Heilt \textbf{Wurfzahl / 2} LP (aufgerundet).
+		\item Kann keinen vollständig zerstörten Golem reparieren.
+		\item RP und SP werden nicht wiederhergestellt.
+	\end{itemize}
+}
+{
+	\textbf{Notfallbelebung:}
+	Gib \textbf{2 Marken} aus, um einen zerstörten Golem vollständig wiederherzustellen
+	(LP, RP und SP).
+}
+
+
+\paragraph*{Wachgolem}
+
+\spellcard
+{\term{Wachgolem}{wachgolem}}
+{Aktion}
+{8 MP}
+{10 m}
+{2 Runden pro Rang}
+{
+	\begin{itemize}
+		\item Der Wachgolem schützt ein Ziel oder Gebiet (Abwehrmodus).
+		\item Verliert jede Runde LP durch \termref[Erosion]{erosion} Rang 1.
+	\end{itemize}
+	
+	\medskip
+	\creatureblock
+	{Wachgolem}
+	{30 LP / Rang RP / Rang SP}
+	{STÄRKE 3, KAMPF 4, GEWANDTHEIT 2}
+	{Schlag: 1W6 Schaden}
+	{Abwehrmodus}
+}
+{
+	\textbf{Abfangmodus:}
+	Alle Fernkampfangriffe und Distanzzauber werden automatisch auf den Wachgolem umgeleitet
+	und verursachen nur \textbf{50 \% Schaden}.
+}
+
+
+\paragraph*{Körpertransfer}
+
+\spellcard
+{\term{Körpertransfer}{koerpertransfer}}
+{Aktion}
+{10 MP}
+{Selbst}
+{1 Stunde pro Rang}
+{
+	\begin{itemize}
+		\item Der Zauberer übernimmt vollständig den Körper eines Golems.
+		\item Eigene Talente werden durch die des Wirtskörpers ersetzt.
+		\item Währenddessen können \textbf{keine Zauber} gewirkt werden.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um sofort die Position mit dem Ziel zu tauschen.
+}
+
+
+\paragraph*{Erdgolem erschaffen}
+
+\spellcard
+{\term{Erdgolem erschaffen}{erdgolem}}
+{Aktion}
+{12 MP}
+{5 m}
+{2 Runden pro Rang}
+{
+	\begin{itemize}
+		\item Beschwört einen besonders widerstandsfähigen Erdgolem.
+		\item Immun gegen \termref[Durchschlagsschaden]{durchschlagsschaden} (Panzerkörper).
+		\item Verliert jede Runde LP durch \termref[Erosion]{erosion} Rang 2.
+	\end{itemize}
+	
+	\medskip
+	\creatureblock
+	{Erdgolem}
+	{25 LP / Rang RP / Rang SP}
+	{STÄRKE 5, KAMPF 5, GEWANDTHEIT 3}
+	{Pranke: 1W10 Durchschlagsschaden}
+	{Panzerkörper}
+}
+{
+	\textbf{Finale:}
+	Gib \textbf{2 Marken} aus, um den Kern zu überladen.
+	Der Golem explodiert und verursacht Schaden in Höhe seiner maximalen
+	\textbf{LP + RP} an allen Zielen im Umkreis von \textbf{15 m}.
+}
+
+\subsection{Dunkle Magie}
+
+\subsubsection*{Rolle}
+Verbotener Seelenformer / Meister der Schattenkräfte
+
+\subsubsection*{Kurzprofil}
+Die \term{Dunkle Magie}{klasse-dunkle-magie} schöpft Macht aus Tod, Schmerz und Schatten.
+Ihre Zauber sind effizient, aber gefährlich: Viele Effekte haben direkte Nebenwirkungen
+(z.\,B. LP-Verlust, Schadensanfälligkeit, Kontrollrisiko).
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Sehr hohe Schadenspotenziale und Kontrollzauber
+	\item Zugriff auf Untote und Leichenverwertung
+	\item Mächtige Trade-offs (Risiko gegen Wirkung)
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Berechnend, manipulierend – agiert über Flüche, Kontrolle und Leichenverwertung.
+
+% =========================
+% Magische Basisausrüstung (Empfehlung)
+% =========================
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+\termref[Der Kampfmagier]{ausruestung-kampfmagier} (Alternativ je nach Spielstil: \termref[Der magische Gelehrte]{ausruestung-magischer-gelehrter}.)
+
+% =========================
+% Zusätzliche Ausrüstung (klassen-spezifisch)
+% =========================
+\subsubsection*{Zusätzliche Ausrüstung}
+
+\begin{center}
+	\begin{tabular}{lp{10cm}}
+		\toprule
+		\textbf{Gegenstand} & \textbf{Eigenschaften} \\
+		\midrule
+		\term{Ritualdolch}{item-ritualdolch} &
+		\textbf{WISSEN +1 Schaden}; kann aus Leichen \textbf{1W4 LP / MP / AP} extrahieren. \\
+		\term{Roben der Schatten}{item-roben-der-schatten} &
+		\textbf{+2 Bonus auf HEIMLICHKEIT-WURFZAHL}. \\
+		\term{Anhänger der Seelen}{item-anhaenger-der-seelen} &
+		Tausche \textbf{1 LP} gegen \textbf{2 MP oder 2 AP}. \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+% =========================
+% Klassenzauber
+% =========================
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Tote beschwören}
+
+\spellcard
+{\term{Tote beschwören}{tote-beschwoeren}}
+{Aktion}
+{8 MP}
+{10 m}
+{Bis Tod des Untoten oder Aufhebung (nur bei Kontrolle möglich)}
+{
+	\begin{itemize}
+		\item Beschwört Untote und kontrolliert sie.
+		\item \textbf{Kontrollprobe (nur bei Trigger):}
+		Sobald du \textbf{Schaden} erleidest oder einen \termref[Statuseffekt]{statuseffekte} erhältst,
+		musst du eine neue Probe ablegen (keine erneuten MP-Kosten):
+		$$
+		Wurfzahl + \lfloor Rang/2 \rfloor \Rightarrow \text{Kontrolle bleibt bestehen}
+		$$
+		\item \textbf{Kontrollverlust:} Untote greifen willkürlich an (50\% nächstes Ziel,
+		ansonsten Verbündete oder den Magier selbst).
+		\item Ab \textbf{Rang 2} auch außerhalb des Kampfes nutzbar (Aufgaben/Fragen).
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Solange der Zauber aktiv ist, sinken deine \textbf{max. LP temporär um Rang}.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Untote (skalieren mit Rang):}
+	\begin{center}
+		\begin{tabular}{ccccc}
+			\toprule
+			\textbf{Rang} & \textbf{Anzahl} & \textbf{LP} & \textbf{Schaden} & \textbf{Talente} \\
+			\midrule
+			1 & 1 & 10 & 1W4+2 & KAMPF 3, STÄRKE 1, GEWANDTHEIT 2 \\
+			2 & 2 & 13 & 1W4+Rang & KAMPF 3, STÄRKE 2, GEWANDTHEIT 2 \\
+			3 & 2 & 16 & 1W4+Rang & KAMPF 3, STÄRKE 3, GEWANDTHEIT 3 \\
+			4 & 3 & 19 & 2W4+Rang & KAMPF 3, STÄRKE 4, GEWANDTHEIT 3 \\
+			5 & 3 & 22 & 2W4+Rang & KAMPF 3, STÄRKE 5, GEWANDTHEIT 3 \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\textbf{Immunitäten:}
+	Untote sind immun gegen \termref[Erosion]{erosion}, \termref[Blutung]{blutung} und \termref[Vergiftung]{vergiftung}.
+}
+{
+	In einem speziellen Gegenstand können besiegte Gegner gespeichert werden:
+	\begin{itemize}
+		\item \textbf{2} normale Gegner, oder
+		\item \textbf{1} normaler Gegner + \textbf{1} Miniboss (SL-Zustimmung), oder
+		\item \textbf{1} Boss (SL-Zustimmung).
+	\end{itemize}
+	Es können nur ehemals lebendige Gegner gespeichert werden.
+}
+
+\paragraph*{Dunkler Fluch}
+
+\spellcard
+{\term{Dunkler Fluch}{dunkler-fluch}}
+{Bonusaktion}
+{8 MP}
+{15 m}
+{1 Stunde pro Rang oder bis aufgelöst}
+{
+	\begin{itemize}
+		\item Ziel erleidet \textbf{+50\% Schaden}.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Du erleidest selbst \textbf{+30\% Schaden}.
+	\end{itemize}
+}
+{
+	Ziel erhält zusätzlich \termref[Erosion]{erosion} Rang 2.
+}
+
+\paragraph*{Verfluchte Klinge}
+
+\spellcard
+{\term{Verfluchte Klinge}{verfluchte-klinge}}
+{Aktion}
+{8 MP}
+{Selbst (eigene Waffe)}
+{1 Runde pro Rang}
+{
+	\begin{itemize}
+		\item Zielwaffe verursacht zusätzlich \textbf{+1W8 Schaden}.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Bei Misslingen des Zaubers erleidet der Magier \textbf{1W8 Schaden}.
+	\end{itemize}
+}
+{
+	\textbf{Blutzehrung:}
+	Solange der Zauber aktiv ist: Gib \textbf{1 Marke} aus, um mit jedem Treffer der Waffe \textbf{1W8 LP} zu erhalten (Überheilung möglich).
+}
+
+\paragraph*{Schattenklinge}
+
+\spellcard
+{\term{Schattenklinge}{schattenklinge}}
+{Aktion}
+{6 MP}
+{Selbst}
+{2 Runden}
+{
+	\begin{itemize}
+		\item Beim Wirken greifst du sofort an.
+		\item Die Klinge bleibt bis zum Ende deiner nächsten Runde bestehen.
+		\item In Runde 2 kann der Magier seine \textbf{Aktion} für einen weiteren Angriff verwenden
+		(\textbf{ohne} zusätzliche MP-Kosten).
+	\end{itemize}
+	
+	\medskip
+	\textbf{Schaden nach Rang:}
+	\begin{center}
+		\begin{tabular}{cc}
+			\toprule
+			\textbf{Rang} & \textbf{Schaden} \\
+			\midrule
+			1 & 1W10 \\
+			2 & 1W10 + 2 \\
+			3 & 1W10 + 4 \\
+			4 & 1W10 + 6 \\
+			5 & 1W10 + 8 \\
+			6 & 1W10 + 10 \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\textbf{Nebenwirkungen:}
+	\begin{itemize}
+		\item Der Magier verliert bis zum Ende des Kampfes \textbf{Rang seiner Max. MP}.
+		\item Bei Fehlschlag: Alle Verbündeten in \textbf{5 m} erleiden \textbf{2 + Rang Schaden},
+		wenn ihre \textbf{STÄRKE-Probe} misslingt.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus, um den Schaden zu \textbf{Direktschaden} zu machen.
+}
+
+\paragraph*{Schattenhaft}
+
+\spellcard
+{\term{Schattenhaft}{schattenhaft}}
+{Bonusaktion}
+{$3 + \text{Rang}$ MP}
+{Selbst + (Rang--1) Verbündete in 5 m}
+{1 Minute pro Rang}
+{
+	\begin{itemize}
+		\item Du und bis zu \textbf{Rang--1} Verbündete werden zu Schattenwesen:
+		\textbf{unsichtbar} und \textbf{beweglich}.
+		\item Zum Zurückkehren wird eine \textbf{weitere Bonusaktion} benötigt.
+		\item \textbf{Keine Angriffe} aus dem Schatten heraus möglich.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Nicht-magiebegabte Mitreisende erleiden bei Rückkehr \textbf{1 + Rang Schaden}.
+	\end{itemize}
+}
+{
+	Bonusaktionen können als Angriff aus den Schatten heraus genutzt werden.
+}
+
+
+\spellcard
+{\term{Seelenentzug}{seelenentzug}}
+{Aktion}
+{$4 + \text{Rang}$ MP}
+{10 m}
+{1 Runde pro Rang}
+{
+	\begin{itemize}
+		\item Ziel erleidet pro Runde \textbf{Rang Schaden}.
+		\item Du erhältst pro Runde \textbf{Rang LP} und \textbf{Rang MP} zurück.
+		\item LP/MP dürfen \textbf{über das Maximum hinaus} wachsen.
+	\end{itemize}
+}
+{
+	Überschüssige LP können in \textbf{dauerhaftes} \termref[Magisches Schild (SP)]{magisches-schild} umgewandelt werden.
+}
+
+\subsection{Zeitmagie}
+
+\subsubsection*{Rolle}
+Chronomant / Manipulator des Zeitflusses
+
+\subsubsection*{Kurzprofil}
+Die \term{Zeitmagie}{klasse-zeitmagie} manipuliert den Ablauf der Realität selbst.
+Zeitmagier verändern Aktionen, Runden, Initiativen und Zustände, statt rohen Schaden
+zu verursachen. Ihre Magie ist mächtig, selten – und extrem riskant.
+
+\subsubsection*{Stärken}
+\begin{itemize}
+	\item Kontrolle über Aktionen und Rundenverlauf
+	\item Starke defensive und unterstützende Zauber
+	\item Zugriff auf einzigartige Effekte (Rückspulen, Stasis)
+\end{itemize}
+
+\subsubsection*{Kampfstil}
+Taktisch und vorausschauend – beeinflusst Initiativen, Aktionen,
+Regeneration und gegnerische Bewegungen.
+
+\subsubsection*{Magische Basisausrüstung (Empfehlung)}
+\termref[Der Magischer Unterstützer]{ausruestung-magischer-unterstuetzer}
+
+% =========================
+% Klassenzauber
+% =========================
+\subsubsection*{Klassenzauber}
+
+\paragraph*{Temporale Klinge}
+
+\spellcard
+{\term{Temporale Klinge}{temporale-klinge}}
+{Aktion}
+{6 MP}
+{Nahkampf}
+{2 Runden}
+{
+	\begin{itemize}
+		\item \textbf{Sofort:} Verursacht \textbf{Rang + 2W4 Schaden}.
+		\item \textbf{Nach 2 Runden:} Verursacht zusätzlich \textbf{Rang Schaden}
+		durch Zeitenergie-Explosion.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item \textbf{Desorientierung:} \textbf{–1 Malus} auf die nächste Probe des Magiers
+	\end{itemize}
+}
+{
+	\textbf{Zeitschnitt:}
+	Gib \textbf{1 Marke} aus:
+	\begin{itemize}
+		\item Schaden wird zu \termref[Durchschlagsschaden]{durchschlagsschaden}.
+		\item Ziel verliert seine \textbf{nächste Bonusaktion}.
+	\end{itemize}
+}
+
+\paragraph*{Zeitschub}
+
+\spellcard
+{\term{Zeitschub}{zeitschub}}
+{Bonusaktion}
+{$8 - \text{Rang}$ MP}
+{10 m}
+{Diese oder nächste Runde}
+{
+	\begin{itemize}
+		\item Ziel erhält \textbf{1 zusätzliche Aktion}
+		(in dieser oder der nächsten Runde).
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Ziel erhält \termref[Erschöpfung]{erschoepfung}.
+	\end{itemize}
+}
+{
+	Gib \textbf{1 Marke} aus:
+	\begin{itemize}
+		\item Ziel erhält \textbf{sofort 2 zusätzliche Bonusaktionen}.
+	\end{itemize}
+}
+
+\paragraph*{Altersbrand}
+
+\spellcard
+{\term{Altersbrand}{altersbrand}}
+{Aktion}
+{10 MP}
+{15 m}
+{Sofort}
+{
+	\begin{itemize}
+		\item \textbf{Objekte/Rüstungen:} Verlieren \textbf{80\%} ihrer Werte.
+		\item \textbf{Magisches Schild (SP):} Verliert \textbf{100\%} der Werte.
+		\item \textbf{Organische Wesen:}
+		\begin{itemize}
+			\item Erleiden \textbf{2 × Rang + Wurfzahl} \termref[Verwesungsschaden]{verwesungsschaden}
+			\textbf{Rang}.
+		\end{itemize}
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item der Magier verliert \textbf{1W6 LP}.
+		\item Mehrfaches Wirken im selben Kampf:
+		\textbf{Nebenwirkung multipliziert sich}
+		(z.\,B. 3.\ Einsatz = 3W6 LP).
+	\end{itemize}
+}
+{
+	Alle aktuell auf dem Ziel liegenden \termref[Statuseffekte]{statuseffekte}
+	werden sofort abgehandelt.
+}
+
+\paragraph*{Zeit zurückdrehen}
+
+\spellcard
+{\term{Zeit zurückdrehen}{zeit-zurueckdrehen}}
+{Bonusaktion}
+{8 MP}
+{10 m}
+{Sofort}
+{
+	\begin{itemize}
+		\item Dreht die Zeit für \textbf{1 Ziel} um bis zu
+		\textbf{2 × Rang Sekunden} zurück.
+		\item Geschehene Ereignisse in diesem Zeitraum werden für das Ziel rückgängig gemacht (z.B. Verlust/Erhalt von LP, MP, AP, Aktionen, Bonusaktionen).
+	\end{itemize}
+	
+	\medskip
+	\textbf{Hinweise:}
+	\begin{itemize}
+		\item \textbf{Rang 2:} Rücknahme einer Bonusaktion möglich.
+		\item \textbf{Rang 3:} Rücknahme einer vollen Aktion möglich.
+	\end{itemize}
+}
+{
+	Gib \textbf{2 Marken} aus, um die Zeit für
+	\textbf{Rang Ziele} zurückzudrehen.
+}
+
+\paragraph*{Tempoblase}
+
+\spellcard
+{\term{Tempoblase}{tempoblase}}
+{Aktion}
+{4 MP}
+{Selbst (Radius Rang m)}
+{1 Runde}
+{
+	\begin{itemize}
+		\item \textbf{Projektilangriffe:} \textbf{50\%} Chance zu scheitern, wenn sie die Blase durchqueren.
+		\item \textbf{Nahkampfangriffe:} \textbf{–2 Malus} für alle Ziele in der Blase.
+		\item \textbf{Zauber:} Nur \textbf{50\% effektiv} (Schaden, Heilung, etc.).
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Ziele, die die Blase aktiv verlassen, erhalten \termref[Verwirrung]{verwirrung}.
+	\end{itemize}
+}
+{
+	\begin{itemize}
+		\item Verbündete erhalten \textbf{2 zusätzliche Bonusaktionen}.
+		\item Gegner verlieren 1 ihrer \textbf{Aktionen}.
+	\end{itemize}
+}
+
+\paragraph*{Stasisfeld}
+
+\spellcard
+{\term{Stasisfeld}{stasisfeld}}
+{Aktion}
+{12 MP}
+{10 m}
+{Rang Runden oder nach Abbruch des Zaubers}
+{
+	\begin{itemize}
+		\item Friert eine \textbf{1×1 m Zone} vollständig ein.
+		\item Beim Eintritt:
+		\begin{itemize}
+			\item \textbf{Rang} \termref[Durchschlagsschaden]{durchschlagsschaden}.
+			\item Ab \textbf{Wurfzahl 8}: zusätzlich \textbf{1W6 Schaden}.
+		\end{itemize}
+		\item Ziel kann keine Aktionen ausführen und sich nicht bewegen.
+		\item Ziel ist \textbf{unverwundbar}.
+		\item Status- und Zusatzeffekte wirken nicht,
+		werden aber gespeichert und nach Ende von Stasisfeld normal abgehandelt.
+	\end{itemize}
+	
+	\medskip
+	\textbf{Nebenwirkung:}
+	\begin{itemize}
+		\item Solange der Zauber aktiv ist, kann der Magier keine Verteidigungsprobe ablegen
+		(\textbf{automatischer Misserfolg}, aber der Angreifer muss trotzdem einen erfolgreichen Angriffswurf haben).
+	\end{itemize}
+}
+{
+	\begin{itemize}
+		\item Pro Runde kann \textbf{1 Zeitfenster} geöffnet werden,
+		um dem Ziel Schaden zuzufügen.
+		\item Schadenseffekte über Zeit wirken nicht,
+		können aber zugefügt werden.
+	\end{itemize}
+}

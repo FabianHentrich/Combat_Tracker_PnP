@@ -5,6 +5,9 @@ from src.config.rule_manager import get_rules
 from src.models.enums import DamageType, StatusEffectType, RuleKey
 from src.models.combat_results import DamageResult
 from src.utils.localization import translate
+from src.utils.logger import setup_logging
+
+logger = setup_logging()
 
 if TYPE_CHECKING:
     from src.models.character import Character
@@ -64,6 +67,7 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
         result.secondary_effect = rule.get(RuleKey.SECONDARY_EFFECT)
 
     current_dmg = dmg
+    logger.debug(f"calculate_damage: {character.name} | type={damage_type} rank={rank} dmg={dmg} | SP={character.sp} RP={character.rp} LP={character.lp}")
 
     # Schild Berechnung
     if not result.ignores_shield and character.sp > 0:
@@ -71,6 +75,7 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
         character.sp -= absorb
         current_dmg -= absorb
         result.absorbed_by_shield = absorb
+        logger.debug(f"  Shield absorbed {absorb} → remaining dmg={current_dmg}, SP={character.sp}")
 
     # Rüstung Berechnung
     if not result.ignores_armor and current_dmg > 0 and character.rp > 0:
@@ -80,14 +85,17 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
         current_dmg -= absorb
         result.absorbed_by_armor = absorb
         result.armor_loss = rp_loss
+        logger.debug(f"  Armor absorbed {absorb} (RP loss={rp_loss}) → remaining dmg={current_dmg}, RP={character.rp}")
 
     # LP Berechnung
     if current_dmg > 0:
         character.lp -= current_dmg
         result.final_damage_hp = current_dmg
+        logger.debug(f"  HP hit {current_dmg} → LP={character.lp}/{character.max_lp}")
 
-    if character.lp <= 0 or character.max_lp <= 0:
+    if character.lp <= 0:
         result.is_dead = True
+        logger.debug(f"  {character.name} is down (LP={character.lp})")
 
     return result
 

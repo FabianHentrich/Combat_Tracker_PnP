@@ -1,0 +1,347 @@
+\chapter{Kampfregeln}
+
+Dieses Kapitel beschreibt alle Regeln, die im Kampf relevant sind. Kämpfe laufen
+rundenbasiert ab und bestehen aus einer festen Abfolge von Schritten.
+
+\section{Der Ablauf eines Kampfes}
+
+\begin{rulebox}{Kampf in Kurzform}
+	Ein Kampf besteht aus aufeinanderfolgenden \textbf{Runden}.  
+	In jeder Runde handeln alle Beteiligten genau einmal in festgelegter Reihenfolge.
+\end{rulebox}
+
+Ein Kampf folgt immer diesem Ablauf:
+\begin{enumerate}
+	\item Kampfbeginn
+	\item Initiative bestimmen
+	\item Kampfrunden ausführen
+	\item Kampfende
+\end{enumerate}
+
+\begin{rulebox}{Initiative}
+	Die \term{Initiative}{initiative} bestimmt die Reihenfolge, in der alle
+	Kampfteilnehmer handeln.
+\end{rulebox}
+
+Zu Beginn eines Kampfes würfelt jeder Beteiligte eine Initiative-Probe.
+Die genaue Ausgestaltung der Probe hängt von Talent, Ausrüstung oder Effekten ab.
+
+\begin{rulebox}{Zwei Varianten für die Initiativereihenfolge}
+	Der Spielleiter wählt zu Kampfbeginn eine der folgenden Varianten.
+\end{rulebox}
+
+\subsection*{Variante 1: Klassische Reihenfolge (Einzelinitiative)}
+Alle Initiative-Ergebnisse werden von \textbf{hoch nach niedrig} sortiert.
+Die Beteiligten handeln in dieser Reihenfolge.
+
+\begin{itemize}
+	\item \textbf{Gleichstand:} Zuerst handelt der Charakter mit dem höheren Rang.
+	\item Besteht weiterhin Gleichstand, entscheidet der Spielleiter.
+\end{itemize}
+
+\subsection*{Variante 2: Gruppeninitiative (abwechselnde Hälfte)}
+Bei dieser Variante werden die Initiative-Ergebnisse je \textbf{Gruppe} addiert
+(z.\,B. „Helden“ gegen „Gegner“).
+
+\begin{enumerate}
+	\item Beide Gruppen bilden ihre \textbf{Initiativesumme}.
+	\item Die Gruppe mit der höheren Summe ist zuerst am Zug und aktiviert
+	\textbf{die Hälfte ihrer Mitglieder} (aufgerundet) in beliebiger Reihenfolge.
+	\item Danach aktiviert die andere Gruppe \textbf{die Hälfte ihrer Mitglieder}
+	(aufgerundet) in beliebiger Reihenfolge.
+	\item Anschließend aktiviert die zuerst gestartete Gruppe ihre \textbf{restlichen}
+	Mitglieder, danach die andere Gruppe ihre \textbf{restlichen} Mitglieder.
+	\item In den weiteren Runden darf die Reihenfolge der Mitglieder wieder neu gewählt werden.
+\end{enumerate}
+
+\begin{rulebox}{Überlegenheit}
+	Ist die Initiativesumme einer Gruppe \textbf{mindestens doppelt so hoch} wie die
+	der anderen, darf die überlegene Gruppe \textbf{vollständig zuerst} agieren.
+\end{rulebox}
+ 
+
+\section{Kampfrunden}
+
+\begin{rulebox}{Kampfrunde}
+	Eine Kampfrunde stellt einen kurzen Zeitraum im Kampf dar, in dem alle
+	Beteiligten die Möglichkeit haben zu handeln.
+\end{rulebox}
+
+Innerhalb einer Kampfrunde ist jeder Charakter einmal am Zug, wenn er an der
+Reihe ist.
+
+\section{Aktionen und Bonusaktionen}
+
+\begin{rulebox}{Aktionen}
+	Während seines Zuges kann ein Charakter \textbf{eine} \term{Aktion}{aktion} ausführen.
+\end{rulebox}
+
+Typische Aktionen sind:
+\begin{itemize}
+	\item Angriff mit einer Waffe
+	\item Bewegen oder Sprinten
+	\item Wirken einer Fähigkeit
+	\item Einsatz eines Talents
+	\item Eine komplexe Interaktion (z.\,B. Hebel umlegen, Objekt benutzen)
+\end{itemize}
+
+\begin{rulebox}{Bonusaktionen}
+	Zusätzlich zur Aktion kann ein Charakter pro Runde \textbf{eine} \term{Bonusaktion}{bonusaktion}
+	ausführen, sofern er über eine entsprechende Fähigkeit verfügt.
+\end{rulebox}
+
+Bonusaktionen sind:
+\begin{itemize}
+	\item Waffenwechsel
+	\item Tränke nutzen
+	\item Wirken einer Fähigkeit
+\end{itemize}
+
+\section{Bewegung}
+
+\begin{rulebox}{Bewegung im Kampf}
+	\term{Bewegung}{bewegung} ist Teil deines Zuges und \textbf{zählt nicht als Aktion}.
+\end{rulebox}
+
+Die \textbf{Bewegungsweite} hängt von deinem Talent \textbf{Gewandtheit} ab.
+Die Standard-Bewegungsweite beträgt:
+\[
+4 + \text{Rang} \text{ Meter}
+\]
+Gelände und Effekte können diese Distanz erhöhen oder verringern.
+
+\begin{rulebox}{Sprinten im Kampf}
+	Mit \term{Sprinten}{sprinten} kannst du als \textbf{Bonusaktion} sprinten und dich
+	bis zum \textbf{1,5-fachen} deiner Bewegungsweite bewegen. Zusätzlich musst du eine
+	\textbf{Gewandtheitsprobe} bestehen.
+\end{rulebox}
+
+
+\section{Angriff und Verteidigung}
+
+\begin{rulebox}{Grundprinzip}
+	Ein \term{Angriff}{angriff} ist eine Aktion, mit der du versuchst, einem Gegner Schaden zuzufügen.
+	Der Verteidiger reagiert mit \term{Verteidigung}{verteidigung} durch \textbf{Parieren} oder \textbf{Ausweichen}.
+\end{rulebox}
+
+\subsection*{Würfelgröße}
+Die verwendete Würfelgröße ergibt sich aus dem \textbf{Rang der eingesetzten Fähigkeit}.
+Bei \textbf{Waffenangriffen oder waffenlosen Angriffen} richtet sich die Würfelgröße nach dem Rang des passenden Talents:
+\begin{itemize}
+	\item \textbf{Nahkampf:} Talent \textbf{Kampf}
+	\item \textbf{Fernkampf:} Talent \textbf{Gewandtheit}
+\end{itemize}
+
+\subsection*{Ablauf}
+Ein Angriff wird immer in diesen Schritten abgehandelt:
+\begin{enumerate}
+	\item Der Angreifer würfelt den \textbf{Angriffswurf} und bildet seine \textbf{Wurfzahl (Angriff)}.
+	\item Der Verteidiger entscheidet sich für \textbf{Parieren} (Probe mit Talent Kampf) oder \textbf{Ausweichen} (Probe mit Talent Gewandtheit), würfelt und bildet seine \textbf{Wurfzahl (Verteidigung)}.
+	\item Der Angriff trifft nur, wenn:
+	\[
+	\text{Wurfzahl (Angriff)} > \text{Wurfzahl (Verteidigung)}
+	\]
+	\item Trifft der Angriff, wird anschließend der \textbf{Schaden} ermittelt.
+\end{enumerate}
+
+Sowohl Angriff als auch Verteidigung können durch situative Umstände,
+Gelände oder aktive Effekte Boni oder Mali erhalten.
+
+\subsection*{Magische Waffen bei Paraden}
+
+\begin{rulebox}{Magische Waffen und Parade}
+	Magische Waffen haben bei der \textbf{Parade} einen Vorteil gegenüber nicht-magischen Waffen:
+	\textbf{+2 auf die Wurfzahl der Parade}.
+\end{rulebox}
+
+Dabei gilt:
+\begin{itemize}
+	\item Der Angriff oder die Parade muss zuvor \textbf{regulär erfolgreich} sein (Wurfzahl $\ge 4$).
+	\item Führen \textbf{beide} Parteien eine magische Waffe, \textbf{hebt sich der Bonus auf} (kein Bonus).
+\end{itemize}
+
+\begin{examplebox}{Beispiel: Magische Waffe in der Parade}
+	Ein Angreifer führt eine nicht-magische Waffe und würfelt beim Angriff eine 6 (Wurfzahl 6).
+	Der Verteidiger pariert mit einer magischen Waffe und erhält +2 auf seine Parade-Wurfzahl.
+	Er muss die Wurfzahl des Angreifers erreichen und benötigt daher mindestens eine 4,
+	um erfolgreich zu parieren.
+\end{examplebox}
+
+
+\section{Schaden}
+
+\begin{rulebox}{Schaden}
+	Erleidet ein Charakter Schaden, werden ihm Punkte von seinen Schutz- und
+	Lebensressourcen abgezogen.
+\end{rulebox}
+
+Welche Ressource betroffen ist, hängt von Art und Quelle des Schadens ab.
+\begin{rulebox}{Reihenfolge der Schadensaufnahme}
+	Sofern nicht anders angegeben, wird Schaden in dieser Reihenfolge abgetragen:
+	\[
+	\textbf{Magischer Schild (SP)} \rightarrow \textbf{Rüstung (RP)} \rightarrow \textbf{Lebenspunkte (LP)}
+	\]
+\end{rulebox}
+
+\section{Rüstung und Magischer Schild}
+
+\begin{rulebox}{Rüstung (RP)}
+	\term{Rüstung}{ruestung} nimmt Schaden auf und reduziert so den Verlust von Lebenspunkten.  
+	\textbf{1 Rüstungspunkt (RP)} kann \textbf{2 Schadenspunkte} aufnehmen.
+	
+	Rüstung kann in der Regel nur \textbf{außerhalb des Kampfes} wiederhergestellt werden.
+	Bestimmte Fähigkeiten können \textbf{temporäre} Rüstungspunkte verleihen.
+\end{rulebox}
+
+\begin{rulebox}{Magischer Schild (SP)}
+	Der \term{Magische Schild}{magischer-schild} nimmt Schaden auf und kann auch während
+	des Kampfes erneuert werden.  
+	\textbf{1 Schildpunkt (SP)} kann \textbf{1 Schadenspunkt} aufnehmen.
+	
+	Magischer Schild kann durch Fähigkeiten \textbf{während des Kampfes} wiederhergestellt werden.
+\end{rulebox}
+
+\section{Schadenstypen}
+
+Schadenstypen bestimmen, wie Schaden verrechnet wird und ob zusätzliche
+Statuseffekte ausgelöst werden können. Die Wahrscheinlichkeit, einen Statuseffekt auszulösen, entspricht dem Rang des jeweiligen Effekts.
+
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Schadenstyp} & \textbf{Regelwirkung} \\
+		\midrule
+		\term{Waffenschaden}{waffenschaden} &
+		Normaler Schaden durch Waffen oder waffenlose Angriffe
+		(SP $\rightarrow$ RP $\rightarrow$ LP) \\
+		
+		\term{Durchschlagsschaden}{durchschlagsschaden} &
+		Ignoriert Rüstung (RP), Magischer Schild (SP) wirkt normal \\
+		
+		\term{Direktschaden}{direktschaden} &
+		Ignoriert Rüstung (RP) und Magischen Schild (SP),
+		Schaden wird direkt von den Lebenspunkten (LP) abgezogen \\
+		
+		\term{Giftschaden}{giftschaden} &
+		Kann den Statuseffekt \termref{Vergiftung} auslösen \\
+		
+		\term{Feuerschaden}{feuerschaden} &
+		Kann den Statuseffekt \termref{Verbrennung} auslösen \\
+		
+		\term{Blitzschaden}{blitzschaden} &
+		Kann den Statuseffekt \termref{Betäubung} auslösen \\
+		
+		\term{Kälteschaden}{kaelteschaden} &
+		Kann den Statuseffekt \termref{Unterkühlung} auslösen \\
+		
+		\term{Verwesungsschaden}{verwesungsschaden} &
+		Kann den Statuseffekt \termref{Erosion} auslösen \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+Ob ein Statuseffekt ausgelöst wird, richtet sich nach dem \textbf{Rang}
+der verursachenden Fähigkeit, des Zaubers oder Effekts.
+
+
+\section{Statuseffekte}
+
+\begin{rulebox}{Statuseffekte}
+	\term{Statuseffekte}{statuseffekte} sind Zustände mit einem eigenen Rang,
+	die einen Charakter zeitweise oder dauerhaft beeinflussen.
+\end{rulebox}
+
+Wird derselbe Statuseffekt mehrfach angewendet, \textbf{stapelt} er sich:
+\begin{itemize}
+	\item Jede Anwendung zählt als eigener Effekt.
+	\item Effekte werden separat abgehandelt (Schaden, Mali und Dauer gelten jeweils einzeln).
+\end{itemize}
+
+\subsection*{Schaden über Zeit}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Status} & \textbf{Wirkung} \\
+		\midrule
+		\term{Vergiftung}{vergiftung} &
+		Direktschaden in Höhe des Rangs pro Runde (für die Wirkungsdauer) \\
+		
+		\term{Verbrennung}{verbrennung} &
+		Schaden in Höhe des Rangs pro Runde (für die Wirkungsdauer) \\
+		
+		\term{Blutung}{blutung} &
+		Schaden in Höhe von Rang/2 pro Runde; steigt jede Runde um +1 (für die Wirkungsdauer) \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\subsection*{Kontroll- und Einschränkungseffekte}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Status} & \textbf{Wirkung} \\
+		\midrule
+		\term{Unterkühlung}{unterkuehlung} &
+		Verlust der Bonusaktion für Rang Runden \\
+		
+		\term{Betäubung}{betaeubung} &
+		Ziel verliert für 1 Runde alle Aktionen \\
+		
+		\term{Blendung}{blendung} &
+		Ziel ist 2 Runden geblendet: Malus in Höhe des Rangs auf alle Aktionen \\
+		
+		\term{Erschöpfung}{erschoepfung} &
+		Malus von -2 für 1 Runde auf Proben mit dem Talent Gewandtheit \\
+		
+		\term{Verwirrung}{verwirrung} &
+		Malus von -1 für 1 Runde auf Proben mit dem Talent Kampf \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\subsection*{Permanente Effekte}
+
+\begin{center}
+	\begin{tabular}{lp{9cm}}
+		\toprule
+		\textbf{Status} & \textbf{Wirkung} \\
+		\midrule
+		\term{Erosion}{erosion} &
+		Verlust von Rang $\times$ 1W4 Lebenspunkten pro Runde (für die Wirkungsdauer) \\
+		
+		\term{Heilung}{heilung} &
+		Stellt Lebenspunkte wieder her (für die Wirkungsdauer) \\
+		
+		\term{Entwaffnet}{entwaffnet} &
+		Die aktuell geführte Waffe kann nicht eingesetzt werden (bis der Effekt endet) \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\section{Zeitpunkt von Schaden und Statuseffekten}
+
+\begin{rulebox}{Zeitpunkt der Abhandlung}
+	\textbf{Angriffsschaden} wird sofort berechnet, sobald ein Angriff trifft und der Schaden ermittelt wird.
+	
+	\textbf{Schaden und weitere Effekte durch Statuseffekte} werden \textbf{immer zu Beginn einer Runde} abgehandelt.
+\end{rulebox}
+
+Dabei gilt:
+\begin{itemize}
+	\item Effekte, die \textbf{Schaden pro Runde} verursachen (z.\,B. Vergiftung, Verbrennung, Blutung), ticken zu Rundenbeginn.
+	\item Effekte, die \textbf{Mali} oder \textbf{Einschränkungen} geben (z.\,B. Blendung, Unterkühlung), gelten ab sofort (noch vor dem nächsten Zug) bis sie auslaufen.
+\end{itemize}
+
+
+\section{Kampfende}
+
+\begin{rulebox}{Ende des Kampfes}
+	Ein Kampf endet, wenn keine gegnerischen Handlungen mehr stattfinden oder der
+	Konflikt anderweitig aufgelöst ist.
+\end{rulebox}
+
+Nach dem Kampf können Effekte auslaufen, Ressourcen regeneriert werden oder
+neue Szenen beginnen.

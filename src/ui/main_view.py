@@ -15,6 +15,8 @@ from src.utils.localization import translate
 from src.models.enums import ScopeType
 from src.ui.components.dm_notes_panel import DMNotesPanel
 from src.utils.paned_logger import get_logger
+from src.ui.components.dialogs.secondary_effect_dialog import SecondaryEffectDialog
+from src.models.character import Character
 
 if TYPE_CHECKING:
     from src.ui.main_window import CombatTracker
@@ -72,9 +74,6 @@ class MainView(ICombatView):
         # --- ZWEITES PANEDWINDOW für Character List und Interaction Panel ---
         content_paned = ttk.PanedWindow(main_frame, orient=tk.HORIZONTAL)
         content_paned.grid(row=0, column=0, sticky="nsew")
-
-        # Speichere für spätere Positionierung
-        self.content_paned = content_paned
 
         # Logger für content_paned aktivieren
         logger.attach_logger(content_paned, "PanedWindow_2_CharList_vs_Interaction")
@@ -179,16 +178,10 @@ class MainView(ICombatView):
     def get_selected_char_ids(self) -> List[str]:
         return self.character_list.get_selected_ids()
 
-    def highlight_character(self, char_id: str) -> None:
-        self.character_list.highlight(char_id)
-
     def get_action_value(self) -> int:
         return self.action_panel.get_value()
 
-    def get_action_type(self) -> str:
-        return self.action_panel.get_type()
-        
-    def get_damage_data(self) -> Tuple[int, str]:
+    def get_damage_data(self) -> Tuple[int, str, str]:
         return self.action_panel.get_damage_data()
 
     def get_status_input(self) -> Dict[str, Any]:
@@ -203,6 +196,17 @@ class MainView(ICombatView):
     def focus_damage_input(self) -> None:
         self.action_panel.focus_value_input()
 
+    def ask_secondary_effect(self, effect_name: str, chars: List[Character]) -> List[Character]:
+        """Single target → askyesno; multiple targets → checkbox list dialog."""
+        if len(chars) == 1:
+            char = chars[0]
+            question = translate("dialog.secondary_effect.prompt_single", effect=effect_name, name=char.name)
+            if messagebox.askyesno(translate("dialog.secondary_effect.title", effect=effect_name), question):
+                return [char]
+            return []
+        dialog = SecondaryEffectDialog(self.root, effect_name, chars, self.colors)
+        return dialog.result
+
     def update_listbox(self) -> None:
         """
         Aktualisiert die Anzeige der Charakterliste (Treeview).
@@ -214,9 +218,6 @@ class MainView(ICombatView):
     def update_round_label(self, round_number: int) -> None:
         if self.bottom_panel and self.bottom_panel.round_label:
             self.bottom_panel.round_label.config(text=f"{translate('main_view.round')}: {round_number}")
-
-    def fill_input_fields(self, data: Dict[str, Any]) -> None:
-        self.quick_add_panel.fill_fields(data)
 
     def update_colors(self, colors: Dict[str, str]) -> None:
         self.colors = colors

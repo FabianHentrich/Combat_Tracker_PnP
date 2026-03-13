@@ -86,10 +86,12 @@ class ErosionEffect(StatusEffect):
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank * random.randint(1, 4)
         character.max_lp -= dmg
-        if character.max_lp < 0: character.max_lp = 0
-        result = calculate_damage(character, dmg, DamageType.DIRECT)
-        result.messages.append(translate("messages.status.erosion", rank=self.rank, dmg=dmg))
-        return format_damage_log(character, result)
+        if character.max_lp < 0:
+            character.max_lp = 0
+        # Clamp current LP so it never exceeds the new (lower) max
+        if character.lp > character.max_lp:
+            character.lp = character.max_lp
+        return translate("messages.status.erosion", rank=self.rank, dmg=dmg)
 
 class FreezeEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):

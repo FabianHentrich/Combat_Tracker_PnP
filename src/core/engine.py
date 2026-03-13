@@ -1,5 +1,4 @@
 from typing import List, Optional, Callable, Dict, Any
-import random
 from src.models.character import Character
 from src.core.mechanics import wuerfle_initiative, format_damage_log
 from src.utils.logger import setup_logging
@@ -119,6 +118,7 @@ class CombatEngine:
         self.characters = [Character.from_dict(c_data) for c_data in state.get("characters", [])]
         self.turn_index = state.get("turn_index", -1)
         self.round_number = state.get("round_number", 1)
+        logger.debug(f"load_state: {len(self.characters)} characters, turn_index={self.turn_index}, round={self.round_number}")
         self.log(translate("messages.combat_status_loaded"))
         self.notify(EventType.UPDATE)
 

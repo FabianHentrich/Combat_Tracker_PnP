@@ -28,7 +28,7 @@ class CharacterList(ttk.Frame):
             ("Name", translate("character_attributes.name"), 200, "w", True),
             ("Typ", translate("character_attributes.type"), 60, "center", False),
             ("Level", translate("character_attributes.level"), 45, "center", False),
-            ("LP", translate("character_list.lp_bar"), 180, "center", False),
+            ("LP", translate("character_list.lp_bar"), 220, "center", False),
             ("RP", translate("character_attributes.rp"), 45, "center", False),
             ("SP", translate("character_attributes.sp"), 45, "center", False),
             ("GEW", translate("character_attributes.gew"), 45, "center", False),
@@ -90,15 +90,14 @@ class CharacterList(ttk.Frame):
             # Translate character type for display
             char_type_display = translate(f"character_types.{char.char_type}")
             
-            lp_str = f"{char.lp}/{char.max_lp}"
             rp_str = f"{char.rp}/{char.max_rp}"
             sp_str = f"{char.sp}/{char.max_sp}"
-            health_bar = generate_health_bar(char.lp, char.max_lp, length=10)
+            lp_display = generate_health_bar(char.lp, char.max_lp, length=8)
 
-            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char_type_display, char.level, health_bar, rp_str, sp_str, char.gew, char.init, status_str))
+            item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char_type_display, char.level, lp_display, rp_str, sp_str, char.gew, char.init, status_str))
 
             tags = []
-            if char.lp <= 0 or char.max_lp <= 0:
+            if char.lp <= 0:
                 tags.append('dead')
             elif char.lp < (char.max_lp * 0.3):
                 tags.append('low_hp')

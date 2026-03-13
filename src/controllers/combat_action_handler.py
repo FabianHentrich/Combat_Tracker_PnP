@@ -42,19 +42,16 @@ class CombatActionHandler:
         chars = self._get_selected_chars()
         if not chars: return
 
-        damage_amount, damage_details = self.view.get_damage_data()
-        
+        damage_amount, main_type, damage_details = self.view.get_damage_data()
+
         if damage_amount <= 0:
             self.view.show_info(translate("dialog.info.title"), translate("messages.enter_damage_value"))
             return
 
-        first_part = damage_details.split(",")[0].strip()
-        parts = first_part.split(" ", 1)
-        main_type = parts[1] if len(parts) > 1 else "Normal"
-
         rules = get_rules()
         damage_types = rules.get(RuleKey.DAMAGE_TYPES, {})
         max_rank = 6
+        sec_effect = None
         if main_type in damage_types:
             sec_effect = damage_types[main_type].get(RuleKey.SECONDARY_EFFECT)
             if sec_effect and sec_effect in rules.get(RuleKey.STATUS_EFFECTS, {}):
@@ -68,15 +65,21 @@ class CombatActionHandler:
             rank = 1
 
         self.history_manager.save_snapshot()
-        
+
         for char in chars:
             self.engine.apply_damage(char, damage_amount, main_type, rank, damage_details)
-        
+
         if "," in damage_details:
             self.engine.log(f"{translate('common.details')}: {damage_details}")
-        
+
         if len(chars) > 1:
             self.engine.log(translate("messages.damage_applied_to_targets", count=len(chars)))
+
+        # Ask DM which characters are affected by the secondary effect (rolled at the table)
+        if sec_effect:
+            confirmed = self.view.ask_secondary_effect(sec_effect, chars)
+            for char in confirmed:
+                self.engine.add_status_effect(char, sec_effect, 3, rank)
 
     def add_status_to_character(self) -> None:
         """Adds a status effect to all selected characters."""

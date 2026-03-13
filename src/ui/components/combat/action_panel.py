@@ -185,31 +185,30 @@ class ActionPanel(ttk.LabelFrame):
         if self.damage_rows:
             self.damage_rows[0]["entry"].focus_set()
 
-    def get_damage_data(self) -> tuple[int, str]:
-        """Returns (total_damage, detail_string)."""
+    def get_damage_data(self) -> tuple[int, str, str]:
+        """Returns (total_damage, primary_damage_type, detail_string).
+        primary_damage_type is the enum value of the first row with damage > 0."""
         total = self.calculate_total()
         details = []
-        
+        primary_type = DamageType.NORMAL.value
+
         for row in self.damage_rows:
             try:
                 val = int(row["amount"].get())
                 if val > 0:
-                    t = row["type"].get()
-                    details.append(f"{val} {t}")
+                    display_name = row["type"].get()
+                    type_value = self.translated_damage_types.get(display_name, display_name)
+                    if not details:  # first non-zero row defines the primary type
+                        primary_type = type_value
+                    details.append(f"{val} {type_value}")
             except ValueError:
                 pass
-        
-        detail_str = ", ".join(details) if details else "0 Normal"
-        return total, detail_str
+
+        detail_str = ", ".join(details) if details else f"0 {DamageType.NORMAL.value}"
+        return total, primary_type, detail_str
 
     def get_value(self) -> int:
         return self.calculate_total()
-
-    def get_type(self) -> str:
-        if self.damage_rows:
-            display_name = self.damage_rows[0]["type"].get()
-            return self.translated_damage_types.get(display_name, DamageType.NORMAL.value)
-        return DamageType.NORMAL.value
 
     def get_status_input(self) -> Dict[str, Any]:
         try:

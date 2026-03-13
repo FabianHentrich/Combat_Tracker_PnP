@@ -1,0 +1,328 @@
+\chapter{Charaktergrundlagen}
+
+Dieses Kapitel beschreibt die Grundlagen eines Charakters, seine Entwicklung
+über Level sowie den Umgang mit Talenten und Fähigkeiten.
+
+\section{Charaktererschaffung}
+
+Jeder Charakter beginnt das Spiel auf \textbf{Level 1} und erhält:
+
+\begin{itemize}
+	\item 1 Klasse
+	\item \textbf{15 \termref[Talentpunkte]{talentpunkte}}
+	\item \textbf{15 \termref[Fähigkeitspunkte]{faehigkeitspunkte}}
+	\item bis zu \textbf{2 Eigenheiten}
+\end{itemize}
+
+Talentpunkte und Fähigkeitspunkte sind voneinander unabhängig
+und werden getrennt verwaltet.
+
+\section{Charakterstufe}
+
+Die Charakterstufe (Level) beschreibt den allgemeinen Entwicklungsstand eines Charakters. Das Level des Charakters wird durch die Anzahl der gesamten Fähigkeitspunkte definiert. Punkte, die zum Erreichen eines \textbf{\termref[legendären Rangs (Rang 6)]{legendaerer-rang}} ausgegeben werden, zählen \textbf{nicht} für den Levelaufstieg.
+
+Mit steigenden Leveln erhält ein Charakter:
+\begin{itemize}
+	\item zusätzliche \termref[Fähigkeitspunkte]{faehigkeitspunkte}
+	\item Bonuspunkte auf bestimmten Stufen
+	\item mehr Aktions- oder Manapunkte
+\end{itemize}
+
+Ab \textbf{Level 2} kann zusätzlich zur Hauptklasse eine \textbf{beliebige Nebenklasse}
+gewählt werden.
+
+\begin{center}
+	\begin{tabular}{lccccc}
+		\toprule
+		\textbf{Level} & 1 & 2 & 3 & 4 & 5 \\
+		\midrule
+		Fähigkeitspunkte (gesamt) & 10 & 20 & 35 & 45 & 60 \\
+		Bonusfähigkeitspunkte & -- & +5 & -- & +5 & -- \\
+		Aktions-/Manapunkte & 50 & 60 & 70 & 80 & 90 \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+Die zusätzlichen Bonusfähigkeitspunkte auf Level 2 und 4 werden \textbf{zusätzlich}
+zu allen anderen Punkten vergeben.
+
+
+
+\section{Klassen und Fähigkeiten}
+
+Klassen und \termref[Fähigkeiten]{faehigkeiten} (Skills und Zauber) müssen jeweils \textbf{einzeln erlernt und gesteigert}
+werden.
+
+Dabei gilt:
+\begin{itemize}
+	\item \termref[Magierklassen]{magierklassen} lernen Zauber
+	\item \termref[Nichtmagische Klassen]{nicht-magische-klassen} lernen Skills
+	\item Basisfähigkeiten können von allen Klassen erlernt werden
+	\item Die Hauptklasse kann ab Level 1 gewählt werden
+	\item Eine Nebenklasse kann ab Level 2 gewählt werden
+\end{itemize}
+
+\section{Talentpunkte und Benchmark}
+
+Talentpunkte dienen der Steigerung von Talenten und deren Rängen.
+
+Zur Orientierung der Charakterstärke dient folgende Benchmark-Tabelle:
+
+\begin{center}
+	\begin{tabular}{lcccc}
+		\toprule
+		\textbf{Benchmark} & Normal & Beruf & Elite & Max \\
+		\midrule
+		Talentpunkte & 11 & 22 & 33 & 44 \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+
+\subsection*{Talente als Grundlage des Charakters}
+
+\termref[Talente]{talente} bilden das grundlegende Kompetenzgerüst eines Charakters.
+Sie bestimmen, wie gut ein Charakter in zentralen Bereichen wie Kampf,
+Bewegung, Wissen oder sozialer Interaktion ist.
+
+Im nächsten Kapitel werden Talente, ihre Ränge, Kosten sowie legendären
+Effekte im Detail beschrieben.
+
+\section{Ressourcen}
+
+\term{Ressourcen}{ressourcen} beschreiben die körperlichen, geistigen und besonderen Reserven
+eines Charakters. Sie bestimmen, wie lange ein Charakter handeln, kämpfen,
+zaubern oder besondere Effekte nutzen kann.
+
+\subsection*{Lebenspunkte (LP)}
+
+\begin{rulebox}{Lebenspunkte}
+	\term{Lebenspunkte}{lebenspunkte-lp} repräsentieren die körperliche Belastbarkeit und
+	Vitalität eines Charakters.
+\end{rulebox}
+
+\textbf{Berechnung:}
+\[
+\text{LP} = 20 + \text{Stärke-Wurfzahl}
+\]
+
+\textbf{Regeln:}
+\begin{itemize}
+	\item Wird ein Charakter auf \textbf{0 LP} reduziert, \textbf{stirbt} er.
+	\item Schaden wird erst auf Schutzressourcen angewendet
+	(siehe Kampfregeln), bevor Lebenspunkte verloren gehen.
+\end{itemize}
+
+\textbf{Regeneration:}  
+Pro vollständiger Ruhephase (z.\,B. Nachtruhe) regeneriert ein Charakter
+Lebenspunkte in Höhe von:
+\[
+2 \times \text{Stärke-Rang}
+\]
+
+\textbf{Heilung:}  
+Tränke, Zauber und bestimmte Skills können Lebenspunkte sofort oder über Zeit
+wiederherstellen.
+
+\subsection*{Aktionspunkte (AP) und Manapunkte (MP)}
+
+\begin{rulebox}{Aktions- und Manapunkte}
+	\term{Aktionspunkte}{aktionspunkte-ap} und \term{Manapunkte}{manapunkte-mp} beschreiben die
+	handlungs- und zauberbezogenen Reserven eines Charakters.
+\end{rulebox}
+
+\begin{itemize}
+	\item Auf Level 1 stehen insgesamt \textbf{50 Punkte} zur Verfügung.
+	\item Diese können frei auf Aktionspunkte (AP) und Manapunkte (MP)
+	aufgeteilt werden.
+	\item Mit steigenden Leveln erhöht sich dieser Pool
+	(siehe Level-Tabelle).
+\end{itemize}
+
+\textbf{Regeneration:}  
+Pro vollständiger Ruhephase (z.\,B. Nachtruhe) regeneriert ein Charakter
+\textbf{2W6 AP} und \textbf{MP}.
+
+\subsection*{Materialien}
+
+\begin{rulebox}{Materialien}
+	\term{Materialien}{ressource-materialien} sind eine abstrakte Ressource,
+	die vorbereitete, improvisierte oder verbrauchende Handlungen abbildet.
+	Sie stehen für Komponenten, Hilfsmittel, Verbrauchsstoffe oder situative
+	Vorbereitungen, ohne als einzelne Gegenstände geführt zu werden.
+\end{rulebox}
+
+\textbf{Allgemeine Regeln:}
+\begin{itemize}
+	\item Materialien sind zu behandeln wie ganz normale Gegenstände. Sie können gefunden, gekauft oder gestohlen werden.
+	\item Materialien werden durch \textbf{Fähigkeiten,
+		Klassenregeln oder Effekte} verbraucht.
+	\item Startmenge von Materialien sind
+	\textbf{klassenabhängig} und werden im jeweiligen Klassenkapitel festgelegt. 
+\end{itemize}
+
+\textbf{Verwendung:}
+\begin{itemize}
+	\item Der Verbrauch von Materialien ist in der jeweiligen Fähigkeit
+	explizit angegeben.
+	\item Hat ein Charakter nicht genügend Materialien, kann die Fähigkeit
+	nicht eingesetzt werden.
+\end{itemize}
+
+\subsection*{Marken}
+
+\begin{rulebox}{Marken}
+	\term{Marken}{marken} sind eine seltene Ressource, die legendäre Effekte
+	aktivieren oder verstärken kann.
+\end{rulebox}
+
+\begin{itemize}
+	\item Marken werden durch das Erreichen einer \textbf{Wurfzahl $\ge 10$}
+	bei Proben erhalten.
+	\item Ein Charakter kann maximal \textbf{2 Marken} gleichzeitig besitzen.
+	\item Marken werden ausschließlich für legendäre Effekte verwendet.
+\end{itemize}
+
+
+\section{Fortschritt durch Abenteuer}
+
+\subsection*{Skill- und Zauberpunkte}
+
+Empfohlen ist der Erhalt von \textbf{3–5 Fähigkeitspunkte}
+pro Abenteuer, abhängig von Kampagnenlänge und Spielstil.
+
+Zusätzliche Punkte können durch besondere Leistungen vergeben werden
+(z.\,B. Questbelohnungen, gutes Rollenspiel oder kreative Lösungen).
+
+\subsection*{Talentpunkte}
+
+Empfohlen ist der Erhalt von \textbf{2–3 Talentpunkten} pro Abenteuer,
+abhängig von Kampagnenlänge und gewünschter Progression.
+
+\section{Legendärer Rang (Rang 6)}
+
+\begin{rulebox}{Legendärer Rang}
+	Rang 6 ist der \term{legendären Rang}{legendaerer-rang} einer Disziplin.
+	Er verwendet den \textbf{W20} und unterliegt der Ass-Regel wie gewohnt.
+	Zudem schaltet Rang 6 für Talente und Fähigkeiten \term{legendäre Effekte}{legendaere-efffekte} frei.
+\end{rulebox}
+
+Der Zugang zu Rang 6 ist streng begrenzt und erfordert besondere Voraussetzungen.
+
+\subsection*{Legendär-Slots}
+
+Ein Charakter verfügt über eine stark begrenzte Anzahl legendärer Slots:
+
+\begin{itemize}
+	\item \textbf{Talente:} Genau \textbf{ein} Talent darf Rang 6 erreichen.
+	\item \textbf{Fähigkeiten (Skills/Zauber):} Genau \textbf{drei} Legendär-Slots:
+	\begin{itemize}
+		\item 1× Basis
+		\item 1× Hauptklasse
+		\item 1× Nebenklasse
+	\end{itemize}
+\end{itemize}
+
+Wird keine Nebenklasse gespielt, kann der entsprechende Slot alternativ
+für eine weitere Basis-Fähigkeit verwendet werden.
+
+\subsection*{Voraussetzungen}
+
+Um eine Disziplin auf Rang 6 zu steigern, müssen alle folgenden Bedingungen erfüllt sein:
+
+\begin{enumerate}
+	\item Die gewählte Disziplin (Talent oder Fähigkeit) befindet sich auf \textbf{Rang 5}.
+	\item Ein passender \textbf{Lehrmeister oder Fokusort} wurde gefunden.
+	\item Es wurden mindestens \textbf{drei ausreichende Trainingsphasen} investiert.
+\end{enumerate}
+
+\subsection*{Meisterprobe}
+
+Nach Abschluss der Trainingsphasen erfolgt genau \textbf{eine Meisterprobe}
+mit dem aktuellen Rang-5-Würfel der Disziplin.
+
+\begin{itemize}
+	\item \textbf{Erfolg bei 10+}: Aufstieg zu Rang 6 (W20) und Bindung des Slots.
+	\item \textbf{Misserfolg}: Kein Malus. Ein erneuter Versuch ist frühestens
+	nach einer weiteren Trainingsphase und einer neuen Szene möglich.
+\end{itemize}
+
+Es wird immer nur \textbf{ein einziger Wurf} durchgeführt.
+
+\subsection*{Zugriff auf legendäre Effekte}
+
+Legendäre Effekte dürfen \textbf{ausschließlich} genutzt werden, wenn:
+\begin{itemize}
+	\item die jeweilige Disziplin selbst Rang 6 erreicht hat und
+	\item ein legendärer Slot auf genau diese Disziplin gebunden ist
+\end{itemize}
+
+Legendäre Effekte gelten nur für den konkret gewählten Eintrag.
+Andere Talente oder Fähigkeiten derselben Klasse profitieren nicht.
+
+Ohne Rang 6 besteht \textbf{kein Zugriff} auf legendäre Effekte.
+
+\subsection*{Lehrmeister und Fokusorte}
+
+Wer einen legendären Rang lehren kann, hängt von der Disziplin ab:
+
+\begin{itemize}
+	\item \textbf{Haupt- und Nebenklasse:} Orden, Meister oder Zirkel der jeweiligen Klasse
+	\item \textbf{Basis-Fähigkeiten:} Gilden, heilige Stätten oder freie Meister
+	\item \textbf{Talente:} Lehrmeister oder Fokusorte mit klarer Talent-Expertise
+\end{itemize}
+
+% =========================
+% Eigenheiten
+% =========================
+
+\section{Eigenheiten}
+
+\term{Eigenheiten}{eigenheiten} sind dauerhafte \textbf{Trade-Offs}, die einen Charakter
+mechanisch und erzählerisch prägen.  
+Jede Eigenheit besteht immer aus \textbf{einem Vorteil} und \textbf{einem Nachteil}.
+
+Eigenheiten können:
+\begin{itemize}
+	\item bei der Charaktererschaffung gewählt werden
+	\item im Verlauf der Kampagne \textbf{erlangt, verändert oder verloren} werden
+\end{itemize}
+
+Eigenheiten sind kein reiner Bonus und kein reiner Malus – sie verändern aktiv,
+\textbf{wie} ein Charakter gespielt wird.
+
+\medskip
+
+\begin{rulebox}{Grundregeln zu Eigenheiten}
+	\begin{itemize}
+		\item Ein Charakter beginnt mit \textbf{1–2 Eigenheiten}.
+		\item Eigenheiten haben \textbf{keinen Rang} und skalieren nicht.
+		\item Effekte von Eigenheiten sind \textbf{immer aktiv}, sofern nichts anderes
+		angegeben ist.
+	\end{itemize}
+\end{rulebox}
+
+\medskip
+
+\begin{rulebox}{Eigenheiten im Spielverlauf}
+	Eigenheiten können sich im Laufe der Kampagne verändern:
+	\begin{itemize}
+		\item Neue Eigenheiten können durch
+		\textbf{dramatische Ereignisse, Entscheidungen oder Konsequenzen}
+		entstehen.
+		\item Eigenheiten können \textbf{abgeschwächt, verstärkt oder vollständig verloren}
+		gehen, wenn sich der Charakter entsprechend entwickelt.
+		\item Änderungen an Eigenheiten erfolgen immer in Absprache mit der Spielleitung.
+	\end{itemize}
+\end{rulebox}
+
+\medskip
+
+\begin{rulebox}{Hinweis zur Balance}
+	Eigenheiten sind bewusst \textbf{stark und spürbar}.
+	
+	Ein Charakter mit vielen Eigenheiten ist nicht automatisch stärker,
+	sondern komplexer und konfliktanfälliger zu spielen.
+\end{rulebox}
+
+
+

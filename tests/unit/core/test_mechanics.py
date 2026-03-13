@@ -136,3 +136,124 @@ def test_roll_exploding_dice_safety_break():
         total, rolls = roll_exploding_dice(6)
     assert len(rolls) == 21   # 1 initial + 20 safety-break limit
     assert total == 21 * 6
+
+
+# --- calculate_damage edge-case tests ---
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_damage_shield_absorbs_all(mock_get_rules, char):
+    """When damage <= SP the shield absorbs everything: armor and LP are untouched."""
+    # char: sp=20, rp=10, lp=100
+    result = calculate_damage(char, 15, DamageType.NORMAL)
+    assert char.sp == 5                    # 20 - 15
+    assert char.rp == 10                   # RP untouched
+    assert char.lp == 100                  # LP untouched
+    assert result.absorbed_by_shield == 15
+    assert result.absorbed_by_armor == 0
+    assert result.final_damage_hp == 0
+    assert result.is_dead is False
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_damage_armor_absorbs_all(mock_get_rules):
+    """When there is no SP and damage <= rp*2 the armor absorbs everything: LP is untouched."""
+    char = Character(name="Tank", lp=100, rp=10, sp=0, init=0)
+    # rp=10 → can absorb up to 20 damage
+    result = calculate_damage(char, 18, DamageType.NORMAL)
+    assert char.lp == 100                  # LP untouched
+    assert result.absorbed_by_armor == 18
+    assert result.final_damage_hp == 0
+    assert result.is_dead is False
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_armor_rp_loss_formula(mock_get_rules):
+    """Armor loses ceil(absorbed/2) durability: every 2 absorbed damage costs 1 RP."""
+    # absorb=1 → rp_loss=(1+1)//2=1
+    char1 = Character(name="C1", lp=100, rp=10, sp=0, init=0)
+    r1 = calculate_damage(char1, 1, DamageType.NORMAL)
+    assert r1.armor_loss == 1
+
+    # absorb=2 → rp_loss=(2+1)//2=1
+    char2 = Character(name="C2", lp=100, rp=10, sp=0, init=0)
+    r2 = calculate_damage(char2, 2, DamageType.NORMAL)
+    assert r2.armor_loss == 1
+
+    # absorb=3 → rp_loss=(3+1)//2=2
+    char3 = Character(name="C3", lp=100, rp=10, sp=0, init=0)
+    r3 = calculate_damage(char3, 3, DamageType.NORMAL)
+    assert r3.armor_loss == 2
+
+    # absorb=4 → rp_loss=(4+1)//2=2
+    char4 = Character(name="C4", lp=100, rp=10, sp=0, init=0)
+    r4 = calculate_damage(char4, 4, DamageType.NORMAL)
+    assert r4.armor_loss == 2
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_damage_zero_no_state_change(mock_get_rules, char):
+    """Zero damage must not alter any character attribute."""
+    sp_before, rp_before, lp_before = char.sp, char.rp, char.lp
+    result = calculate_damage(char, 0, DamageType.NORMAL)
+    assert char.sp == sp_before
+    assert char.rp == rp_before
+    assert char.lp == lp_before
+    assert result.final_damage_hp == 0
+    assert result.is_dead is False
+
+
+# --- DIRECT and PIERCING damage type tests ---
+
+@patch('src.core.mechanics.get_rules')
+def test_direct_damage_bypasses_sp_and_rp(mock_get_rules, char):
+    """DIRECT damage ignores both shield and armor — goes straight to LP."""
+    mock_get_rules.return_value = {
+        "damage_types": {
+            "DIRECT": {"ignores_shield": True, "ignores_armor": True}
+        }
+    }
+    sp_before = char.sp   # 20
+    rp_before = char.rp   # 10
+    result = calculate_damage(char, 15, DamageType.DIRECT)
+    assert char.sp == sp_before           # SP untouched
+    assert char.rp == rp_before           # RP untouched
+    assert char.lp == 85                  # 100 - 15
+    assert result.absorbed_by_shield == 0
+    assert result.absorbed_by_armor == 0
+    assert result.final_damage_hp == 15
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_death_check_lp_zero(mock_get_rules):
+    """Character is marked dead when lp reaches 0."""
+    char = Character(name="Dying", lp=5, rp=0, sp=0, init=0)
+    result = calculate_damage(char, 5, DamageType.DIRECT)
+    assert result.is_dead is True
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_death_check_max_lp_zero_does_not_kill(mock_get_rules):
+    """max_lp reaching 0 (e.g. via Erosion) must NOT mark a living character as dead."""
+    char = Character(name="Eroded", lp=10, rp=0, sp=0, init=0)
+    char.max_lp = 0  # Erosion drained all max HP
+    result = calculate_damage(char, 0, DamageType.DIRECT)  # 0 dmg → lp stays 10
+    assert result.is_dead is False
+
+
+@patch('src.core.mechanics.get_rules')
+def test_piercing_damage_sp_absorbs_rp_bypassed(mock_get_rules, char):
+    """PIERCING damage: SP absorbs normally, RP (armor) is bypassed."""
+    mock_get_rules.return_value = {
+        "damage_types": {
+            "PIERCING": {"ignores_shield": False, "ignores_armor": True}
+        }
+    }
+    # char: sp=20, rp=10, lp=100
+    rp_before = char.rp   # 10
+    result = calculate_damage(char, 30, DamageType.PIERCING)
+    assert char.sp == 0                   # SP exhausted (absorbed 20)
+    assert char.rp == rp_before           # RP untouched
+    assert char.lp == 90                  # 100 - (30 - 20) = 90
+    assert result.absorbed_by_shield == 20
+    assert result.absorbed_by_armor == 0
+    assert result.final_damage_hp == 10

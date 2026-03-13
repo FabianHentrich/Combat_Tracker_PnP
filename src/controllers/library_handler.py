@@ -105,8 +105,6 @@ class LibraryHandler:
 
     def _create_pdf_tab(self, tab_id, title, root_dir):
         tab = LibraryPDFTab(self.notebook, tab_id, title, root_dir, self.colors)
-        # Store in same dict or new one? Storing in markdown_tabs for now to keep track,
-        # though name is misleading.
         self.markdown_tabs[tab_id] = tab
 
     def _create_markdown_tab(self, tab_id, title, root_dir):

@@ -41,13 +41,23 @@ class Character:
         return calculate_damage(self, dmg, damage_type, rank)
 
     def add_status(self, effect_name: str, duration: int, rank: int = 1) -> None:
-        """Adds a status effect to the character."""
+        """Adds a status effect to the character.
+        Non-stackable effects replace the existing instance instead of stacking."""
         rules = get_rules()
-        max_rank = 6
-        if effect_name in rules.get(RuleKey.STATUS_EFFECTS, {}):
-             max_rank = rules[RuleKey.STATUS_EFFECTS][effect_name].get(RuleKey.MAX_RANK, 6)
+        effect_rules = rules.get(RuleKey.STATUS_EFFECTS, {}).get(effect_name, {})
+        max_rank = effect_rules.get(RuleKey.MAX_RANK, 6)
+        stackable = effect_rules.get(RuleKey.STACKABLE, True)
 
-        if rank > max_rank: rank = max_rank
+        if rank > max_rank:
+            rank = max_rank
+
+        # Non-stackable: refresh the existing effect instead of adding a second one
+        if not stackable:
+            for existing in self.status:
+                if existing.name == effect_name:
+                    existing.duration = duration
+                    existing.rank = rank
+                    return
 
         effect_class = EFFECT_CLASSES.get(effect_name)
         if effect_class:

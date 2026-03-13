@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-import random
 from typing import Tuple, List, Callable, Optional
 from src.config import FONTS, WINDOW_SIZE
 from src.utils.localization import translate

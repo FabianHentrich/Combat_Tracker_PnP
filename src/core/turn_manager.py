@@ -106,16 +106,22 @@ class TurnManager:
         # Process status effects
         self._update_character_status(current_char)
 
-        # Process skipping turns
-        if current_char.skip_turns > 0:
+        # Process skipping turns — use a loop to avoid recursion depth issues
+        while current_char.skip_turns > 0:
             self.engine.log(translate("messages.character_skips_turn", name=current_char.name))
             self.engine.notify(EventType.UPDATE)
-            return self.next_turn() # Recursively skip to next character
+            self.turn_index += 1
+            if self.turn_index >= len(self.engine.characters):
+                self.turn_index = 0
+                self.round_number += 1
+                self.engine.log(translate("messages.round_begins", round_number=self.round_number))
+            current_char = self.engine.characters[self.turn_index]
+            self._update_character_status(current_char)
 
         # Status info for log
         status_info = current_char.get_status_string()
 
-        if current_char.lp <= 0 or current_char.max_lp <= 0:
+        if current_char.lp <= 0:
              self.engine.log(f"💀 {current_char.name} {translate('messages.is_incapacitated')}{status_info}")
         else:
              self.engine.log(f"▶ {current_char.name}{translate('messages.is_on_turn')}{status_info}")

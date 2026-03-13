@@ -196,8 +196,8 @@ class AudioController:
             for event in pygame.event.get():
                 if event.type == self._check_event_id:
                     self._handle_track_end()
-        except Exception:
-            pass
+        except Exception as e:
+            logger.debug(f"Audio event check error (non-critical): {e}")
 
     def _handle_track_end(self):
         self.current_loop_iteration += 1

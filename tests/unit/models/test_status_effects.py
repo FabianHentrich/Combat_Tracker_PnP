@@ -73,20 +73,18 @@ def test_bleed_effect_damage_scaling(mock_calculate, char):
     effect.apply_round_effect(char)
     mock_calculate.assert_called_with(char, 4, "NORMAL")
 
-@patch('src.models.status_effects.calculate_damage')
 @patch('random.randint', return_value=3)
-def test_erosion_effect(mock_randint, mock_calculate, char):
-    """Tests that ErosionEffect reduces max_lp and deals direct damage."""
-    mock_result = DamageResult(original_damage=6, damage_type="DIRECT", rank=2)
-    mock_calculate.return_value = mock_result
-
+def test_erosion_effect(mock_randint, char):
+    """ErosionEffect reduces max_lp permanently and clamps current LP to the new max.
+    It does NOT deal separate direct damage (no double-hit)."""
+    lp_before = char.lp  # 100
     effect = ErosionEffect(duration=2, rank=2)
-    # Damage = rank * randint(1,4) = 2 * 3 = 6
-    
+    # dmg = rank(2) * randint(3) = 6
     effect.apply_round_effect(char)
-    
-    assert char.max_lp == 94 # 100 - 6
-    mock_calculate.assert_called_once_with(char, 6, "DIRECT")
+
+    assert char.max_lp == 94           # max_lp reduced
+    assert char.lp == 94               # current LP clamped to new max (was 100 > 94)
+    assert char.lp == char.max_lp      # invariant: lp never exceeds max_lp
 
 def test_stun_effect(char):
     """Tests that StunEffect sets skip_turns on the character."""
@@ -214,3 +212,32 @@ def test_regeneration_effect_returns_message(char):
     result = effect.apply_round_effect(char)
     assert isinstance(result, str)
     assert len(result) > 0
+
+
+# --- Edge case / floor tests ---
+
+@patch('src.models.status_effects.calculate_damage')
+def test_bleed_effect_minimum_floor(mock_calculate, char):
+    """rank=1, active_rounds=1: int(1/2 + 0) = int(0.5) = 0, clamped to minimum 1."""
+    mock_result = DamageResult(original_damage=1, damage_type="NORMAL", rank=1)
+    mock_calculate.return_value = mock_result
+
+    effect = BleedEffect(duration=3, rank=1)
+    effect.active_rounds = 1
+    effect.apply_round_effect(char)
+
+    # Must be called with 1, not 0
+    mock_calculate.assert_called_with(char, 1, "NORMAL")
+
+
+@patch('random.randint', return_value=4)
+def test_erosion_effect_max_lp_floor_at_zero(mock_randint, char):
+    """ErosionEffect floors max_lp at 0 and clamps current LP accordingly."""
+    # dmg = rank(2) * randint(4) = 8; max_lp=3 → would go to -5 without floor
+    char.max_lp = 3
+    char.lp = 3
+    effect = ErosionEffect(duration=1, rank=2)
+    effect.apply_round_effect(char)
+
+    assert char.max_lp == 0   # floored at 0
+    assert char.lp == 0       # clamped to new max_lp

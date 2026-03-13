@@ -57,7 +57,7 @@ def test_deal_damage_no_selection(handler):
 def test_deal_damage_zero_damage(handler):
     """Tests that an info message is shown for zero damage."""
     handler.view.get_selected_char_ids.return_value = ["char1"]
-    handler.view.get_damage_data.return_value = (0, "1W6 Normal")
+    handler.view.get_damage_data.return_value = (0, "NORMAL", "1W6 Normal")
     handler.deal_damage()
     handler.view.show_info.assert_called_once_with(translate("dialog.info.title"), translate("messages.enter_damage_value"))
 
@@ -65,13 +65,71 @@ def test_deal_damage_successful(handler, sample_character):
     """Tests successful damage application to a selected character."""
     handler.view.get_selected_char_ids.return_value = ["char1"]
     handler.engine.get_character_by_id.return_value = sample_character
-    handler.view.get_damage_data.return_value = (10, "1W6+2 Fire")
+    handler.view.get_damage_data.return_value = (10, "FIRE", "1W6+2 FIRE")
     handler.view.get_status_input.return_value = {"rank": "2"}
-    
+
     handler.deal_damage()
-    
+
     handler.history_manager.save_snapshot.assert_called_once()
-    handler.engine.apply_damage.assert_called_once_with(sample_character, 10, "Fire", 2, "1W6+2 Fire")
+    handler.engine.apply_damage.assert_called_once_with(sample_character, 10, "FIRE", 2, "1W6+2 FIRE")
+
+@patch('src.controllers.combat_action_handler.get_rules')
+def test_deal_damage_secondary_effect_dialog_shown(mock_get_rules, handler, sample_character):
+    """When a damage type has a secondary_effect, the view dialog is invoked."""
+    mock_get_rules.return_value = {
+        "damage_types": {
+            "FIRE": {"ignores_shield": False, "ignores_armor": False, "secondary_effect": "BURN"}
+        },
+        "status_effects": {"BURN": {"max_rank": 5, "stackable": True}},
+    }
+    handler.view.get_selected_char_ids.return_value = ["char1"]
+    handler.engine.get_character_by_id.return_value = sample_character
+    handler.view.get_damage_data.return_value = (10, "FIRE", "1W6 FIRE")
+    handler.view.get_status_input.return_value = {"rank": "2"}
+    handler.view.ask_secondary_effect.return_value = [sample_character]  # DM confirms
+
+    handler.deal_damage()
+
+    handler.view.ask_secondary_effect.assert_called_once_with("BURN", [sample_character])
+    handler.engine.add_status_effect.assert_called_once_with(sample_character, "BURN", 3, 2)
+
+
+@patch('src.controllers.combat_action_handler.get_rules')
+def test_deal_damage_secondary_effect_declined(mock_get_rules, handler, sample_character):
+    """When the DM declines the secondary effect, no status is applied."""
+    mock_get_rules.return_value = {
+        "damage_types": {
+            "FIRE": {"ignores_shield": False, "ignores_armor": False, "secondary_effect": "BURN"}
+        },
+        "status_effects": {"BURN": {"max_rank": 5, "stackable": True}},
+    }
+    handler.view.get_selected_char_ids.return_value = ["char1"]
+    handler.engine.get_character_by_id.return_value = sample_character
+    handler.view.get_damage_data.return_value = (10, "FIRE", "1W6 FIRE")
+    handler.view.get_status_input.return_value = {"rank": "2"}
+    handler.view.ask_secondary_effect.return_value = []  # DM declines
+
+    handler.deal_damage()
+
+    handler.engine.add_status_effect.assert_not_called()
+
+
+@patch('src.controllers.combat_action_handler.get_rules')
+def test_deal_damage_no_secondary_effect_no_dialog(mock_get_rules, handler, sample_character):
+    """Damage types without secondary_effect must not show the dialog."""
+    mock_get_rules.return_value = {
+        "damage_types": {"NORMAL": {"ignores_shield": False, "ignores_armor": False}},
+        "status_effects": {},
+    }
+    handler.view.get_selected_char_ids.return_value = ["char1"]
+    handler.engine.get_character_by_id.return_value = sample_character
+    handler.view.get_damage_data.return_value = (10, "NORMAL", "1W6 NORMAL")
+    handler.view.get_status_input.return_value = {"rank": "1"}
+
+    handler.deal_damage()
+
+    handler.view.ask_secondary_effect.assert_not_called()
+
 
 def test_add_status_no_selection(handler):
     """Tests that status is not added if no character is selected."""
@@ -158,7 +216,7 @@ def test_deal_damage_to_multiple_characters(handler, sample_character):
     char2.id = "char2"
     handler.view.get_selected_char_ids.return_value = ["char1", "char2"]
     handler.engine.get_character_by_id.side_effect = lambda cid: sample_character if cid == "char1" else char2
-    handler.view.get_damage_data.return_value = (5, "5 Normal")
+    handler.view.get_damage_data.return_value = (5, "NORMAL", "5 Normal")
     handler.view.get_status_input.return_value = {"rank": "1"}
 
     handler.deal_damage()

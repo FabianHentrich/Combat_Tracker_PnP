@@ -45,6 +45,27 @@ def test_add_status_with_rank_capping(mock_get_rules, char):
     assert isinstance(effect, PoisonEffect)
     assert effect.rank == 3 # Should be capped to 3
 
+@patch('src.models.character.get_rules')
+def test_add_status_non_stackable_replaces_existing(mock_get_rules, char):
+    """Non-stackable effect added twice → only one instance, duration refreshed."""
+    mock_get_rules.return_value = {"status_effects": {"STUN": {"max_rank": 1, "stackable": False}}}
+    char.add_status("STUN", 3, 1)
+    assert len(char.status) == 1
+
+    char.add_status("STUN", 5, 1)  # second application → should refresh, not stack
+    assert len(char.status) == 1
+    assert char.status[0].duration == 5  # duration updated to new value
+
+
+@patch('src.models.character.get_rules')
+def test_add_status_stackable_creates_second_instance(mock_get_rules, char):
+    """Stackable effect added twice → two separate instances."""
+    mock_get_rules.return_value = {"status_effects": {"POISON": {"max_rank": 5, "stackable": True}}}
+    char.add_status("POISON", 3, 1)
+    char.add_status("POISON", 3, 2)
+    assert len(char.status) == 2
+
+
 def test_get_status_string(char):
     """Tests the formatting of the status effect string for the UI."""
     assert char.get_status_string() == "" # Should be empty initially

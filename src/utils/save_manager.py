@@ -57,8 +57,8 @@ class SaveManager:
             if os.path.exists(tmp_path):
                 try:
                     os.remove(tmp_path)
-                except OSError:
-                    pass
+                except OSError as cleanup_err:
+                    logger.warning(f"Failed to clean up temporary file '{tmp_path}': {cleanup_err}")
             raise
 
     @staticmethod

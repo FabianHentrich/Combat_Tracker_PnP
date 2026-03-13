@@ -135,6 +135,12 @@
       "instruction": "Klicke auf einen Button und drücke eine Taste",
       "press_key": "Taste drücken..."
     },
+    "secondary_effect": {
+      "title": "Sekundäreffekt: {effect}",
+      "prompt": "Ist der Effekt aufgetreten? Wähle die betroffenen Ziele:",
+      "prompt_single": "Ist {effect} bei {name} aufgetreten?",
+      "apply": "Anwenden"
+    },
     "import_preview": {
       "title": "Import-Vorschau & Auswahl",
       "header": "Auswählen und anpassen",

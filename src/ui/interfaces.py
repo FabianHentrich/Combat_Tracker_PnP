@@ -1,5 +1,8 @@
-from typing import Protocol, Any, Optional, Dict, Tuple, List
+from typing import Protocol, Any, Optional, Dict, Tuple, List, TYPE_CHECKING
 from src.models.enums import ScopeType
+
+if TYPE_CHECKING:
+    from src.models.character import Character
 
 class ICombatView(Protocol):
     """Interface für die Haupt-Ansicht des Combat Trackers."""
@@ -52,20 +55,12 @@ class ICombatView(Protocol):
         """Gibt eine Liste aller ausgewählten Item-IDs zurück."""
         ...
 
-    def highlight_character(self, char_id: str) -> None:
-        """Hebt den Charakter mit der angegebenen ID in der Liste hervor."""
-        ...
-
     def get_action_value(self) -> int:
         """Gibt den Wert aus dem Aktions-Eingabefeld zurück (z.B. Schaden)."""
         ...
 
-    def get_action_type(self) -> str:
-        """Gibt den ausgewählten Schadenstyp zurück."""
-        ...
-        
-    def get_damage_data(self) -> Tuple[int, str]:
-        """Gibt (Gesamtschaden, Detail-String) aus dem ActionPanel zurück."""
+    def get_damage_data(self) -> Tuple[int, str, str]:
+        """Gibt (Gesamtschaden, primärer_Schadenstyp, Detail-String) aus dem ActionPanel zurück."""
         ...
 
     def get_status_input(self) -> Dict[str, Any]:
@@ -84,14 +79,15 @@ class ICombatView(Protocol):
         """Aktualisiert die Anzeige der aktuellen Runde."""
         ...
 
-    def fill_input_fields(self, data: Dict[str, Any]) -> None:
-        """Füllt die Eingabefelder mit den übergebenen Daten."""
-        ...
-
     def update_colors(self, colors: Dict[str, str]) -> None:
         """Aktualisiert das Farbschema der View."""
         ...
 
     def focus_damage_input(self) -> None:
         """Setzt den Fokus auf das Schadens-Eingabefeld."""
+        ...
+
+    def ask_secondary_effect(self, effect_name: str, chars: List['Character']) -> List['Character']:
+        """Fragt den DM, welche der gewählten Charaktere vom Sekundäreffekt betroffen sind.
+        Gibt die Liste der bestätigten Charaktere zurück."""
         ...

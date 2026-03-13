@@ -3,6 +3,9 @@ import os
 from functools import reduce
 from src.config.defaults import DEFAULT_LANGUAGE
 from src.models.enums import Language
+from src.utils.logger import setup_logging
+
+logger = setup_logging()
 
 class Localization:
     def __init__(self, language_code=None):
@@ -22,14 +25,13 @@ class Localization:
             with open(file_path, 'r', encoding='utf-8') as f:
                 self.translations = json.load(f)
         except FileNotFoundError:
-            print(f"Warning: Language file not found for {self.language_code}, falling back to default.")
-            # If the requested language is not found, try falling back to English
+            logger.warning(f"Language file not found for '{self.language_code}', falling back to default. Path: {file_path}")
             if self.language_code != Language.ENGLISH.value:
                 self.set_language(Language.ENGLISH.value)
             else:
                 self.translations = {}
-        except json.JSONDecodeError:
-            print(f"Warning: Could not decode language file for {self.language_code}.")
+        except json.JSONDecodeError as e:
+            logger.error(f"Could not decode language file for '{self.language_code}': {e}. Path: {file_path}")
             self.translations = {}
 
     def set_language(self, language_code: str):
@@ -53,8 +55,8 @@ class Localization:
             try:
                 return template.format(**kwargs)
             except KeyError as e:
-                print(f"Warning: Missing placeholder in translation for key '{key}': {e}")
-                return template # Return the unformatted template as a fallback
+                logger.warning(f"Missing placeholder in translation for key '{key}': {e}")
+                return template
         
         return template
 

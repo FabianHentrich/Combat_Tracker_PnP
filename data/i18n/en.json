@@ -135,6 +135,12 @@
       "instruction": "Click a button and press a key",
       "press_key": "Press key..."
     },
+    "secondary_effect": {
+      "title": "Secondary Effect: {effect}",
+      "prompt": "Did the effect occur? Select affected targets:",
+      "prompt_single": "Did {effect} occur on {name}?",
+      "apply": "Apply"
+    },
     "import_preview": {
       "title": "Import Preview & Selection",
       "header": "Select and customize",
