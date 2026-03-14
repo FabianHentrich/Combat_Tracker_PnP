@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿# Magisches
 
 - [[Gegenstaende/Magisches/Archiv der Unvollendeten|Archiv der Unvollendeten]]

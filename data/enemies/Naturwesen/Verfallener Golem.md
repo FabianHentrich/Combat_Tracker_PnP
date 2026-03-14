@@ -1,3 +1,7 @@
+---
+tags: Naturwesen
+---
+
 ## Verfallener Golem 
 
 - **LP:** 20 **RP:** 8 **SP:** 0  

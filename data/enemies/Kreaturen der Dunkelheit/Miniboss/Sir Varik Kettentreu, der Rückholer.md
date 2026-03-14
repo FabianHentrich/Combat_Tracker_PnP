@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit, Miniboss
+---
+
 > [!summary]
 > **Markiert**, **zieht** und hält Ziele dort, wo er sie haben will.
 

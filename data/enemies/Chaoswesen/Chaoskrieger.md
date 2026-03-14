@@ -1,3 +1,7 @@
+---
+tags: Chaoswesen
+---
+
 Ein humanoider Krieger, durchdrungen vom chaotischen Wandel. Seine Körperform zittert unstet, seine Waffe verändert sich ständig. Seine Wut verleiht ihm enorme Kraft, birgt aber auch Risiken. Diese Wesen sind gefährliche Nahkämpfer mit wandelbaren Angriffsstilen.
 
 #### Attribute

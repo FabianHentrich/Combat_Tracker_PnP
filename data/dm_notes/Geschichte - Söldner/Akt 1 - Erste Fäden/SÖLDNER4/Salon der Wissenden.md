@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Söldner, Akt 1 - Erste Fäden, SÖLDNER4
+---
+
 ![[Anwesen Lilith von Lysander.png]]
 ![[Artefaktraum.png]]
 

@@ -13,6 +13,7 @@ class MarkdownUtils:
     # Pre-compile regex patterns for better performance
     LINK_PATTERN = re.compile(r'(\[\[.*?\]\])')
     BOLD_PATTERN = re.compile(r'(\*\*.*?\*\*)')
+    ITALIC_PATTERN = re.compile(r'(\*[^*\n]+\*|_[^_\n]+_)')
     STAT_PAIR_PATTERN = re.compile(r'^\d+/\d+$')
     IMAGE_PATTERN = re.compile(r'!\[.*?\]\((.*?)\)')
     TABLE_ROW_PATTERN = re.compile(r'^\s*\|.*\|\s*$')
@@ -24,6 +25,7 @@ class MarkdownUtils:
         text_widget.tag_config("h2", font=("Segoe UI", 14, "bold"), foreground=colors["accent"])
         text_widget.tag_config("h3", font=("Segoe UI", 12, "bold"))
         text_widget.tag_config("bold", font=("Segoe UI", 10, "bold"))
+        text_widget.tag_config("italic", font=("Segoe UI", 10, "italic"))
         text_widget.tag_config("link", foreground="#4a90e2", underline=True)
         # Tabellenfarben
         text_widget.tag_config("table_border", foreground=colors["fg"])
@@ -41,6 +43,11 @@ class MarkdownUtils:
         # Bild-Referenzen müssen am Widget gespeichert werden, sonst werden sie vom GC entfernt
         if not hasattr(text_widget, '_image_refs'):
             text_widget._image_refs = []
+        # Strip YAML frontmatter (--- ... ---) before rendering
+        if text.startswith("---"):
+            end = text.find("\n---", 3)
+            if end != -1:
+                text = text[end + 4:].lstrip("\n")
         lines = text.split("\n")
         i = 0
         while i < len(lines):
@@ -151,7 +158,13 @@ class MarkdownUtils:
                         if b_part.startswith("**") and b_part.endswith("**"):
                             text_widget.insert(tk.END, b_part[2:-2], ("bold",) + tuple(tags))
                         else:
-                            text_widget.insert(tk.END, b_part, tuple(tags))
+                            italic_parts = MarkdownUtils.ITALIC_PATTERN.split(b_part)
+                            for i_part in italic_parts:
+                                if (i_part.startswith("*") and i_part.endswith("*") and len(i_part) > 2) or \
+                                   (i_part.startswith("_") and i_part.endswith("_") and len(i_part) > 2):
+                                    text_widget.insert(tk.END, i_part[1:-1], ("italic",) + tuple(tags))
+                                else:
+                                    text_widget.insert(tk.END, i_part, tuple(tags))
             text_widget.insert(tk.END, "\n")
             i += 1
 

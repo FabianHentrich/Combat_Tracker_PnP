@@ -1,3 +1,7 @@
+---
+tags: Weiße Kanzlei, NPCs
+---
+
 LP 30, RP 10, **Schild 10**, MP 30, AP 30.  
 KAMPF 5
 STÄRKE 4

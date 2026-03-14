@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Nahkampfwaffen
+---
+
 ﻿# Speer
 
 **Schaden:** STÃ„RKE + 2

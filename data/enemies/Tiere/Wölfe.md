@@ -1,3 +1,7 @@
+---
+tags: Tiere
+---
+
 **Wölfe – Statblocks**
 | Name | LP | RP | KAMPF | STÄRKE | GEWANDTHEIT | Fähigkeiten |
 |---|---:|---:|---:|---:|---:|---|

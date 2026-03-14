@@ -1,3 +1,7 @@
+---
+tags: Legendaeres, Monolithen
+---
+
 ﻿## Monolith â€“ wÃ¼rfelfÃ¶rmiger Zauberspeicher (Artefaktfamilie)
 
 **Seltenheit:** [[RANG]] 6 (einzigartig)

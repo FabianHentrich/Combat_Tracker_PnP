@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿### Magische Roben & UmhÃ¤nge
 
 - **[[JÃ¤gerrobe der Finsternis]]**  

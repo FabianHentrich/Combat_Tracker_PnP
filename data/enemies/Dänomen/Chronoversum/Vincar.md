@@ -1,6 +1,8 @@
 ---
+
 aliases:
   - Vincar, Sternfalter des Chronoversums
+tags: Dänomen, Chronoversum
 ---
 
 > [!abstract] **Kurzprofil**

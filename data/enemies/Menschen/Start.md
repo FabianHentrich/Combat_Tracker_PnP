@@ -1,3 +1,7 @@
+---
+tags: Menschen
+---
+
 [[Kultpriester]]
 [[Fanatischer Kultist]]
 [[Banditen-Gruppe]]

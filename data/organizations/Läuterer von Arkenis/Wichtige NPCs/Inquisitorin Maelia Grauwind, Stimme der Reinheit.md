@@ -1,7 +1,9 @@
 ---
+
 aliases:
   - Maelia Grauwind
   - Inquisitorin
+tags: Läuterer von Arkenis, Wichtige NPCs
 ---
 
 > Kommandantin einer reisenden Schar der „[[Läuterer von Arkenis]]“.  

@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿
 - **[[Selbstkochkessel]]**  
   Ein magischer Kessel, der jederzeit **warmes Essen** zubereiten kann.

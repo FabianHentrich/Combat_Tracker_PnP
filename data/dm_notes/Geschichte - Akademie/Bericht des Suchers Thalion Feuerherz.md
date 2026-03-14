@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Akademie
+---
+
 # Bericht des Suchers Thalion Feuerherz
 
 Der Archon selbst gab uns das **Schicksalsdeck**. Es beschleunigt unsere Forschungen enorm, doch die Opferzahlen steigen. Wie lange können wir es noch einsetzen? **Eldrin** und **Morgath** sind gescheitert. Und dann ist da noch **von Morgenstern** …

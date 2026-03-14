@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Nahkampfwaffen
+---
+
 ﻿# Kriegsaxt
 
 **Schaden:** 2 Ã— STÃ„RKE + 3

@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit
+---
+
 ## Nebelerscheinung
 
 - **LP:** 15 **RP:** 0 **SP:** 0  

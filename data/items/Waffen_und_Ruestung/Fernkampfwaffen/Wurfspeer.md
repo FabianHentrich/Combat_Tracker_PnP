@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Fernkampfwaffen
+---
+
 ﻿# Wurfspeer
 
 **Schaden:** STÃ„RKE + 2

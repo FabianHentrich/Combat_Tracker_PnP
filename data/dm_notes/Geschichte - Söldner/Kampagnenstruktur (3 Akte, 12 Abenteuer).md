@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Söldner
+---
+
 
 >Ein verflochtenes Netz aus Intrigen und Mysterien führt die Gruppe von lokalen Konflikten und moralischen Dilemmata (Akt I) über eskalierende Machtspiele zwischen **Schattenorden**, **Chronos** und der **Weißen Kanzlei** (Akt II) bis zur hochmagischen Erkundungsschlacht in **Venthir** (Akt III). Jede Episode bietet klare **Kampf-Setpieces** (Wellenkämpfe, Belagerungen, Bossduelle) neben Heist-/Ermittlungs-Szenen. Die **6-Monolithen-Arc** (Schwarz/Blau/Gelb/Grün/Weiß/Rot) dient als roter Faden: Monolithen werden entdeckt, gesichert und zu Set-Piece-Werkzeugen, während die Dämonen **Ephraskal** und **Nahlith** im Hintergrund auf eine gefährliche **Verschaltung** hinarbeiten (u. a. zur Lockerung von Vincars Siegel). Politische Entscheidungen (Ordens-Freiheit, Chronos-Protokolle oder Kanzlei-Regulierung) prägen am Ende dauerhaft die Weltordnung – inklusive Zugriffen auf Ressourcen, Lehrmeister/Legendär-Wege und den künftigen, rechtlich geregelten Umgang mit dunkler Magie.
 

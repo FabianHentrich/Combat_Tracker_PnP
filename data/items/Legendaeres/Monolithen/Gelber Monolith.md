@@ -1,3 +1,7 @@
+---
+tags: Legendaeres, Monolithen
+---
+
 ﻿**Runen-Trigger:** 
 Bis zu **3 Bedingungen**:
 - *3 oder mehr Feinde fokussieren das Lebewesen*

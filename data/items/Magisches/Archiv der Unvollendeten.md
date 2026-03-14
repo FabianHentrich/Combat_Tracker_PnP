@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿
 > _Ein dÃ¼nnes, versiegeltes Pergamentbuch, das jede Begegnung festhÃ¤lt â€“ auÃŸer jene, die abgeschlossen wurden._
 

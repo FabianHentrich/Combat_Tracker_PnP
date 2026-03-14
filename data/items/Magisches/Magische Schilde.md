@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿### Magische Schilde
 
 - **[[Schild der DÃ¤mmerung]]**

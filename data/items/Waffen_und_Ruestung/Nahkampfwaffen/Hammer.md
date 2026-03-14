@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Nahkampfwaffen
+---
+
 ﻿# Hammer
 
 **Schaden:** 1 Ã— STÃ„RKE + 1

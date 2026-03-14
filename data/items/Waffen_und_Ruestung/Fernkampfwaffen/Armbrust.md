@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Fernkampfwaffen
+---
+
 ﻿# Armbrust
 
 **Schaden:** 1W8

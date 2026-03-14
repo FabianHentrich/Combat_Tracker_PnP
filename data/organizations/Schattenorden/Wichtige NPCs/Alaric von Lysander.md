@@ -1,10 +1,13 @@
 ---
+
 aliases:
   - Alaric
   - Archivarius
   - Der Ausgleicher
   - Der Verwalter
+tags: Schattenorden, Wichtige NPCs
 ---
+
 > *„Ich sammle, was die Welt zerreißen könnte – und lasse euch glauben, es wäre nie da gewesen.“*
 
 ---

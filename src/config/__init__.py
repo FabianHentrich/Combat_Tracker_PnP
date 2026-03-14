@@ -112,6 +112,7 @@ FILES = {
     "rules": rules_file,
     "hotkeys": os.path.join(DATA_DIR, "hotkeys.json"),
     "enemies": os.path.join(DATA_DIR, "enemies.json"),
+    "library_db": os.path.join(DATA_DIR, "library.db"),
     "autosave": os.path.join(SAVES_DIR, "autosave.json"),
     "lock": os.path.join(SAVES_DIR, "running.lock"),
     "log": os.path.join(LOGS_DIR, "combat_tracker.log")

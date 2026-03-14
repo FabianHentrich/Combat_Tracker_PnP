@@ -1,3 +1,7 @@
+---
+tags: Menschen, Boss
+---
+
 > [!summary]
 > Baut **Barrieren**, knockt im Ring nieder und macht Durchbruch teuer.
 

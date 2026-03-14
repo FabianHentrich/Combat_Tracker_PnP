@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung
+---
+
 # Waffen und Rüstung
 - [[Gegenstaende/Waffen_und_Ruestung/Schildarten/Start|Schildarten]]
 - [[Gegenstaende/Waffen_und_Ruestung/Ruestung und Roben/Start|Ruestung und Roben]]

@@ -1,9 +1,12 @@
 ---
+
 aliases:
   - Mara
   - Ama
   - Amara
+tags: Neben NPCs
 ---
+
 > **Vorstellungs-Snippet**  
 > *„Willkommen im **Sonnenquell** – nehmt euch einen warmen Holunder-Zimt-Knoten, die Heilung beginnt im Herzen.“*  
 > Kräuterdampf liegt in der Luft, während kupferne Destillier­kolben über blauem Alchemie-Feuer leise brodeln.

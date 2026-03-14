@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit, Boss
+---
+
 > [!summary]
 > Bindet Ziele mit Dornen, bestraft Verzauberte mit dem Totenkuß; kann aber auch schlicht peitschen.
 

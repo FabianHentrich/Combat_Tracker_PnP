@@ -1,3 +1,7 @@
+---
+tags: Weihnachts-One-Shot
+---
+
 ## Die Laterne des Schneemädchens
 
 Man erzählt von einem kleinen Mädchen in einem Dorf am Rand des Nordwaldes.  

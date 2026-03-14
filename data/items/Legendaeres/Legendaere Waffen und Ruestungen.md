@@ -1,3 +1,7 @@
+---
+tags: Legendaeres
+---
+
 ﻿
 ## Waffen
 - **[[Dunkelklinge der SchattenjÃ¤gerin (LegendÃ¤r)]]**

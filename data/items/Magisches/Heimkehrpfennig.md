@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿# Verfluchter Gegenstand: **Heimkehrpfennig**
 
 **Kurz:** Bei Hautkontakt an den TrÃ¤ger gebunden. Eine freche, verstorbene Stimme flÃ¼stert fortan nur ihm/ihr. Weggegeben, verloren oder zerstÃ¶rt? Am nÃ¤chsten Morgengrauen wieder im Beutel â€“ gern mit Spruch.

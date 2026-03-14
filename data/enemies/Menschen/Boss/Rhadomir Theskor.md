@@ -1,12 +1,14 @@
 ---
-tags:
+
   - Boss
   - Krieger
   - Zauberschmied
   - Dämon
 aliases:
   - Rhadomir
+tags: Menschen, Boss
 ---
+
 # **Rhadomir Theskor**, *der Bannträger*  
 
 ### **Auszug aus den *Annalen der Bannnacht*, Folio XIII**

@@ -1,3 +1,7 @@
+---
+tags: Chaoswesen, Miniboss
+---
+
 Ein monströser Albtraum des Chaos mit zuckenden Tentakeln, ständigem körperlichen Wandel und einem Blick, der den Verstand verdirbt. Sie stellt eine gewaltige Bedrohung dar – nicht nur durch rohe Kraft, sondern auch durch die psychische Zersetzung ihrer Opfer.
 
 #### Attribute

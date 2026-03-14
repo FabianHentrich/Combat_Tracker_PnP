@@ -1,3 +1,7 @@
+---
+tags: Dänomen
+---
+
 ## **⚠️ Dämonische Wesenszüge** 
 - **Immun:** Gift, Blutung, Erschöpfung.  
 - **Resistenz:** Feuer, Nekro.  

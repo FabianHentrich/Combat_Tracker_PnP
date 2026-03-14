@@ -1,3 +1,7 @@
+---
+tags: Menschen
+---
+
 | Einheit                                  |  LP |  RP | KAMPF | STÄ | GEW | WISS |  MP | Fähigkeiten                                                                                                                              |
 | ---------------------------------------- | --: | --: | ----: | --: | --: | ---: | --: | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | **Sektenanhänger (verblendeter Bürger)** |  12 |   0 |     2 |   2 |   2 |    – |   – | **Fanatische Worte** (Moraltest); **Blindes Vertrauen** (psych. Effekte ignorieren); **Entschlossener Läuterer** (+2 auf alle Angriffe). |

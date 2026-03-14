@@ -1,1 +1,5 @@
+---
+tags: Naturwesen
+---
+
 - [[Verfallener Golem]]

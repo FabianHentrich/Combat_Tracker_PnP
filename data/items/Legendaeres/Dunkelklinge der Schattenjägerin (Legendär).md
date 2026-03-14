@@ -1,3 +1,7 @@
+---
+tags: Legendaeres
+---
+
 ﻿
 **Typ:** Magisches GroÃŸschwert  
 **Schaden:** `3W6 +` [[STÃ„RKE]]

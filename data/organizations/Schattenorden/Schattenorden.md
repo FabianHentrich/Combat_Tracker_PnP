@@ -1,3 +1,7 @@
+---
+tags: Schattenorden
+---
+
 ## Allgemeines
 
 Der **Schattenorden** ist eine unterirdische Organisation, die sich der Erforschung und Nutzung verbotener Magie verschrieben hat. Ihr Ziel ist es, ein ultimatives Verständnis für die tiefsten Geheimnisse der Magie zu erlangen – unabhängig von moralischen oder ethischen Einschränkungen.

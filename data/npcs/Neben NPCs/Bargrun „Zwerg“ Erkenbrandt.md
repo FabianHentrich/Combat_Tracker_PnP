@@ -1,8 +1,11 @@
 ---
+
 aliases:
   - Zwerg
   - Bargrun
+tags: Neben NPCs
 ---
+
 > *„Komm her, Freundchen – ein Goldstück sagt, du hältst keine drei Herzschläge stand!“*
 
 ---

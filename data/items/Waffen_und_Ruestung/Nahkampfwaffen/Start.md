@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Nahkampfwaffen
+---
+
 # Nahkampfwaffen
 
 [[Dolch]]

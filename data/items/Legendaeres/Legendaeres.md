@@ -1,3 +1,7 @@
+---
+tags: Legendaeres
+---
+
 ﻿# Legendaeres
 
 - [[Gegenstaende/Legendaeres/Dunkelklinge der Schattenjägerin (Legendär)|Dunkelklinge der Schattenjägerin (Legendär)]]

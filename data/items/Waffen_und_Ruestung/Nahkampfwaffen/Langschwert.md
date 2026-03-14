@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Nahkampfwaffen
+---
+
 ﻿# Langschwert
 
 **Schaden:** 2 Ã— STÃ„RKE

@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit
+---
+
 > [!summary]
 > Läutet **Miasma** (–2 auf Proben, kein Sprint) und nervt Frontkämpfer mit Bußhieben. Einfach, aber effektiv.
 

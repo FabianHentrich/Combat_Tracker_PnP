@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Fernkampfwaffen
+---
+
 ﻿# Langbogen
 
 **Schaden:** 1W6

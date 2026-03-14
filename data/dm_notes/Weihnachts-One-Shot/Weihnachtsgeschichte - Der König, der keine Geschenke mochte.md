@@ -1,3 +1,7 @@
+---
+tags: Weihnachts-One-Shot
+---
+
 ## Der König, der keine Geschenke mochte
 
 Es gab einst einen König, der den Winter hasste – und die Geschenke gleich mit.  

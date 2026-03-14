@@ -91,20 +91,8 @@ class LibraryPDFTab:
         Returns the number of matches.
         """
         if hasattr(self, 'viewer') and self.viewer:
-            if not query:
-                return 0
-            # Trigger search in viewer
             self.viewer.search_var.set(query)
-            self.viewer._perform_full_search(query)
-
-            # If matches found, jump to first
-            if self.viewer.search_results:
-                 self.viewer.current_search_index = 0
-                 self.viewer._update_view()
-                 page_num, _ = self.viewer.search_results[0]
-                 self.viewer.jump_to_page(page_num)
-
-            return len(self.viewer.search_results)
+            return self.viewer.search(query)
         return 0
 
     def display_content(self, filepath: str):

@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Schildarten
+---
+
 ﻿# Mittlerer Schild
 
 **RÃ¼stungspunkte:** 5

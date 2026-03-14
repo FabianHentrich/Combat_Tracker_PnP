@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿Das **Schicksalsdeck** ist ein uraltes magisches Artefakt: Ein Satz Karten mit unvorhersehbaren â€“ oft extremen â€“ Effekten. Jede Karte birgt groÃŸen Segen oder groÃŸes Unheil, bisweilen beides zugleich. Selbst mÃ¤chtige Magier schrecken vor ihm zurÃ¼ck, denn es verÃ¤ndert nicht nur das Schicksal der Ziehenden, sondern greift auch in die Welt um sie herum ein.
 
 ---

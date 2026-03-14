@@ -4,12 +4,12 @@ from typing import Dict, Any, Optional, TYPE_CHECKING
 
 from src.utils.logger import setup_logging
 from src.config import FONTS, WINDOW_SIZE, LIBRARY_TABS
-from src.utils.library_data_manager import LibraryDataManager
+from src.utils.library_index import LibraryIndex
 from src.utils.navigation_manager import NavigationManager
 from src.controllers.library_import_tab import LibraryImportTab
 from src.controllers.library_markdown_tab import LibraryMarkdownTab
 from src.controllers.library_pdf_tab import LibraryPDFTab
-from src.utils.enemy_data_loader import EnemyDataLoader
+from src.utils.enemy_repository import EnemyRepository
 from src.utils.localization import translate
 
 if TYPE_CHECKING:
@@ -34,7 +34,7 @@ class LibraryHandler:
         self.import_tab = None
         self.markdown_tabs = {}
 
-        self.data_manager = LibraryDataManager()
+        self.data_manager = LibraryIndex()
         self.dirs = self.data_manager.dirs
         self.tabs = {}
         self.navigator = NavigationManager(self._restore_state, self._update_nav_buttons_ui)
@@ -42,7 +42,7 @@ class LibraryHandler:
         self.btn_forward = None
 
     def get_preset(self, name: str) -> Optional[Dict[str, Any]]:
-        return EnemyDataLoader().get_preset(name)
+        return EnemyRepository().get_preset(name)
 
     def open_library_window(self) -> None:
         if self.lib_window and self.lib_window.winfo_exists():

@@ -187,7 +187,16 @@
     "staging_area": "Selected Enemies (Adjust Count & Values)",
     "act_immediately": "Act Immediately",
     "add_all_to_combat": "Add All to Combat",
-    "select_folder": "Select Folder..."
+    "select_folder": "Select Folder...",
+    "filter_category_all": "All Categories",
+    "filter_type_all": "All Types",
+    "filter_level_label": "Level:",
+    "filter_level_to": "–",
+    "filter_reset": "Reset Filters",
+    "encounter_generator": "Random Encounter",
+    "encounter_count": "Count:",
+    "encounter_generate": "🎲 Roll",
+    "encounter_no_presets": "No enemies found for current filters."
   },
   "audio_player": {
     "title": "Music Player",
@@ -336,6 +345,22 @@
     "rename_error": "Error while renaming",
     "saved_title": "Saved",
     "saved": "Note has been saved.",
-    "save_error": "Error while saving the note."
+    "save_error": "Error while saving the note.",
+    "new_note": "New Note",
+    "new_note_name_prompt": "Note name (without .md):",
+    "new_note_folder_prompt": "Subfolder (optional, leave empty for root):",
+    "new_note_exists": "A note with this name already exists.",
+    "new_note_error": "Error creating note",
+    "tag_filter_label": "Tag:",
+    "tag_filter_all": "All Tags",
+    "backlinks_label": "References to this note",
+    "no_backlinks": "No references found.",
+    "template_label": "Choose template",
+    "template_none": "Empty note",
+    "template_location": "Location",
+    "template_faction": "Faction"
+  },
+  "turn_banner": {
+    "no_initiative": "Initiative not rolled yet"
   }
 }

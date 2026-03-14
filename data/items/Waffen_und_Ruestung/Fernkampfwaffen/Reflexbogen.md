@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Fernkampfwaffen
+---
+
 ﻿# Reflexbogen
 
 **Schaden:** 1W6

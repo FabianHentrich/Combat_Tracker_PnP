@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Söldner, Akt 1 - Erste Fäden, SÖLDNER2
+---
+
 
 > **Kurzfassung:** Auf dem Rückweg vom Auftrag mit **[[Thalion Feuerherz]]** findet die Gruppe einen **niedergebrannten Bauernhof**. Frauen/Töchter wurden „als Hexen“ verschleppt. Die Spur führt zu einem **Palisadenlager** der **[[Läuterer von Arkenis]]**, wo **bei Einbruch der Nacht** ein Reinigungsritual beginnen soll. Die Gruppe muss unter Zeitdruck vorgehen und das Zeremoniell verhindern.
 

@@ -1,7 +1,9 @@
 ---
+
 aliases:
   - Sanfte Hexe
   - Liora
+tags: Chronos - Geheimbund der Zeit, Wichtige NPCs
 ---
 
 > *„Es dauert nur einen Augenblick. Bitte, widersteht nicht.“*

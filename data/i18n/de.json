@@ -187,7 +187,16 @@
     "staging_area": "Ausgewählte Gegner (Anzahl & Werte anpassen)",
     "act_immediately": "Sofort handeln",
     "add_all_to_combat": "Alle zum Kampf hinzufügen",
-    "select_folder": "Ordner auswählen..."
+    "select_folder": "Ordner auswählen...",
+    "filter_category_all": "Alle Kategorien",
+    "filter_type_all": "Alle Typen",
+    "filter_level_label": "Level:",
+    "filter_level_to": "–",
+    "filter_reset": "Filter zurücksetzen",
+    "encounter_generator": "Zufallsbegegnung",
+    "encounter_count": "Anzahl:",
+    "encounter_generate": "🎲 Würfeln",
+    "encounter_no_presets": "Keine Gegner für aktuelle Filter gefunden."
   },
   "audio_player": {
     "title": "Musik-Player",
@@ -336,6 +345,22 @@
     "rename_error": "Fehler beim Umbenennen",
     "saved_title": "Gespeichert",
     "saved": "Notiz wurde gespeichert.",
-    "save_error": "Fehler beim Speichern der Notiz."
+    "save_error": "Fehler beim Speichern der Notiz.",
+    "new_note": "Neue Notiz",
+    "new_note_name_prompt": "Name der neuen Notiz (ohne .md):",
+    "new_note_folder_prompt": "Unterordner (optional, leer lassen für Root):",
+    "new_note_exists": "Eine Notiz mit diesem Namen existiert bereits.",
+    "new_note_error": "Fehler beim Erstellen der Notiz",
+    "tag_filter_label": "Tag:",
+    "tag_filter_all": "Alle Tags",
+    "backlinks_label": "Verweise auf diese Notiz",
+    "no_backlinks": "Keine Verweise gefunden.",
+    "template_label": "Vorlage wählen",
+    "template_none": "Leere Notiz",
+    "template_location": "Ort",
+    "template_faction": "Fraktion"
+  },
+  "turn_banner": {
+    "no_initiative": "Initiative noch nicht gerollt"
   }
 }

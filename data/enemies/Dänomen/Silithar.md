@@ -1,7 +1,10 @@
 ---
+
 aliases:
   - Schattenwesen
+tags: Dänomen
 ---
+
 # Das Schattenwesen – Jäger der verlorenen Seelen
 
 ## Allgemeine Beschreibung 

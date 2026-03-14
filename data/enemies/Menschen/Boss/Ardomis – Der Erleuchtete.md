@@ -1,3 +1,7 @@
+---
+tags: Menschen, Boss
+---
+
 ## Kurzbeschreibung
 Ardomis ist der fanatische Anführer einer radikalen Splittergruppe der [[Läuterer von Arkenis]]. Er sieht sich als Prophet einer „neuen Reinheit“, die die Welt von allem Magischen säubern soll. Nach Jahren als Inquisitor wandte er sich von seinem Orden ab, stahl das Buch der Reinigung und verschwand mit Getreuen in die Wälder, um ein Ritual der „Seelenzerschlagung“ vorzubereiten.  
 

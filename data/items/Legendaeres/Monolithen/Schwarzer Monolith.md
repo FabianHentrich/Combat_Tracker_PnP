@@ -1,3 +1,7 @@
+---
+tags: Legendaeres, Monolithen
+---
+
 ﻿> [!abstract] **Kurzbeschreibung**
 > WÃ¼rfelartiger [[Zauberspeicher]] aus manahaltigem Stein. EnthÃ¤lt eine **im WÃ¼rfel gebundene Untoten-Formation** â€“ **keine Leichen nÃ¶tig**.  
 > **KapazitÃ¤t:** **100/250** [[Manapunkte (MP)]] Â· **GrÃ¶ÃŸe:** handgroÃŸ.  

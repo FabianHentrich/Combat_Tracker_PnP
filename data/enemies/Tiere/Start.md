@@ -1,3 +1,7 @@
+---
+tags: Tiere
+---
+
 - [[Bärenfamilie]]
 - [[Wölfe]]
 

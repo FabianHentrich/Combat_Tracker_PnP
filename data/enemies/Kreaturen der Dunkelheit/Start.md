@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit
+---
+
 - [[Geisterwesen]]
 - [[Seuchenmönch]] 
 - [[Grabeswolf]] 

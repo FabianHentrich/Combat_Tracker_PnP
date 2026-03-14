@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit
+---
+
 > [!summary]
 > **Grabesheulen** für Furcht, **Phasenlauf** ignoriert Gelegenheitsangriffe – ideal für Backline-Druck.
 

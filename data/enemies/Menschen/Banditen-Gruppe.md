@@ -1,3 +1,7 @@
+---
+tags: Menschen
+---
+
 ## Bandit (Nahkampf)
 
 |     [[Talente]]      | [[RANG]] |

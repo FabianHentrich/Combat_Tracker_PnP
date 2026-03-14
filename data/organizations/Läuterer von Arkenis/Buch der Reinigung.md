@@ -1,3 +1,7 @@
+---
+tags: Läuterer von Arkenis
+---
+
 ## Hintergrund
 Dieses uralte Werk ist das wichtigste Artefakt der [[Läuterer von Arkenis]]. Es enthält Ritualanleitungen, Glaubensgrundsätze und fanatische Propaganda, die Magie als Verderbnis darstellen.  
 [[Ardomis – Der Erleuchtete]] hat das Buch aus dem Tempel gestohlen, um seine eigene radikale Interpretation der Lehren durchzusetzen. (siehe [[Im Namen der Reinheit (SÖLDNER2)]])

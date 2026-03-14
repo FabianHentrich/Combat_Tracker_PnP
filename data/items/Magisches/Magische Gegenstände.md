@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿## [[Magische Waffen]]
 ## [[Magische RÃ¼stung, Roben und UmhÃ¤nge]]
 

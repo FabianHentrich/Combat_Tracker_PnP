@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Söldner, Akt 1 - Erste Fäden, SÖLDNER4
+---
+
 > **Ton & Ziel**  
 > Intrige statt Massenschlacht · Etikette & feine Klingen · Heist im Hintergrund · moralisch saubere Neutralisation · NSC spiegeln die Moral der Gruppe · **Kyrilath** stört spürbar, ohne die Hausordnung von **Lyssara** offen zu brechen.
 > 

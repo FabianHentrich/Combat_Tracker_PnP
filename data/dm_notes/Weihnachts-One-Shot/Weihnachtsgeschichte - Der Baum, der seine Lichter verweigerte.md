@@ -1,3 +1,7 @@
+---
+tags: Weihnachts-One-Shot
+---
+
 ## Der Baum, der seine Lichter verweigerte
 
 In einem alten Palasthof stand ein Baum – hoch, gerade und stolz.  

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"\nwith open\\('C:/Users/iQ_3_/OneDrive/GitHub/Combat_Tracker_PnP/data/enemies/Chaoswesen/Chaoskreatur.md', encoding='utf-8'\\) as f:\n    print\\(f.read\\(\\)[:300]\\)\n\")"
+    ]
+  }
+}

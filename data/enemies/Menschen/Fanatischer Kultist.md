@@ -1,3 +1,7 @@
+---
+tags: Menschen
+---
+
 | Einheit                        |  LP |  RP | KAMPF | STÄ | GEW | WISS |  MP | Ausrüstung/Fähigkeiten                                                                                                                                                                                    |
 | ------------------------------ | --: | --: | ----: | --: | --: | ---: | --: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Fanatische Kultisten** (6–8) |  12 |   2 |     2 |   2 |   2 |    – |   – | **Messer/Speer** 1W6+STÄ; **Lederrüstung** 2 RP; **Fanatischer Eifer**: Tod eines Kultisten → Nachbarn +1 auf nächsten Angriff; **Läuterungsruf (1×)**: alle Kultisten im Umkreis +1 **STÄ** für 1 Runde. |

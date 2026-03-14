@@ -1,3 +1,7 @@
+---
+tags: Schattenorden
+---
+
 # Meister der Pfade des Schattenordens
 
 ## Pfad 1: Nekromantie

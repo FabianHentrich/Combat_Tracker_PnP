@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit, Miniboss
+---
+
 > [!summary]
 > Senkt Willen großflächig; kann wahlweise **kontrollieren** oder **solide poken**.
 

@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Akademie
+---
+
 > **Kurzfassung:**  
 > Nach einem Fehlschlag erhalten die Spieler einen scheinbar einfachen Auftrag in den Kellern der Akademie von Morgenstern. Eine zufällige Entdeckung führt sie in ein verborgenes Labyrinth vergessener Labore, verfluchter Bibliotheken und uralter Ritualstätten. Hinweise auf den **Schattenorden** und ein fehlgeschlagenes Experiment werfen Fragen über die dunkle Vergangenheit der Akademie auf.  
 > Während sie Kreaturen bekämpfen und einen **zersplitterten magischen Schlüssel** zusammensetzen, erleben sie eine Vision eines Rituals des Schattenordens. Bevor die Wahrheit greifbar wird, stürzen Katakomben ein, Schattenwesen erwachen – der Ausweg wird zum Wettlauf.  

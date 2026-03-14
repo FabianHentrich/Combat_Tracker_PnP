@@ -1,3 +1,7 @@
+---
+tags: Chronos - Geheimbund der Zeit
+---
+
 # Chronos – Der Geheimbund der Zeit
 
 ## 1) Leitbild

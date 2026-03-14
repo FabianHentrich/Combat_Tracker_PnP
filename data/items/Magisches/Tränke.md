@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿### Heil- und RegenerationstrÃ¤nke
 
 - **[[Heiltrank]]**  

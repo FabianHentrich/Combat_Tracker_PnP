@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Akademie
+---
+
 ## Szene 1: Die Akademie von Morgenstern
 
 ### Einstieg

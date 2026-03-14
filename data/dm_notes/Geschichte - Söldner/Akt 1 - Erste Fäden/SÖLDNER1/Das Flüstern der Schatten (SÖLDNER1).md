@@ -1,3 +1,7 @@
+---
+tags: Geschichte - Söldner, Akt 1 - Erste Fäden, SÖLDNER1
+---
+
 # Flüstern der Schatten
 
 > **Kurzfassung:** Die Gruppe schützt den Sucher **[[Thalion Feuerherz]]** bei einem Ritual, das die Seele einer uralten Heilerin beschwört. Hinterauftraggeberin ist **[[Lyssara Vaydris|Lilith von Lysander]]**. Angriff, Moral-Dilemma, Entscheidung am Ende. 

@@ -1,3 +1,7 @@
+---
+tags: Chaoswesen
+---
+
 
 Eine flackernde, verzerrte Erscheinung aus dem Herzen des Chaos. Ihre instabile Form scheint ständig in Bewegung, als würde sie sich der Realität entziehen. Sie attackiert mit einem unheilvollen Biss, dessen Wirkung unvorhersehbar ist – manchmal tödlich, manchmal heilend. Chaoskreaturen agieren hektisch und entziehen sich dem Zugriff durch ihre unstete Präsenz.
 

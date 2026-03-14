@@ -1,3 +1,7 @@
+---
+tags: Kreaturen der Dunkelheit, Miniboss
+---
+
 LP 25, RP 5, **Schild 5**, MP 25, AP 25.  
 
 KAMPF 4

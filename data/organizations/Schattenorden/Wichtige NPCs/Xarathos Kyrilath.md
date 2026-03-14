@@ -1,3 +1,7 @@
+---
+tags: Schattenorden, Wichtige NPCs
+---
+
 ## Talentwerte - 35 Punkte
 
 | [[Talente]]      | [[RANG]] |

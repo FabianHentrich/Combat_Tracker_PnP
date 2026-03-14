@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿
 - **[[Feuerball-Schriftrolle]]**  
   Wirkt einen Feuerball-Zauber mit **zusÃ¤tzlicher Explosionsstufe**

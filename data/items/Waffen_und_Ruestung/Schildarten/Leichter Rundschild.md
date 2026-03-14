@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Schildarten
+---
+
 ﻿# Leichter Rundschild
 Ein kleiner Schild, der leicht zu handhaben ist.
 

@@ -1,3 +1,7 @@
+---
+tags: Legendaeres, Monolithen
+---
+
 ﻿In der Form auch bekannt als *FolterwÃ¼rfel*.
 
 **Effekt:**

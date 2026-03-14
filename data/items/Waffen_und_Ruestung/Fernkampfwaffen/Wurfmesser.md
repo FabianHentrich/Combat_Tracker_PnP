@@ -1,3 +1,7 @@
+---
+tags: Waffen_und_Ruestung, Fernkampfwaffen
+---
+
 ﻿# Wurfmesser
 
 **Schaden:** 1W4

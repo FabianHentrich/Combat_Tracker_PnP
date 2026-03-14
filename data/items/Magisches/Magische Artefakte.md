@@ -1,3 +1,7 @@
+---
+tags: Magisches
+---
+
 ﻿Magische Artefakte kÃ¶nnen [[RANG]] 1 bis 5 haben. Dieser [[RANG]] spezifiziert die Seltenheit und machtstufe des Artefakts. [[RANG]] 6 Artefakte sind einzigartig.
 
 

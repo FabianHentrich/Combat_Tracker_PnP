@@ -162,7 +162,8 @@ LIBRARY_TABS = [
     {"id": "npcs", "title": "NPCs", "dir": "npcs"},
     {"id": "locations", "title": "Orte", "dir": "locations"},
     {"id": "organizations", "title": "Organisationen", "dir": "organizations"},
-    {"id": "gods", "title": "Götter", "dir": "gods"}
+    {"id": "gods", "title": "Götter", "dir": "gods"},
+    {"id": "dm_notes", "title": "DM Notizen", "dir": "dm_notes"},
 ]
 
 # --- CHARACTER DEFAULTS ---
