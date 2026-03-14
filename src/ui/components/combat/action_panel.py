@@ -42,19 +42,19 @@ class ActionPanel(ttk.LabelFrame):
     def _setup_ui(self):
         # --- Damage Section (Dynamic) ---
         ttk.Label(self, text=translate("action_panel.damage_healing_label")).pack(anchor="w")
-        
+
         # Container for dynamic rows
         self.rows_frame = ttk.Frame(self)
         self.rows_frame.pack(fill="x", pady=(0, 5))
-        
+
         # Add the first row initially
         self.add_damage_row()
-        
+
         # Buttons for row management
         row_btn_frame = ttk.Frame(self)
         row_btn_frame.pack(fill="x", pady=(0, 5))
         ttk.Button(row_btn_frame, text="+", width=3, command=self.add_damage_row).pack(side="left")
-        
+
         # Total display
         self.lbl_total = ttk.Label(row_btn_frame, text=f"{translate('action_panel.total')}: 0", font=("Arial", 9, "bold"))
         self.lbl_total.pack(side="right", padx=5)
@@ -106,7 +106,7 @@ class ActionPanel(ttk.LabelFrame):
 
         ttk.Separator(self, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=15)
 
-        # Management Section
+        # --- Management Section ---
         ttk.Label(self, text=translate("action_panel.management_label")).pack(anchor="w")
 
         self.management_target_var = tk.StringVar(value=translate("management_targets.selected"))

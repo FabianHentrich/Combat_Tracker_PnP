@@ -28,6 +28,7 @@ class MarkdownBrowser(ttk.Frame):
         self.scroll_positions = {}  # Merkt sich die Scroll-Positionen pro Datei
         self.search_matches = []
         self.current_match_idx = -1
+        self._filter_paths: Optional[set] = None  # wenn gesetzt: nur diese Dateien anzeigen
 
         self._setup_ui()
         self.load_tree()
@@ -79,8 +80,9 @@ class MarkdownBrowser(ttk.Frame):
         # Tags konfigurieren
         MarkdownUtils.configure_text_tags(self.text_widget, self._on_link_click, self.colors)
 
-    def load_tree(self):
-        """Lädt die Markdown-Dateien in den Treeview."""
+    def load_tree(self, filter_paths: set = None):
+        """Lädt die Markdown-Dateien in den Treeview. filter_paths schränkt auf eine Datei-Menge ein."""
+        self._filter_paths = filter_paths
         self.tree.delete(*self.tree.get_children())
 
         if not os.path.exists(self.root_dir):
@@ -92,6 +94,8 @@ class MarkdownBrowser(ttk.Frame):
         folder_nodes = {}
 
         for filepath in files:
+            if self._filter_paths is not None and filepath not in self._filter_paths:
+                continue
             rel_path = os.path.relpath(filepath, self.root_dir)
             parts = rel_path.split(os.sep)
             filename = parts[-1]
@@ -147,6 +151,8 @@ class MarkdownBrowser(ttk.Frame):
 
     def search(self, query: str) -> int:
         """Führt eine Suche durch und gibt die Anzahl der Treffer zurück."""
+        if not query:
+            return 0
         self.search_var.set(query)
         return len(self.tree.get_children())
 
@@ -160,6 +166,8 @@ class MarkdownBrowser(ttk.Frame):
         files = glob.glob(os.path.join(self.root_dir, "**/*.md"), recursive=True)
 
         for filepath in files:
+            if self._filter_paths is not None and filepath not in self._filter_paths:
+                continue
             filename = os.path.basename(filepath)
             display_name = os.path.splitext(filename)[0]
             match = False
@@ -352,7 +360,6 @@ class MarkdownBrowser(ttk.Frame):
         files = self._parse_drop_files(event.data)
         for file_path in files:
             if file_path.lower().endswith('.md'):
-                import os
                 dest = os.path.join(self.root_dir, os.path.basename(file_path))
                 if not os.path.exists(dest):
                     shutil.copy2(file_path, dest)

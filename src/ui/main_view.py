@@ -36,6 +36,8 @@ class MainView(ICombatView):
         self.bottom_panel: Optional[BottomPanel] = None
         self.audio_player: Optional[AudioPlayerWidget] = None
         self.dm_notes_panel: Optional[ttk.Frame] = None  # Panel für DM-Notizen
+        self._paned_window: Optional[ttk.PanedWindow] = None
+        self._dm_notes_expanded_width: int = 250  # last non-zero sash position
 
     def setup_ui(self) -> None:
         # Menübar erstellen
@@ -44,13 +46,14 @@ class MainView(ICombatView):
         # Hauptcontainer mit Splitter (PanedWindow)
         paned_window = ttk.PanedWindow(self.root, orient=tk.HORIZONTAL)
         paned_window.pack(fill=tk.BOTH, expand=True)
+        self._paned_window = paned_window
 
         # Logger für PanedWindow-Positionen aktivieren
         logger = get_logger()
         logger.attach_logger(paned_window, "PanedWindow_1_DM_vs_Main")
 
         # Linkes Panel: DM-Notizen (DMNotesPanel)
-        self.dm_notes_panel = DMNotesPanel(paned_window, root_dir="data/dm_notes/", colors=self.colors, link_callback=self._open_library_link)
+        self.dm_notes_panel = DMNotesPanel(paned_window, root_dir="data/dm_notes/", colors=self.colors, link_callback=self._open_library_link, collapse_callback=self._toggle_dm_notes)
         paned_window.add(self.dm_notes_panel, weight=0)  # weight=0 damit sashpos() Kontrolle hat!
 
         # Rechtes Panel: Bisherige Hauptinhalte
@@ -66,7 +69,7 @@ class MainView(ICombatView):
         # Setze optimale Sash-Position für DM-Notizen basierend auf Bildschirmbreite
         self._set_optimal_paned_positions(paned_window, screen_width)
 
-        # Configure main_frame grid: Nur 2 Zeilen (Content + Bottom)
+        # Configure main_frame grid: 2 Zeilen (Content + Bottom)
         main_frame.rowconfigure(0, weight=1)  # Content area (expandiert)
         main_frame.rowconfigure(1, weight=0)  # Bottom panel (fixed)
         main_frame.columnconfigure(0, weight=1)
@@ -256,12 +259,31 @@ class MainView(ICombatView):
         else:  # 4K und größer (3840x2160+)
             dm_notes_width = 400
 
+        self._dm_notes_expanded_width = dm_notes_width
+
         # Setze Position mit längerem Delay (damit UI vollständig gerendert ist)
         def set_pos():
             self.root.update_idletasks()
             paned_window.sashpos(0, dm_notes_width)
 
         self.root.after(1000, set_pos)  # 1 Sekunde Delay!
+
+    def _toggle_dm_notes(self):
+        """Collapses or expands the DM notes panel by moving the outer sash."""
+        if not self._paned_window:
+            return
+        current = self._paned_window.sashpos(0)
+        if current > 10:
+            # Currently expanded — save width and collapse
+            self._dm_notes_expanded_width = current
+            self._paned_window.sashpos(0, 0)
+            if self.dm_notes_panel and hasattr(self.dm_notes_panel, "set_collapsed"):
+                self.dm_notes_panel.set_collapsed(True)
+        else:
+            # Currently collapsed — restore
+            self._paned_window.sashpos(0, self._dm_notes_expanded_width)
+            if self.dm_notes_panel and hasattr(self.dm_notes_panel, "set_collapsed"):
+                self.dm_notes_panel.set_collapsed(False)
 
     def _set_content_paned_position(self, content_paned, screen_width):
         """Setzt optimale Position für das innere PanedWindow (CharList vs Interaction)."""

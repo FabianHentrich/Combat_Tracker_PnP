@@ -1,34 +1,110 @@
+import os
 import tkinter as tk
 from tkinter import ttk, messagebox
 from typing import Dict, Callable, Optional, List
+import tkinter.simpledialog
+
 from src.ui.components.markdown_browser import MarkdownBrowser
 from src.config import COLORS
-import tkinter.simpledialog
 from src.utils.localization import translate
+
+# ---------------------------------------------------------------------------
+# Note templates (#7)
+# ---------------------------------------------------------------------------
+_TEMPLATES: Dict[str, str] = {
+    "npc":      "# {name}\n\n## Beschreibung\n\n## Persönlichkeit\n\n## Motivation\n\n## Verbindungen\n",
+    "location": "# {name}\n\n## Beschreibung\n\n## Atmosphäre\n\n## Wichtige Details\n\n## Verbundene Orte\n",
+    "quest":    "# {name}\n\n## Aufgabe\n\n## Hintergrund\n\n## Ziele\n\n## Belohnung\n",
+    "faction":  "# {name}\n\n## Ziel\n\n## Mitglieder\n\n## Geschichte\n",
+    "empty":    "",
+}
+
+
+class _TemplateDialog(tk.Toplevel):
+    """Simple modal dialog to pick a note template."""
+
+    def __init__(self, parent: tk.Widget):
+        super().__init__(parent)
+        self.title(translate("dm_notes.template_label"))
+        self.resizable(False, False)
+        self.result: Optional[str] = None
+
+        options = [
+            ("empty",    translate("dm_notes.template_none")),
+            ("npc",      "NPC"),
+            ("location", translate("dm_notes.template_location")),
+            ("quest",    "Quest"),
+            ("faction",  translate("dm_notes.template_faction")),
+        ]
+        self._var = tk.StringVar(value="empty")
+
+        ttk.Label(self, text=translate("dm_notes.template_label"), padding=(10, 10, 10, 5)).pack()
+        for key, label in options:
+            ttk.Radiobutton(self, text=label, variable=self._var, value=key).pack(anchor=tk.W, padx=20)
+
+        ttk.Button(self, text=translate("common.ok"), command=self._ok).pack(pady=10)
+
+        self.transient(parent)
+        self.grab_set()
+        self.protocol("WM_DELETE_WINDOW", self._ok)
+        parent.wait_window(self)
+
+    def _ok(self):
+        self.result = self._var.get()
+        self.destroy()
+
 
 class DMNotesPanel(ttk.Frame):
     """
-    Panel für DM-Notizen und Pläne mit Dateibaum, zuletzt geöffneten Notizen, Modus-Schalter,
-    Löschen/Umbenennen, Drag & Drop, Undo/Redo, Autosave und Volltextsuche.
+    Panel für DM-Notizen.
+
+    Features:
+      #1  DM-Notizen werden durch LibraryIndex indiziert → globale Suche findet Inhalte
+      #2  "Neue Notiz"-Button mit Namens- und Ordnereingabe
+      #3  Autosave nach 3 s Inaktivität im Bearbeitungsmodus
+      #4  Kursiv-Rendering (in MarkdownUtils)
+      #5  Backlinks-Panel: zeigt Dateien, die auf die aktuelle Notiz verweisen
+      #6  Tag-Filter: filtert den Dateibaum nach YAML-Frontmatter-Tags
+      #7  Vorlagen-Auswahl beim Erstellen neuer Notizen
     """
-    def __init__(self, parent: tk.Widget, root_dir: str, colors: Dict[str, str], link_callback: Callable[[str], None]):
+
+    def __init__(
+        self,
+        parent: tk.Widget,
+        root_dir: str,
+        colors: Dict[str, str],
+        link_callback: Callable[[str], None],
+        collapse_callback: Optional[Callable[[], None]] = None,
+    ):
         super().__init__(parent)
         self.root_dir = root_dir
         self.colors = colors
         self.link_callback = link_callback
+        self.collapse_callback = collapse_callback
 
-        # Platzhalter für weitere Features
         self.recent_files: List[str] = []
         self.edit_mode = False
-        self.max_recent = 5  # TODO: Wert dynamisch aus Config laden
+        self.max_recent = 5
         self.recent_buttons: List[ttk.Button] = []
+        self._autosave_job: Optional[str] = None
+        self._collapsed = False
+        self._collapse_btn: Optional[ttk.Button] = None
 
         self._setup_ui()
 
+    # ------------------------------------------------------------------
+    # UI Construction
+    # ------------------------------------------------------------------
+
     def _setup_ui(self):
-        # Oben: Liste der zuletzt geöffneten Notizen und Modus-Schalter
+        # --- Top: collapse button + recent files + edit toggle ---
         top_frame = ttk.Frame(self)
         top_frame.pack(fill=tk.X, padx=5, pady=5)
+
+        self._collapse_btn = ttk.Button(
+            top_frame, text="◀", width=2, command=self._on_collapse_click
+        )
+        self._collapse_btn.pack(side=tk.LEFT, padx=(0, 6))
 
         self.recent_label = ttk.Label(top_frame, text=translate("dm_notes.recent"))
         self.recent_label.pack(side=tk.LEFT)
@@ -37,80 +113,238 @@ class DMNotesPanel(ttk.Frame):
         self._update_recent_buttons()
 
         self.mode_var = tk.BooleanVar(value=self.edit_mode)
-        self.mode_switch = ttk.Checkbutton(top_frame, text=translate("dm_notes.edit_mode"), variable=self.mode_var, command=self._toggle_mode)
-        self.mode_switch.pack(side=tk.RIGHT)
+        ttk.Checkbutton(
+            top_frame,
+            text=translate("dm_notes.edit_mode"),
+            variable=self.mode_var,
+            command=self._toggle_mode,
+        ).pack(side=tk.RIGHT)
 
-        # Mitte: MarkdownBrowser (Dateibaum, Suche, Anzeige)
-        self.markdown_browser = MarkdownBrowser(self, self.root_dir, self.colors, self.link_callback, on_navigate=self._on_note_navigate)
+        # --- Tag filter (#6) ---
+        tag_frame = ttk.Frame(self)
+        tag_frame.pack(fill=tk.X, padx=5, pady=(0, 2))
+        ttk.Label(tag_frame, text=translate("dm_notes.tag_filter_label")).pack(side=tk.LEFT)
+        self._tag_var = tk.StringVar(value=translate("dm_notes.tag_filter_all"))
+        self._tag_combo = ttk.Combobox(
+            tag_frame,
+            textvariable=self._tag_var,
+            state="readonly",
+            width=20,
+        )
+        self._tag_combo.pack(side=tk.LEFT, padx=(4, 0))
+        self._tag_combo.bind("<<ComboboxSelected>>", self._on_tag_filter)
+        self._refresh_tags()
+
+        # --- Main browser ---
+        self.markdown_browser = MarkdownBrowser(
+            self,
+            self.root_dir,
+            self.colors,
+            self.link_callback,
+            on_navigate=self._on_note_navigate,
+        )
         self.markdown_browser.pack(fill=tk.BOTH, expand=True)
 
-        # Unten: Platz für Buttons (Löschen, Umbenennen, Drag & Drop, Speichern, Undo/Redo)
+        # --- Backlinks panel (#5) ---
+        backlinks_outer = ttk.LabelFrame(self, text=translate("dm_notes.backlinks_label"))
+        backlinks_outer.pack(fill=tk.X, padx=5, pady=(2, 0))
+        self._backlinks_frame = ttk.Frame(backlinks_outer)
+        self._backlinks_frame.pack(fill=tk.X, padx=4, pady=2)
+        self._backlinks_placeholder = ttk.Label(
+            self._backlinks_frame, text=translate("dm_notes.no_backlinks"), foreground="gray"
+        )
+        self._backlinks_placeholder.pack(side=tk.LEFT)
+
+        # --- Bottom buttons ---
         bottom_frame = ttk.Frame(self)
         bottom_frame.pack(fill=tk.X, padx=5, pady=5)
-        self.delete_btn = ttk.Button(bottom_frame, text=translate("dm_notes.delete"), command=self._delete_note)
-        self.delete_btn.pack(side=tk.LEFT, padx=2)
-        self.rename_btn = ttk.Button(bottom_frame, text=translate("dm_notes.rename"), command=self._rename_note)
-        self.rename_btn.pack(side=tk.LEFT, padx=2)
-        self.save_btn = ttk.Button(bottom_frame, text=translate("dm_notes.save"), command=self._save_note)
-        self.save_btn.pack(side=tk.LEFT, padx=2)
-        self.undo_btn = ttk.Button(bottom_frame, text=translate("dm_notes.undo"), command=self._undo)
-        self.undo_btn.pack(side=tk.LEFT, padx=2)
-        self.redo_btn = ttk.Button(bottom_frame, text=translate("dm_notes.redo"), command=self._redo)
-        self.redo_btn.pack(side=tk.LEFT, padx=2)
-        # TODO: Drag & Drop-Integration
+
+        ttk.Button(bottom_frame, text=translate("dm_notes.new_note"), command=self._new_note).pack(side=tk.LEFT, padx=2)
+        ttk.Button(bottom_frame, text=translate("dm_notes.delete"), command=self._delete_note).pack(side=tk.LEFT, padx=2)
+        ttk.Button(bottom_frame, text=translate("dm_notes.rename"), command=self._rename_note).pack(side=tk.LEFT, padx=2)
+        ttk.Button(bottom_frame, text=translate("dm_notes.save"), command=self._save_note).pack(side=tk.LEFT, padx=2)
+        ttk.Button(bottom_frame, text=translate("dm_notes.undo"), command=self._undo).pack(side=tk.LEFT, padx=2)
+        ttk.Button(bottom_frame, text=translate("dm_notes.redo"), command=self._redo).pack(side=tk.LEFT, padx=2)
+
+    # ------------------------------------------------------------------
+    # Edit mode + Autosave (#3)
+    # ------------------------------------------------------------------
 
     def _toggle_mode(self):
         self.edit_mode = self.mode_var.get()
         self.markdown_browser.set_edit_mode(self.edit_mode)
+        if self.edit_mode:
+            tw = self.markdown_browser.text_widget
+            if tw:
+                tw.bind("<<Modified>>", self._on_text_modified)
+        else:
+            tw = self.markdown_browser.text_widget
+            if tw:
+                tw.unbind("<<Modified>>")
+            self._cancel_autosave()
+
+    def _on_text_modified(self, event=None):
+        tw = self.markdown_browser.text_widget
+        if tw and tw.edit_modified():
+            tw.edit_modified(False)
+            self._schedule_autosave()
+
+    def _schedule_autosave(self):
+        self._cancel_autosave()
+        self._autosave_job = self.after(3000, self._do_autosave)
+
+    def _cancel_autosave(self):
+        if self._autosave_job:
+            self.after_cancel(self._autosave_job)
+            self._autosave_job = None
+
+    def _do_autosave(self):
+        self._autosave_job = None
+        if self.edit_mode:
+            self.markdown_browser.save_current_file()
+            self._sync_index()
+
+    # ------------------------------------------------------------------
+    # New note (#2 + #7)
+    # ------------------------------------------------------------------
+
+    def _new_note(self):
+        name = tkinter.simpledialog.askstring(
+            translate("dm_notes.new_note"),
+            translate("dm_notes.new_note_name_prompt"),
+            parent=self,
+        )
+        if not name:
+            return
+        name = name.strip()
+        if not name:
+            return
+
+        folder = tkinter.simpledialog.askstring(
+            translate("dm_notes.new_note"),
+            translate("dm_notes.new_note_folder_prompt"),
+            parent=self,
+        )
+        folder = (folder or "").strip()
+
+        target_dir = os.path.join(self.root_dir, folder) if folder else self.root_dir
+        os.makedirs(target_dir, exist_ok=True)
+
+        filepath = os.path.join(target_dir, f"{name}.md")
+        if os.path.exists(filepath):
+            messagebox.showerror(
+                translate("dm_notes.error_title"),
+                translate("dm_notes.new_note_exists"),
+                parent=self,
+            )
+            return
+
+        # Template selection (#7)
+        dlg = _TemplateDialog(self)
+        template_key = dlg.result or "empty"
+        content = _TEMPLATES.get(template_key, "").format(name=name)
+
+        try:
+            with open(filepath, "w", encoding="utf-8") as f:
+                f.write(content)
+        except Exception as e:
+            messagebox.showerror(
+                translate("dm_notes.error_title"),
+                f"{translate('dm_notes.new_note_error')}: {e}",
+                parent=self,
+            )
+            return
+
+        self.markdown_browser.load_tree()
+        self.markdown_browser.open_file(filepath)
+        self.add_to_recent(filepath)
+        self._sync_index()
+
+        # Enter edit mode for the freshly created note
+        self.mode_var.set(True)
+        self.edit_mode = True
+        self.markdown_browser.set_edit_mode(True)
+
+    # ------------------------------------------------------------------
+    # File operations (delete / rename / save)
+    # ------------------------------------------------------------------
 
     def _delete_note(self):
         file_path = self.markdown_browser.current_file
         if not file_path:
-            messagebox.showwarning(translate("dm_notes.no_selection_title"), translate("dm_notes.no_selection"))
+            messagebox.showwarning(
+                translate("dm_notes.no_selection_title"),
+                translate("dm_notes.no_selection"),
+                parent=self,
+            )
             return
-        if messagebox.askyesno(translate("dm_notes.delete_confirm_title"), translate("dm_notes.delete_confirm").format(file=file_path)):
+        if messagebox.askyesno(
+            translate("dm_notes.delete_confirm_title"),
+            translate("dm_notes.delete_confirm").format(file=file_path),
+            parent=self,
+        ):
             try:
-                import os
                 os.remove(file_path)
                 self.markdown_browser.load_tree()
                 self.recent_files = [f for f in self.recent_files if f != file_path]
                 self._update_recent_buttons()
-                messagebox.showinfo(translate("dm_notes.deleted_title"), translate("dm_notes.deleted"))
+                self._sync_index()
+                messagebox.showinfo(translate("dm_notes.deleted_title"), translate("dm_notes.deleted"), parent=self)
             except Exception as e:
-                messagebox.showerror(translate("dm_notes.error_title"), f"{translate('dm_notes.delete_error')}: {e}")
+                messagebox.showerror(
+                    translate("dm_notes.error_title"),
+                    f"{translate('dm_notes.delete_error')}: {e}",
+                    parent=self,
+                )
 
     def _rename_note(self):
         file_path = self.markdown_browser.current_file
         if not file_path:
-            messagebox.showwarning(translate("dm_notes.no_selection_title"), translate("dm_notes.no_selection"))
+            messagebox.showwarning(
+                translate("dm_notes.no_selection_title"),
+                translate("dm_notes.no_selection"),
+                parent=self,
+            )
             return
-        import os
         dirname, old_name = os.path.split(file_path)
-        new_name = tkinter.simpledialog.askstring(translate("dm_notes.rename_title"), translate("dm_notes.rename_prompt"), initialvalue=os.path.splitext(old_name)[0])
-        if new_name:
-            if not new_name.endswith(".md"):
-                new_name += ".md"
-            new_path = os.path.join(dirname, new_name)
-            if os.path.exists(new_path):
-                messagebox.showerror(translate("dm_notes.error_title"), translate("dm_notes.rename_exists"))
-                return
-            try:
-                os.rename(file_path, new_path)
-                self.markdown_browser.load_tree()
-                self.markdown_browser.open_file(new_path)
-                self.recent_files = [new_path if f == file_path else f for f in self.recent_files]
-                self._update_recent_buttons()
-                messagebox.showinfo(translate("dm_notes.renamed_title"), translate("dm_notes.renamed"))
-            except Exception as e:
-                messagebox.showerror(translate("dm_notes.error_title"), f"{translate('dm_notes.rename_error')}: {e}")
+        new_name = tkinter.simpledialog.askstring(
+            translate("dm_notes.rename_title"),
+            translate("dm_notes.rename_prompt"),
+            initialvalue=os.path.splitext(old_name)[0],
+            parent=self,
+        )
+        if not new_name:
+            return
+        if not new_name.endswith(".md"):
+            new_name += ".md"
+        new_path = os.path.join(dirname, new_name)
+        if os.path.exists(new_path):
+            messagebox.showerror(translate("dm_notes.error_title"), translate("dm_notes.rename_exists"), parent=self)
+            return
+        try:
+            os.rename(file_path, new_path)
+            self.markdown_browser.load_tree()
+            self.markdown_browser.open_file(new_path)
+            self.recent_files = [new_path if f == file_path else f for f in self.recent_files]
+            self._update_recent_buttons()
+            self._sync_index()
+            messagebox.showinfo(translate("dm_notes.renamed_title"), translate("dm_notes.renamed"), parent=self)
+        except Exception as e:
+            messagebox.showerror(
+                translate("dm_notes.error_title"),
+                f"{translate('dm_notes.rename_error')}: {e}",
+                parent=self,
+            )
 
     def _save_note(self):
         if self.edit_mode:
+            self._cancel_autosave()
             success = self.markdown_browser.save_current_file()
             if success:
-                messagebox.showinfo(translate("dm_notes.saved_title"), translate("dm_notes.saved"))
+                self._sync_index()
+                messagebox.showinfo(translate("dm_notes.saved_title"), translate("dm_notes.saved"), parent=self)
             else:
-                messagebox.showerror(translate("dm_notes.error_title"), translate("dm_notes.save_error"))
+                messagebox.showerror(translate("dm_notes.error_title"), translate("dm_notes.save_error"), parent=self)
 
     def _undo(self):
         if self.edit_mode and self.markdown_browser.text_widget:
@@ -126,20 +360,26 @@ class DMNotesPanel(ttk.Frame):
             except tk.TclError:
                 pass
 
+    # ------------------------------------------------------------------
+    # Recent files
+    # ------------------------------------------------------------------
+
     def _update_recent_buttons(self):
-        # Entferne alte Buttons
         for btn in self.recent_buttons:
             btn.destroy()
         self.recent_buttons.clear()
-        # Erstelle neue Buttons für die zuletzt geöffneten Notizen
-        for file_path in self.recent_files[:self.max_recent]:
-            file_name = file_path.split("/")[-1]
-            btn = ttk.Button(self.recent_buttons_frame, text=file_name, width=18, command=lambda p=file_path: self.open_recent(p))
+        for file_path in self.recent_files[: self.max_recent]:
+            file_name = os.path.basename(file_path)
+            btn = ttk.Button(
+                self.recent_buttons_frame,
+                text=file_name,
+                width=18,
+                command=lambda p=file_path: self.open_recent(p),
+            )
             btn.pack(side=tk.LEFT, padx=2)
             self.recent_buttons.append(btn)
 
     def open_recent(self, file_path: str):
-        # Öffne die Notiz im MarkdownBrowser und verschiebe sie nach vorne in der Liste
         self.markdown_browser.open_file(file_path)
         if file_path in self.recent_files:
             self.recent_files.remove(file_path)
@@ -151,18 +391,110 @@ class DMNotesPanel(ttk.Frame):
             self.recent_files.remove(file_path)
         self.recent_files.insert(0, file_path)
         if len(self.recent_files) > self.max_recent:
-            self.recent_files = self.recent_files[:self.max_recent]
+            self.recent_files = self.recent_files[: self.max_recent]
         self._update_recent_buttons()
+
+    # ------------------------------------------------------------------
+    # Navigation → backlinks + recent
+    # ------------------------------------------------------------------
 
     def _on_note_navigate(self, filepath: str):
         self.add_to_recent(filepath)
+        self._refresh_backlinks(filepath)
 
+    # ------------------------------------------------------------------
+    # Backlinks (#5)
+    # ------------------------------------------------------------------
 
-    # TODO: Methoden für Undo/Redo, Autosave, Scroll-Position, Volltextsuche, Drag & Drop, Highlighting
+    def _refresh_backlinks(self, filepath: str):
+        for widget in self._backlinks_frame.winfo_children():
+            widget.destroy()
+
+        try:
+            from src.utils.library_index import LibraryIndex
+            backlinks = LibraryIndex().get_backlinks(filepath)
+        except Exception:
+            backlinks = []
+
+        if not backlinks:
+            ttk.Label(
+                self._backlinks_frame,
+                text=translate("dm_notes.no_backlinks"),
+                foreground="gray",
+            ).pack(side=tk.LEFT)
+            return
+
+        for bl in backlinks:
+            lbl = bl["filename"]
+            path = bl["path"]
+            btn = ttk.Button(
+                self._backlinks_frame,
+                text=lbl,
+                command=lambda p=path: self.markdown_browser.open_file(p),
+            )
+            btn.pack(side=tk.LEFT, padx=2)
+
+    # ------------------------------------------------------------------
+    # Tag filter (#6)
+    # ------------------------------------------------------------------
+
+    def _refresh_tags(self):
+        try:
+            from src.utils.library_index import LibraryIndex
+            tags = LibraryIndex().get_all_tags()
+        except Exception:
+            tags = []
+        all_label = translate("dm_notes.tag_filter_all")
+        values = [all_label] + tags
+        self._tag_combo.configure(values=values)
+        if self._tag_var.get() not in values:
+            self._tag_var.set(all_label)
+
+    def _on_tag_filter(self, event=None):
+        selected = self._tag_var.get()
+        all_label = translate("dm_notes.tag_filter_all")
+        if selected == all_label:
+            self.markdown_browser.load_tree(filter_paths=None)
+        else:
+            try:
+                from src.utils.library_index import LibraryIndex
+                paths = LibraryIndex().get_files_by_tag(selected)
+                self.markdown_browser.load_tree(filter_paths=set(paths))
+            except Exception:
+                self.markdown_browser.load_tree(filter_paths=None)
+
+    # ------------------------------------------------------------------
+    # LibraryIndex sync helper (#1)
+    # ------------------------------------------------------------------
+
+    def _sync_index(self):
+        """Re-indexes dm_notes after a filesystem change so the FTS index stays current."""
+        try:
+            from src.utils.library_index import LibraryIndex
+            LibraryIndex().sync()
+            self._refresh_tags()
+        except Exception:
+            pass
+
+    # ------------------------------------------------------------------
+    # Collapse toggle
+    # ------------------------------------------------------------------
+
+    def _on_collapse_click(self):
+        if self.collapse_callback:
+            self.collapse_callback()
+
+    def set_collapsed(self, collapsed: bool):
+        """Called by MainView after the sash has moved to update the button icon."""
+        self._collapsed = collapsed
+        if self._collapse_btn and self._collapse_btn.winfo_exists():
+            self._collapse_btn.config(text="▶" if collapsed else "◀")
+
+    # ------------------------------------------------------------------
+    # Theme
+    # ------------------------------------------------------------------
 
     def update_colors(self, colors: Dict[str, str]):
-        """Aktualisiert die Farben des Panels und seiner Unterkomponenten."""
         self.colors = colors
-        if hasattr(self, 'markdown_browser'):
+        if hasattr(self, "markdown_browser"):
             self.markdown_browser.update_colors(colors)
-

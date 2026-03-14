@@ -587,6 +587,18 @@ class PDFViewer(ttk.Frame):
         # _render_page_continuous handles highlights. If page is already rendered, we might need to refresh highligts.
         # But for now, scrolling to it triggers checks.
 
+    def search(self, text: str) -> int:
+        """Public entry point for programmatic search. Returns match count."""
+        if not self.doc or not text:
+            return 0
+        self._perform_full_search(text)
+        if self.search_results:
+            self.current_search_index = 0
+            self._update_view()
+            page_num, _ = self.search_results[0]
+            self.jump_to_page(page_num)
+        return len(self.search_results)
+
     def _perform_full_search(self, text):
         logger.debug(f"Scanning document for '{text}'...")
         self.search_results = []

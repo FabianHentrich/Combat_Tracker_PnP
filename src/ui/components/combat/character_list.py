@@ -92,11 +92,13 @@ class CharacterList(ttk.Frame):
             
             rp_str = f"{char.rp}/{char.max_rp}"
             sp_str = f"{char.sp}/{char.max_sp}"
-            lp_display = generate_health_bar(char.lp, char.max_lp, length=8)
+            lp_display = generate_health_bar(char.lp, char.max_lp, length=16)
 
             item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char_type_display, char.level, lp_display, rp_str, sp_str, char.gew, char.init, status_str))
 
             tags = []
+            if engine.initiative_rolled and k == 0:
+                tags.append('active')
             if char.lp <= 0:
                 tags.append('dead')
             elif char.lp < (char.max_lp * 0.3):
@@ -105,6 +107,7 @@ class CharacterList(ttk.Frame):
             if tags:
                 tree.item(item_id, tags=tuple(tags))
 
+        tree.tag_configure('active', background=self.colors.get("accent", "#3794ff"), foreground="#ffffff")
         tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
         tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
         
@@ -133,5 +136,6 @@ class CharacterList(ttk.Frame):
         if self.context_menu and self.context_menu.winfo_exists():
             self.context_menu.configure(bg=self.colors["panel"], fg=self.colors["fg"])
         if self.tree and self.tree.winfo_exists():
+            self.tree.tag_configure('active', background=self.colors.get("accent", "#3794ff"), foreground="#ffffff")
             self.tree.tag_configure('dead', background=self.colors["dead_bg"], foreground=self.colors["dead_fg"])
             self.tree.tag_configure('low_hp', foreground=self.colors["low_hp_fg"])
