@@ -77,7 +77,8 @@ class DMNotesPanel(ttk.Frame):
         collapse_callback: Optional[Callable[[], None]] = None,
     ):
         super().__init__(parent)
-        self.root_dir = root_dir
+        self._dm_notes_dir = root_dir
+        self.root_dir = self._resolve_default_dir(root_dir)
         self.colors = colors
         self.link_callback = link_callback
         self.collapse_callback = collapse_callback
@@ -93,6 +94,20 @@ class DMNotesPanel(ttk.Frame):
         self._setup_ui()
 
     # ------------------------------------------------------------------
+    # Startup: resolve which dir to show first
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _resolve_default_dir(dm_notes_dir: str) -> str:
+        """Returns PnP-Welt if dm_notes is absent/empty, otherwise dm_notes."""
+        from src.config import DATA_DIR
+        pnp_dir = os.path.join(DATA_DIR, "PnP-Welt")
+        dm_empty = not os.path.isdir(dm_notes_dir) or not os.listdir(dm_notes_dir)
+        if dm_empty and os.path.isdir(pnp_dir):
+            return pnp_dir
+        return dm_notes_dir
+
+    # ------------------------------------------------------------------
     # UI Construction
     # ------------------------------------------------------------------
 
@@ -101,10 +116,11 @@ class DMNotesPanel(ttk.Frame):
         top_frame = ttk.Frame(self)
         top_frame.pack(fill=tk.X, padx=5, pady=5)
 
-        self._collapse_btn = ttk.Button(
-            top_frame, text="◀", width=2, command=self._on_collapse_click
-        )
-        self._collapse_btn.pack(side=tk.LEFT, padx=(0, 6))
+        if self.collapse_callback:
+            self._collapse_btn = ttk.Button(
+                top_frame, text="◀", width=2, command=self._on_collapse_click
+            )
+            self._collapse_btn.pack(side=tk.LEFT, padx=(0, 6))
 
         self.recent_label = ttk.Label(top_frame, text=translate("dm_notes.recent"))
         self.recent_label.pack(side=tk.LEFT)
@@ -119,6 +135,21 @@ class DMNotesPanel(ttk.Frame):
             variable=self.mode_var,
             command=self._toggle_mode,
         ).pack(side=tk.RIGHT)
+
+        # --- Folder switcher (DM Notizen ↔ PnP-Welt) ---
+        self._folder_frame = ttk.Frame(self)
+        self._folder_frame.pack(fill=tk.X, padx=5, pady=(0, 2))
+        ttk.Label(self._folder_frame, text=translate("dm_notes.folder_label")).pack(side=tk.LEFT)
+        self._folder_var = tk.StringVar(value=translate("dm_notes.folder_dm_notes"))
+        self._folder_combo = ttk.Combobox(
+            self._folder_frame,
+            textvariable=self._folder_var,
+            state="readonly",
+            width=20,
+        )
+        self._folder_combo.pack(side=tk.LEFT, padx=(4, 0))
+        self._folder_combo.bind("<<ComboboxSelected>>", self._on_folder_change)
+        self._refresh_folder_list()
 
         # --- Tag filter (#6) ---
         tag_frame = ttk.Frame(self)
@@ -144,6 +175,10 @@ class DMNotesPanel(ttk.Frame):
             on_navigate=self._on_note_navigate,
         )
         self.markdown_browser.pack(fill=tk.BOTH, expand=True)
+        # Apply Geschichte filter if starting in PnP-Welt
+        initial_filter = self._geschichte_filter(self.root_dir)
+        if initial_filter is not None:
+            self.markdown_browser.load_tree(filter_paths=initial_filter)
 
         # --- Backlinks panel (#5) ---
         backlinks_outer = ttk.LabelFrame(self, text=translate("dm_notes.backlinks_label"))
@@ -475,6 +510,52 @@ class DMNotesPanel(ttk.Frame):
             self._refresh_tags()
         except Exception:
             pass
+
+    # ------------------------------------------------------------------
+    # Folder switcher (DM Notizen ↔ PnP-Welt)
+    # ------------------------------------------------------------------
+
+    def _refresh_folder_list(self):
+        from src.config import DATA_DIR
+        label_dm = translate("dm_notes.folder_dm_notes")
+        label_pnp = translate("dm_notes.folder_pnp_welt")
+        pnp_dir = os.path.join(DATA_DIR, "PnP-Welt")
+        self._folder_map = {label_dm: self._dm_notes_dir}
+        if os.path.isdir(pnp_dir):
+            self._folder_map[label_pnp] = pnp_dir
+        self._folder_combo.configure(values=list(self._folder_map.keys()))
+        # Sync combobox label with whichever dir is currently active
+        active_label = next(
+            (lbl for lbl, path in self._folder_map.items() if path == self.root_dir),
+            label_dm,
+        )
+        self._folder_var.set(active_label)
+
+    def _on_folder_change(self, event=None):
+        selected = self._folder_var.get()
+        new_dir = self._folder_map.get(selected, self._dm_notes_dir)
+        self.root_dir = new_dir
+        self.markdown_browser.root_dir = new_dir
+        self.markdown_browser.load_tree(filter_paths=self._geschichte_filter(new_dir))
+        self._refresh_tags()
+
+    @staticmethod
+    def _geschichte_filter(root_dir: str):
+        """Returns filter_paths for PnP-Welt (Geschichte folders only), or None for plain dm_notes."""
+        import glob as _glob
+        from src.config import DATA_DIR
+        pnp_dir = os.path.join(DATA_DIR, "PnP-Welt")
+        if os.path.abspath(root_dir) != os.path.abspath(pnp_dir):
+            return None
+        all_files = _glob.glob(os.path.join(root_dir, "**/*.md"), recursive=True)
+        result = set()
+        for f in all_files:
+            parts = os.path.relpath(f, root_dir).split(os.sep)
+            if any(p.startswith(".") for p in parts):
+                continue
+            if parts[0].startswith("Geschichte"):
+                result.add(f)
+        return result
 
     # ------------------------------------------------------------------
     # Collapse toggle

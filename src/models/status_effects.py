@@ -85,13 +85,14 @@ class ErosionEffect(StatusEffect):
 
     def apply_round_effect(self, character: 'Character') -> str:
         dmg = self.rank * random.randint(1, 4)
-        character.max_lp -= dmg
-        if character.max_lp < 0:
-            character.max_lp = 0
-        # Clamp current LP so it never exceeds the new (lower) max
-        if character.lp > character.max_lp:
-            character.lp = character.max_lp
-        return translate("messages.status.erosion", rank=self.rank, dmg=dmg)
+        # 1. Permanent max-LP reduction
+        character.max_lp = max(0, character.max_lp - dmg)
+        # 2. Direct damage equal to the same amount (bypasses SP and RP)
+        result = calculate_damage(character, dmg, DamageType.DIRECT)
+        # Safety clamp: LP must not exceed the new lower max, and not go below 0
+        character.lp = max(0, min(character.lp, character.max_lp))
+        result.messages.append(translate("messages.status.erosion", rank=self.rank, dmg=dmg))
+        return format_damage_log(character, result)
 
 class FreezeEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):
@@ -127,18 +128,8 @@ class BlindEffect(StatusEffect):
         super().__init__(StatusEffectType.BLIND, duration, rank)
 
     def apply_round_effect(self, character: 'Character') -> str:
-        if self.rank == 1:
-            return translate("messages.status.blind_rank1", name=character.name)
-        elif self.rank == 2:
-            return translate("messages.status.blind_rank2", name=character.name)
-        elif self.rank == 3:
-            return translate("messages.status.blind_rank3", name=character.name)
-        elif self.rank == 4:
-            return translate("messages.status.blind_rank4", name=character.name)
-        elif self.rank == 5:
-            return translate("messages.status.blind_rank5", name=character.name)
-        else:
-            return translate("messages.status.blind_generic", name=character.name, rank=self.rank)
+        key = f"messages.status.blind_rank{self.rank}" if 1 <= self.rank <= 5 else "messages.status.blind_generic"
+        return translate(key, name=character.name, rank=self.rank)
 
 class DisarmedEffect(StatusEffect):
     def __init__(self, duration: int, rank: int = 1):

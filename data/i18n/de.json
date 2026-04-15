@@ -358,9 +358,17 @@
     "template_label": "Vorlage wählen",
     "template_none": "Leere Notiz",
     "template_location": "Ort",
-    "template_faction": "Fraktion"
+    "template_faction": "Fraktion",
+    "folder_label": "Ordner:",
+    "folder_dm_notes": "DM Notizen",
+    "folder_pnp_welt": "PnP-Welt"
   },
   "turn_banner": {
     "no_initiative": "Initiative noch nicht gerollt"
+  },
+  "tabs": {
+    "combat": "Kampf",
+    "library": "Bibliothek",
+    "dm_notes": "DM-Notizen"
   }
 }

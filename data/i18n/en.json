@@ -358,9 +358,17 @@
     "template_label": "Choose template",
     "template_none": "Empty note",
     "template_location": "Location",
-    "template_faction": "Faction"
+    "template_faction": "Faction",
+    "folder_label": "Folder:",
+    "folder_dm_notes": "DM Notes",
+    "folder_pnp_welt": "PnP World"
   },
   "turn_banner": {
     "no_initiative": "Initiative not rolled yet"
+  },
+  "tabs": {
+    "combat": "Combat",
+    "library": "Library",
+    "dm_notes": "DM Notes"
   }
 }

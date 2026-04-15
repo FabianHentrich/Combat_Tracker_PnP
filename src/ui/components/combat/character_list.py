@@ -24,16 +24,16 @@ class CharacterList(ttk.Frame):
 
         # Spalten-Definitionen
         col_defs = [
-            ("Order", translate("character_list.order"), 25, "center", False),
-            ("Name", translate("character_attributes.name"), 200, "w", True),
-            ("Typ", translate("character_attributes.type"), 60, "center", False),
-            ("Level", translate("character_attributes.level"), 45, "center", False),
-            ("LP", translate("character_list.lp_bar"), 220, "center", False),
-            ("RP", translate("character_attributes.rp"), 45, "center", False),
-            ("SP", translate("character_attributes.sp"), 45, "center", False),
-            ("GEW", translate("character_attributes.gew"), 45, "center", False),
-            ("INIT", translate("character_attributes.init"), 45, "center", False),
-            ("Status", translate("character_list.status"), 450, "w", False)
+            ("Order", translate("character_list.order"), 25,  "center", False),
+            ("Name",  translate("character_attributes.name"),  200, "w",      True),
+            ("Typ",   translate("character_attributes.type"),   80, "center", False),
+            ("Level", translate("character_attributes.level"),  45, "center", False),
+            ("LP",    translate("character_list.lp_bar"),      230, "center", False),
+            ("RP",    translate("character_attributes.rp"),     60, "center", False),
+            ("SP",    translate("character_attributes.sp"),     60, "center", False),
+            ("GEW",   translate("character_attributes.gew"),    45, "center", False),
+            ("INIT",  translate("character_attributes.init"),   50, "center", False),
+            ("Status",translate("character_list.status"),      350, "w",      True),
         ]
 
         for col_id, text, width, anchor, stretch in col_defs:
@@ -41,6 +41,7 @@ class CharacterList(ttk.Frame):
             self.tree.column(col_id, width=width, anchor=anchor, stretch=stretch)
 
         self.tree.column("Name", minwidth=100)
+        self.tree.column("LP", minwidth=200)
         self.tree.column("Status", minwidth=200)
 
         scrollbar = ttk.Scrollbar(self, orient=tk.VERTICAL, command=self.tree.yview)
@@ -83,7 +84,7 @@ class CharacterList(ttk.Frame):
         n = len(engine.characters)
         display_list = [( (rot + k) % n, engine.characters[(rot + k) % n] ) for k in range(n)]
 
-        for orig_idx, char in display_list:
+        for k, (orig_idx, char) in enumerate(display_list):
             status_str = char.get_status_string().replace(" | Status: ", "")
             order = str(orig_idx + 1) if engine.initiative_rolled else "-"
             
@@ -92,7 +93,7 @@ class CharacterList(ttk.Frame):
             
             rp_str = f"{char.rp}/{char.max_rp}"
             sp_str = f"{char.sp}/{char.max_sp}"
-            lp_display = generate_health_bar(char.lp, char.max_lp, length=16)
+            lp_display = generate_health_bar(char.lp, char.max_lp, length=10)
 
             item_id = tree.insert("", tk.END, iid=char.id, values=(order, char.name, char_type_display, char.level, lp_display, rp_str, sp_str, char.gew, char.init, status_str))
 

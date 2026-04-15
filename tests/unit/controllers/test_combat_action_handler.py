@@ -67,6 +67,7 @@ def test_deal_damage_successful(handler, sample_character):
     handler.engine.get_character_by_id.return_value = sample_character
     handler.view.get_damage_data.return_value = (10, "FIRE", "1W6+2 FIRE")
     handler.view.get_status_input.return_value = {"rank": "2"}
+    handler.view.ask_secondary_effect.return_value = ([], 1, 3)
 
     handler.deal_damage()
 
@@ -86,11 +87,11 @@ def test_deal_damage_secondary_effect_dialog_shown(mock_get_rules, handler, samp
     handler.engine.get_character_by_id.return_value = sample_character
     handler.view.get_damage_data.return_value = (10, "FIRE", "1W6 FIRE")
     handler.view.get_status_input.return_value = {"rank": "2"}
-    handler.view.ask_secondary_effect.return_value = [sample_character]  # DM confirms
+    handler.view.ask_secondary_effect.return_value = ([sample_character], 2, 3)  # DM confirms
 
     handler.deal_damage()
 
-    handler.view.ask_secondary_effect.assert_called_once_with("BURN", [sample_character])
+    handler.view.ask_secondary_effect.assert_called_once_with("BURN", [sample_character], 5)
     handler.engine.add_status_effect.assert_called_once_with(sample_character, "BURN", 3, 2)
 
 
@@ -107,7 +108,7 @@ def test_deal_damage_secondary_effect_declined(mock_get_rules, handler, sample_c
     handler.engine.get_character_by_id.return_value = sample_character
     handler.view.get_damage_data.return_value = (10, "FIRE", "1W6 FIRE")
     handler.view.get_status_input.return_value = {"rank": "2"}
-    handler.view.ask_secondary_effect.return_value = []  # DM declines
+    handler.view.ask_secondary_effect.return_value = ([], 1, 3)  # DM declines
 
     handler.deal_damage()
 

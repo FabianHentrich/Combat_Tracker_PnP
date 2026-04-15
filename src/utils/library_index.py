@@ -45,8 +45,7 @@ class LibraryIndex:
 
     def _scan_dirs(self) -> None:
         from src.config import DATA_DIR
-        for folder in ("rules", "items", "enemies", "dm_notes"):
-            os.makedirs(os.path.join(DATA_DIR, folder), exist_ok=True)
+        os.makedirs(os.path.join(DATA_DIR, "rules"), exist_ok=True)
         if os.path.exists(DATA_DIR):
             for entry in os.scandir(DATA_DIR):
                 if entry.is_dir() and not entry.name.startswith("."):
@@ -68,6 +67,9 @@ class LibraryIndex:
         for category, root_dir in self.dirs.items():
             pattern = os.path.join(root_dir, "**", "*.md")
             for filepath in glob.glob(pattern, recursive=True):
+                rel = os.path.relpath(filepath, root_dir)
+                if any(part.startswith(".") for part in rel.split(os.sep)):
+                    continue
                 all_paths.add(filepath)
                 mtime = os.path.getmtime(filepath)
                 row = self._db.conn.execute(

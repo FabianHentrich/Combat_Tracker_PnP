@@ -1,0 +1,3 @@
+| Einheit                 |  LP |  RP | KAMPF | STÄ | GEW | WISS |  MP | Fähigkeiten                                                                                                                                                                |
+| ----------------------- | --: | --: | ----: | --: | --: | ---: | --: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Entweihter Priester** |  22 |   2 |     2 |   2 |   2 |    3 |  20 | **Verdrehte Litanei (6 MP):** –1 auf **GESELLSCHAFT/MAGIESINN** (3 m); **Fluch des Lichts (4 MP):** 1W6 Licht, 50 % Blendung; **Stimme der Reinheit:** +1 **KAMPF** (5 m). |

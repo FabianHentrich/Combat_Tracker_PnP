@@ -103,6 +103,41 @@ def test_format_log_secondary_effect(char, result):
     assert "Burn" in log
     assert "2" in log
 
+
+def test_format_log_secondary_effect_contains_effect_name(char):
+    """format_damage_log() must embed the effect name in the secondary-effect line."""
+    # Build a result that carries a secondary_effect directly (no calculate_damage needed)
+    result = DamageResult(original_damage=8, damage_type="FIRE", rank=3)
+    result.secondary_effect = "BURN"
+    log = format_damage_log(char, result)
+    # The effect name must appear somewhere in the log string
+    assert "BURN" in log
+
+
+def test_format_log_secondary_effect_contains_rank(char):
+    """format_damage_log() must include the rank value in the secondary-effect line."""
+    result = DamageResult(original_damage=5, damage_type="FIRE", rank=4)
+    result.secondary_effect = "BURN"
+    log = format_damage_log(char, result)
+    assert "4" in log
+
+
+@patch('src.core.mechanics.get_rules')
+def test_format_log_secondary_effect_from_rules(mock_get_rules, char):
+    """When a damage type has secondary_effect in rules, the effect name appears in the log."""
+    mock_get_rules.return_value = {
+        "damage_types": {
+            "FIRE": {
+                "ignores_armor": False,
+                "ignores_shield": False,
+                "secondary_effect": "BURN"
+            }
+        }
+    }
+    result = calculate_damage(char, 5, "FIRE")
+    log = format_damage_log(char, result)
+    assert "BURN" in log
+
 def test_format_log_ignores_armor(char, result):
     """Tests that armor-ignoring damage is noted in the log."""
     result.ignores_armor = True

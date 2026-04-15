@@ -243,6 +243,76 @@ def test_insert_character_when_no_initiative_rolled(manager):
     assert manager.engine.characters[-1].name == "B"
     manager.engine.log.assert_called()
 
+# --- Multi-skip and round-boundary Tests ---
+
+def test_skip_character_at_end_of_round_wraps_to_next_round(manager):
+    """A character with skip_turns > 0 who is the last in the list causes a round wrap."""
+    last = Character("Last", 10, 0, 0, init=5)
+    first = Character("First", 10, 0, 0, init=20)
+    manager.engine.characters = [first, last]
+    manager.turn_index = 0   # first's turn just happened; last is next
+    manager.round_number = 1
+
+    # Pre-set skip on 'last' so _update_character_status won't clear it
+    last.skip_turns = 1
+    with patch.object(manager, '_update_character_status', side_effect=lambda c: None):
+        result = manager.next_turn()
+
+    # Skipping 'last' (index 1, end of list) must wrap to index 0 (new round)
+    assert manager.round_number == 2
+    assert result is first
+
+
+def test_skip_turns_greater_than_one_skips_multiple_characters(manager):
+    """A character with skip_turns=2 is skipped; TurnManager only reads skip_turns once per
+    _update_character_status call, so this test checks that skip_turns=1 (set by Stun) skips
+    one character and lands on a different one."""
+    stunned = Character("Stunned", 10, 0, 0, init=30)
+    middle  = Character("Middle",  10, 0, 0, init=20)
+    last    = Character("Last",    10, 0, 0, init=10)
+    manager.engine.characters = [stunned, middle, last]
+    manager.turn_index = -1
+
+    # Give 'stunned' skip_turns=1; _update_character_status won't be patched so it resets to 0,
+    # but we set it AFTER the update by patching _update_character_status to set skip_turns
+    def set_skip(char):
+        if char.name == "Stunned":
+            char.skip_turns = 1
+        else:
+            char.skip_turns = 0
+
+    with patch.object(manager, '_update_character_status', side_effect=set_skip):
+        result = manager.next_turn()
+
+    # Stunned is skipped; should land on Middle
+    assert result.name == "Middle"
+
+
+def test_consecutive_skip_advances_round_number(manager):
+    """When the last character in a round has skip_turns set, advancing past it
+    must increment the round counter (wrap) before looking for the next character."""
+    char_a = Character("A", 10, 0, 0, init=20)
+    char_b = Character("B", 10, 0, 0, init=10)
+    manager.engine.characters = [char_a, char_b]
+    # char_b just had its turn; next call starts a new round
+    manager.turn_index = 1
+    manager.round_number = 1
+
+    # char_a (index 0) will be skipped in the new round
+    char_a.skip_turns = 1
+    def set_skip_on_a(char):
+        # Preserve skip_turns for char_a, clear for others
+        if char.name != "A":
+            char.skip_turns = 0
+
+    with patch.object(manager, '_update_character_status', side_effect=set_skip_on_a):
+        result = manager.next_turn()
+
+    # Wrapping to index 0 triggered round 2; skipping A lands on B
+    assert manager.round_number == 2
+    assert result.name == "B"
+
+
 def test_insert_character_increments_turn_index_when_inserted_before_current(manager):
     """When a character is inserted at a position <= turn_index, turn_index is bumped."""
     manager.engine.characters = [

@@ -1,2 +1,0 @@
-﻿- erosion? 
-- durchschlagsscahden mit rüstung ignoiert wird aber Schild nicht? 

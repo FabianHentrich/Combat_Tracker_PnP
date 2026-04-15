@@ -1,5 +1,0 @@
----
-tags: Läuterer von Arkenis
----
-
-Mittelgroßer Kult aus [[Arkenfeld]], welche Magie als etwas böses ansieht. Ihre Grundsätze beruhen auf dem [[Buch der Reinigung]], welches ein altes Werk von einem Unbekannten Schreibers ist. 

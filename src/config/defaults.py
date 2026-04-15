@@ -157,13 +157,7 @@ DEFAULT_HOTKEYS = {
 # --- LIBRARY TABS ---
 LIBRARY_TABS = [
     {"id": "rules", "title": "Regelwerk", "dir": "rules"},
-    {"id": "items", "title": "Gegenstände", "dir": "items"},
-    {"id": "enemies", "title": "Gegner (Info)", "dir": "enemies"},
-    {"id": "npcs", "title": "NPCs", "dir": "npcs"},
-    {"id": "locations", "title": "Orte", "dir": "locations"},
-    {"id": "organizations", "title": "Organisationen", "dir": "organizations"},
-    {"id": "gods", "title": "Götter", "dir": "gods"},
-    {"id": "dm_notes", "title": "DM Notizen", "dir": "dm_notes"},
+    {"id": "pnp_welt", "title": "🌍 PnP-Welt", "dir": "PnP-Welt"},
 ]
 
 # --- CHARACTER DEFAULTS ---

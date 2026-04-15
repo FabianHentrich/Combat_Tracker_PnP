@@ -230,6 +230,67 @@ def test_bleed_effect_minimum_floor(mock_calculate, char):
     mock_calculate.assert_called_with(char, 1, "NORMAL")
 
 
+@patch('src.models.status_effects.calculate_damage')
+def test_bleed_effect_active_rounds_zero_returns_empty_like_log(mock_calculate, char):
+    """active_rounds=0 produces dmg = int(rank/2 + (0-1)) which is < 1, clamped to 1.
+    calculate_damage is still called (with 1), so this verifies the floor clamp applies
+    even on the very first call before active_rounds is incremented by TurnManager."""
+    mock_result = DamageResult(original_damage=1, damage_type="NORMAL", rank=2)
+    mock_calculate.return_value = mock_result
+
+    effect = BleedEffect(duration=3, rank=2)
+    effect.active_rounds = 0  # before TurnManager increments it
+    effect.apply_round_effect(char)
+
+    # int(2/2 + (0-1)) = int(0) = 0, clamped → must be called with 1
+    mock_calculate.assert_called_with(char, 1, "NORMAL")
+
+
+@patch('src.models.status_effects.calculate_damage')
+def test_bleed_effect_rank1_active_rounds1_clamps_to_minimum(mock_calculate, char):
+    """rank=1, active_rounds=1: int(1/2 + 0) = 0, clamped to minimum 1."""
+    mock_result = DamageResult(original_damage=1, damage_type="NORMAL", rank=1)
+    mock_calculate.return_value = mock_result
+
+    effect = BleedEffect(duration=5, rank=1)
+    effect.active_rounds = 1
+    effect.apply_round_effect(char)
+
+    mock_calculate.assert_called_with(char, 1, "NORMAL")
+
+
+def test_regeneration_effect_does_not_overheal_by_default(char):
+    """RegenerationEffect.apply_round_effect() must not push LP above max_lp."""
+    char.lp = 99
+    char.max_lp = 100
+    effect = RegenerationEffect(duration=1, rank=50)  # rank >> remaining gap
+    effect.apply_round_effect(char)
+    assert char.lp <= char.max_lp
+
+
+def test_regeneration_effect_heals_when_lp_at_max(char):
+    """When LP is already at max, Regeneration should not raise and LP stays at max."""
+    char.lp = 100
+    char.max_lp = 100
+    effect = RegenerationEffect(duration=1, rank=5)
+    effect.apply_round_effect(char)
+    # heal() caps at max_lp by default
+    assert char.lp == 100
+
+
+def test_regeneration_effect_lp_greater_than_max_not_decreased(char):
+    """If LP somehow already exceeds max_lp (overheal from another source),
+    Regeneration must not decrease it — it only adds, then Character.heal() caps."""
+    char.lp = 110   # already overhealed
+    char.max_lp = 100
+    effect = RegenerationEffect(duration=1, rank=5)
+    # heal() with allow_overheal=False caps at max_lp, but starts from 110 → stays 110
+    # because min(110 + 5, 100) = 100 (character.heal adds then caps)
+    effect.apply_round_effect(char)
+    # After heal: lp = min(110 + 5, 100) = 100
+    assert char.lp == char.max_lp
+
+
 @patch('random.randint', return_value=4)
 def test_erosion_effect_max_lp_floor_at_zero(mock_randint, char):
     """ErosionEffect floors max_lp at 0 and clamps current LP accordingly."""

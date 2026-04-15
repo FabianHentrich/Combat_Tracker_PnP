@@ -80,26 +80,26 @@ class ImportHandler:
 
     def on_details_confirmed(self, final_data: List[Dict[str, Any]]) -> None:
         """Callback when the import is finalized."""
-        count_imported = 0
         try:
+            # Build all characters first so a validation error doesn't cause partial import
+            new_chars = []
             for entry in final_data:
-                name = entry[StatType.NAME.value]
-                char_type = entry[StatType.TYPE.value]
-                lp = entry[StatType.LP.value]
-                rp = entry[StatType.RP.value]
-                sp = entry[StatType.SP.value]
-                gew = entry[StatType.GEW.value]
-                if gew > MAX_GEW:
-                    gew = MAX_GEW
-                level = entry.get(StatType.LEVEL.value, 0)
+                gew = min(entry[StatType.GEW.value], MAX_GEW)
+                new_chars.append(Character(
+                    entry[StatType.NAME.value],
+                    entry[StatType.LP.value],
+                    entry[StatType.RP.value],
+                    entry[StatType.SP.value],
+                    wuerfle_initiative(gew),
+                    gew=gew,
+                    char_type=entry[StatType.TYPE.value],
+                    level=entry.get(StatType.LEVEL.value, 0),
+                ))
 
-                init = wuerfle_initiative(gew)
+            for char in new_chars:
+                self.engine.insert_character(char)
 
-                new_char = Character(name, lp, rp, sp, init, gew=gew, char_type=char_type, level=level)
-                self.engine.insert_character(new_char)
-                count_imported += 1
-
-            self.engine.log(translate("messages.characters_imported", count=count_imported))
+            self.engine.log(translate("messages.characters_imported", count=len(new_chars)))
 
         except Exception as e:
             logger.error(f"Error during import: {e}")

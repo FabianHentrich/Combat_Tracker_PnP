@@ -1,7 +1,0 @@
-﻿[[Feuerschaden]]
-[[Blitzschaden]]
-[[KÃ¤lteschaden]]
-
-
-
-

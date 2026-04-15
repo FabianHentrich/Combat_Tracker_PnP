@@ -1,61 +1,84 @@
 # Feature Roadmap
-- check TODO:
-- Autosave/Save auf dm_notes ausweiten
-- [x] Autosave/Save soll die letzen 3 Runde oder bestimmte anzahl von einträgen im Kampfprotokoll wiederherstellen.
-- Suche nochmal testen/optimieren
-  - Navigation zwischen treffern 
-  - Versionierung prüfen
 
-## Phase 2: Erweiterte Features & Content (Tiefe)
-Diese Features erweitern die Möglichkeiten des Tools und bieten mehr Komfort für den Spielleiter.
+---
 
-- **Zufällige Gegnerauswahl (Encounter Generator)**
-    - *Warum:* Großes Feature für Spielleiter-Komfort bei spontanen Kämpfen. Filterbar nach Kategorie, Schwierigkeit und Level.
+## 🔧 Offene TODOs (Klein / Bugfix-Nah)
 
-## Phase 3: Polish & "Juice" (Atmosphäre)
-Features, die das Tool "lebendiger" machen und die User Experience abrunden.
+- [ ] **Autosave auf DM-Notizen ausweiten** — DM-Notizen in den normalen Save-/Autosave-Zyklus aufnehmen.
+- [ ] **Suche testen & optimieren**
+  - Navigation zwischen Treffern (↑/↓)
+  - Versionierung des Such-Index prüfen
 
-- **Soundeffekte für Events** (Spielertod, NPC-Tod, Gegnertod, Kampfende)
-    - *Warum:* Erhöht den Spaßfaktor und gibt akustisches Feedback.
-- **Separate Spieler-Ansicht (Second Screen)**
-    - *Warum:* Ermöglicht das Teilen von Infos (Initiative, sichtbare HP) auf einem zweiten Monitor, ohne Spoiler (Werte, Notizen) zu zeigen.
+---
 
-## Langfristig / Architektur
-- **Datenbank-Integration (SQLite)**
-    - *Warum:* Performance bei sehr vielen Daten, bessere Suchmöglichkeiten, Verknüpfung von IDs.
-- **Gegner/NPC direkt aus der Bibliothek hinzufügen**
-  - *Warum:* Massiver Workflow-Gewinn. Verhindert unnötiges Hin- und Herwechseln zwischen Tabs.
-- **Packaging (.exe / Installer)**
-    - *Warum:* Einfachere Weitergabe und Installation für Endnutzer.
+## ⚔️ Kampf-Komfort
 
+- [ ] **Charakter duplizieren**
+    - *Warum:* Ein Klick erstellt eine Kopie eines Gegners mit allen Werten. Unverzichtbar wenn mehrere gleiche Gegner im Kampf sind.
 
-## Bugs und Fehler
+- [ ] **Resistenzen & Immunitäten pro Charakter**
+    - *Warum:* Schadenstyp-Resistenz (halber Schaden) oder Immunität direkt am Charakter hinterlegen. `calculate_damage()` wertet das automatisch aus.
 
-#-----------------------------------------------------------------------------------------------------------------------
+- [ ] **Gruppen-Initiative**
+    - *Warum:* Alle Gegner einer Gruppe würfeln gemeinsam (ein Initiativewert für alle). Standard in vielen PnP-Systemen, spart Zeit bei großen Encounters.
 
-4. Verbleibende Verbesserungsvorschläge (Advanced)
-Nachdem die kritischen Punkte behoben sind, hier einige Vorschläge für die nächste Stufe der Professionalisierung:
-A. Dependency Injection (DI) & Inversion of Control (IoC)
-•
-Beobachtung: Klassen erstellen oft noch ihre eigenen Abhängigkeiten. Zum Beispiel erzeugt der CombatEngine seinen TurnManager. Die Controller (CombatActionHandler etc.) werden in der CombatTracker-Klasse (der "App") erstellt.
-•
-Vorschlag: Führe das Prinzip der "Dependency Injection" konsequenter ein. Anstatt dass eine Klasse ihre Helfer selbst erstellt, sollten diese von außen in den Konstruktor "injiziert" werden.
-◦
-Ein zentraler Ort (z.B. die main-Funktion in Combat_Tracker.py) sollte alle Kern-Objekte instanziieren (Engine, TurnManager, HistoryManager, MainView, alle Handler) und sie dann an die jeweiligen Konstruktoren übergeben.
-•
-Vorteil:
-◦
-Testbarkeit: Das Mocking in Tests wird trivial. Man übergibt einfach einen MagicMock an den Konstruktor, statt patch verwenden zu müssen.
-◦
-Flexibilität: Man könnte leicht einen AdvancedTurnManager statt des normalen TurnManager verwenden, ohne die CombatEngine ändern zu müssen.
-◦
-Klarheit: Die Abhängigkeiten einer Klasse sind sofort in der __init__-Signatur ersichtlich.
-B. Striktere Trennung zwischen UI und Controllern
-•
-Beobachtung: Die Controller greifen teilweise noch sehr spezifisch auf die View zu (z.B. view.get_damage_data()). Das ist schon gut über das ICombatView-Interface gelöst, aber die Kopplung ist noch recht eng.
-•
-Vorschlag (Optional): Man könnte die Interaktion weiter entkoppeln, indem die View bei einer Aktion ein generisches "Event-Objekt" oder ein Dictionary mit den Daten an den Controller sendet, anstatt dass der Controller die View aktiv nach Daten fragt.
-◦
-Beispiel: Der deal_damage-Button in der UI sammelt die Daten und ruft controller.deal_damage(damage_info={'amount': 10, 'type': 'Feuer'}) auf.
-•
-Vorteil: Der Controller wird noch unabhängiger von der konkreten UI-Implementierung. Dies ist jedoch bereits ein sehr hohes Niveau der Entkopplung und für dieses Projekt eventuell "Over-Engineering". Der aktuelle Zustand ist bereits ein guter Kompromiss.
+- [ ] **Timer / Countdown**
+    - *Warum:* Sichtbarer Countdown für zeitkritische Szenen (z.B. "Falle löst in X Runden aus"). Tickt automatisch mit `next_turn()`.
+
+- [ ] **Kampf-Statistik**
+    - *Warum:* Dialog nach "Kampf beenden" mit Total-Schaden, ausgeteilten Effekten und gefallenen Charakteren als Zusammenfassung.
+
+- [ ] **Kampflog-Export**
+    - *Warum:* Log am Ende als `.txt` oder `.html` exportieren, mit Zeitstempel und Rundenmarkierungen. Nützlich für Session-Protokolle.
+
+---
+
+## 🗂️ Charakter & Content
+
+- [ ] **Charakter-Notizen**
+    - *Warum:* Freitext-Feld pro Charakter (Tooltip oder Popup) für DM-interne Infos, die nicht in der Bibliothek stehen.
+
+- [ ] **Spieler-Presets** (analog zu Gegner-Presets)
+    - *Warum:* Spielercharaktere als wiederverwendbare Presets speichern, um sie schnell in neue Kämpfe zu laden.
+
+---
+
+## 📚 Bibliothek & DM-Werkzeuge
+
+- [ ] **Lesezeichen in der Bibliothek**
+    - *Warum:* Häufig genutzte Markdown-/PDF-Seiten favorisieren und als Schnellzugriff-Liste anzeigen.
+
+- [ ] **Zufallstabellen**
+    - *Warum:* Würfel-in-Tabelle-Mechanismus für Loot, NPC-Namen, Wetter etc., konfigurierbar als Markdown-Tabellen oder JSON.
+
+- [ ] **Session-Zusammenfassung**
+    - *Warum:* Automatisch generierter Notiz-Eintrag nach jeder Session (Datum, Runden, Charaktere, Kampflog-Kurzfassung).
+
+---
+
+## 🎨 Polish & Atmosphäre
+
+- [ ] **Soundeffekte für Events** (Tod, Kampfende, Rundenwechsel)
+    - *Warum:* Erhöht den Spaßfaktor und gibt akustisches Feedback zu wichtigen Ereignissen.
+
+- [ ] **Separate Spieler-Ansicht (Second Screen)**
+    - *Warum:* Initiative und sichtbare HP auf einem zweiten Monitor teilen, ohne Spoiler (DM-Werte, Notizen) zu zeigen.
+
+---
+
+## 🏗️ Langfristig / Architektur
+
+- [ ] **Kampagnen-Verwaltung**
+    - *Warum:* Mehrere Kampagnen mit je eigenen Saves, DM-Notizen und Bibliothek-Indizes. Kampagne beim Start auswählen.
+
+- [ ] **Packaging (.exe / Installer)**
+    - *Warum:* Einfachere Weitergabe und Installation für Endnutzer ohne Python-Kenntnisse.
+
+---
+
+## ✅ Erledigt
+
+- [x] **Autosave / Kampfprotokoll wiederherstellen** — Letzte Runden des Kampfprotokolls werden mit dem Autosave gespeichert und beim Laden wiederhergestellt.
+- [x] **Encounter Generator** — Zufällige Gegnerauswahl filterbar nach Kategorie, Typ und Level-Range. (`_generate_encounter()` in `LibraryImportTab`)
+- [x] **Gegner/NPC direkt aus der Bibliothek hinzufügen** — `LibraryImportTab` mit Suche, SQL-Filter und Direkt-Import in den laufenden Kampf.
+- [x] **Datenbank-Integration (SQLite)** — `DatabaseManager` mit FTS5-Volltext-Suche und automatischer Schema-Migration.

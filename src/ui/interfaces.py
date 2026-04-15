@@ -87,7 +87,7 @@ class ICombatView(Protocol):
         """Setzt den Fokus auf das Schadens-Eingabefeld."""
         ...
 
-    def ask_secondary_effect(self, effect_name: str, chars: List['Character']) -> List['Character']:
+    def ask_secondary_effect(self, effect_name: str, chars: List['Character'], max_rank: int = 6) -> Tuple[List['Character'], int, int]:
         """Fragt den DM, welche der gewählten Charaktere vom Sekundäreffekt betroffen sind.
-        Gibt die Liste der bestätigten Charaktere zurück."""
+        Gibt (bestätigte Charaktere, rang, dauer) zurück."""
         ...

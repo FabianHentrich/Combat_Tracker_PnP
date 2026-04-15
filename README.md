@@ -1,20 +1,16 @@
 # ⚔️ PnP Combat Tracker
 
 > ⚠️ **Spoiler-Warnung:**
-> In den mitgelieferten Daten befinden sich vollständige Kampagnen, One-Shots und Abenteuer. Wer als Spieler an einer der enthaltenen Kampagnen teilnehmen möchte, sollte die DM-Notizen und die Bibliothek mit Vorsicht genießen! Die Bibliothek lässt sich öffnen ohne das man zwangläufig gespoilert wird. Trotzdem ist es zu empfehlen sich als Spieler nur das Tab _Regelwerk_ anzuschauen.
+> In den mitgelieferten Daten befinden sich vollständige Kampagnen, One-Shots und Abenteuer. Wer als Spieler an einer der enthaltenen Kampagnen teilnehmen möchte, sollte die DM-Notizen und Bibliothek mit Vorsicht genießen. Die Bibliothek lässt sich öffnen ohne zwingend gespoilert zu werden — als Spieler empfiehlt sich jedoch ausschließlich der Tab *Regelwerk*.
 
 ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Status](https://img.shields.io/badge/status-Beta-orange)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
 
-Ein professioneller, feature-reicher Combat Tracker für Pen & Paper Rollenspiele, entwickelt mit Python und Tkinter.
+Ein feature-reicher Combat Tracker für Pen & Paper Rollenspiele, entwickelt mit Python und Tkinter. Das Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt, ist aber auf andere Systeme anpassbar.
 
-> ℹ️ **Hinweis:** Dieses Tool wurde primär für ein **eigenes PnP-Regelwerk** entwickelt.
->
-> **Interesse am Regelwerk?** Das Regelwerk und einige Ressourcen aus einer beispielhaften Welt (Orte, Gegner, NPCs, Gegenstände, etc.) sind im Programm einsehbar. Wenn du das näher kennenlernen möchtest oder Fragen hast, schreib mir gerne eine E-Mail!
-
-Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu verwalten, Initiative zu tracken, Schaden zu berechnen und Status-Effekte im Blick zu behalten.
+> ℹ️ Das Regelwerk und eine beispielhafte Spielwelt (Orte, Gegner, NPCs, Gegenstände, Götter u.v.m.) sind direkt im Programm einsehbar. Bei Interesse oder Fragen einfach eine E-Mail schreiben!
 
 ---
 
@@ -23,11 +19,17 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 - [Features](#-features)
 - [Installation & Start](#-installation--start)
 - [Benutzung](#-benutzung)
-- [Musik-Player](#-musik-player)
-- [Programmlogik & Mechaniken](#-programmlogik--mechaniken)
-  - [Attribute & Initiative](#runter-attribute--initiative)
+- [Das Spielsystem](#-das-spielsystem)
+  - [Charaktererschaffung & Level](#charaktererschaffung--level)
+  - [RANG & Würfelmechanik](#rang--würfelmechanik)
+  - [Proben](#proben)
+  - [Kampfablauf](#kampfablauf)
+  - [Attribute & Verteidigung](#attribute--verteidigung)
+  - [Angriff & Parade](#angriff--parade)
   - [Schadensberechnung](#schadensberechnung)
+  - [Schadenstypen](#schadenstypen)
   - [Status-Effekte](#status-effekte)
+- [Musik-Player](#-musik-player)
 - [Konfiguration & Anpassung](#-konfiguration--anpassung)
 - [Hotkeys](#-hotkeys)
 - [Entwickler-Infos](#-entwickler-infos)
@@ -37,255 +39,404 @@ Dieses Tool unterstützt Spielleiter (Game Masters) dabei, komplexe Kämpfe zu v
 
 ## ✨ Features
 
-*   **Responsive UI:** Das Interface passt sich automatisch an verschiedene Bildschirmgrößen und -auflösungen an. Schriftgrößen skalieren dynamisch basierend auf der Bildschirmauflösung.
-*   **DM-Notizen & Pläne:** Eigenes Panel für DM-Notizen und Kampagnenplanung (Markdown, Dateibaum, Versionierung, Undo/Redo, Autosave, Drag & Drop, Umbenennen/Löschen, Schnellzugriff auf zuletzt geöffnete Notizen).
-*   **Markdown & PDF Bibliothek:** Verwalte dein Wissen in Markdown-Dateien oder zeige PDFs (z.B. Regelwerke) direkt im Tool an.
-*   **Volltextsuche:** Durchsuche Markdown-Dateien und PDFs global innerhalb der Anwendung.
-*   **Theme-Anpassung:** Alle Panels, Markdown-Viewer, PDF-Viewer und Such-Highlights passen sich dynamisch an das gewählte Farbschema an.
-*   **Intelligente Verlinkung:**
-    *   Markdown-Links (`[[Link]]`) öffnen direkt die entsprechende Datei.
-    *   PDF-Links (`[[rules:123]]`) springen direkt zur angegebenen Seite im Regelwerks-PDF.
-*   **Versionierung:** Änderungen an Notizen werden automatisch versioniert (Rückgängig bis zu 20 Versionen, Wert anpassbar in `src/config/__init__.py`).
-*   **Drag & Drop:** Markdown-Dateien können direkt ins DM-Notizen-Panel gezogen und hinzugefügt werden.
-*   **Schnellzugriff:** Die zuletzt geöffneten Notizen sind als eigene Liste im DM-Notizen-Panel verfügbar.
-*   **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren der Initiative basierend auf dem Gewandtheits-Wert (GEW).
-*   **Erweitertes Schadenssystem:** Unterscheidung zwischen Lebenspunkten (LP), Rüstungspunkten (RP) und Schildpunkten (SP).
-*   **Dynamische Schadenseingabe:** Kombiniere mehrere Schadensarten in einer Aktion (z.B. "10 Feuer + 5 Kälte").
-*   **Mehrfachauswahl:** Wende Aktionen wie Schaden oder Heilung auf mehrere Charaktere gleichzeitig an (`Strg+Klick` oder `Shift+Klick`).
-*   **Schadenstypen:** Verschiedene Schadensarten (z.B. Normal, Durchdringend, Direkt, Elementar) mit unterschiedlichen Auswirkungen auf Rüstung und Schilde.
-*   **Status-Effekte:** Umfassendes System für Zustände (Gift, Brand, Betäubung, etc.) mit automatischer Rundenverwaltung, Rängen und Stapelbarkeit.
-*   **Charakter-Management:** Einfaches Hinzufügen von Spielern, Gegnern und NPCs. Speichern und Laden von Gegner-Listen.
-*   **Integrierte Bibliothek / Wiki:** Verwalte deine gesamte Kampagne direkt im Tool. Durchsuche Regeln, Items, NPCs, Orte und mehr in einer übersichtlichen Markdown-basierten Bibliothek.
-*   **Excel Import:** Importiere Charaktere und Gegner direkt aus Excel-Tabellen (.xlsx), um Vorbereitungszeit zu sparen.
-*   **Musik-Player:** Integrierter Audio-Player für lokale Dateien mit Playlist- und Loop-Funktionen.
-*   **Dice Roller:** Integrierter Würfel-Simulator für gängige PnP-Würfel (W4 bis W100).
-*   **Themes:** Wähle aus verschiedenen Farbschemata (Nord, Gruvbox, Monokai, etc.). Vollständige Unterstützung für Light- und Dark-Modes über alle UI-Elemente hinweg.
-*   **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** (Schaden, Zugwechsel, etc.) automatisch in `saves/autosave.json` gespeichert. Bei einem Absturz kann diese Datei einfach über "Kampf laden..." wiederhergestellt werden.
-*   **Undo/Redo:** Fehler können einfach rückgängig gemacht werden.
-*   **Mehrsprachigkeit:** Die Benutzeroberfläche ist auf Deutsch und Englisch verfügbar. Die Sprache kann jederzeit über das Menü gewechselt werden, ohne den Kampfzustand zu verlieren.
-*   **Absturzerkennung:** Beim Start erkennt das Programm automatisch einen vorherigen Absturz (via Lock-File) und bietet an, den letzten Autosave wiederherzustellen.
+### Kampfverwaltung
+- **Initiative-Verwaltung:** Automatisches Würfeln und Sortieren per Exploding-Dice-System basierend auf dem GEWANDTHEIT-Wert.
+- **Erweitertes Schadenssystem:** Dreistufige Schadenskette — Schild (SP) → Rüstung (RP) → Leben (LP) — mit 8 konfigurierbaren Schadenstypen.
+- **Sekundäreffekt-Dialog:** Nach einem Elementar-Treffer erscheint automatisch ein Dialog zum Anwenden des Sekundäreffekts (z.B. Verbrennung nach Feuerschaden) inklusive Rang- und Dauerauswahl.
+- **Überheilung:** Heilung kann optional über die maximalen LP hinausgehen (z.B. durch magische Heilzauber).
+- **Dynamische Schadenseingabe:** Kombiniere mehrere Schadensarten in einer Aktion (z.B. "10 Feuer + 5 Kälte").
+- **Mehrfachauswahl:** Wende Aktionen auf mehrere Charaktere gleichzeitig an (`Strg+Klick` / `Shift+Klick`).
+- **Status-Effekte:** 11 Zustände mit automatischer Rundenverwaltung, Rängen (1–6) und konfigurierbarer Stapelbarkeit.
+- **Undo/Redo:** Jede Aktion ist rückgängig machbar — Snapshots werden vor jeder Mutation gespeichert.
+
+### Charakter-Management
+- **Charakter-Verwaltung:** Hinzufügen, Bearbeiten (Doppelklick) und Löschen von Spielern, Gegnern und NPCs.
+- **Excel-Import:** Charaktere und Gegner direkt aus `.xlsx`-Dateien importieren.
+- **Gegner direkt aus der Bibliothek hinzufügen:** Der *Gegner-Import*-Tab bietet Volltext­suche, Kategorie-/Typ-/Level-Filter und fügt Gegner per Knopfdruck mit gewürfelter Initiative in den Kampf ein.
+- **Encounter Generator:** Gegner zufällig nach Kategorie, Typ und Level-Range generieren — ideal für spontane Kämpfe.
+
+### Bibliothek & Notizen
+- **DM-Notizen:** Eigenes Panel für Kampagnenplanung (Markdown, Dateibaum, Undo/Redo, Autosave, Drag & Drop, Umbenennen/Löschen). Neue Notizen aus Vorlagen (NPC, Ort, Quest, Fraktion) erstellen. Notizen per Tag filtern. Schnellzugriff auf zuletzt geöffnete Dateien.
+- **Markdown & PDF Bibliothek:** Regeln, Items, NPCs, Orte und mehr als Markdown-Dateien oder direkt als PDF (z.B. das Regelbuch) im Tool anzeigen.
+- **SQLite-Volltext­suche (FTS5):** Alle Markdown-Dateien und PDFs werden in einer lokalen SQLite-Datenbank indexiert. Die Suche liefert Treffer in Echtzeit; der Index wird bei Dateiänderungen automatisch aktualisiert.
+- **Intelligente Verlinkung:** `[[Link]]` öffnet die Zieldatei direkt; `[[rules:123]]` springt zur angegebenen Seite im Regelwerks-PDF.
+- **Versionierung:** Notizänderungen werden automatisch versioniert (bis zu 20 Schritte rückgängig, konfigurierbar in `src/config/__init__.py`).
+
+### Persistenz & Komfort
+- **Persistenz & Autosave:** Der Kampfzustand wird **nach jeder Änderung** atomar in `saves/autosave.json` gespeichert (Temp-Datei → Rename, kein Datenverlust bei Absturz). Das Dateiformat ist versioniert für Vorwärtskompatibilität.
+- **Mehrsprachigkeit:** Deutsch und Englisch, jederzeit ohne Kampfstatusverlust umschaltbar.
+- **Absturzerkennung:** Automatische Erkennung eines vorherigen Absturzes (Lock-File) mit Wiederherstellungsangebot.
+- **Dice Roller:** Integrierter Würfelsimulator (W4 bis W100) mit Exploding-Dice.
+- **Themes:** 8 Farbschemata (4 Dark, 4 Light), vollständig über alle UI-Elemente hinweg.
+- **Responsive UI:** Schriftgrößen skalieren dynamisch basierend auf der Bildschirmauflösung.
+- **Musik-Player:** Integrierter Audio-Player für lokale Dateien (MP3, WAV, OGG) mit Playlist, Loop-Modi und Drag & Drop.
 
 ---
 
 ## 🚀 Installation & Start
 
 ### Voraussetzungen
-*   Python 3.8 oder höher
-*   Abhängigkeiten aus `requirements.txt`
-    *   **Windows/macOS:** `tkinter` ist meist im Python-Installer enthalten.
-    *   **Linux:** Muss oft separat installiert werden: `sudo apt-get install python3-tk`
+- Python 3.8 oder höher
+- `tkinter` (bei Windows/macOS meist im Python-Installer enthalten; Linux: `sudo apt-get install python3-tk`)
 
-### Starten
-1.  Klone das Repository:
-    ```bash
-    git clone https://github.com/DeinUsername/Combat_Tracker_PnP.git
-    ```
-2.  Navigiere in das Verzeichnis:
-    ```bash
-    cd Combat_Tracker_PnP
-    ```
-3.  Erstelle und aktiviere eine virtuelle Umgebung (empfohlen):
-    ```bash
-    python -m venv .venv
-    # Windows:
-    .venv\Scripts\activate
-    # Linux/macOS:
-    source .venv/bin/activate
-    ```
-4.  Installiere die Abhängigkeiten:
-    ```bash
-    pip install -r requirements.txt
-    ```
-5.  Starte das Programm:
-    ```bash
-    python Combat_Tracker.py
-    ```
+### Schritte
+
+```bash
+# 1. Repository klonen
+git clone https://github.com/DeinUsername/Combat_Tracker_PnP.git
+cd Combat_Tracker_PnP
+
+# 2. Virtuelle Umgebung erstellen (empfohlen)
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# Linux/macOS:
+source .venv/bin/activate
+
+# 3. Abhängigkeiten installieren
+pip install -r requirements.txt
+
+# 4. Programm starten
+python Combat_Tracker.py
+```
 
 ---
 
 ## 🎮 Benutzung
 
-Das Hauptfenster ist in intuitiv bedienbare Bereiche unterteilt:
-1.  **DM-Notizen (linkes Panel):** Eigenes Panel für Kampagnenplanung und Session-Vorbereitung. Unterstützt Markdown, Dateibaum, Undo/Redo und Drag & Drop.
-2.  **Initiative-Liste:** Zeigt alle Charaktere in der aktuellen Reihenfolge. Der aktive Charakter ist hervorgehoben.
-    *   **Charakter bearbeiten:** Doppelklick auf einen Charakter öffnet den Bearbeitungs-Dialog (alle Werte änderbar).
-    *   **Charakter löschen:** Charakter auswählen und `Entf` drücken (oder Button im Panel).
-3.  **Kontroll-Panel:** Buttons zum Hinzufügen von Charakteren, Würfeln der Initiative und Steuern des Rundenablaufs ("Nächster Zug").
-4.  **Interaktions-Panel:** Hier werden Aktionen auf die *aktuell ausgewählten* Charaktere angewendet.
-    *   **Mehrfachauswahl:** Halte `Strg` oder `Shift` gedrückt, um mehrere Charaktere in der Liste auszuwählen. Aktionen werden auf alle angewendet.
-    *   **Dynamische Zeilen:** Füge über den `+` Button weitere Schadenskomponenten hinzu (z.B. 10 Feuer und 5 Kälte).
-    *   **Status:** Wähle Status-Effekte, Rang und Dauer.
-5.  **Bibliothek:** Zugriff auf die integrierte Wiki und Gegner-Presets. Enthält die Tabs: *Regelwerk, Gegenstände, Gegner (Info), NPCs, Orte, Organisationen, Götter*.
-6.  **Log:** Ein detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte).
+Das Programm besteht aus einer **immer sichtbaren Kontroll-Leiste** oben und einem **Notebook mit drei Tabs** darunter.
+
+### Kontroll-Leiste (immer sichtbar)
+Enthält die zentralen Kampf-Buttons sowie das **Schnellhinzufügen-Panel**:
+- Initiative würfeln / zurücksetzen (alle, nur Gegner, nur Spieler)
+- **Nächster Zug** (`Leertaste`) — tickt Status-Effekte automatisch ab
+- Undo / Redo
+- Rundenanzeige
+- Schnellhinzufügen: Name, Typ, LP, GEW direkt eingeben → Charakter sofort in den Kampf
+
+### Tab ⚔ Kampf
+Das Haupt-Tab, zweispaltig aufgeteilt:
+
+**Linke Spalte:**
+| Bereich | Beschreibung |
+| :--- | :--- |
+| **Initiative-Liste** | Alle Charaktere in Zugreihenfolge. Aktiver Charakter hervorgehoben. Doppelklick öffnet Bearbeitungs-Dialog. Mehrfachauswahl via `Strg`/`Shift`. |
+| **Kampfprotokoll** | Detailliertes Protokoll aller Ereignisse (Schaden, Rundenwechsel, Effekte, Heilung). |
+| **Dice Roller** | Würfelsimulator (W4–W100) mit Exploding-Dice, direkt neben dem Log. |
+
+**Rechte Spalte:**
+| Bereich | Beschreibung |
+| :--- | :--- |
+| **Aktions-Panel** | Schaden, Heilung und Status-Effekte auf ausgewählte Charaktere anwenden. Mehrere Schadenskomponenten kombinierbar (z.B. 10 Feuer + 5 Kälte). |
+| **Musik-Player** | Playlist, Loop-Modi, Lautstärke — fixiert am unteren Rand der rechten Spalte. |
+
+### Tab 📚 Bibliothek
+Integrierte Wiki mit Tabs: *Regelwerk, Gegenstände, Gegner (Info), NPCs, Orte, Organisationen, Götter* sowie **Gegner-Import** (Suche, Filter, Encounter Generator, Direkt-Import in den Kampf).
+
+### Tab 📝 DM-Notizen
+Markdown-Editor mit Dateibaum, Tag-Filter, Vorlagen-Auswahl, Undo/Redo, Autosave, Drag & Drop und Schnellzugriff auf zuletzt geöffnete Dateien.
+
+### Typischer Ablauf
+1. Charaktere hinzufügen — Schnellhinzufügen in der Kontroll-Leiste, Excel-Import oder aus dem Gegner-Import-Tab.
+2. **Initiative würfeln** → Liste sortiert sich automatisch.
+3. **Nächster Zug** (`Leertaste`) — Status-Effekte ticken automatisch.
+4. Ziel in der Liste auswählen → Schaden-/Heilungswerte im Aktions-Panel eingeben → Anwenden.
+5. Bei Elementarschaden: Sekundäreffekt-Dialog bestätigen oder abbrechen.
+6. Kampf über das Datei-Menü speichern — oder einfach den Autosave nutzen.
+
+---
+
+## 🎲 Das Spielsystem
+
+Das Tool wurde für ein eigenes Regelwerk entwickelt. Dieser Abschnitt erklärt die Spielmechaniken, die das Programm abbildet.
+
+### Charaktererschaffung & Level
+
+Jeder Charakter startet auf **Level 1** mit:
+- **15 Talentpunkte** (für STÄRKE, GEWANDTHEIT, KAMPF, etc.)
+- **15 Skill- oder Zauberpunkte** (Klassen-abhängig)
+- bis zu **2 Eigenheiten** (positive oder negative Charakterzüge)
+
+**LP-Berechnung:** `20 + STÄRKE-Würfelwurf`
+
+| Level | Skill-/Zauberpunkte | Bonuspunkte | AP / Mana |
+| :---: | :---: | :---: | :---: |
+| 1 | 10 | — | 50 |
+| 2 | 20 | +5 | 60 |
+| 3 | 35 | — | 70 |
+| 4 | 45 | +5 | 80 |
+| 5 | 60 | — | 90 |
+
+Ab Level 2 kann eine **Nebenklasse** gewählt werden. **Magierklassen** erlernen Zauber, **nichtmagische Klassen** erlernen Skills.
+
+**Empfohlene Punktvergabe nach Abenteuern:**
+- Talentpunkte: 2–3 pro Abenteuer
+- Skill-/Zauberpunkte: 3–5 pro Abenteuer (+ Boni für gutes Roleplay, kreative Lösungen, etc.)
+
+---
+
+### RANG & Würfelmechanik
+
+Der **RANG** (Fähigkeitsrang) gibt an, wie gut ein Charakter ein Talent, einen Zauber oder Skill beherrscht. Er bestimmt die **Würfelgröße** und die **Effektstärke**.
+
+| RANG | Würfel | Erfolgswahrscheinlichkeit | Bedeutung |
+| :---: | :---: | :---: | :--- |
+| 1 | W4 | 25 % | Anfänger |
+| 2 | W6 | 50 % | Normal |
+| 3 | W8 | 62,5 % | Beruf |
+| 4 | W10 | 70 % | Elite |
+| 5 | W12 | 75 % | Meisterhaft |
+| 6 | W20 | 80 % | Legendär |
+
+> RANG 6 ist der **Legendäre RANG** und nur unter besonderen Umständen erreichbar.
+
+**Exploding Dice (Ass-Mechanik):** Wird die höchstmögliche Augenzahl eines Würfels geworfen, darf erneut gewürfelt und das Ergebnis addiert werden (Initiative: max. 20 Wiederholungen).
+
+---
+
+### Proben
+
+Eine **Probe** ist ein Würfelwurf gegen eine Herausforderung:
+
+1. Der Spieler würfelt mit dem Würfel seines Fähigkeitsrangs.
+2. Standardschwelle: **mindestens eine 4** für Erfolg.
+3. Modifikatoren (Bonus/Malus) durch Gegenstände, Zauber oder Spielleiter-Entscheidung.
+
+**Wurfzahl-Ergebnisse bei Zauber-/Skill-Kosten:**
+
+| Wurfergebnis | Ergebnis | Kosten |
+| :---: | :--- | :---: |
+| 1–3 | misslingt | halbe Kosten |
+| 4–6 | gelingt | volle Kosten |
+| 7–9 | gelingt | halbe Kosten |
+| 10+ | gelingt | keine Kosten |
+
+---
+
+### Kampfablauf
+
+- **Runden:** Eine Runde entspricht ca. 5–6 Sekunden Echtzeit.
+- **Aktionen pro Zug:** 1 **Aktion** (Angriff, Bewegen, Zauber) + 1 **Bonusaktion** (Trank, Ausrüstung wechseln, etc.).
+- **Initiative:** Zu Kampfbeginn würfelt jeder auf GEWANDTHEIT (Exploding Dice). Höchster Wert beginnt.
+
+**GEW → Initiative-Würfel:**
+
+| GEW | Würfel |
+| :---: | :---: |
+| 1 | W4 |
+| 2 | W6 |
+| 3 | W8 |
+| 4 | W10 |
+| 5 | W12 |
+| 6+ | W20 |
+
+---
+
+### Attribute & Verteidigung
+
+| Attribut | Beschreibung |
+| :--- | :--- |
+| **LP** (Lebenspunkte) | Vitalität des Charakters. Bei 0 LP stirbt der Charakter. Regeneration: 2× STÄRKE-Wert pro Nachtruhe. |
+| **RP** (Rüstungspunkte) | Physische Rüstung. 1 RP absorbiert 2 Schaden, nutzt sich aber ab (Haltbarkeit sinkt). Muss repariert werden. |
+| **SP** (Schildpunkte) | Magischer/energetischer Schild. 1 SP absorbiert 1 Schaden. Kein automatisches Aufladen — erfordert Zauber oder Items. |
+| **STÄRKE** | Bestimmt LP und den Regenerationswert. |
+| **GEWANDTHEIT (GEW)** | Bestimmt den Initiative-Würfel und den Ausweichen-Wurf. |
+| **KAMPF** | Bestimmt Angriffs- und Parade-Würfe. |
+
+---
+
+### Angriff & Parade
+
+1. **Angreifer** würfelt KAMPF → muss mindestens eine **4** erzielen.
+2. **Verteidiger** wählt:
+   - **Parade:** KAMPF-Wurf muss die **Wurfzahl des Angreifers** übertreffen. Bei Erfolg wird der gesamte Schaden verhindert.
+   - **Ausweichen:** GEWANDTHEIT-Wurf muss die Wurfzahl des Angreifers übertreffen.
+
+**Magische Waffen:** Geben +2 auf die Wurfzahl bei der Parade (Vorteil gilt erst nach einem Treffer mit mindestens 4).
+
+---
+
+### Schadensberechnung
+
+Schaden wird immer in dieser Reihenfolge verrechnet:
+
+```
+1. Schild (SP)   — absorbiert Schaden 1:1, solange SP > 0
+2. Rüstung (RP)  — absorbiert bis zu RP × 2 verbleibenden Schaden
+                   Rüstungsverlust: (absorbierter Schaden + 1) / 2 RP
+3. Leben (LP)    — Resschaden geht direkt auf LP
+```
+
+**Beispiel:** 30 Schaden, Charakter hat SP=10, RP=5
+- Schild: absorbiert 10 → SP=0, verbleibend=20
+- Rüstung: absorbiert min(10, 20)=10 → RP-Verlust=(10+1)//2=5, RP=0, verbleibend=10
+- Leben: 10 LP-Verlust → LP−10
+
+---
+
+### Schadenstypen
+
+Schadenstypen und ihre Regeln sind in `data/i18n/de_rules.json` definiert und ohne Code-Änderungen anpassbar.
+
+| Typ | Bezeichnung | Schild (SP) | Rüstung (RP) | Sekundäreffekt |
+| :--- | :--- | :---: | :---: | :--- |
+| `NORMAL` | Waffenschaden | ✓ | ✓ | — |
+| `PIERCING` | Durchdringend | ✓ | ✗ | — |
+| `DIRECT` | Direktschaden | ✗ | ✗ | — |
+| `FIRE` | Feuer | ✓ | ✓ | Verbrennung |
+| `COLD` | Kälte | ✓ | ✓ | Unterkühlung |
+| `LIGHTNING` | Blitz | ✓ | ✓ | Betäubung |
+| `POISON` | Gift | ✓ | ✓ | Vergiftung |
+| `DECAY` | Verwesung | ✓ | ✓ | Erosion |
+
+> **Sekundäreffekte** haben eine Auslösechance abhängig vom Rang der Fähigkeit. Nach einem Treffer erscheint im Tool automatisch ein Dialog, um den Effekt direkt anzuwenden.
+
+---
+
+### Status-Effekte
+
+Effekte ticken zu Beginn des jeweiligen Charakterzuges. Jeder Effekt hat eine **Dauer** (Runden) und einen **Rang** (Stärke 1–6).
+
+| Effekt | Symbol | Wirkung | Max. Rang | Stapelbar |
+| :--- | :---: | :--- | :---: | :---: |
+| **Vergiftung** | ☠️ | `Rang` Direktschaden pro Runde | 5 | Ja |
+| **Verbrennung** | 🔥 | `Rang` Normaler Schaden pro Runde | 5 | Ja |
+| **Blutung** | 🩸 | Normaler Schaden, steigt jede Runde um +1 (`Rang/2 + Runden−1`) | 5 | Ja |
+| **Erosion** | 🧪 | Dauerhafter Verlust von `Rang × W4` max. LP + gleicher Betrag als Direktschaden | 5 | Ja |
+| **Unterkühlung** | ❄️ | Verlust der Bonusaktion für `Rang` Runden | 5 | Nein |
+| **Betäubung** | ⚡ | Verlust aller Aktionen für 1 Runde | 1 | Nein |
+| **Erschöpfung** | 🥵 | −2 auf GEWANDTHEIT für 1 Runde | 1 | Nein |
+| **Verwirrung** | 🤪 | −1 auf KAMPF-Proben | 1 | Nein |
+| **Blendung** | 🙈 | Malus auf Aktionen/Angriffe je nach Rang (1–5) | 5 | Nein |
+| **Entwaffnet** | ⚔️ | Geführte Waffe kann nicht eingesetzt werden | 1 | Nein |
+| **Regeneration** | 💚 | Stellt zu Beginn des Zuges `Rang` LP wieder her | 5 | Ja |
+
+> Erhält ein Charakter einen Effekt, den er bereits hat, wird je nach Konfiguration die Dauer verlängert oder der Rang erhöht.
 
 ---
 
 ## 🎵 Musik-Player
 
-Der integrierte Musik-Player ermöglicht es, die passende Atmosphäre für jede Szene zu schaffen. Er befindet sich oben rechts über dem Interaktions-Panel.
+Der integrierte Musik-Player sitzt oben rechts im Hauptfenster.
 
-*   **Lokale Wiedergabe:** Spiele Musikdateien (MP3, WAV, OGG) direkt von deinem Computer ab.
-*   **Playlist-Management:** Öffne die Musikeinstellungen (Zahnrad-Symbol), um Dateien hinzuzufügen. Du kannst Titel per Drag & Drop sortieren.
-*   **Loop-Modi:**
-    *   🔁 **Einzeln (Inf):** Wiederholt den aktuellen Titel unendlich.
-    *   🔢 **Anzahl (x N):** Wiederholt einen Titel N-mal, bevor zum nächsten gewechselt wird.
-    *   🔄 **Playlist:** Wenn kein Loop aktiv ist, wird die Playlist von oben nach unten abgespielt.
-*   **Tabletop Audio:** Ein Button öffnet [Tabletop Audio](https://tabletopaudio.com/) im Browser, um dort Sounds abzuspielen.
-*   **Steuerung:** Play/Pause, Vor/Zurück, Lautstärke und Mute sind direkt im Hauptfenster erreichbar.
-
----
-
-## 🧠 Programmlogik & Mechaniken
-
-Das Herzstück des Trackers ist die automatische Berechnung von Kampfereignissen. Hier wird detailliert erklärt, wie das Programm "denkt" und welche Regeln angewendet werden.
-
-### <a id="runter-attribute--initiative"></a>Attribute & Initiative
-Jeder Charakter verfügt über folgende Kern-Werte:
-*   **LP (Lebenspunkte):** Die Gesundheit des Charakters. Sinkt diese auf 0, gilt der Charakter als kampfunfähig.
-*   **RP (Rüstungspunkte):** Physische Rüstung. Kann Schaden absorbieren, nutzt sich dabei aber ab.
-*   **SP (Schildpunkte):** Ein energetischer oder magischer Schild. Regeneriert sich in der Regel nicht automatisch, absorbiert aber Schaden vor der Rüstung.
-*   **GEW (Gewandtheit):** Bestimmt den Würfel für die Initiative.
-
-**Initiative-Berechnung:**
-Die Initiative wird basierend auf dem GEW-Wert gewürfelt. Dabei kommt ein **"Exploding Dice"** (explodierender Würfel) System zum Einsatz: Würfelt man die höchstmögliche Augenzahl, darf man erneut würfeln und das Ergebnis addieren.
-
-| Charakter-Wert | Würfel |
-|:---------------| :--- |
-| 1              | W4 |
-| 2              | W6 |
-| 3              | W8 |
-| 4              | W10 |
-| 5              | W12 |
-| 6+             | W20 |
-
-### Schadensberechnung
-Wenn ein Charakter Schaden erleidet, prüft das System den **Schadenstyp** und wendet folgende Prioritätenkette an:
-
-1.  **Normaler Schaden (Waffenschaden, Feuer, Kälte, Blitz, Verwesung, Gift):**
-    *   **Phase 1 - Schild:** Der Schaden trifft zuerst den Schild (SP). Solange SP > 0 sind, wird Schaden 1:1 absorbiert.
-    *   **Phase 2 - Rüstung:** Verbleibender Schaden trifft die Rüstung (RP).
-        *   Die Rüstung absorbiert Schaden bis zur Höhe von `RP * 2`.
-        *   **Abnutzung:** Die Rüstung verliert dabei an Haltbarkeit.
-            *   Die Rüstung verliert RP in Höhe der **Hälfte des absorbierten Schadens** (aufgerundet).
-            *   *Formel:* `Verlorene RP = (Absorbierter Schaden + 1) / 2` (Ganzzahl-Division)
-    *   **Phase 3 - Leben:** Alles, was Schild und Rüstung nicht abfangen konnten, wird von den Lebenspunkten (LP) abgezogen.
-
-2.  **Durchdringend (Durchschlagsschaden):**
-    *   Ignoriert die **Rüstung (RP)** komplett.
-    *   Wird aber noch vom **Schild (SP)** reduziert.
-    *   Ideal gegen schwer gepanzerte Ziele ohne Energieschild.
-
-3.  **Direkt (Direktschaden):**
-    *   Ignoriert **Schild (SP)** UND **Rüstung (RP)**.
-    *   Geht direkt auf die Lebenspunkte (LP).
-    *   Sehr gefährlich, da keine passive Verteidigung hilft.
-
-**Zusatzeffekte:**
-Bestimmte Schadenstypen (Elementarschaden) haben eine Chance, Statuseffekte auszulösen (abhängig vom Rang der Fähigkeit):
-*   **Feuer:** Kann *Verbrennung* auslösen.
-*   **Blitz:** Kann *Betäubung* auslösen.
-*   **Kälte:** Kann *Unterkühlung* auslösen.
-*   **Gift:** Kann *Vergiftung* auslösen.
-*   **Verwesung:** Kann *Erosion* auslösen.
-
-### Status-Effekte
-Effekte werden automatisch verwaltet und lösen meist zu Beginn des Zuges eines Charakters aus. Jeder Effekt hat eine **Dauer** (in Runden) und einen **Rang** (Stärke 1-6).
-
-*   **☠️ Vergiftung (Poison):** Verursacht pro Runde `Rang` Punkte **Direktschaden**.
-*   **🔥 Verbrennung (Burn):** Verursacht pro Runde `Rang` Punkte **Normalen Schaden**.
-*   **🩸 Blutung (Bleed):** Verursacht **Normalen Schaden**, der mit der Zeit schlimmer wird (`Rang / 2 + Runden - 1`).
-*   **🧪 Erosion:**
-    *   Verursacht dauerhaften Verlust von `Rang * W4` **Maximalen LP**.
-    *   Verursacht zusätzlich den gleichen Betrag als **Direktschaden**.
-*   **❄️ Unterkühlung (Freeze):** Der Charakter verliert seine **Bonusaktion** für `Rang` Runden.
-*   **⚡ Betäubung (Stun):** Der Charakter verliert **alle Aktionen** für 1 Runde.
-*   **🥵 Erschöpfung (Exhaustion):** Malus von **-2 auf GEWANDTHEIT** für 1 Runde.
-*   **🤪 Verwirrung (Confusion):** Malus von **-1 auf Kampf-Proben** für 1 Runde.
-*   **🙈 Blendung (Blind):** Malus auf Aktionen/Angriffe (abhängig vom Rang, z.B. -1 bis -3).
-*   **⚔️ Entwaffnet (Disarmed):** Die aktuell geführte Waffe kann nicht eingesetzt werden.
-*   **💚 Heilung (Regeneration):** Stellt zu Beginn des Zuges Lebenspunkte wieder her (Höhe entspricht Rang).
-
-*Hinweis: Wenn ein Charakter bereits einen Effekt hat und denselben Effekt erneut erhält, wird oft die Dauer verlängert oder der Rang erhöht (je nach Konfiguration).*
+- **Lokale Wiedergabe:** MP3, WAV, OGG direkt vom Computer.
+- **Playlist-Management:** Dateien über das Zahnrad-Symbol hinzufügen; Reihenfolge per Drag & Drop ändern.
+- **Loop-Modi:**
+  - 🔁 **Einzeln (Inf):** Aktuellen Titel endlos wiederholen.
+  - 🔢 **Anzahl (×N):** Titel N-mal wiederholen, dann weiter.
+  - 🔄 **Playlist:** Playlist von oben nach unten durchspielen.
+- **Steuerung:** Play/Pause, Vor/Zurück, Lautstärke, Mute — alle direkt im Hauptfenster per Button oder Hotkey.
+- **Tabletop Audio:** Button öffnet [Tabletop Audio](https://tabletopaudio.com/) im Browser.
 
 ---
 
 ## ⚙️ Konfiguration & Anpassung
 
-Das Programm ist hochgradig anpassbar über JSON-Dateien im `data/` Verzeichnis:
+Das Tool ist vollständig über JSON-Dateien im `data/`-Verzeichnis konfigurierbar — kein Code anfassen nötig.
 
-*   **`data/i18n/*_rules.json` (Dynamisches Regelwerk):** Das Herzstück der Anpassbarkeit. Hier können Schadensarten, ihre Effekte (z.B. `ignores_armor`) und Status-Effekte (inkl. `max_rank`, `stackable`) frei definiert oder geändert werden, ohne den Code anzufassen.
-*   **`data/enemies.json`**: Eine Bibliothek deiner häufigsten Gegner (Presets).
-*   **`data/hotkeys.json`**: Anpassbare Tastenkürzel.
-*   **`data/` Unterordner**: Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.).
-*   **`src/config/__init__.py` (Source)**: Hier können Themes und Schriftarten angepasst werden.
+| Datei / Ort | Inhalt |
+| :--- | :--- |
+| `data/i18n/de_rules.json` / `en_rules.json` | **Spielregeln:** Schadenstypen (`ignores_armor`, `ignores_shield`, `secondary_effect`) und Status-Effekte (`max_rank`, `stackable`). Primäre Anlaufstelle zum Anpassen der Spielmechanik. |
+| `data/i18n/de.json` / `en.json` | UI-Übersetzungen. Alle angezeigten Texte. |
+| `data/enemies.json` | Gegner-Presets für die Bibliothek und den Gegner-Import-Tab. |
+| `data/hotkeys.json` | Tastenkürzel (Tkinter-Syntax, z.B. `"<Control-d>"`). |
+| `data/` Unterordner | Markdown-Dateien für die Bibliothek (Regeln, Items, NPCs, Orte, etc.). |
+| `src/config/__init__.py` | Aktives Theme (`ACTIVE_THEME`), maximale Undo-History (`MAX_HISTORY`). |
 
 ### Themes
-Über das Menü oder die Config können verschiedene Themes gewählt werden:
 
 | Dark Themes | Light Themes |
 | :--- | :--- |
-| `Neutral Dark` | `Neutral Light` |
-| `Gruvbox Dark` | `Gruvbox Light` |
 | `Nord Dark` (Standard) | `Nord Light` |
+| `Gruvbox Dark` | `Gruvbox Light` |
 | `Monokai Dark` | `Solarized Light` |
+| `Neutral Dark` | `Neutral Light` |
+
+### Neue Schadensart hinzufügen (Checkliste)
+
+1. Wert zur `DamageType`-Enum in `src/models/enums.py` hinzufügen.
+2. Eintrag in `data/i18n/de_rules.json` und `en_rules.json` unter `"damage_types"` anlegen.
+3. Übersetzungsstrings in `data/i18n/de.json` und `en.json` ergänzen.
+4. Fertig — `calculate_damage()` wertet `ignores_armor`/`ignores_shield` automatisch aus.
+
+### Neuen Status-Effekt hinzufügen (Checkliste)
+
+1. Name zur `StatusEffectType`-Enum in `src/models/enums.py` hinzufügen.
+2. Subklasse von `StatusEffect` in `src/models/status_effects.py` erstellen (`apply_round_effect()`).
+3. In `EFFECT_CLASSES`-Dict am Ende von `status_effects.py` registrieren.
+4. Konfiguration in `de_rules.json` und `en_rules.json` unter `"status_effects"` ergänzen.
+5. Übersetzungsstrings in `de.json` / `en.json` unter `"messages.status"` ergänzen.
 
 ---
 
 ## ⌨️ Hotkeys
 
-Für einen schnellen Workflow während des Spiels:
-
-| Aktion | Hotkey (Default) |
-| :--- | :--- |
-| **Nächster Zug** | `<Leertaste>` |
+| Aktion | Standard-Hotkey |
+| :--- | :---: |
+| **Nächster Zug** | `Leertaste` |
 | **Rückgängig (Undo)** | `Strg + Z` |
 | **Wiederholen (Redo)** | `Strg + Y` |
 | **Charakter löschen** | `Entf` |
-| **Fokus auf Schaden** | `Strg + D` |
+| **Fokus auf Schadenseingabe** | `Strg + D` |
 | **Musik Play/Pause** | `Strg + P` |
 | **Nächster Titel** | `Strg + →` |
 | **Vorheriger Titel** | `Strg + ←` |
 | **Lautstärke +** | `Strg + ↑` |
-| **Lautstärke -** | `Strg + ↓` |
+| **Lautstärke −** | `Strg + ↓` |
 | **Stummschalten** | `Strg + M` |
 
-*(Hotkeys können in `data/hotkeys.json` angepasst werden)*
+*(Alle Hotkeys in `data/hotkeys.json` anpassbar — Tkinter-Syntax)*
 
 ---
 
 ## 🛠️ Entwickler-Infos
 
-Für Entwickler, die am Code arbeiten möchten, wurde die Architektur modernisiert und modularisiert.
-
 ### Projektstruktur
-Der Code ist nun sauber in Module unterteilt (`src/`):
-*   **`src/core/`**: Enthält die reine Business-Logik (Engine, Mechaniken, History). Unabhängig von der UI.
-*   **`src/models/`**: Datenmodelle (Character, StatusEffects, Enums).
-*   **`src/controllers/`**: Handler für Import, Export, Hotkeys, Persistenz und die Bibliothek.
-*   **`src/ui/`**: Die grafische Oberfläche (Tkinter), getrennt von der Logik.
-*   **`src/config/`**: Zentrale Konfiguration (Themes, Schriftarten, Konstanten).
-*   **`src/utils/`**: Hilfsfunktionen, Logger und Konfiguration.
-*   **`data/`**: Enthält JSON-Konfigurationsdateien und die Markdown-Bibliothek.
-*   **`saves/`**: Speicherort für Spielstände und Autosaves.
-*   **`logs/`**: Protokolle aller Ereignisse und Fehler (z.B. combat_tracker.log).
-*   **`tests/`**: Unit- und Integrationstests mit `pytest`.
 
-### Tests ausführen
-Um die Tests auszuführen, verwende:
-```bash
-pytest
+```
+Combat_Tracker.py          ← Einstiegspunkt
+├── src/
+│   ├── core/              ← Business-Logik (Engine, Mechaniken, History, Events)
+│   ├── models/            ← Datenmodelle (Character, StatusEffects, Enums)
+│   ├── controllers/       ← Handler (Damage, Import, Audio, Hotkeys, Persistenz, Bibliothek)
+│   ├── ui/                ← Tkinter-UI, getrennt von Logik
+│   ├── config/            ← Themes, Schriftarten, Konstanten
+│   └── utils/             ← Logger, Lokalisierung, DB-Manager, Save-Manager
+├── data/                  ← JSON-Konfiguration und Markdown-Bibliothek
+├── saves/                 ← Spielstände und Autosaves
+├── logs/                  ← Anwendungslogs
+└── tests/                 ← Unit- und Integrationstests (pytest)
 ```
 
 ### Architektur-Highlights
-*   **Composition Root / Manuelles Dependency Injection:** `MainWindow` fungiert als Composition Root — alle Abhängigkeiten (Engine, Handler, Controller) werden dort instanziiert und manuell verdrahtet, ohne Framework.
-*   **MVC-Ansatz:** Striktere Trennung von Daten (Models), Logik (Core) und Anzeige (UI).
-*   **UUIDs:** Charaktere werden intern über eindeutige IDs identifiziert, um Namenskonflikte zu vermeiden.
-*   **Event-System:** Die UI reagiert auf Events der Engine, statt direkt Daten zu manipulieren.
-*   **Datengetriebenes Design:** Spielregeln, Themes und Hotkeys sind in externen JSON-Dateien definiert und können ohne Code-Änderungen angepasst werden.
+
+- **Composition Root:** `MainWindow` (`src/ui/main_window.py`) ist der explizite Verdrahtungspunkt — alle Abhängigkeiten werden manuell instanziiert und injiziert, kein Framework.
+- **MVC + Pub/Sub:** `CombatEngine` feuert Events (`UPDATE`, `LOG`, `TURN_CHANGE`); UI-Komponenten subscriben. UI mutiert nie direkt `engine.characters`.
+- **`ICombatView`-Protokoll:** Controller kommunizieren mit der UI ausschließlich über dieses Interface (`src/ui/interfaces.py`).
+- **UUIDs:** Charaktere werden intern per UUID identifiziert, um Namenskonflikte zu vermeiden.
+- **Datengetriebenes Design:** Schadenstypen, Status-Effekte, Themes und Hotkeys sind in externen JSON-Dateien definiert — keine Code-Änderungen für Regelanpassungen nötig.
+- **SQLite-Backend:** `DatabaseManager` (Singleton) indexiert die gesamte Bibliothek in einer lokalen SQLite-Datenbank mit FTS5-Volltextsuche. Automatische Schema-Migration bei Datenbankupdates.
+- **Atomares Speichern:** `SaveManager` schreibt Spielstände über eine `.tmp`-Datei (dann Rename), sodass ein Absturz während des Speicherns nie zu einer kaputten Save-Datei führt. Das Format enthält eine Versionskennung für Vorwärtskompatibilität.
+- **Snapshot-basiertes Undo/Redo:** `HistoryManager` speichert Deep-Copies des Engine-Zustands vor jeder Mutation. `MAX_HISTORY` in `src/config/__init__.py` konfigurierbar.
+
+### Tests ausführen
+
+```bash
+# Alle Tests
+pytest
+
+# Einzelne Datei
+pytest tests/unit/core/test_engine.py
+
+# Mit Coverage
+pytest --cov=src
+```
+
+Tests spiegeln die `src/`-Struktur unter `tests/` wider. Mocks für Engine und View befinden sich in `tests/unit/mocks.py`. Integrationstests (keine Mocks) in `tests/integration/`.
 
 ---
 
 ## ⚖️ Lizenz
 
 Dieses Projekt steht unter der **MIT Lizenz**.
-Das bedeutet, du darfst den Code frei verwenden, verändern und verbreiten, solange der ursprüngliche Urheberrechtsvermerk erhalten bleibt.
+Du darfst den Code frei verwenden, verändern und verbreiten, solange der ursprüngliche Urheberrechtsvermerk erhalten bleibt.

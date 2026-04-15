@@ -88,8 +88,14 @@ class MarkdownBrowser(ttk.Frame):
         if not os.path.exists(self.root_dir):
             return
 
-        files = glob.glob(os.path.join(self.root_dir, "**/*.md"), recursive=True)
-        files.sort()
+        all_files = glob.glob(os.path.join(self.root_dir, "**/*.md"), recursive=True)
+        files = sorted(
+            f for f in all_files
+            if not any(
+                p.startswith(".")
+                for p in os.path.relpath(f, self.root_dir).split(os.sep)
+            )
+        )
 
         folder_nodes = {}
 
@@ -163,7 +169,14 @@ class MarkdownBrowser(ttk.Frame):
         if not os.path.exists(self.root_dir):
             return
 
-        files = glob.glob(os.path.join(self.root_dir, "**/*.md"), recursive=True)
+        all_files = glob.glob(os.path.join(self.root_dir, "**/*.md"), recursive=True)
+        files = [
+            f for f in all_files
+            if not any(
+                p.startswith(".")
+                for p in os.path.relpath(f, self.root_dir).split(os.sep)
+            )
+        ]
 
         for filepath in files:
             if self._filter_paths is not None and filepath not in self._filter_paths:

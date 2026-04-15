@@ -36,7 +36,19 @@ paned_positions.log
 .DS_Store
 Thumbs.db
 
+# OneDrive / cloud sync conflicts
+*(1).*
+*(2).*
+*(3).*
+* 2.*
+
+# Obsidian
+.obsidian/
+/.trash/
+
 #Claude
 CLAUDE.md
+/.claude
 
 Rules
+

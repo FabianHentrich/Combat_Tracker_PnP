@@ -1,3 +1,5 @@
+import glob
+import os
 import tkinter as tk
 from tkinter import ttk
 from typing import Dict, Any, Optional, TYPE_CHECKING
@@ -40,11 +42,26 @@ class LibraryHandler:
         self.navigator = NavigationManager(self._restore_state, self._update_nav_buttons_ui)
         self.btn_back = None
         self.btn_forward = None
+        self._tab_switch_callback = None  # set when embedded in main notebook
 
     def get_preset(self, name: str) -> Optional[Dict[str, Any]]:
         return EnemyRepository().get_preset(name)
 
+    def build_embedded(self, parent: tk.Widget, tab_switch_callback=None, close_callback=None) -> None:
+        """Build library content into an existing frame (main notebook tab).
+
+        tab_switch_callback: called by open_library_window() to navigate TO this tab.
+        close_callback:      called after import / cancel to navigate AWAY (e.g. back to Combat).
+        """
+        self._tab_switch_callback = tab_switch_callback
+        self._build_content(parent, close_callback=close_callback or (lambda: None))
+
     def open_library_window(self) -> None:
+        # If embedded in the main notebook, switch to that tab instead.
+        if self._tab_switch_callback:
+            self._tab_switch_callback()
+            return
+
         if self.lib_window and self.lib_window.winfo_exists():
             self.lib_window.lift()
             self.lib_window.focus_force()
@@ -54,14 +71,16 @@ class LibraryHandler:
         self.lib_window.title(translate("library.title"))
         self.lib_window.geometry(WINDOW_SIZE["library"])
 
-        # Set minimum size for better usability
         if WINDOW_SIZE.get("library_min"):
             min_width, min_height = WINDOW_SIZE["library_min"]
             self.lib_window.minsize(min_width, min_height)
 
         self.lib_window.configure(bg=self.colors["bg"])
+        self._build_content(self.lib_window, close_callback=self.lib_window.destroy)
 
-        top_frame = ttk.Frame(self.lib_window, style="Card.TFrame")
+    def _build_content(self, container: tk.Widget, close_callback) -> None:
+        """Shared content builder used by both popup and embedded modes."""
+        top_frame = ttk.Frame(container, style="Card.TFrame")
         top_frame.pack(fill=tk.X, padx=5, pady=(5, 0))
 
         nav_frame = ttk.Frame(top_frame)
@@ -78,16 +97,19 @@ class LibraryHandler:
         entry = ttk.Entry(top_frame, textvariable=self.global_search_var)
         entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5, pady=5)
 
-        self.notebook = ttk.Notebook(self.lib_window)
+        self.notebook = ttk.Notebook(container)
         self.notebook.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         self.notebook.bind("<<NotebookTabChanged>>", self._on_tab_changed)
 
-        self._init_tabs()
+        self._init_tabs(close_callback)
 
-    def _init_tabs(self):
+    def _init_tabs(self, close_callback=None):
         tab_enemies_frame = ttk.Frame(self.notebook)
         self.notebook.add(tab_enemies_frame, text=translate("library.enemies_tab"))
-        self.import_tab = LibraryImportTab(tab_enemies_frame, self.engine, self.history_manager, self.colors, self.lib_window.destroy)
+        self.import_tab = LibraryImportTab(
+            tab_enemies_frame, self.engine, self.history_manager, self.colors,
+            close_callback or (lambda: None),
+        )
 
         self.markdown_tabs = {}
         for tab_config in LIBRARY_TABS:
@@ -96,6 +118,8 @@ class LibraryHandler:
                 if dir_name in self.dirs:
                     if tab_id == "rules":
                         self._create_pdf_tab(tab_id, title, self.dirs[dir_name])
+                    elif tab_id == "pnp_welt":
+                        self._create_markdown_tab(tab_id, title, self.dirs[dir_name], exclude_prefix="Geschichte")
                     else:
                         self._create_markdown_tab(tab_id, title, self.dirs[dir_name])
                 else:
@@ -107,9 +131,28 @@ class LibraryHandler:
         tab = LibraryPDFTab(self.notebook, tab_id, title, root_dir, self.colors)
         self.markdown_tabs[tab_id] = tab
 
-    def _create_markdown_tab(self, tab_id, title, root_dir):
+    def _create_markdown_tab(self, tab_id, title, root_dir, exclude_prefix=None):
         tab = LibraryMarkdownTab(self.notebook, tab_id, title, root_dir, self.colors, self.search_and_open, self.on_navigation_event)
         self.markdown_tabs[tab_id] = tab
+        if exclude_prefix:
+            tab.browser.load_tree(filter_paths=self._folder_filter(root_dir, exclude=exclude_prefix))
+
+    @staticmethod
+    def _folder_filter(root_dir: str, exclude: str = None, include: str = None) -> set:
+        """Computes a filter_paths set based on top-level folder prefix."""
+        all_files = glob.glob(os.path.join(root_dir, "**/*.md"), recursive=True)
+        result = set()
+        for f in all_files:
+            parts = os.path.relpath(f, root_dir).split(os.sep)
+            if any(p.startswith(".") for p in parts):
+                continue
+            top = parts[0]
+            if exclude and top.startswith(exclude):
+                continue
+            if include and not top.startswith(include):
+                continue
+            result.add(f)
+        return result
 
     def _get_controller_by_widget_id(self, widget_id: str) -> Optional[Any]:
         if self.import_tab and str(self.import_tab.parent) == widget_id:

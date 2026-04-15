@@ -179,6 +179,65 @@ def test_add_same_status_twice_extends_duration(mock_get_rules, char):
     # Current implementation appends; both entries should be present
     assert len(char.status) == 2
 
+# --- apply_damage() direct call Tests ---
+
+@patch('src.models.character.calculate_damage')
+def test_apply_damage_reduces_lp(mock_calc, char):
+    """Direct Character.apply_damage() call delegates to calculate_damage and returns its result."""
+    from src.models.combat_results import DamageResult
+    expected = DamageResult(original_damage=10, damage_type="NORMAL", rank=1, final_damage_hp=10)
+    mock_calc.return_value = expected
+
+    result = char.apply_damage(10, "NORMAL", 1)
+
+    mock_calc.assert_called_once_with(char, 10, "NORMAL", 1)
+    assert result is expected
+
+
+@patch('src.core.mechanics.get_rules')
+def test_apply_damage_direct_type_bypasses_shield_and_armor(mock_rules):
+    """Character.apply_damage() with DamageType.DIRECT, backed by rules that mark it as
+    ignores_shield + ignores_armor: SP and RP must remain untouched and all damage hits LP."""
+    from src.models.enums import DamageType
+    mock_rules.return_value = {
+        "damage_types": {
+            "DIRECT": {"ignores_shield": True, "ignores_armor": True}
+        }
+    }
+    c = Character(name="Tank", lp=50, rp=10, sp=10, init=0)
+    sp_before, rp_before = c.sp, c.rp
+    c.apply_damage(15, DamageType.DIRECT, 1)
+    assert c.sp == sp_before   # SP untouched
+    assert c.rp == rp_before   # RP untouched
+    assert c.lp == 35          # 50 - 15
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_apply_damage_lp_reduced_by_exact_amount_with_no_sp_rp(mock_rules):
+    """With SP=0 and RP=0 all damage reaches LP directly."""
+    c = Character(name="Fragile", lp=30, rp=0, sp=0, init=0)
+    c.apply_damage(12, "NORMAL", 1)
+    assert c.lp == 18
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_apply_damage_returns_damage_result_instance(mock_rules):
+    """apply_damage() must return a DamageResult object."""
+    from src.models.combat_results import DamageResult
+    c = Character(name="Hero", lp=100, rp=0, sp=0, init=0)
+    result = c.apply_damage(5, "NORMAL", 1)
+    assert isinstance(result, DamageResult)
+
+
+@patch('src.core.mechanics.get_rules', return_value={})
+def test_apply_damage_marks_dead_when_lp_reaches_zero(mock_rules):
+    """apply_damage() result.is_dead is True when LP drops to 0."""
+    c = Character(name="Dying", lp=5, rp=0, sp=0, init=0)
+    result = c.apply_damage(5, "NORMAL", 1)
+    assert result.is_dead is True
+    assert c.lp <= 0
+
+
 def test_update_method(char):
     """Tests the update method for modifying character attributes."""
     update_data = {

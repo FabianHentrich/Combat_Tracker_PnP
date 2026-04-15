@@ -77,9 +77,9 @@ class CombatActionHandler:
 
         # Ask DM which characters are affected by the secondary effect (rolled at the table)
         if sec_effect:
-            confirmed = self.view.ask_secondary_effect(sec_effect, chars)
+            confirmed, sec_rank, sec_duration = self.view.ask_secondary_effect(sec_effect, chars, max_rank)
             for char in confirmed:
-                self.engine.add_status_effect(char, sec_effect, 3, rank)
+                self.engine.add_status_effect(char, sec_effect, sec_duration, sec_rank)
 
     def add_status_to_character(self) -> None:
         """Adds a status effect to all selected characters."""

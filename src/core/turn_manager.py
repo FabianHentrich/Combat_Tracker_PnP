@@ -60,7 +60,14 @@ class TurnManager:
         self.round_number = 1
         self.initiative_rolled = False
 
-        type_text = translate("management_targets.all_characters") if target_type == ScopeType.ALL.value else f"{translate('management_targets.all_enemies')}s" if target_type == CharacterType.ENEMY else f"{translate('management_targets.all_players')}s" if target_type == CharacterType.PLAYER else f"{translate('management_targets.all_npcs')}s"
+        if target_type == ScopeType.ALL.value:
+            type_text = translate("management_targets.all_characters")
+        elif target_type == CharacterType.ENEMY:
+            type_text = translate("management_targets.all_enemies")
+        elif target_type == CharacterType.PLAYER:
+            type_text = translate("management_targets.all_players")
+        else:
+            type_text = translate("management_targets.all_npcs")
         self.engine.log(translate("messages.initiative_reset", type_text=type_text, count=count))
         self.engine.notify(EventType.UPDATE)
         return count

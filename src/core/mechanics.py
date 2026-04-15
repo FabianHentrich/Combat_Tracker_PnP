@@ -2,7 +2,7 @@ import random
 from typing import Tuple, List, Dict, Any, TYPE_CHECKING
 from src.config.defaults import GEW_TO_DICE
 from src.config.rule_manager import get_rules
-from src.models.enums import DamageType, StatusEffectType, RuleKey
+from src.models.enums import DamageType, RuleKey
 from src.models.combat_results import DamageResult
 from src.utils.localization import translate
 from src.utils.logger import setup_logging
@@ -46,10 +46,6 @@ def calculate_damage(character: 'Character', dmg: int, damage_type: str = Damage
     Berechnet den Schaden für einen Charakter unter Berücksichtigung von Rüstung, Schild und Schadenstyp.
     Gibt ein DamageResult Objekt zurück.
     """
-    # Ensure damage_type is a string (value of Enum)
-    if hasattr(damage_type, 'value'):
-        damage_type = damage_type.value
-
     result = DamageResult(
         original_damage=dmg,
         damage_type=damage_type,

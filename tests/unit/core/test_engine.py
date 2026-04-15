@@ -133,6 +133,52 @@ def test_reset_combat(engine):
     assert engine.round_number == 1
     mock_notify.assert_called()
 
+# --- get_character / get_all_characters Tests ---
+
+def test_get_character_valid_index(engine):
+    """get_character(int) returns the character at that index."""
+    char = Character("Alpha", 10, 0, 0, 0)
+    engine.characters = [char]
+    assert engine.get_character(0) is char
+
+
+def test_get_character_out_of_bounds_returns_none(engine):
+    """get_character() returns None for an index outside the list."""
+    engine.characters = []
+    assert engine.get_character(0) is None
+    assert engine.get_character(-1) is None
+
+
+def test_get_character_negative_index_returns_none(engine):
+    """Negative indices are treated as out-of-bounds and return None."""
+    engine.characters = [Character("A", 10, 0, 0, 0)]
+    assert engine.get_character(-1) is None
+
+
+def test_get_all_characters_returns_list(engine):
+    """get_all_characters() returns the engine's character list directly."""
+    c1 = Character("A", 10, 0, 0, 0)
+    c2 = Character("B", 20, 0, 0, 0)
+    engine.characters = [c1, c2]
+    result = engine.get_all_characters()
+    assert result is engine.characters
+    assert len(result) == 2
+
+
+def test_get_all_characters_empty(engine):
+    """get_all_characters() returns an empty list when there are no characters."""
+    engine.characters = []
+    assert engine.get_all_characters() == []
+
+
+def test_insert_character_delegates_to_turn_manager(engine):
+    """insert_character() calls turn_manager.insert_character with correct args."""
+    char = Character("New", 10, 0, 0, 0)
+    with patch.object(engine.turn_manager, 'insert_character') as mock_insert:
+        engine.insert_character(char, surprise=True)
+        mock_insert.assert_called_once_with(char, True)
+
+
 def test_state_serialization(engine):
     """Tests the get_state and load_state methods."""
     c1 = Character("A", 10, 10, 10, 20)

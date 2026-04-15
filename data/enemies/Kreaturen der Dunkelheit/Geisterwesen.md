@@ -1,4 +1,0 @@
----
-tags: Kreaturen der Dunkelheit
----
-
